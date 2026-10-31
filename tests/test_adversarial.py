@@ -7,11 +7,11 @@ import tempfile
 import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from audit_bypasses import cases
-from sadd.corpus import DOCUMENTS, catalog
-from sadd.gateway import Gateway, WINDOW_SECONDS
-from sadd.mosaic import FragmentMatcher, normalize_text
-from sadd.content_security import structured_findings, text_views
-from sadd.app import AppState
+from sedra.corpus import DOCUMENTS, catalog
+from sedra.gateway import Gateway, WINDOW_SECONDS
+from sedra.mosaic import FragmentMatcher, normalize_text
+from sedra.content_security import structured_findings, text_views
+from sedra.app import AppState
 
 class ReviewRegressionTests(unittest.TestCase):
     def test_bulk_az_casing_retains_locale_without_quadratic_prefix_slices(self):
@@ -62,7 +62,7 @@ class ReviewRegressionTests(unittest.TestCase):
 
     def test_base64_is_bounded_one_level_and_does_not_decode_binary(self):
         self.assertEqual(len(text_views(base64.b64encode(bytes(range(256))).decode())),1)
-        nested = base64.b64encode(base64.b64encode(b'SADD_SECRET_ABCDEFGHIJKLMNOP')).decode()
+        nested = base64.b64encode(base64.b64encode(b'SEDRA_SECRET_ABCDEFGHIJKLMNOP')).decode()
         self.assertEqual(structured_findings(nested), [])
         self.assertLessEqual(len(text_views(' '.join([base64.b64encode(b'hello public world').decode()]*20))),9)
 

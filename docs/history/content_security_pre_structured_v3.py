@@ -89,7 +89,7 @@ def structured_findings(text):
         value = unicodedata.normalize('NFKC', raw)
         value = ''.join(c for c in value if unicodedata.category(c) != 'Cf' and c != '\u034f')
         compact = re.sub(r'\s+', '', value)
-        for match in re.finditer(r'SADD_SECRET_[A-Z0-9]{16,}', compact, re.I):
+        for match in re.finditer(r'SEDRA_SECRET_[A-Z0-9]{16,}', compact, re.I):
             add('SYNTHETIC_SECRET', match[0], representation)
         for match in re.finditer(r'(?<![A-Z0-9])(?:AKIA|ASIA)[A-Z0-9]{16}(?![A-Z0-9])', value):
             add('AWS_ACCESS_KEY_ID', match[0], representation)

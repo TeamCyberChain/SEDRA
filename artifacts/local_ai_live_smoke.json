@@ -23,7 +23,7 @@
         "ml_score": 0,
         "model_version": "iforest-lab-daily-v1",
         "provenance": "synthetic_lab",
-        "provider_model": "sadd-qwen2.5-1.5b",
+        "provider_model": "sedra-qwen2.5-1.5b",
         "provider_route": "local_ai",
         "rule_score": 0
       },
@@ -231,8 +231,8 @@
       "minimum_candidate_tokens": 2,
       "model_profiles": {
         "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
-        "normalization": "sadd-nfkc-dicp15-az-en-v1",
-        "policy": "sadd-dual-window-anchored-token-restricted-v2"
+        "normalization": "sedra-nfkc-dicp15-az-en-v1",
+        "policy": "sedra-dual-window-anchored-token-restricted-v2"
       },
       "normalization_flags": {
         "mixed_script_tokens": 0,
@@ -481,7 +481,7 @@
       "provider": "Local AI · Qwen / llama.cpp",
       "response_id": "chatcmpl-jOJf6kfgTJ6lkeYWnbYxiKs4yCzbsIb9",
       "provider_request_id": "",
-      "model": "sadd-qwen2.5-1.5b",
+      "model": "sedra-qwen2.5-1.5b",
       "status": "completed",
       "answer": "A company can use AI safely by ensuring data is anonymized, using secure data storage, and implementing strict access controls. This prevents unauthorized access to sensitive information.",
       "usage": {
@@ -516,7 +516,7 @@
         "ml_score": 0,
         "model_version": "iforest-lab-daily-v1",
         "provenance": "synthetic_lab",
-        "provider_model": "sadd-qwen2.5-1.5b",
+        "provider_model": "sedra-qwen2.5-1.5b",
         "provider_route": "local_ai",
         "rule_score": 0
       },
@@ -728,8 +728,8 @@
       "minimum_candidate_tokens": 2,
       "model_profiles": {
         "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
-        "normalization": "sadd-nfkc-dicp15-az-en-v1",
-        "policy": "sadd-dual-window-anchored-token-restricted-v2"
+        "normalization": "sedra-nfkc-dicp15-az-en-v1",
+        "policy": "sedra-dual-window-anchored-token-restricted-v2"
       },
       "normalization_flags": {
         "mixed_script_tokens": 0,
@@ -999,7 +999,7 @@
         "ml_score": 0,
         "model_version": "iforest-lab-daily-v1",
         "provenance": "synthetic_lab",
-        "provider_model": "sadd-qwen2.5-1.5b",
+        "provider_model": "sedra-qwen2.5-1.5b",
         "provider_route": "local_ai",
         "rule_score": 0
       },
@@ -1017,8 +1017,8 @@
       "minimum_candidate_tokens": 2,
       "model_profiles": {
         "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
-        "normalization": "sadd-nfkc-dicp15-az-en-v1",
-        "policy": "sadd-dual-window-anchored-token-restricted-v2"
+        "normalization": "sedra-nfkc-dicp15-az-en-v1",
+        "policy": "sedra-dual-window-anchored-token-restricted-v2"
       },
       "normalization_flags": {
         "mixed_script_tokens": 0,
@@ -1077,7 +1077,7 @@
       "provider": "Local AI · Qwen / llama.cpp",
       "response_id": "chatcmpl-jybkjpNJ6GigZ58DDRa1OUlFMmGdiUns",
       "provider_request_id": "",
-      "model": "sadd-qwen2.5-1.5b",
+      "model": "sedra-qwen2.5-1.5b",
       "status": "completed",
       "answer": "42",
       "usage": {
@@ -1112,7 +1112,7 @@
         "ml_score": 0,
         "model_version": "iforest-lab-daily-v1",
         "provenance": "synthetic_lab",
-        "provider_model": "sadd-qwen2.5-1.5b",
+        "provider_model": "sedra-qwen2.5-1.5b",
         "provider_route": "local_ai",
         "rule_score": 0
       },
@@ -1320,8 +1320,8 @@
       "minimum_candidate_tokens": 2,
       "model_profiles": {
         "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
-        "normalization": "sadd-nfkc-dicp15-az-en-v1",
-        "policy": "sadd-dual-window-anchored-token-restricted-v2"
+        "normalization": "sedra-nfkc-dicp15-az-en-v1",
+        "policy": "sedra-dual-window-anchored-token-restricted-v2"
       },
       "normalization_flags": {
         "mixed_script_tokens": 0,
@@ -1570,7 +1570,7 @@
       "provider": "Local AI · Qwen / llama.cpp",
       "response_id": "chatcmpl-l4k8MDC5ElZ3vZeEl3hEndl7EYZmHNV8",
       "provider_request_id": "",
-      "model": "sadd-qwen2.5-1.5b",
+      "model": "sedra-qwen2.5-1.5b",
       "status": "completed",
       "answer": "A company can use AI safely by ensuring data is anonymized, using secure data storage, and implementing strict access controls. This prevents unauthorized access to sensitive information.",
       "usage": {
@@ -1606,7 +1606,7 @@
         "ml_score": 0,
         "model_version": "iforest-lab-daily-v1",
         "provenance": "synthetic_lab",
-        "provider_model": "sadd-qwen2.5-1.5b",
+        "provider_model": "sedra-qwen2.5-1.5b",
         "provider_route": "local_ai",
         "rule_score": 0
       },
@@ -1624,8 +1624,8 @@
       "minimum_candidate_tokens": 2,
       "model_profiles": {
         "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
-        "normalization": "sadd-nfkc-dicp15-az-en-v1",
-        "policy": "sadd-dual-window-anchored-token-restricted-v2"
+        "normalization": "sedra-nfkc-dicp15-az-en-v1",
+        "policy": "sedra-dual-window-anchored-token-restricted-v2"
       },
       "normalization_flags": {
         "mixed_script_tokens": 0,
@@ -1684,7 +1684,7 @@
       "provider": "Local AI · Qwen / llama.cpp",
       "response_id": "chatcmpl-DWQt4K6rqWAvurDCUvigezfv6wIQr5DM",
       "provider_request_id": "",
-      "model": "sadd-qwen2.5-1.5b",
+      "model": "sedra-qwen2.5-1.5b",
       "status": "completed",
       "answer": "**Agenda:**\n\n1. **Introduction:** Welcome and brief overview of the workshop.\n2. **Secure Habits:** Discussion on key practices for maintaining online safety.\n3. **Q&A Session:** Open floor for questions and further discussion.",
       "usage": {

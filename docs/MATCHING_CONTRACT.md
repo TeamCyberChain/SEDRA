@@ -4,7 +4,7 @@ This replaces the retained v1 contract under `docs/history/`. All live demonstra
 
 ## Representations and evidence
 
-Python 3.12 / Unicode 15.0 is required. The base profile `sadd-nfkc-dicp15-az-en-v1` applies NFKC, the pinned 4,174 default-ignorable set and explicit EN/AZ case folding. AZ I/ı and İ/i remain distinct. Original bytes are never replaced by normalized text in outbound delivery.
+Python 3.12 / Unicode 15.0 is required. The base profile `sedra-nfkc-dicp15-az-en-v1` applies NFKC, the pinned 4,174 default-ignorable set and explicit EN/AZ case folding. AZ I/ı and İ/i remain distinct. Original bytes are never replaced by normalized text in outbound delivery.
 
 Matcher profile: `4grams-plus-anchored-distinctive-tokens-tr39-v2`. A secondary [Unicode TR39 skeleton](https://www.unicode.org/reports/tr39/) uses the attributed official `confusables-15.0.0.txt`. It supplies content evidence, never identity equivalence. Mixed Latin/Cyrillic/Greek tokens are flagged, not independently blocked. AZ dotless-I is retained.
 
@@ -26,7 +26,7 @@ Findings expose type, representation, confidence label and value SHA-256, never 
 
 ## Policy
 
-Profile: `sadd-dual-window-anchored-token-restricted-v2`.
+Profile: `sedra-dual-window-anchored-token-restricted-v2`.
 
 Any confirmed restricted-source evidence or structured finding is an unconditional BLOCK, including zero behavior and the core's approved route. The HTTP lab exposes only its fixed public_ai receiver.
 

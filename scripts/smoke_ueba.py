@@ -10,9 +10,9 @@ import time
 from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT));sys.path.insert(0,str(ROOT/'tests'))
-from sadd import __version__
-from sadd.app import AppState,handler_for
-from sadd.corpus import catalog
+from sedra import __version__
+from sedra.app import AppState,handler_for
+from sedra.corpus import catalog
 from test_app import LocalClient
 
 
@@ -59,7 +59,7 @@ def main():
             assert portal['request']['behavior_context']['live_context']['score']>=85
             scopes=employee.request('/api/ueba?subject=lab-002')[0];assert scopes==403
             assert 'A1B2C3D' not in json.dumps(elevated)
-            with patch('sadd.app.time.time',return_value=time.time()+1801):
+            with patch('sedra.app.time.time',return_value=time.time()+1801):
                 cooled=app.live_subject(app.subjects['lab-001'])
             assert cooled['live_context']['score']==0
             timings=[]

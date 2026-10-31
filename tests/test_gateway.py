@@ -8,8 +8,8 @@ import tempfile
 import threading
 import unittest
 
-from sadd.gateway import Gateway, WINDOW_SECONDS
-from sadd.mosaic import (
+from sedra.gateway import Gateway, WINDOW_SECONDS
+from sedra.mosaic import (
     DEFAULT_IGNORABLE_RANGES, FragmentMatcher, normalize_text, tokenize,
 )
 
@@ -166,7 +166,7 @@ class GatewayLedgerTests(unittest.TestCase):
         self.assertEqual(blocked["decision"], "BLOCK")
         self.assertIn("RESTRICTED_DOCUMENT_MATCH", blocked["reason_codes"])
         for i, score in enumerate((0, 100)):
-            result = self.evaluate(str(i), "SADD_SECRET_ABCDEFGHIJKLMNOP", score, destination="approved_ai")
+            result = self.evaluate(str(i), "SEDRA_SECRET_ABCDEFGHIJKLMNOP", score, destination="approved_ai")
             self.assertEqual(result["decision"], "BLOCK")
             self.assertIn("KNOWN_DEMO_SECRET", result["reason_codes"])
 

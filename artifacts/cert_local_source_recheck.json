@@ -295,7 +295,7 @@
   "output_sha256": "7461633d9d38c56da503bc03d6f992bd226b0c881317fdb31439a203d02d85bc",
   "provenance": "cert_synthetic",
   "dataset_is_synthetic": true,
-  "dataset_generated_by_sadd": false,
+  "dataset_generated_by_sedra": false,
   "operation": "removable_media_copy",
   "aggregation": "source-local calendar day; active days only; no synthetic zero days inserted",
   "reference_hours": {

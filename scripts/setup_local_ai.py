@@ -15,7 +15,7 @@ REV='91cad51170dc346986eccefdc2dd33a9da36ead9'
 MODEL_SHA='6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e'
 
 def get(url):
-    return urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'SADD-Hackathon-LocalAI'}),timeout=45)
+    return urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'SEDRA-Hackathon-LocalAI'}),timeout=45)
 
 def sha(path):
     h=hashlib.sha256()
@@ -31,7 +31,7 @@ def download(entry):
     for attempt in range(5):
         offset=partial.stat().st_size if partial.exists() else 0
         if offset==entry['bytes']:break
-        headers={'User-Agent':'SADD-Hackathon-LocalAI'}
+        headers={'User-Agent':'SEDRA-Hackathon-LocalAI'}
         if offset:headers['Range']=f'bytes={offset}-'
         try:
             with urllib.request.urlopen(urllib.request.Request(entry['url'],headers=headers),timeout=45) as response:

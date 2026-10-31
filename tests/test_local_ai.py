@@ -2,10 +2,10 @@
 import io,json,tempfile,unittest
 from pathlib import Path
 from unittest.mock import patch
-from sadd.app import AppState
-from sadd.local_ai import LocalAIProvider
-from sadd.ai_portal import ProviderError
-from sadd.corpus import catalog
+from sedra.app import AppState
+from sedra.local_ai import LocalAIProvider
+from sedra.ai_portal import ProviderError
+from sedra.corpus import catalog
 from test_ai_portal import fake_answer,TEST_KEY
 
 def local_answer(key,model,text):
@@ -37,7 +37,7 @@ class LocalPortalTests(unittest.TestCase):
         self.assertFalse(result['ai']['external_data_transfer']);self.assertEqual(result['ai'],retry['ai'])
     def test_local_restricted_block_contacts_neither_model(self):
         with patch.object(self.app.portal.local_provider,'generate') as local,patch.object(self.app.portal.provider,'generate') as cloud:
-            result=self.send('local-block-001','restricted runbook SADD_SECRET_A1B2C3D4E5F6G7H8')
+            result=self.send('local-block-001','restricted runbook SEDRA_SECRET_A1B2C3D4E5F6G7H8')
         local.assert_not_called();cloud.assert_not_called();self.assertFalse(result['provider_contacted'])
         self.assertEqual(result['request']['state'],'BLOCKED')
     def test_cloud_and_local_routes_share_cumulative_exposure(self):
@@ -83,7 +83,7 @@ class LocalAdapterTests(unittest.TestCase):
         self.assertEqual(request.full_url,'http://127.0.0.1:8769/v1/chat/completions')
         self.assertEqual(request.get_header('Authorization'),'Bearer local-contract-token')
         self.assertEqual(payload['messages'][-1]['content'],'What is 17 plus 25?')
-        self.assertEqual(payload['model'],'sadd-qwen2.5-1.5b');self.assertFalse(payload['stream'])
+        self.assertEqual(payload['model'],'sedra-qwen2.5-1.5b');self.assertFalse(payload['stream'])
         self.assertFalse(result['external_data_transfer']);self.assertEqual(result['usage']['total_tokens'],12)
     def test_missing_token_refuses_inference(self):
         provider=LocalAIProvider()

@@ -14,7 +14,7 @@ The matching profile uses Unicode 15.0 normalization through Python 3.12 and a d
 
 ## Software dependencies
 
-V2 also bundles the official Unicode TR39 15.0 confusables table under `sadd/unicode/`, with Unicode's LICENSE.txt. Source: <https://www.unicode.org/Public/security/15.0.0/confusables.txt>. It is used as a secondary content-matching skeleton, not a claim of complete TR39 conformance or an identity canonicalizer.
+V2 also bundles the official Unicode TR39 15.0 confusables table under `sedra/unicode/`, with Unicode's LICENSE.txt. Source: <https://www.unicode.org/Public/security/15.0.0/confusables.txt>. It is used as a secondary content-matching skeleton, not a claim of complete TR39 conformance or an identity canonicalizer.
 
 The small source package installs pinned dependencies. An optional separate offline package includes unmodified Windows CPython 3.12 wheels with their bundled licenses. Their projects and license files remain authoritative:
 

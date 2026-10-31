@@ -10,8 +10,8 @@ import threading
 import time
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT));sys.path.insert(0,str(ROOT/'tests'))
-from sadd.app import AppState,handler_for
-from sadd.corpus import catalog
+from sedra.app import AppState,handler_for
+from sedra.corpus import catalog
 from test_app import LocalClient
 
 

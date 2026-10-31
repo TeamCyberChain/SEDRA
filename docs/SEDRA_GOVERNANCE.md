@@ -38,7 +38,7 @@ Activity reset clears synthetic requests, replies, receiver receipts and applica
 
 Discovery covers four registered synthetic texts. The metadata identifies this source explicitly. There is no arbitrary file upload, filesystem crawl, endpoint agent, OCR, semantic classifier, Microsoft Purview integration or cloud-drive sync. Registered matching and structured detectors have finite coverage; their tags are evidence, not an assertion that all sensitive information has been found. Owners are demonstration teams, not directory-synchronized business owners. Label history is application-audited, not externally signed or tamper-proof against a local database administrator.
 
-Original source fixtures, the sadd Python package and model aliases keep legacy names to preserve matching manifests and runtime compatibility. Historical CERT v1 still has zero true positives; v2 is unmeasured. UI changes and functional tests do not establish detection efficacy.
+Original source fixtures, the sedra Python package and model aliases keep legacy names to preserve matching manifests and runtime compatibility. Historical CERT v1 still has zero true positives; v2 is unmeasured. UI changes and functional tests do not establish detection efficacy.
 
 ## Verification
 

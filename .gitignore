@@ -10,7 +10,7 @@ work/
 dist/
 offline_wheels/
 presentation/versions/
-presentation/SADD_Final_EN_v*.pptx
+presentation/SEDRA_Final_EN_v*.pptx
 data/cert/
 data/local_ai/
 *.sqlite
@@ -23,3 +23,15 @@ data/local_ai/
 *.log
 .DS_Store
 Thumbs.db
+
+presentation/
+docs/SPEAKER_SCRIPT_EN.md
+docs/QA_EN.md
+scripts/build_offline_presentation.py
+artifacts/python_version_guard.txt
+SEDRA-*-Review-Source.zip
+artifacts/screenshots/investigation.png
+artifacts/screenshots/local-ai-blocked.png
+artifacts/screenshots/local-ai-portal.png
+artifacts/screenshots/overview.png
+artifacts/screenshots/receiver-proof.png

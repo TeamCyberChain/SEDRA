@@ -13,7 +13,7 @@ sys.path.insert(0,str(ROOT))
 sys.path.insert(0,str(ROOT/'tests'))
 from test_app import LocalClient
 from structured_cases import positive_cases,negative_cases
-from sadd.app import AppState,handler_for
+from sedra.app import AppState,handler_for
 
 
 def main():

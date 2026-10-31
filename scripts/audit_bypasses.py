@@ -5,8 +5,8 @@ from pathlib import Path
 import sys
 import tempfile
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from sadd.corpus import DOCUMENTS
-from sadd.gateway import Gateway
+from sedra.corpus import DOCUMENTS
+from sedra.gateway import Gateway
 
 def cases():
     runbook = DOCUMENTS[2]['text'].split()
@@ -20,8 +20,8 @@ def cases():
         'pem_private': '-----BEGIN RSA PRIVATE KEY-----\n' + 'A'*80 + '\n-----END RSA PRIVATE KEY-----',
         'card_luhn': 'Card number: 4111 1111 1111 1111',
         'az_iban': 'Bank account: AZ21NABZ00000000137010001944',
-        'spaced_secret': 'S A D D _ S E C R E T _ A 1 B 2 C 3 D 4 E 5 F 6 G 7 H 8',
-        'base64_secret': base64.b64encode(b'SADD_SECRET_A1B2C3D4E5F6G7H8').decode(),
+        'spaced_secret': ' '.join('SEDRA_SECRET_A1B2C3D4E5F6G7H8'),
+        'base64_secret': base64.b64encode(b'SEDRA_SECRET_A1B2C3D4E5F6G7H8').decode(),
         'benign_public': 'Please explain how a public cybersecurity workshop can help our team.',
     }
 

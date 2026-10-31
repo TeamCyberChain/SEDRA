@@ -184,6 +184,6 @@ test_request_ledger_drives_blocks_even_if_secondary_audit_event_is_missing (test
 test_scopes_no_new_endpoint_ingestion_and_masked_evidence (test_ueba.UEBAHTTPTests.test_scopes_no_new_endpoint_ingestion_and_masked_evidence) ... ok
 
 ----------------------------------------------------------------------
-Ran 184 tests in 53.686s
+Ran 184 tests in 45.886s
 
 OK

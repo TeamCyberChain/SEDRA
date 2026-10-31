@@ -1,7 +1,7 @@
 """Frozen-facts policy explanation. Read-only; never sends or changes admission."""
 import math
 
-PROFILE='sadd-dual-window-anchored-token-restricted-v2'
+PROFILE='sedra-dual-window-anchored-token-restricted-v2'
 
 
 def limits(score):

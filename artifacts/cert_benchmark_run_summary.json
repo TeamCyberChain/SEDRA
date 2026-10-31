@@ -21,7 +21,7 @@
     "provenance": "cert_synthetic",
     "dataset_generated": false,
     "dataset_is_synthetic": true,
-    "dataset_generated_by_sadd": false,
+    "dataset_generated_by_sedra": false,
     "claim_scope": "Published synthetic CERT subset, incident-associated copy user-days; no live or production-accuracy claim.",
     "unit": "completed_user_day",
     "label_provenance": "cert_r4.2_master_actor_interval_copy_days",

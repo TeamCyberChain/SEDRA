@@ -7,7 +7,7 @@ LOCAL_ROOT=Path(__file__).resolve().parents[1]/'data/local_ai'
 
 class LocalAIProvider:
     endpoint='http://127.0.0.1:8769/v1/chat/completions'
-    model='sadd-qwen2.5-1.5b'
+    model='sedra-qwen2.5-1.5b'
 
     def __init__(self):
         self.http=urllib.request.build_opener(urllib.request.ProxyHandler({}),NoRedirect())

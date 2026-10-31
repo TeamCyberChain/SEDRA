@@ -1,6 +1,12 @@
-# SEDRA 0.8 current status
+# SEDRA 0.9 current status
 
 Recorded 31 October 2026. Current values come from executed artifacts.
+
+## Current naming and publication scope
+
+All active package/import paths, launchers, examples, environment variables and model alias use SEDRA. Start with `python -m sedra.app`; the synthetic corpus is version 3. Presentation/PPTX, speaker/Q&A files, old screenshots and the superseded embedded source ZIP are excluded from the current GitHub tree and packages. Existing Git history remains historical.
+
+Historical report metadata was branding-normalized with original/current hashes recorded in artifacts/branding_migration.json. Original byte copies and the pre-migration Git bundle remain private locally. Original numeric CERT measurements and trained model are preserved; published metadata reports are no longer claimed byte-identical to their originals. See docs/BRANDING_MIGRATION.md. New regression/live proof is executed separately under the current package.
 
 ## SEDRA 0.8 behavior casework
 
@@ -44,7 +50,7 @@ The SEDRA UI replaces the former marketing-style headings with an operations con
 
 Governed label revisions and before/after history are stored transactionally with the gateway. Labels are read in the same write transaction as admission. Business tags are descriptive, not independent policy. New admissions use current labels; old requests and reservations retain their original policy snapshot. Resetting activity preserves governed labels. The four registered synthetic source hashes and historical CERT artifacts remain unchanged.
 
-Presentation and Q&A are deferred; existing presentation files refer to the previous build. The SEDRA 0.3 application packages are separate from earlier SADD deliverables.
+Presentation and Q&A are deferred; existing presentation files refer to the previous build. The SEDRA 0.3 application packages are separate from earlier SEDRA deliverables.
 
 ## Functional build
 

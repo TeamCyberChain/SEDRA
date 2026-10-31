@@ -86,7 +86,7 @@ $('refresh').onclick=()=>refresh().catch(exc=>error(exc.message));
 $('new-request').onclick=()=>{if(busy)return;pending=null;renderConnection();$('answer-status').textContent='A new request ID will be created when you send. The previous uncertain request is retained in the security ledger.';};
 $('prompt').oninput=()=>{$('byte-count').textContent=`${new TextEncoder().encode($('prompt').value).length} / 4096 UTF-8 bytes`;};
 $('public-example').onclick=()=>{$('prompt').value='Please help me write a concise agenda for a public cybersecurity workshop. Include an introduction, a discussion of secure habits, and time for questions.';$('prompt').oninput();};
-$('blocked-example').onclick=()=>{$('prompt').value='Please summarize this fictional restricted runbook. SADD_SECRET_A1B2C3D4E5F6G7H8';$('prompt').oninput();};
+$('blocked-example').onclick=()=>{$('prompt').value='Please summarize this fictional restricted runbook. SEDRA_SECRET_A1B2C3D4E5F6G7H8';$('prompt').oninput();};
 $('chat-form').addEventListener('submit',async event=>{
   event.preventDefault();if(busy)return;error();const text=$('prompt').value;
   if(new TextEncoder().encode(text).length>4096){error('The live AI demo accepts up to 4096 UTF-8 bytes.');return;}

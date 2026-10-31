@@ -163,37 +163,37 @@
       "sha256": "3eb06873f6ab6e2e324a4f8ebb237fe0813d57d300127e01a6f3658c69f6714d"
     },
     {
-      "path": "sadd/__init__.py",
+      "path": "sedra/__init__.py",
       "bytes": 98,
       "sha256": "3ae65707f8875559501bda8dc78707b02d7f65c2efe9bd31756cf7fe4af8f68f"
     },
     {
-      "path": "sadd/app.py",
+      "path": "sedra/app.py",
       "bytes": 20649,
       "sha256": "dddaae9a399ed7a4c3f6200a121fc0c9779a4359e410e20a179ec87cca272c02"
     },
     {
-      "path": "sadd/behavior.py",
+      "path": "sedra/behavior.py",
       "bytes": 24664,
       "sha256": "eb82975f3cb16a05fcf99f810b0d7320d2a1740dcb92e15caddcc829bea5b30d"
     },
     {
-      "path": "sadd/corpus.py",
+      "path": "sedra/corpus.py",
       "bytes": 5262,
       "sha256": "4919435a3e26390a6cbda1c9a4f5bbff1ffd42d5793b567436894ed730f0cfb4"
     },
     {
-      "path": "sadd/gateway.py",
+      "path": "sedra/gateway.py",
       "bytes": 22043,
       "sha256": "cbb292311e18803bcd7451e24ad45a2f6e0a7d80b1341582437058e0ba54e8eb"
     },
     {
-      "path": "sadd/mosaic.py",
+      "path": "sedra/mosaic.py",
       "bytes": 9995,
       "sha256": "3195d8682305c4fff200585e03fd1e946103015b6a253a0a08a3cc646618d865"
     },
     {
-      "path": "sadd/receiver.py",
+      "path": "sedra/receiver.py",
       "bytes": 5180,
       "sha256": "97b584bb98f867f63369f35dab6724450571c1e40cbb4084fd1f8d989091357d"
     },

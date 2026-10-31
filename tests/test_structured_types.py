@@ -9,10 +9,10 @@ import unittest
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from structured_cases import FIN,AZ_IBAN,positive_cases,negative_cases,make_iban
-from sadd.content_security import structured_findings,iban_registry,iban_valid,STRUCTURED_PROFILE
-from sadd.data_types import detector_catalog
-from sadd.gateway import Gateway
-from sadd.unicode_profile import IGNORABLES
+from sedra.content_security import structured_findings,iban_registry,iban_valid,STRUCTURED_PROFILE
+from sedra.data_types import detector_catalog
+from sedra.gateway import Gateway
+from sedra.unicode_profile import IGNORABLES
 
 
 class StructuredDataTypeTests(unittest.TestCase):

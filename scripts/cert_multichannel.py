@@ -21,7 +21,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import numpy as np
 from sklearn.ensemble import IsolationForest
 import joblib
-from sadd.behavior import budget_threshold, evaluate_detector
+from sedra.behavior import budget_threshold, evaluate_detector
 from cert_ingest import load_ldap_snapshots, sha256_file
 
 ROOT = Path(__file__).resolve().parents[1]

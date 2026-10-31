@@ -5,8 +5,8 @@ from http.server import ThreadingHTTPServer
 from pathlib import Path
 import io,json,tempfile,threading,unittest,urllib.error
 from unittest.mock import patch
-from sadd.app import AppState,handler_for
-from sadd.ai_portal import OpenAIProvider,ProviderError,NoRedirect
+from sedra.app import AppState,handler_for
+from sedra.ai_portal import OpenAIProvider,ProviderError,NoRedirect
 from test_app import LocalClient
 
 TEST_KEY='sk-proj-UNITTEST-NOT-A-REAL-KEY-1234567890'
@@ -34,7 +34,7 @@ class PortalIntegrationTests(unittest.TestCase):
         return self.app.portal.chat(self.employee,{'request_id':key,'text':text})
     def test_restricted_content_blocks_before_provider_io(self):
         with patch.object(self.app.portal.provider,'generate') as provider:
-            result=self.chat('portal-block-001','restricted runbook SADD_SECRET_A1B2C3D4E5F6G7H8')
+            result=self.chat('portal-block-001','restricted runbook SEDRA_SECRET_A1B2C3D4E5F6G7H8')
         provider.assert_not_called();self.assertEqual(result['request']['state'],'BLOCKED')
         self.assertFalse(result['provider_contacted']);self.assertIsNone(result['ai']);self.assertEqual(self.app.receiver.list(),[])
     def test_allowed_result_and_idempotent_retry(self):

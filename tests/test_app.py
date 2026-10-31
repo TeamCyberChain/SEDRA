@@ -14,8 +14,8 @@ from unittest.mock import patch
 import urllib.error
 import urllib.request
 
-from sadd.app import AppState, handler_for
-from sadd.corpus import catalog
+from sedra.app import AppState, handler_for
+from sedra.corpus import catalog
 
 
 class LocalClient:
@@ -97,7 +97,7 @@ class ApplicationIntegrationTests(unittest.TestCase):
         self.assertEqual(payload, original)
 
     def test_secret_block_never_reaches_receiver(self):
-        result = self.transfer("blocked-secret-001", "SADD_SECRET_ABCDEFGHIJKLMNOP")
+        result = self.transfer("blocked-secret-001", "SEDRA_SECRET_ABCDEFGHIJKLMNOP")
         self.assertEqual(result["state"], "BLOCKED")
         self.assertIn("KNOWN_DEMO_SECRET", result["reason_codes"])
         self.assertEqual(self.app.receiver.list(), [])
@@ -303,7 +303,7 @@ class ApplicationIntegrationTests(unittest.TestCase):
         def send(path, body, key=None):
             headers = {"Content-Type": "application/json"}
             if key:
-                headers["X-SADD-Receiver-Key"] = key
+                headers["X-SEDRA-Receiver-Key"] = key
             req = urllib.request.Request(self.app.receiver_url + path,
                                          data=json.dumps(body).encode("utf-8"), headers=headers)
             try:

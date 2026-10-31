@@ -1,8 +1,8 @@
-# SADD: five-minute live demonstration
+# SEDRA: five-minute live demonstration
 
 ## The story
 
-**“A document can leave an organization one small excerpt at a time. SADD relates each transfer to the user's behavioral context, tracks what has already crossed the boundary, and shows what the receiver actually obtained.”**
+**“A document can leave an organization one small excerpt at a time. SEDRA relates each transfer to the user's behavioral context, tracks what has already crossed the boundary, and shows what the receiver actually obtained.”**
 
 Lead with that problem, then demonstrate the working control loop. Show the distinction between behavioral investigation, content handling, and delivery evidence through actual requests.
 
@@ -44,7 +44,7 @@ With the shipped 18-word fragments and a clean ledger, the first two requests ar
 
 The policy checks the union of distinct eligible source fingerprints across requests. Show that the blocked request ID has no receiver receipt. Earlier allowed fragments remain recorded as delivered. Do not describe blocked coverage as if every blocked token were necessarily new information.
 
-Say: **“The destination sees a series of small requests. SADD also sees their cumulative relationship to a registered source. These percentages measure distinct eligible four-gram fingerprints, not document bytes.”**
+Say: **“The destination sees a series of small requests. SEDRA also sees their cumulative relationship to a registered source. These percentages measure distinct eligible four-gram fingerprints, not document bytes.”**
 
 ### 2:25–3:35 — Hold content constant; change behavioral context
 
@@ -66,7 +66,7 @@ Say: **“A timeout does not prove that nothing left. We retain uncertain exposu
 
 Return to **Analyst** and show the transfer ledger. Finish with:
 
-**“SADD gives the analyst a dated behavioral explanation, the gateway an explicit content rule, and the reviewer a delivery record. The next pilot connects this tested boundary to enterprise identity and an approved AI route, then measures the policy on the target organization's workload.”**
+**“SEDRA gives the analyst a dated behavioral explanation, the gateway an explicit content rule, and the reviewer a delivery record. The next pilot connects this tested boundary to enterprise identity and an approved AI route, then measures the policy on the target organization's workload.”**
 
 Leave the ledger open for the five-minute question period.
 

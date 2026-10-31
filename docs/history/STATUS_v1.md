@@ -1,4 +1,4 @@
-# SADD prototype status
+# SEDRA prototype status
 
 ## Working build
 

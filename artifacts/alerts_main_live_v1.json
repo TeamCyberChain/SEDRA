@@ -140,8 +140,8 @@
       "minimum_candidate_tokens": 2,
       "model_profiles": {
         "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
-        "normalization": "sadd-nfkc-dicp15-az-en-v1",
-        "policy": "sadd-dual-window-anchored-token-restricted-v2",
+        "normalization": "sedra-nfkc-dicp15-az-en-v1",
+        "policy": "sedra-dual-window-anchored-token-restricted-v2",
         "structured": "sedra-structured-context-checksum-tr39-v3"
       },
       "normalization_flags": {

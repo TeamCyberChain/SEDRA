@@ -1,10 +1,10 @@
-"""Exit zero only for the expected already-running local SADD build."""
+"""Exit zero only for the expected already-running local SEDRA build."""
 import json
 import sys
 import urllib.request
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from sadd import __version__
+from sedra import __version__
 try:
     opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
     with opener.open('http://127.0.0.1:8765/health',timeout=1) as response:

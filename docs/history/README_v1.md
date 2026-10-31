@@ -1,6 +1,6 @@
-# SADD — Behavior to boundary
+# SEDRA — Behavior to boundary
 
-**SADD connects explainable behavioral priority to a real data-transfer decision, then proves what the receiver actually obtained.**
+**SEDRA connects explainable behavioral priority to a real data-transfer decision, then proves what the receiver actually obtained.**
 
 The prototype combines a completed-user-day anomaly model, explicit handling rules for registered documents, cumulative fragment accounting, and a local HTTP receiver. Its central demonstration is a sequence of individually small excerpts that becomes a policy violation when considered together.
 
@@ -12,14 +12,14 @@ Analysts can switch Overview between **Live lab** and **CERT benchmark**. The na
 
 ## Run the workbench
 
-Use **Python 3.12**. The matcher checks its pinned Unicode 15.0 normalization profile; a different Python Unicode database is not silently accepted. Run the commands from this directory, which contains `requirements.txt` and the `sadd/` package.
+Use **Python 3.12**. The matcher checks its pinned Unicode 15.0 normalization profile; a different Python Unicode database is not silently accepted. Run the commands from this directory, which contains `requirements.txt` and the `sedra/` package.
 
 ### Windows PowerShell
 
 ```powershell
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m sadd.app
+.\.venv\Scripts\python.exe -m sedra.app
 ```
 
 These commands use the virtual environment directly and do not require changing PowerShell's execution policy.
@@ -30,7 +30,7 @@ These commands use the virtual environment directly and do not require changing 
 python3.12 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-python -m sadd.app
+python -m sedra.app
 ```
 
 Open **http://127.0.0.1:8765/**. The browser needs JavaScript. No Node build step, CDN, API key, or paid AI service is required. After Python dependencies are installed, the default demonstration runs offline.
@@ -38,7 +38,7 @@ Open **http://127.0.0.1:8765/**. The browser needs JavaScript. No Node build ste
 To choose another port or a separate demonstration ledger:
 
 ```bash
-python -m sadd.app --port 8766 --data-dir data/rehearsal
+python -m sedra.app --port 8766 --data-dir data/rehearsal
 ```
 
 On Windows, replace `python` in subsequent commands with `.\.venv\Scripts\python.exe` unless the environment is activated. Stop the server with `Ctrl+C`. Keep the default loopback binding for the local demonstration.
@@ -63,7 +63,7 @@ The HTTP session determines the subject. A caller cannot provide its own subject
 
 ### Behavioral evidence
 
-`sadd/behavior.py` computes personal and eligible peer baselines using earlier observations. The three explicit rules cover unusual copy volume, unusual-hour copying, and novel workstations. A genuine scikit-learn Isolation Forest adds multivariate anomaly information.
+`sedra/behavior.py` computes personal and eligible peer baselines using earlier observations. The three explicit rules cover unusual copy volume, unusual-hour copying, and novel workstations. A genuine scikit-learn Isolation Forest adds multivariate anomaly information.
 
 Training, validation, and testing follow chronological boundaries. Labels do not enter model features, baseline selection, fitting, or operating-point selection. The default model snapshot is generated from 40 fictional users and carries its provenance, source period, feature version, and model version.
 
@@ -71,7 +71,7 @@ The displayed priority is `B = round(100 × (0.6R + 0.4A))`. These are declared 
 
 ### Content matching and policy
 
-`sadd/mosaic.py` indexes every consecutive normalized four-token tuple in the registered source corpus. It supports the documented English/Azerbaijani normalization profiles and excludes tuples found in the registered public reference corpus from protected evidence.
+`sedra/mosaic.py` indexes every consecutive normalized four-token tuple in the registered source corpus. It supports the documented English/Azerbaijani normalization profiles and excludes tuples found in the registered public reference corpus from protected evidence.
 
 Four matching tokens establish a **candidate** under that profile. They do not guarantee a universal alert or block. Coverage means **distinct eligible normalized source 4-grams divided by that source version's eligible distinct 4-grams**. It is not a percentage of document bytes reconstructed.
 
@@ -85,9 +85,9 @@ The cumulative ledger is scoped to subject, source ID/version, and destination t
 
 ### Enforcement and delivery proof
 
-`sadd/gateway.py` uses SQLite transactions to reserve exposure before sending. Request IDs bind the subject, original body hash, and destination, preventing retries from silently creating another send. The original request text is forwarded unchanged.
+`sedra/gateway.py` uses SQLite transactions to reserve exposure before sending. Request IDs bind the subject, original body hash, and destination, preventing retries from silently creating another send. The original request text is forwarded unchanged.
 
-`sadd/app.py` starts a **separate HTTP listener on another loopback port** through `sadd/receiver.py`. That receiver runs in the same application process, on another server thread, and keeps its own receipt database. It is a local receiver standing in for an external AI destination; it is not an external LLM and does not generate AI answers.
+`sedra/app.py` starts a **separate HTTP listener on another loopback port** through `sedra/receiver.py`. That receiver runs in the same application process, on another server thread, and keeps its own receipt database. It is a local receiver standing in for an external AI destination; it is not an external LLM and does not generate AI answers.
 
 An `ALLOW` decision and a `FORWARDED_CONFIRMED` delivery state are distinct facts. The lost-acknowledgement option deliberately produces uncertain delivery after receiver acceptance. Reconciliation checks the receiver before resolving that state. This prototype does not intercept TLS or inspect arbitrary browser/endpoint traffic.
 
@@ -140,10 +140,10 @@ Runtime output defaults to `data/runtime/`: the generated `lab_evaluation.json`,
 
 | Path | Responsibility |
 | --- | --- |
-| `sadd/behavior.py` | Feature extraction, baselines, Isolation Forest, calibration, evaluation. |
-| `sadd/mosaic.py`, `sadd/gateway.py` | Matching, cumulative policy, durable admission, state transitions. |
-| `sadd/app.py`, `sadd/receiver.py` | HTTP app, sessions, access scopes, actual local transfer and receipts. |
-| `sadd/corpus.py` | Fictional English/Azerbaijani sources and demonstration excerpts. |
+| `sedra/behavior.py` | Feature extraction, baselines, Isolation Forest, calibration, evaluation. |
+| `sedra/mosaic.py`, `sedra/gateway.py` | Matching, cumulative policy, durable admission, state transitions. |
+| `sedra/app.py`, `sedra/receiver.py` | HTTP app, sessions, access scopes, actual local transfer and receipts. |
+| `sedra/corpus.py` | Fictional English/Azerbaijani sources and demonstration excerpts. |
 | `static/` | Dependency-free three-screen workbench. |
 | `scripts/` | Optional research-dataset download and ingestion. |
 | `tests/`, `docs/` | Reproducible verification and technical contracts. |

@@ -8,7 +8,7 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from structured_cases import positive_cases,negative_cases
-from sadd.content_security import structured_findings,STRUCTURED_PROFILE,iban_registry
+from sedra.content_security import structured_findings,STRUCTURED_PROFILE,iban_registry
 
 
 def main():

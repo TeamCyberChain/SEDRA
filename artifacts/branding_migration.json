@@ -1,0 +1,107 @@
+{
+  "scope": "Current repository branding normalization; original Git bundle and artifact bytes retained privately",
+  "artifact_semantics": "Legacy identifier keys, names, model aliases and displayed source paths were normalized. Original numeric measurements, original payload/source digests and failed CERT outcome are historical, not rerun results.",
+  "originals_location": "Private local work directory, excluded from repository",
+  "artifacts": [
+    {
+      "path": "artifacts/ai_portal_live_smoke.json",
+      "original_sha256": "3ede2089a12df73bfb0d4e99ab2a80c8d0b6a04bace7eef9605bc12576944239",
+      "normalized_sha256": "d837cc2002918d4b0eacc5b47a6f353db168de3afa75a4e4a57a49d42a932d01"
+    },
+    {
+      "path": "artifacts/alerts_main_live_v1.json",
+      "original_sha256": "f828dfb6071b8172e5b92fe023716865b3fecdc052bd8c05cebe9b508f4c4da7",
+      "normalized_sha256": "94d17fdfb1caa4bf77b5e690964913b22dfaf4a16aff2fdb84f9c4324c239dc4"
+    },
+    {
+      "path": "artifacts/cert_benchmark.json",
+      "original_sha256": "d98829a80bbbcaada936209b00bb336e78992570dc92f95105dfb6d181281196",
+      "normalized_sha256": "cf3cf37d682f44561cfd4e25f953be79f2c929bc6f4abde185b67c532e9a19f1"
+    },
+    {
+      "path": "artifacts/cert_benchmark_run_summary.json",
+      "original_sha256": "55fc85d16a311f8a8fc9d1a079cb32853bbbe886fd7cebdc90059d22d783b224",
+      "normalized_sha256": "280aa3b04422528f4503efa8a9e0f10183d0cd53e13d8160901e0b4941e1acde"
+    },
+    {
+      "path": "artifacts/cert_local_source_recheck.json",
+      "original_sha256": "39ac88417f723bc6caa6112902ffb6a870d6a24f9f679230756a01c1ca686f63",
+      "normalized_sha256": "cad8e0bf067f4363676f3f0a0d1eface806ecd908b03b2cd3f4bb83abd6181c6"
+    },
+    {
+      "path": "artifacts/cert_source_metadata.json",
+      "original_sha256": "c3dba9c9f4f2527dc818e8e479b303c1b32e6ed9fd47225257a159c367ba0611",
+      "normalized_sha256": "fbd37a3a18c020f6e9e92026ce5da34965486cee81b74170bd3b9db9c22608ce"
+    },
+    {
+      "path": "artifacts/lab_evaluation.json",
+      "original_sha256": "937a92a0efc3a0a21cf2ae782fd52a39cfcfe8bbca4818903711b6aa56735ea8",
+      "normalized_sha256": "5c96cec2f376eb7a90a5e0439dab3e59d38b480fa84ab69aab607a640ed2a37d"
+    },
+    {
+      "path": "artifacts/lab_snapshot.json",
+      "original_sha256": "a0b6ffe0189635e96dadfed23750b073ac37c760f90386feb16dfe9fc2668ee6",
+      "normalized_sha256": "51f4cf61d21916e783ce4b0eefca5cc99e7d2e6fb1bce00b4d8a3078f3d8dec6"
+    },
+    {
+      "path": "artifacts/live_smoke.json",
+      "original_sha256": "fb00ba1f261c3dcf315a38c607f90ff58fc37d1b0eb40e60792e745927c3f0e8",
+      "normalized_sha256": "8a8788a491ee78857f31f79d42cef4c41854dc22f7a4811f520fbb84bbea0080"
+    },
+    {
+      "path": "artifacts/local_ai_http_smoke.json",
+      "original_sha256": "6671b5af4f09f3941aa05bd741787c15f364a7ff24dcd27c63fb410073885e39",
+      "normalized_sha256": "9b149a06dd2b432686f49b18d781100af6dc5d6b7100cc85a46047e7eeee6a19"
+    },
+    {
+      "path": "artifacts/local_ai_live_smoke.json",
+      "original_sha256": "c085fa9ec3130f67822d5990d19056434336fb961bb9044918b33be43e6483e4",
+      "normalized_sha256": "8579c36d8814f4513ebafae2e1a31571159991c80b877d9dfcac6ad11ca359a3"
+    },
+    {
+      "path": "artifacts/offline_clean_smoke.json",
+      "original_sha256": "16fc9e3b482000549a356e83ce8cc8089abd2feb40e9f6a658786f3b6da295ac",
+      "normalized_sha256": "1d125f29ff8ab6a820d5e95546674e777145d481ff3c51c051502cb0123d0884"
+    },
+    {
+      "path": "artifacts/package_extraction_smoke.json",
+      "original_sha256": "042442be6340234960be359bc6e89ac298ccd0074fb8cdc2a544ac2d8f80a99e",
+      "normalized_sha256": "3f1cb82e21beb164e21912933111d134faa12ea3d712c11d013bb4a5a314093b"
+    },
+    {
+      "path": "artifacts/portal_offline_regression.json",
+      "original_sha256": "1873cec4b2ce8391677b8b3daf40228a1bb71d712030e7213f8593e1e32e1c87",
+      "normalized_sha256": "cad577b65a4bdbd450690d7ad6cce7ebe1d56789709f9cdcdfbb7af149a9039f"
+    },
+    {
+      "path": "artifacts/release_readiness.json",
+      "original_sha256": "d447535f6b80c512d12620ec0e100decb78642790a47c0ca7262064cd5407710",
+      "normalized_sha256": "267b92daf6295c5b245edb02621510f3635d27332549f65ecbb742bd95dde1e6",
+      "current_published_sha256": "b9cfba2c4ae33e317af0c8e822f91efbaeea6d0b3e87b1554e2ba51b296532de",
+      "current_file_status": "Superseded by fresh execution or current release metadata; normalized_sha256 describes initial display normalization"
+    },
+    {
+      "path": "artifacts/research_progress.json",
+      "original_sha256": "0faf89edfbfc22bf0412e32340b302a34ae32482375c217f9d9c8c910179d28f",
+      "normalized_sha256": "e14713f3ce88e087dbb9bd0820ceaffa99f55a4ca1215febf64667f231b99623"
+    },
+    {
+      "path": "artifacts/sedra_live_smoke.json",
+      "original_sha256": "3d0ea709af7a98a703d11ce508fdf6af003fb8845796958e3b0b6d18695eeeac",
+      "normalized_sha256": "f15c2a3504f40162bb3c2d56acb2db19b57a223ae7a41f4df2a966e3f7fb15d6",
+      "current_published_sha256": "1c0f57392d9102fb1746f5dc86219304f63c088f1a6415ae798b4777ef8783bf",
+      "current_file_status": "Superseded by fresh execution or current release metadata; normalized_sha256 describes initial display normalization"
+    },
+    {
+      "path": "artifacts/structured_http_smoke_v3.json",
+      "original_sha256": "d25a05c9ebcffc5b9a0425a64845cc92a2443043c38addef87f5ce0510f6a434",
+      "normalized_sha256": "ed5fb2a2f9100456e35c8e44c45821c78e5f611c83036d72066c15f866c95161"
+    },
+    {
+      "path": "artifacts/v1_package_manifest.json",
+      "original_sha256": "e8f179d9281f72dc3d1e5c7fa600c855a048ad97ced104d52c32cdffb25bb406",
+      "normalized_sha256": "30690b1cbbd80b4b66500039d9b019353f3e89c5caf7692f57ee07c395941eb1"
+    }
+  ],
+  "cert_original_numeric_results_and_model_verified": true
+}

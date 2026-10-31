@@ -2,11 +2,15 @@
 
 **Team CyberChain · Digital Challenge Azerbaijan 2026 · Topic 6 · private development review.**
 
-Start with the [reviewer guide](docs/REVIEWER_GUIDE.md), [requirements mapping](docs/REQUIREMENTS_TRACEABILITY.md), [technical report](docs/TECHNICAL_REPORT.md) and [actual 184-test result](artifacts/test_summary.json). [AI assistance](AI_ASSISTANCE.md) and [external components](THIRD_PARTY_NOTICES.md) are disclosed. Source/test evidence describes the current 0.8 build; retained presentation/Q&A files are earlier materials and their update is deferred. This review checkpoint does not assert final organizer acceptance.
+Start with the [reviewer guide](docs/REVIEWER_GUIDE.md), [requirements mapping](docs/REQUIREMENTS_TRACEABILITY.md), [technical report](docs/TECHNICAL_REPORT.md) and [actual 184-test result](artifacts/test_summary.json). [AI assistance](AI_ASSISTANCE.md) and [external components](THIRD_PARTY_NOTICES.md) are disclosed. Source/test evidence describes the current 0.9 build; presentation/Q&A files are excluded from this repository at the team request. This review checkpoint does not assert final organizer acceptance.
 
 SEDRA connects past-only user-day UEBA and observed live application signals to a real transfer decision, then verifies what an independent local receiver obtained. The offline hackathon lab uses fictional identities/documents. The AI portal sends only allowed requests to a real local Qwen CPU model or, when selected and available, the OpenAI Responses API. Local model inference has executed successfully; the OpenAI account returned 429 and has no successful reply claim.
 
-## SEDRA 0.8: evidence-bound behavior casework
+## SEDRA 0.9: consistent naming and review delivery
+
+The Python package is `sedra`, all launchers use SEDRA and presentation materials are excluded. See [branding and historical-evidence migration](docs/BRANDING_MIGRATION.md).
+
+## Evidence-bound behavior casework (introduced in 0.8)
 
 Open **Analyst → UEBA → Behavior casework** for durable observed-sequence findings, a typed source graph, peak/current priority and revisioned analyst review. Cases open independently of DLP blocks and retain evidence after live windows cool. **Why this decision?** compares the original admission with selected recorded behavioral components excluded, using the original labels, destination and cumulative exposure. It never resends, unblocks or changes policy; hard FİN/restricted-content rules remain. Process/file correlation now requires eight distinct files in the same owned test run, preventing repeated-write and unrelated-process inflation. Full regression: **184 tests passed**. See [contracts, live proof and limits](docs/BEHAVIOR_CASES.md).
 
@@ -36,16 +40,16 @@ Open **http://127.0.0.1:8765/#inventory** for the new asset inventory and **/por
 
 Metadata includes original SHA-256, UTF-8 size, media type, content version, label revision/source, structured detector types and handling. Labels and their audit history survive activity reset. Sensitivity floors cannot be weakened; public exclusions cannot be reclassified through this interface. Business tags describe context and do not independently change policy. See [SEDRA governance](docs/SEDRA_GOVERNANCE.md).
 
-The Python import/package directory `sadd`, original source fixtures, model aliases and historical CERT artifacts retain legacy identifiers for compatibility and integrity. Presentation and Q&A updates are deferred at the user's request; existing slides describe the prior build.
+The Python package, examples, environment variables and local model alias use SEDRA. Historical evidence metadata normalization and original-hash provenance are documented in [BRANDING_MIGRATION.md](docs/BRANDING_MIGRATION.md).
 
 ## Start in Windows
 
-Use **Python 3.12**, which supplies the pinned Unicode 15.0 database. Other versions fail with a clear message. Run `Setup-SEDRA.cmd` once if needed, then `Start-SEDRA.cmd` (legacy launchers remain compatible). Open **http://127.0.0.1:8765/** and keep the launcher window open.
+Use **Python 3.12**, which supplies the pinned Unicode 15.0 database. Other versions fail with a clear message. Run `Setup-SEDRA.cmd` once if needed, then `Start-SEDRA.cmd`. Open **http://127.0.0.1:8765/** and keep the launcher window open.
 
 ```powershell
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install --only-binary=:all: -r requirements.txt
-.\.venv\Scripts\python.exe -m sadd.app --port 8765 --data-dir data/runtime-v2
+.\.venv\Scripts\python.exe -m sedra.app --port 8765 --data-dir data/runtime-sedra
 ```
 
 After installation the original local-receiver demo runs offline. Local AI inference also works offline once its verified runtime/model supplement is installed. The optional OpenAI route needs an API key, available account quota and internet. When `offline_wheels/` is included, install without internet:
@@ -58,9 +62,9 @@ On Linux/macOS create a Python 3.12 venv and use `.venv/bin/python` instead. Cho
 
 ## Real local AI portal
 
-Run **Start-SADD.cmd** and open **http://127.0.0.1:8765/portal**. When the model supplement is installed the launcher starts the verified CPU model and selects it for a new server. Choose **lab-001 → Public workshop question → Check with SEDRA & ask AI** to receive a newly generated answer. Then send **Restricted synthetic example** to show a block before inference. If needed select **Analyst → AI provider: Local AI → Connect for this session** first.
+Run **Start-SEDRA.cmd** and open **http://127.0.0.1:8765/portal**. When the model supplement is installed the launcher starts the verified CPU model and selects it for a new server. Choose **lab-001 → Public workshop question → Check with SEDRA & ask AI** to receive a newly generated answer. Then send **Restricted synthetic example** to show a block before inference. If needed select **Analyst → AI provider: Local AI → Connect for this session** first.
 
-On another Windows PC, extract the **SADD-Local-AI-Model.zip** supplement over the base package, or use **Setup-Local-AI.cmd** with internet once. See [LOCAL_AI.md](docs/LOCAL_AI.md). The original offline receiver and its independent receipts remain separate.
+On another Windows PC, extract the **SEDRA-Local-AI-Model.zip** supplement over the base package, or use **Setup-Local-AI.cmd** with internet once. See [LOCAL_AI.md](docs/LOCAL_AI.md). The original offline receiver and its independent receipts remain separate.
 
 ## Optional OpenAI portal route
 
@@ -78,13 +82,13 @@ For acknowledgement loss, send public text with the checkbox selected, inspect D
 
 The simulated local identities are Analyst, lab-001 and lab-002. The server derives the actor and context. Employee views are scoped; Analyst can inspect masked metadata and reset. This selector is not enterprise SSO. Loopback Origin checks, CSRF, server-side scopes and receiver authorization remain enforced.
 
-See [demo guide](docs/DEMO_GUIDE.md), [English script](docs/SPEAKER_SCRIPT_EN.md), [Q&A](docs/QA_EN.md) and [architecture](docs/TECHNICAL_ARCHITECTURE.md).
+See [demo guide](docs/DEMO_GUIDE.md), [reviewer guide](docs/REVIEWER_GUIDE.md) and [architecture](docs/TECHNICAL_ARCHITECTURE.md).
 
 ## Evidence and honest claims
 
 `artifacts/test_summary.json` records the current executed tests; `test_output.txt` lists individual checks. `live_smoke.json` contains actual loopback HTTP outcomes/receipts. `audit_before.json` retains reproduced review bypasses; `audit_after.json` uses the same synthetic cases after the fixes.
 
-The original **file-only CERT v1 failed**: rules, Isolation Forest and combined each detected **0 of 476** incident-associated positive test user-days at frozen operating points. All original benchmark/model/failure artifacts remain unchanged.
+The original **file-only CERT v1 failed**: rules, Isolation Forest and combined each detected **0 of 476** incident-associated positive test user-days at frozen operating points. Numeric results and original model are retained; published report metadata was branding-normalized with original/current hashes recorded in the migration map.
 
 V2 uses device/logon/HTTP/file **calendar days**, exact actor/channel/ID/time-qualified official-observable labels and explicit cold-start coverage. Its frozen protocol is `artifacts/cert_v2_protocol.json`. A measured report appears only after verified extraction, ingestion and model execution; while pending the UI keeps it unavailable. **V2 on already-inspected r4.2 is development evidence, not independent efficacy.** CERT itself is published synthetic research data. V2 changes the population and target, preventing a direct like-for-like improvement claim over v1. Read [current status](docs/STATUS.md).
 
@@ -128,11 +132,9 @@ V2 uses contemporaneous LDAP roster members and complete common source-file days
 
 V1 reproduction remains in [historical README](docs/history/README_v1.md) and [v1 protocol](docs/BENCHMARK_PROTOCOL.md).
 
-## Presentation and submission
+## Private repository and submission
 
-`presentation/SADD_Final_EN.pptx` has six core slides plus two Q&A appendix slides. `presentation/index.html` is the generated offline browser fallback. Open it locally or visit **http://127.0.0.1:8765/presentation/**. Arrows navigate slides.
-
-[Submission checklist](docs/SUBMISSION_CHECKLIST.md): supplied Asia/Baku times are 31 October 17:00 checkpoint, 1 November 13:00–13:30 GitHub window, five-minute presentation and five-minute Q&A. Confirm later organizer changes. No remote is assumed or published automatically.
+Current source is published to [TeamCyberChain/SEDRA](https://github.com/TeamCyberChain/SEDRA) as a private review snapshot. Presentation, speaker and Q&A materials are excluded from this repository. The [submission checklist](docs/SUBMISSION_CHECKLIST.md) records the organizer-supplied timing and remaining final-submission steps. A push alone is not organizer acceptance.
 
 ## Boundaries
 

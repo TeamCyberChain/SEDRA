@@ -1,7 +1,7 @@
 {
   "executed_at_utc": "2026-10-31T12:39:47.626470+00:00",
   "successful": true,
-  "scope": "Actual local Qwen inference through SADD; no cloud provider, test double or reset",
+  "scope": "Actual local Qwen inference through SEDRA; no cloud provider, test double or reset",
   "inference_roundtrip_seconds": 0.573,
   "answer": {
     "request": {
@@ -22,7 +22,7 @@
         "ml_score": 0.0,
         "model_version": "iforest-lab-daily-v1",
         "provenance": "synthetic_lab",
-        "provider_model": "sadd-qwen2.5-1.5b",
+        "provider_model": "sedra-qwen2.5-1.5b",
         "provider_route": "local_ai",
         "rule_score": 0.0
       },
@@ -40,8 +40,8 @@
       "minimum_candidate_tokens": 2,
       "model_profiles": {
         "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
-        "normalization": "sadd-nfkc-dicp15-az-en-v1",
-        "policy": "sadd-dual-window-anchored-token-restricted-v2"
+        "normalization": "sedra-nfkc-dicp15-az-en-v1",
+        "policy": "sedra-dual-window-anchored-token-restricted-v2"
       },
       "normalization_flags": {
         "mixed_script_tokens": 0,
@@ -100,7 +100,7 @@
       "provider": "Local AI · Qwen / llama.cpp",
       "response_id": "chatcmpl-sbhbbbTUke7H6BvaK2aGXe3367nu7jwO",
       "provider_request_id": "",
-      "model": "sadd-qwen2.5-1.5b",
+      "model": "sedra-qwen2.5-1.5b",
       "status": "completed",
       "answer": "42",
       "usage": {
@@ -135,7 +135,7 @@
         "ml_score": 0.0,
         "model_version": "iforest-lab-daily-v1",
         "provenance": "synthetic_lab",
-        "provider_model": "sadd-qwen2.5-1.5b",
+        "provider_model": "sedra-qwen2.5-1.5b",
         "provider_route": "local_ai",
         "rule_score": 0.0
       },
@@ -153,8 +153,8 @@
       "minimum_candidate_tokens": 2,
       "model_profiles": {
         "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
-        "normalization": "sadd-nfkc-dicp15-az-en-v1",
-        "policy": "sadd-dual-window-anchored-token-restricted-v2"
+        "normalization": "sedra-nfkc-dicp15-az-en-v1",
+        "policy": "sedra-dual-window-anchored-token-restricted-v2"
       },
       "normalization_flags": {
         "mixed_script_tokens": 0,
@@ -213,7 +213,7 @@
       "provider": "Local AI · Qwen / llama.cpp",
       "response_id": "chatcmpl-sbhbbbTUke7H6BvaK2aGXe3367nu7jwO",
       "provider_request_id": "",
-      "model": "sadd-qwen2.5-1.5b",
+      "model": "sedra-qwen2.5-1.5b",
       "status": "completed",
       "answer": "42",
       "usage": {
@@ -248,7 +248,7 @@
         "ml_score": 0.0,
         "model_version": "iforest-lab-daily-v1",
         "provenance": "synthetic_lab",
-        "provider_model": "sadd-qwen2.5-1.5b",
+        "provider_model": "sedra-qwen2.5-1.5b",
         "provider_route": "local_ai",
         "rule_score": 0.0
       },
@@ -456,8 +456,8 @@
       "minimum_candidate_tokens": 2,
       "model_profiles": {
         "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
-        "normalization": "sadd-nfkc-dicp15-az-en-v1",
-        "policy": "sadd-dual-window-anchored-token-restricted-v2"
+        "normalization": "sedra-nfkc-dicp15-az-en-v1",
+        "policy": "sedra-dual-window-anchored-token-restricted-v2"
       },
       "normalization_flags": {
         "mixed_script_tokens": 0,

@@ -69,7 +69,7 @@ def start_receiver(path, token):
     store = ReceiverStore(path)
 
     class Handler(BaseHTTPRequestHandler):
-        server_version = "SADD-Demo-Receiver"
+        server_version = "SEDRA-Demo-Receiver"
 
         def setup(self):
             super().setup()
@@ -87,7 +87,7 @@ def start_receiver(path, token):
             self.wfile.write(data)
 
         def authorized(self):
-            return hmac.compare_digest(self.headers.get("X-SADD-Receiver-Key", "").encode(), token.encode())
+            return hmac.compare_digest(self.headers.get("X-SEDRA-Receiver-Key", "").encode(), token.encode())
 
         def do_GET(self):
             if not self.authorized():

@@ -24,7 +24,7 @@ Invite judges to edit the synthetic examples. Short anchors, distinctive evidenc
 
 ## Live local AI answer (replace the lost-acknowledgement segment if using the portal)
 
-Preferred prepared route: run Start-SADD.cmd, verify Local AI ready at `/portal`, choose lab-001, send Public workshop question, then Restricted synthetic example. Show the generated answer and blocked-before-model result. Ask an unrehearsed public question if time permits. Read LOCAL_AI.md. Local Qwen is real inference on this computer, not an OpenAI reply or a canned fallback.
+Preferred prepared route: run Start-SEDRA.cmd, verify Local AI ready at `/portal`, choose lab-001, send Public workshop question, then Restricted synthetic example. Show the generated answer and blocked-before-model result. Ask an unrehearsed public question if time permits. Read LOCAL_AI.md. Local Qwen is real inference on this computer, not an OpenAI reply or a canned fallback.
 
 ### Optional OpenAI alternative
 

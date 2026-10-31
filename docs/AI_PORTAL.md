@@ -1,6 +1,6 @@
 # Live AI portal
 
-**Working judge path: Local AI (Qwen / llama.cpp).** A real CPU model is installed and has returned actual answers through SƏDD. Start with [LOCAL_AI.md](LOCAL_AI.md). This requires no OpenAI quota and never silently falls back to cloud. Local and OpenAI routes share policy/exposure accounting but have distinct destination identities.
+**Working judge path: Local AI (Qwen / llama.cpp).** A real CPU model is installed and has returned actual answers through SEDRA. Start with [LOCAL_AI.md](LOCAL_AI.md). This requires no OpenAI quota and never silently falls back to cloud. Local and OpenAI routes share policy/exposure accounting but have distinct destination identities.
 
 The OpenAI integration remains available as an explicitly selected alternative. Its actual saved tests returned 401 and then 429, so no successful OpenAI answer is claimed. The instructions below describe that optional external route.
 
@@ -9,11 +9,11 @@ Open `http://127.0.0.1:8765/portal`. The existing three-screen loopback lab rema
 ## Connect and rehearse
 
 1. Select the local **Analyst** identity. Privately enter an OpenAI Platform API key and an accessible Responses-compatible model (default `gpt-4.1-mini`). Click **Connect for this session**. This saves the key in process memory; it makes no API call. Configured does not mean the provider has authenticated it yet.
-2. Select **lab-001**. Click **Public workshop question**, then **Check with SƏDD & ask AI**. Only after SƏDD allows the original message does the server call `https://api.openai.com/v1/responses`. A returned answer shows the model, response ID, original-input hash, observed output hash and token usage.
+2. Select **lab-001**. Click **Public workshop question**, then **Check with SEDRA & ask AI**. Only after SEDRA allows the original message does the server call `https://api.openai.com/v1/responses`. A returned answer shows the model, response ID, original-input hash, observed output hash and token usage.
 3. Click **Restricted synthetic example** and send. Verify **BLOCK**, **Provider contact: No**, no AI answer and the hard-policy reasons. Its synthetic credential is never sent to OpenAI.
 4. Inspect the original request evidence and the security workspace. The OpenAI route and the local receiver are explicitly different evidence sources.
 
-Use only the fictional bundled examples and public questions in the judge demonstration. No company documents, real credentials or personal data are needed. The employee must deliberately use the SƏDD portal for its checks to apply.
+Use only the fictional bundled examples and public questions in the judge demonstration. No company documents, real credentials or personal data are needed. The employee must deliberately use the SEDRA portal for its checks to apply.
 
 ## Transport and evidence
 

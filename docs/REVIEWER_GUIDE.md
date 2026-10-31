@@ -1,4 +1,4 @@
-# Start here — SEDRA 0.8 review
+# Start here — SEDRA 0.9 review
 
 This is Team CyberChain's private development snapshot for Topic 6, Digital Challenge Azerbaijan 2026. It is prepared for the seven reviewer accounts named by the team. A push is a review checkpoint, not an assertion of organizer acceptance or final submission.
 
@@ -18,7 +18,7 @@ Use Windows and **Python 3.12**. From the repository root:
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install --only-binary=:all: -r requirements.txt
 .\.venv\Scripts\python.exe scripts/verify.py
-.\.venv\Scripts\python.exe -m sadd.app --port 8765 --data-dir data/runtime-v2
+.\.venv\Scripts\python.exe -m sedra.app --port 8765 --data-dir data/runtime-sedra
 ```
 
 Open `http://127.0.0.1:8765/`. Installation needs the pinned Python packages; the receiver/gateway and generated daily model then operate offline. `Setup-SEDRA.cmd` and `Start-SEDRA.cmd` provide the same Windows route. Optional local AI requires the separately acquired verified runtime/weights; see [LOCAL_AI.md](LOCAL_AI.md). No API key, model binary or private runtime data is committed.
@@ -38,4 +38,4 @@ The completed-day Isolation Forest and its lab evaluation are generated syntheti
 
 Original file-only CERT v1: **0 TP / 476 positive test user-days**. Its five frozen artifacts are retained and hash checked. Multichannel v2: **unmeasured**, because complete verified acquisition/execution did not finish. No lab result is substituted for CERT efficacy. Physical USB insertion/removal was not tested; no USB was available. Security log access is unavailable and the permitted session-channel fallback is disclosed.
 
-Presentation/Q&A work was deferred by the team. Existing `presentation/`, speaker script and Q&A files are retained prior-build materials, **not an updated 0.8 pitch**. See the source/technical evidence for current behavior. The final GitHub window is 1 November 2026, 13:00–13:30 Asia/Baku according to the supplied agenda; later organizer instructions take precedence.
+Presentation, offline slides and speaker/Q&A materials are excluded from the repository at the team's request. The final GitHub window is 1 November 2026, 13:00–13:30 Asia/Baku according to the supplied agenda; later organizer instructions take precedence. Historical report metadata normalization is documented in [BRANDING_MIGRATION.md](BRANDING_MIGRATION.md).

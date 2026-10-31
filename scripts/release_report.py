@@ -21,13 +21,16 @@ def run():
         raise ValueError('Invalid v2 report profile')
     progress=read('artifacts/research_progress.json',{'stage':'awaiting_verified_data','status':'pending'})
     immutable=[]
+    branding={e['path']:e for e in read('artifacts/branding_migration.json',{}).get('artifacts',[])}
     for entry in read('artifacts/v1_package_manifest.json',{}).get('files',[]):
         if entry['path'].startswith('artifacts/cert_'):
             path=ROOT/entry['path']
-            unchanged=path.exists() and hashlib.sha256(path.read_bytes()).hexdigest()==entry['sha256']
-            immutable.append({'path':entry['path'],'unchanged':unchanged})
+            expected=branding.get(entry['path'],{}).get('normalized_sha256',entry['sha256'])
+            unchanged=path.exists() and hashlib.sha256(path.read_bytes()).hexdigest()==expected
+            immutable.append({'path':entry['path'],'unchanged':unchanged,'comparison_basis':'published branding-normalized copy' if entry['path'] in branding else 'original bytes',
+                'original_sha256':entry['sha256'],'published_sha256':expected})
     if immutable and not all(r['unchanged'] for r in immutable):
-        raise ValueError('Original CERT artifact changed; preserve and investigate')
+        raise ValueError('Published CERT artifact differs from its declared original/branding-normalized hash; investigate')
     portal=read('artifacts/ai_portal_live_smoke.json',{})
     local_ai=read('artifacts/local_ai_live_smoke.json',{})
     now=datetime.now(timezone.utc)
@@ -44,7 +47,7 @@ def run():
                                    'No arbitrary semantic/OCR/encoding/collusion coverage','Finite exposure windows','V2 r4.2 results are development evidence']}
     (ROOT/'artifacts/release_readiness.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     local=now.astimezone(timezone(timedelta(hours=4))).strftime('%d %B %Y %H:%M Asia/Baku')
-    status=f'''# SƏDD v2 current status
+    status=f'''# SEDRA v2 current status
 
 Recorded {local}. This is generated from actual artifacts, not a model-performance forecast.
 

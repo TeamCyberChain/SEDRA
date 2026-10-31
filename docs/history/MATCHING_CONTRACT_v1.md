@@ -1,4 +1,4 @@
-# SADD matching and gateway contract
+# SEDRA matching and gateway contract
 
 This document describes implemented prototype behavior, not a claim of complete
 enterprise DLP coverage. All demonstration documents must be synthetic or public.
@@ -7,7 +7,7 @@ enterprise DLP coverage. All demonstration documents must be synthetic or public
 
 The Python 3.12 implementation uses Unicode 15.0.0. It refuses to initialize the
 matcher under a different Unicode database version. Its normalization profile is
-`sadd-nfkc-dicp15-az-en-v1`; its matcher profile is
+`sedra-nfkc-dicp15-az-en-v1`; its matcher profile is
 `all-token-4grams-distinct-public-exclusion-v1`.
 
 Every consecutive **four-token** tuple in every registered source is indexed.
@@ -106,7 +106,7 @@ fields on returned records are the current active-window metrics. The nested
 
 ## Policy
 
-Profile: `sadd-controlled20-high10-restricted-v1`.
+Profile: `sedra-controlled20-high10-restricted-v1`.
 
 - For `controlled_excerpt` data on unapproved routes, deny when prospective
   coverage is **greater than or equal to 0.20**.
@@ -114,7 +114,7 @@ Profile: `sadd-controlled20-high10-restricted-v1`.
   tightens to **0.10**. Behavior is frozen on the first evaluation of a request ID.
 - Any eligible confirmed `restricted` source match is denied, even at a low
   behavior score and even on the demonstration approved route.
-- A `SADD_SECRET_[A-Z0-9]{16,}` demo secret is independently denied. Its check uses
+- A `SEDRA_SECRET_[A-Z0-9]{16,}` demo secret is independently denied. Its check uses
   the normalized representation so supported invisible/width changes do not
   remove that rule. Never use real credentials in the demo.
 - The exact destination name `approved_ai` is the prototype's configured approved

@@ -9,9 +9,9 @@ import time
 import unittest
 from unittest.mock import patch
 
-from sadd.ueba import assess,active_baseline,LONG,DAY,INPUT_LIMIT
-from sadd.app import AppState,handler_for
-from sadd.corpus import catalog
+from sedra.ueba import assess,active_baseline,LONG,DAY,INPUT_LIMIT
+from sedra.app import AppState,handler_for
+from sedra.corpus import catalog
 from test_app import LocalClient
 
 NOW=datetime(2026,10,31,14,tzinfo=timezone.utc).timestamp()
@@ -189,7 +189,7 @@ class UEBAHTTPTests(unittest.TestCase):
         replay=self.employee.request('/api/transfer',{'request_id':'ueba-before-context','text':quote})[1]
         self.assertEqual(replay['behavior_context'],before['behavior_context'])
         self.assertEqual(len(self.app.receiver.list()),1)
-        with patch('sadd.app.time.time',return_value=time.time()+1801):
+        with patch('sedra.app.time.time',return_value=time.time()+1801):
             cooled=self.app.live_subject(self.app.subjects['lab-001'])
         self.assertEqual(cooled['live_context']['score'],0)
     def test_request_ledger_drives_blocks_even_if_secondary_audit_event_is_missing(self):

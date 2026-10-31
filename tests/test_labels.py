@@ -5,9 +5,9 @@ import json
 import tempfile
 import unittest
 
-from sadd.app import AppState, handler_for
-from sadd.corpus import DOCUMENTS
-from sadd.gateway import Gateway
+from sedra.app import AppState, handler_for
+from sedra.corpus import DOCUMENTS
+from sedra.gateway import Gateway
 from http.server import ThreadingHTTPServer
 import threading
 from tests.test_app import LocalClient
@@ -81,7 +81,7 @@ class GovernedLabelTests(unittest.TestCase):
     def test_unmatched_is_unclassified_and_structured_values_stay_masked(self):
         clean = self.evaluate('labels-clean', 'What is seventeen plus twenty-five?')
         self.assertEqual(clean['security_tags']['sensitivity'], 'unclassified')
-        secret = 'SADD_SECRET_A1B2C3D4E5F6G7H8'
+        secret = 'SEDRA_SECRET_A1B2C3D4E5F6G7H8'
         blocked = self.evaluate('labels-secret', secret)
         self.assertEqual(blocked['decision'], 'BLOCK')
         self.assertIn('SYNTHETIC_SECRET', blocked['security_tags']['detector_tags'])

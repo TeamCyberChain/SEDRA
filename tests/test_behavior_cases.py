@@ -8,13 +8,13 @@ import threading
 import time
 import unittest
 from unittest.mock import Mock,patch
-from sadd.behavior_cases import CaseStore,CaseConflict
-from sadd.endpoint import EndpointSensor,augment
-from sadd.ueba import assess
-from sadd.policy_explain import counterfactual,replay
-from sadd.gateway import Gateway
-from sadd.corpus import DOCUMENTS,catalog
-from sadd.app import AppState,handler_for
+from sedra.behavior_cases import CaseStore,CaseConflict
+from sedra.endpoint import EndpointSensor,augment
+from sedra.ueba import assess
+from sedra.policy_explain import counterfactual,replay
+from sedra.gateway import Gateway
+from sedra.corpus import DOCUMENTS,catalog
+from sedra.app import AppState,handler_for
 from test_app import LocalClient
 from test_ueba import subject,NOW
 
@@ -141,7 +141,7 @@ class PolicyExplainTests(unittest.TestCase):
         self.assertEqual(p['original']['decision'],'BLOCK');self.assertEqual(p['hypothetical']['decision'],'ALLOW')
         self.assertEqual(self.g.requests(),before)
     def test_structured_and_restricted_hard_policy_cannot_be_removed_by_rule_exclusion(self):
-        for i,text in enumerate(('FİN: A1B2C3D','SADD_SECRET_ABCDEFGHIJKLMNOP')):
+        for i,text in enumerate(('FİN: A1B2C3D','SEDRA_SECRET_ABCDEFGHIJKLMNOP')):
             row=self.g.evaluate('lab-001','cf-hard-policy-'+str(i),text,90,behavior_context=self.context())
             p=counterfactual(row,['fixture_rule']);self.assertEqual(p['hypothetical']['decision'],'BLOCK')
             self.assertTrue(p['hypothetical']['hard_policy_unchanged'])

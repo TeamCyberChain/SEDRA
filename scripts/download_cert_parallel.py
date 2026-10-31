@@ -39,7 +39,7 @@ def main():
             partial=target.with_suffix('.partial')
             try:
                 req=urllib.request.Request(url,headers={'Range':f'bytes={start}-{end}',
-                    'User-Agent':'SADD-hackathon-verified-intake/2'})
+                    'User-Agent':'SEDRA-hackathon-verified-intake/2'})
                 with urllib.request.urlopen(req,timeout=40) as response, partial.open('wb') as out:
                     if response.status!=206 or response.headers.get('Content-Range')!=f'bytes {start}-{end}/{size}':
                         raise ValueError('Range response does not match requested bounds')

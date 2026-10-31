@@ -6,17 +6,17 @@ The prepared public workshop question has no eligible protected matches. The ini
 
 ## This prepared computer
 
-1. Run `Start-SADD.cmd`. When verified local-model files are installed, it starts the managed model on loopback and selects local AI for a newly started SADD server.
+1. Run `Start-SEDRA.cmd`. When verified local-model files are installed, it starts the managed model on loopback and selects local AI for a newly started SEDRA server.
 2. Open **http://127.0.0.1:8765/portal**. Verify **Local AI ready**. Choose **lab-001**.
-3. Click **Public workshop question → Check with SƏDD & ask AI**. Read the newly generated response, model ID, output hash and token count. This is real local inference, not an OpenAI reply.
-4. Click **Restricted synthetic example → Check with SƏDD & ask AI**. Show **BLOCK**, **Model/provider contact: No** and no model reply.
+3. Click **Public workshop question → Check with SEDRA & ask AI**. Read the newly generated response, model ID, output hash and token count. This is real local inference, not an OpenAI reply.
+4. Click **Restricted synthetic example → Check with SEDRA & ask AI**. Show **BLOCK**, **Model/provider contact: No** and no model reply.
 5. To demonstrate an unrehearsed message, ask `What is 17 plus 25? Answer with the number only.` The executed rehearsal returned `42`; arbitrary model answers are not guaranteed correct.
 
-If a running server still has another route selected, use **Analyst → AI provider: Local AI → Connect for this session → lab-001**. If the local model is stopped, run `Start-Local-AI.cmd` and refresh. Keep both the SADD portal and model process running during the demonstration.
+If a running server still has another route selected, use **Analyst → AI provider: Local AI → Connect for this session → lab-001**. If the local model is stopped, run `Start-Local-AI.cmd` and refresh. Keep both the SEDRA portal and model process running during the demonstration.
 
 ## Another Windows computer
 
-Use Python 3.12 and the base source/offline Windows package. Extract **SADD-Local-AI-Model.zip** into the same parent folder so its `sadd/data/local_ai/` overlays the base `sadd` directory. The supplement includes the verified CPU runtime, model, source manifest and licenses, and excludes runtime keys and answer caches. Run `Setup-SADD.cmd`, then `Start-SADD.cmd`. A new private local API token is generated on that computer.
+Use Python 3.12 and the base source/offline Windows package. Extract **SEDRA-Local-AI-Model.zip** into the same parent folder so its `sedra/data/local_ai/` overlays the base `sedra` directory. The supplement includes the verified CPU runtime, model, source manifest and licenses, and excludes runtime keys and answer caches. Run `Setup-SEDRA.cmd`, then `Start-SEDRA.cmd`. A new private local API token is generated on that computer.
 
 Without the supplement, run `Setup-Local-AI.cmd` once with internet. It downloads from the official ggml-org/llama.cpp release and official Qwen repository, verifies the pinned source hashes and extracts only under `data/local_ai`. Downloads can resume. It does not install a system service, register startup entries, change firewall/security settings or require administrator rights. Weights/runtime are excluded from the source/GitHub package.
 

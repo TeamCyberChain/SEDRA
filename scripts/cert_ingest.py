@@ -142,7 +142,7 @@ def ingest(
         actor_intervals.setdefault(incident["actor"], []).append(incident)
     ldap_months, ldap, ldap_metadata = load_ldap_snapshots(ldap_dir) if ldap_dir else ([], {}, [])
     matched_answer_ids = set()
-    with tempfile.TemporaryDirectory(prefix="sadd-cert-") as scratch:
+    with tempfile.TemporaryDirectory(prefix="sedra-cert-") as scratch:
         database = sqlite3.connect(str(Path(scratch) / "aggregate.sqlite"))
         try:
             database.executescript("""
@@ -250,7 +250,7 @@ def ingest(
                             "workstations": hosts, "unique_filename_count": resources,
                             "operation": "removable_media_copy", "provenance": "cert_synthetic",
                             "dataset_release": "r4.2", "dataset_is_synthetic": True,
-                            "dataset_generated_by_sadd": False, "source_sha256": source_hash,
+                            "dataset_generated_by_sedra": False, "source_sha256": source_hash,
                             "label": int(malicious_copies > 0) if answers_archive else None,
                             "incident_associated_copy_events": malicious_copies if answers_archive else None,
                             "exact_observable_copy_events": exact_copies if answers_archive else None,
@@ -286,7 +286,7 @@ def ingest(
         "cohort_population": "Union of source file-copy identities and dated LDAP roster identities; independent of answer labels.",
         "output_name": destination.name, "output_sha256": sha256_file(destination),
         "provenance": "cert_synthetic", "dataset_is_synthetic": True,
-        "dataset_generated_by_sadd": False, "operation": "removable_media_copy",
+        "dataset_generated_by_sedra": False, "operation": "removable_media_copy",
         "aggregation": "source-local calendar day; active days only; no synthetic zero days inserted",
         "reference_hours": {"start_inclusive": workday_start, "end_exclusive": workday_end,
                             "timezone": "unspecified_dataset_local",
@@ -393,7 +393,7 @@ def run_cert_benchmark(
 ) -> dict[str, Any]:
     """Deterministic label-blind user selection, then a distinct CERT profile."""
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-    from sadd.behavior import score_daily_records
+    from sedra.behavior import score_daily_records
     source = Path(user_days_path)
     if source.resolve() == Path(output_path).resolve():
         raise ValueError("Benchmark output must not overwrite user-day input")

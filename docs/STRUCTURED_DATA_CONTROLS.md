@@ -14,7 +14,7 @@ These controls inspect outgoing text independently of the four registered demons
 | AWS access key ID | AKIA/ASIA access-ID format, including supported separators | Block |
 | Private key envelope | Supported private PEM header/footer and bounded body | Block |
 | Authorization bearer | Explicit Authorization: Bearer field and bounded token shape | Block |
-| Synthetic secret | SADD_SECRET / SEDRA_SECRET laboratory marker | Block |
+| Synthetic secret | SEDRA_SECRET / SEDRA_SECRET laboratory marker | Block |
 
 FİN without context is deliberately not treated as proof of personal data: a seven-character order code or ordinary word can have the same shape. The supported FİN profile retains the conservative existing alphabet excluding I/O. It does not verify that a code was issued. General names, addresses, phone numbers, emails and arbitrary unlabeled passwords are not claimed as covered by these rules.
 
@@ -36,7 +36,7 @@ The AI Workspace at /portal also includes **FİN · JSON** and **IBAN · grouped
 
 ## Sources and provenance
 
-- [SWIFT IBAN Registry, release 103, September 2026](https://www.swift.com/swift-resource/9606/download): the 89 country structures, lengths and public registry examples are pinned in sadd/iban_formats.json. This is a local snapshot, not an automatic registry update service. Bank assignment, account existence, ownership and national account-specific checks beyond the declared structure/MOD97 are not verified.
+- [SWIFT IBAN Registry, release 103, September 2026](https://www.swift.com/swift-resource/9606/download): the 89 country structures, lengths and public registry examples are pinned in sedra/iban_formats.json. This is a local snapshot, not an automatic registry update service. Bank assignment, account existence, ownership and national account-specific checks beyond the declared structure/MOD97 are not verified.
 - [Azerbaijan FİN definition, Cabinet of Ministers decision 49](https://frameworks.e-qanun.az/21/c_f_21469.html): the official definition describes a seven-character letter/digit identifier. The implementation's supported alphabet/context constraints are stated above; it does not connect to the population register.
 - [Unicode 15 TR39 confusables](https://www.unicode.org/Public/security/15.0.0/confusables.txt): the previously bundled table is reused for the limited script-look-alike view, with its existing notices.
 

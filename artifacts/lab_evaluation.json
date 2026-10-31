@@ -2,7 +2,7 @@
   "provenance": "synthetic_lab",
   "dataset_generated": true,
   "dataset_is_synthetic": true,
-  "dataset_generated_by_sadd": true,
+  "dataset_generated_by_sedra": true,
   "claim_scope": "Controlled synthetic lab only; no CERT benchmark or production-accuracy claim.",
   "unit": "completed_user_day",
   "label_provenance": "explicit_synthetic_scenario_schedule_v1",

@@ -279,7 +279,7 @@ def structured_findings(text):
                 pass
 
         compact = re.sub(r'\s+', '', value)
-        for match in re.finditer(r'(?:SADD|SEDRA)_SECRET_[A-Z0-9]{16,}',compact,re.I):
+        for match in re.finditer(r'SEDRA_SECRET_[A-Z0-9]{16,}',compact,re.I):
             add('SYNTHETIC_SECRET',match[0].upper(),representation,steps,['synthetic_marker_format'])
         aws = r'(?<![A-Z0-9_])(?:A'+SEP+r'K'+SEP+r'I'+SEP+r'A|A'+SEP+r'S'+SEP+r'I'+SEP+r'A)(?:'+SEP+r'[A-Z0-9]){16}(?![A-Z0-9_])'
         for match in re.finditer(aws,value,re.I):

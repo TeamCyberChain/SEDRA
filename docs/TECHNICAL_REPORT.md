@@ -1,4 +1,4 @@
-# SEDRA 0.8 technical report
+# SEDRA 0.9 technical report
 
 Team CyberChain · Digital Challenge Azerbaijan 2026 · Topic 6 · 31 October 2026 development review snapshot.
 
@@ -48,6 +48,6 @@ GitHub CI is configured to execute local tests on Windows with Python 3.12, read
 
 Follow [REVIEWER_GUIDE.md](REVIEWER_GUIDE.md) for clean setup and isolated live proof. Activity reset requires Analyst, rejects an active send/probe, clears demo activity/cases and preserves governed labels; named test files and private service material are not published. Never reset or test an unauthorized environment.
 
-Enterprise identity, collection/interception, trusted retention, cross-node admission, general cloud/email/VPN/endpoint telemetry and prospective independent efficacy remain open. Semantic paraphrase/translation/OCR, arbitrary nested encoding and cross-identity collusion are outside the current matcher. Finite windows are not lifetime protection. Original v1 is failed; v2 must not be described as measured success. Presentation/Q&A updates are deferred and earlier materials are retained as history.
+Enterprise identity, collection/interception, trusted retention, cross-node admission, general cloud/email/VPN/endpoint telemetry and prospective independent efficacy remain open. Semantic paraphrase/translation/OCR, arbitrary nested encoding and cross-identity collusion are outside the current matcher. Finite windows are not lifetime protection. Original v1 is failed; v2 must not be described as measured success. Presentation/Q&A materials are excluded from the current repository at the team request. Historical report metadata normalization is documented in BRANDING_MIGRATION.md; original numerical results are retained.
 
 AI-assisted development and external components are disclosed in [AI_ASSISTANCE.md](../AI_ASSISTANCE.md) and [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md). The team remains responsible for reviewing, explaining and submitting the actual work under the organizers' final instructions.

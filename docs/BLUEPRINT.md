@@ -1,8 +1,8 @@
-# SƏDD implementation blueprint and historical design
+# SEDRA implementation blueprint and historical design
 
 > Current v2 implementation and executed evidence: [STATUS.md](STATUS.md), [matching contract](MATCHING_CONTRACT.md), [technical architecture](TECHNICAL_ARCHITECTURE.md). The original planning analysis below is retained as history. Its older test counts, matching limits and pending browser checks do not supersede the current reports.
 
-SADD will deliver an explainable UEBA core with visible machine-learning evaluation, then connect that core to an authenticated AI gateway and cumulative document-fragment tracking. The competition build uses one product name and three main screens: Overview, Investigation, and AI Transfer Lab.
+SEDRA will deliver an explainable UEBA core with visible machine-learning evaluation, then connect that core to an authenticated AI gateway and cumulative document-fragment tracking. The competition build uses one product name and three main screens: Overview, Investigation, and AI Transfer Lab.
 
 The delivery order is mandatory: a working log source, baseline, three anomaly rules, trained anomaly model and evidence-linked dashboard first; live prevention and cumulative matching second; investigation polish, compact validation experiments and packaging third. Performance figures will come from executed tests.
 
@@ -163,7 +163,7 @@ The first build supports ALLOW and BLOCK, with delivery state recorded separatel
 
 For the bounded registered corpus, index every normalized token 4-gram, retaining candidate positions and source versions. If four consecutive normalized tokens match the same profile in an indexed source, the matcher finds that candidate. This does not guarantee an alert or block: public/boilerplate evidence and content policy remain separate. Count distinct eligible 4-gram fingerprints, not the union of every possible source position. Repeated wording in a source must not multiply the exposure estimate.
 
-The first build recognizes an explicitly nonfunctional SADD_SECRET test-marker format in addition to registered document excerpts. Additional real secret formats, validated structured PII and trusted sensitivity labels require separate implementation and tests. Unregistered confidential prose without a supported pattern can remain undetected.
+The first build recognizes an explicitly nonfunctional SEDRA_SECRET test-marker format in addition to registered document excerpts. Additional real secret formats, validated structured PII and trusted sensitivity labels require separate implementation and tests. Unregistered confidential prose without a supported pattern can remain undetected.
 
 Matching uses versioned NFKC normalization, a pinned Default_Ignorable_Code_Point table, and source-language-aware English or Azerbaijani casing. Azerbaijani I↔ı and İ↔i remain distinct pairs, including decomposed dotted I. Matching normalization does not rewrite the actual outgoing payload. Sub-four-token fragments, paraphrase, translation, arbitrary confusables, Base64/ROT13 and images/OCR are outside this build's guarantee. Do not concatenate unrelated requests to claim a shorter-fragment guarantee. [Unicode normalization](https://www.unicode.org/reports/tr15/) · [Unicode special casing](https://www.unicode.org/Public/15.0.0/ucd/SpecialCasing.txt)
 
@@ -228,7 +228,7 @@ The gateway's local inspection, decisions, explanations and receiver demo do not
 
 | Product | Capability verified in official documentation | Implication |
 |---|---|---|
-| Forcepoint | Cumulative rules aggregate matches over time as drip DLP; classifiers include fingerprinting | Cumulative detection is not a new category invented by SADD |
+| Forcepoint | Cumulative rules aggregate matches over time as drip DLP; classifiers include fingerprinting | Cumulative detection is not a new category invented by SEDRA |
 | Microsoft Purview | Cumulative exfiltration detection and peer groups based on organizational/access context | Cumulative tracking plus peer comparison is not enough to claim uniqueness |
 | Netskope | Exact/similar fingerprint matching and GenAI inline controls with behavioral context | Fingerprinting and AI DLP alone are not sufficient differentiation |
 
@@ -236,7 +236,7 @@ Sources: [Forcepoint policy documentation](https://help.forcepoint.com/dlp/10.3.
 
 The defensible contribution is the demonstrated integration: reproducible UEBA evaluation, explicit fingerprint accounting across AI requests, a behavior-dependent disclosure policy, actual receiver evidence and one investigation flow. Commercial superiority or unique invention is not established without comparative testing.
 
-Suggested product sentence: SADD connects behavioral anomalies to verifiable data-protection decisions and shows exactly what was attempted, released and stopped.
+Suggested product sentence: SEDRA connects behavioral anomalies to verifiable data-protection decisions and shows exactly what was attempted, released and stopped.
 
 # Acceptance gates and schedule
 
@@ -312,7 +312,7 @@ Parallel work streams: data/model/evaluation; gateway/content/state; frontend/in
 
 | Time | Demonstration |
 |---|---|
-| 0:00–0:30 | Problem and SADD's value |
+| 0:00–0:30 | Problem and SEDRA's value |
 | 0:30–1:15 | User-day baseline, three rules and visible ML evidence |
 | 1:15–2:15 | Repeated fragments accumulate; a later request is blocked; receiver proves the outcome |
 | 2:15–3:00 | Identical excerpt, different behavior context, different declared threshold |

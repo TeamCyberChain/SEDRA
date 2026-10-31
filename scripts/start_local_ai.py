@@ -37,7 +37,7 @@ def main():
     if ready(token):print('Local Qwen model is already ready on loopback port 8769.');return
     binary=DATA/'runtime/llama-server.exe'
     (ROOT/'work').mkdir(exist_ok=True)
-    args=[str(binary),'-m',str(MODEL),'--alias','sadd-qwen2.5-1.5b','--api-key-file',str(token_file),
+    args=[str(binary),'-m',str(MODEL),'--alias','sedra-qwen2.5-1.5b','--api-key-file',str(token_file),
           '--host','127.0.0.1','--port','8769','--parallel','1','--ctx-size','4096','--threads','8',
           '--threads-batch','8','--gpu-layers','0','--no-webui','--no-ui-mcp-proxy','--no-slots','--log-disable']
     with (ROOT/'work/local-ai-server.log').open('ab') as out,(ROOT/'work/local-ai-server-error.log').open('ab') as err:

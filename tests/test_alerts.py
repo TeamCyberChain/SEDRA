@@ -10,10 +10,10 @@ import tempfile
 import threading
 import unittest
 from unittest.mock import patch
-from sadd.alerts import AlertConflict
-from sadd.app import AppState,handler_for
-from sadd.corpus import DOCUMENTS
-from sadd.gateway import Gateway
+from sedra.alerts import AlertConflict
+from sedra.app import AppState,handler_for
+from sedra.corpus import DOCUMENTS
+from sedra.gateway import Gateway
 from tests.test_app import LocalClient
 
 

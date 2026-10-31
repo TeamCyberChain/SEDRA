@@ -84,7 +84,7 @@ class AIPortal:
         # Deferred import keeps the common safe provider exception independent.
         from .local_ai import LocalAIProvider
         self.local_provider = LocalAIProvider()
-        self.route = 'local' if os.getenv('SADD_AI_PROVIDER') == 'local' else 'openai'
+        self.route = 'local' if os.getenv('SEDRA_AI_PROVIDER') == 'local' else 'openai'
         self.key = os.environ.get('OPENAI_API_KEY', '')
         self.model = 'gpt-4.1-mini'
         self.active = 0

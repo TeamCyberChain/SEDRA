@@ -2,7 +2,7 @@
 setlocal
 cd /d "%~dp0"
 if not exist ".venv\Scripts\python.exe" (
-  echo Run Setup-SADD.cmd first.
+  echo Run Setup-SEDRA.cmd first.
   exit /b 1
 )
 echo Downloading the official verified runtime and Qwen model. This needs internet once.

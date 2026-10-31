@@ -1,4 +1,4 @@
-/* SADD local demo UI. No dependencies, external requests, or fabricated metrics. */
+/* SEDRA local demo UI. No dependencies, external requests, or fabricated metrics. */
 "use strict";
 
 let selectedAsset = null;
@@ -674,7 +674,7 @@ $("export-source-evidence").addEventListener("click", () => {
   const url = URL.createObjectURL(file);
   const link = document.createElement("a");
   link.href = url;
-  link.download = cert ? "sadd-cert-benchmark-evidence.json" : "sadd-live-lab-evaluation.json";
+  link.download = cert ? "sedra-cert-benchmark-evidence.json" : "sedra-live-lab-evaluation.json";
   document.body.appendChild(link);
   link.click();
   link.remove();
@@ -744,7 +744,7 @@ $("load-judge-example").addEventListener("click", () => {
     homoglyph:"This fictionаl restricted runbооk contаins а lаborаtоry credentiаl mаrker.",
     inserted:"fictional filler restricted filler runbook filler laboratory filler credential",
     reversed:"credential laboratory runbook restricted fictional",
-    base64:btoa("SADD_SECRET_A1B2C3D4E5F6G7H8"),
+    base64:btoa("SEDRA_SECRET_A1B2C3D4E5F6G7H8"),
     card:"Card number: 4111 1111 1111 1111",
     iban:"Bank account: AZ21NABZ00000000137010001944",
     comparison:array(state.documents).find(d=>d.id==="araz-plan")?.fragments?.find(f=>f.label==="Context comparison excerpt")?.text

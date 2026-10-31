@@ -1,4 +1,4 @@
-"""Reproducible, explicitly synthetic SADD behavior demonstration.
+"""Reproducible, explicitly synthetic SEDRA behavior demonstration.
 
 The classifier never consumes labels.  A completed user-day is the scoring
 unit; this module must not be used to score a partially completed live day.
@@ -378,7 +378,7 @@ def score_daily_records(
                    "Published synthetic CERT subset, incident-associated copy user-days; no live or production-accuracy claim.")
     return {
         "provenance": provenance, "dataset_generated": dataset_generated, "dataset_is_synthetic": True,
-        "dataset_generated_by_sadd": dataset_generated, "label_provenance": label_provenance,
+        "dataset_generated_by_sedra": dataset_generated, "label_provenance": label_provenance,
         "profile": profile, "feature_version": FEATURE_VERSION, "model_version": model_version,
         "seed": seed, "as_of": latest_date + "T23:59:59" + timestamp_suffix,
         "subjects": latest, "records": latest,
@@ -389,7 +389,7 @@ def score_daily_records(
                     for r in test],
         "evaluation": {
             "provenance": provenance, "dataset_generated": dataset_generated,
-            "dataset_is_synthetic": True, "dataset_generated_by_sadd": dataset_generated,
+            "dataset_is_synthetic": True, "dataset_generated_by_sedra": dataset_generated,
             "claim_scope": claim_scope,
             "unit": "completed_user_day", "label_provenance": label_provenance,
             "split": {"strategy": "chronological_no_shuffle", "train_end": train_end,

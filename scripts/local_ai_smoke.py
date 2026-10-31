@@ -32,7 +32,7 @@ def run():
     sends_after=sum(e['kind']=='ai_provider_send_claimed' and e['detail'].get('request_id')==key for e in events)
     assert retry['request']['idempotent_replay'] and retry['ai']['response_id']==answer['ai']['response_id']
     assert sends_before==sends_after==1
-    blocked=call('/api/portal/chat',{'request_id':'local-block-'+uuid.uuid4().hex,'text':'restricted runbook SADD_SECRET_A1B2C3D4E5F6G7H8'})
+    blocked=call('/api/portal/chat',{'request_id':'local-block-'+uuid.uuid4().hex,'text':'restricted runbook SEDRA_SECRET_A1B2C3D4E5F6G7H8'})
     assert blocked['request']['state']=='BLOCKED' and blocked['provider_contacted'] is False
     # The model API itself must reject unauthenticated inference.
     try:
@@ -41,7 +41,7 @@ def run():
     except urllib.error.HTTPError as error:
         assert error.code==401;error.close()
     report={'executed_at_utc':datetime.now(timezone.utc).isoformat(),'successful':True,
-        'scope':'Actual local Qwen inference through SADD; no cloud provider, test double or reset',
+        'scope':'Actual local Qwen inference through SEDRA; no cloud provider, test double or reset',
         'inference_roundtrip_seconds':round(elapsed,3),'answer':answer,'idempotent_retry':retry,'restricted':blocked,
         'outbound_claims_before_retry':sends_before,'outbound_claims_after_retry':sends_after,
         'unauthenticated_inference_rejected':True}

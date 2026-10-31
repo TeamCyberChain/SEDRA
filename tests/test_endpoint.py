@@ -5,10 +5,10 @@ import tempfile
 import time
 import unittest
 from unittest.mock import patch
-from sadd.endpoint import EndpointSensor,augment,ORIGIN
+from sedra.endpoint import EndpointSensor,augment,ORIGIN
 from test_ueba import subject,NOW
-from sadd.ueba import assess
-from sadd.app import AppState
+from sedra.ueba import assess
+from sedra.app import AppState
 
 
 class EndpointTests(unittest.TestCase):

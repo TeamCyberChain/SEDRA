@@ -43,7 +43,7 @@ def fetch(path, url, size, expected):
         raise ValueError(f"Existing {path} does not match expected metadata; preserve it and inspect before retrying")
     partial = path.with_suffix(path.suffix + ".part")
     offset = partial.stat().st_size if partial.exists() else 0
-    request = urllib.request.Request(url, headers={"User-Agent": "SADD-hackathon-data-intake/1.0", **({"Range": f"bytes={offset}-"} if offset else {})})
+    request = urllib.request.Request(url, headers={"User-Agent": "SEDRA-hackathon-data-intake/1.0", **({"Range": f"bytes={offset}-"} if offset else {})})
     with urllib.request.urlopen(request, timeout=60) as response:
         if offset and response.status == 206:
             content_range = response.headers.get("Content-Range", "")

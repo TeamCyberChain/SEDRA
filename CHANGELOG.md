@@ -2,6 +2,13 @@
 
 This records implemented work; executed evidence and its dates remain in the linked artifacts. Historical packages and original failed CERT v1 artifacts are preserved.
 
+## 0.9.0 — 31 October 2026
+
+- Rename the actual Python package/import path to `sedra`, update launchers, headers, cookie, environment names, download names and local model alias.
+- Version the renamed synthetic corpus as 3; keep historical private runtime admissions separate from new activity.
+- Exclude presentation/PPTX, speaker/Q&A assets, superseded embedded ZIP and older screenshots from the current repository and packages.
+- Record historical metadata normalization with original/current hashes; preserve original numeric measurements and private original artifacts.
+
 ## 0.8.0 — 31 October 2026
 
 - Independent durable UEBA cases from observed rules, bounded typed evidence graph, peak/current priority, strongest-evidence retention and revisioned analyst review.
@@ -26,6 +33,6 @@ Durable gateway security alerts, unread queue, masked investigation, revisioned 
 
 Structured credential/PII controls, pinned IBAN structures, contextual/checksum validation, supported Unicode/separator/Base64 views and live example catalog.
 
-## 0.3.0 and earlier SADD builds
+## 0.3.0 and earlier SEDRA builds
 
 SEDRA branding and governed metadata/sensitivity labels; real local AI portal; cumulative registered-content controls, atomic send/reservation lifecycle and receipt reconciliation. Original file-only CERT v1 retained 0 TP / 476 positive test user-days. CERT multichannel v2 remains unmeasured.

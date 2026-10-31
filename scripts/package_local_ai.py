@@ -21,10 +21,10 @@ def build(delivery):
     path=data/model['file']
     if sha(path)!=model['sha256']:raise ValueError('Model hash mismatch')
     files.extend([path,data/'llama-LICENSE.txt',data/'Qwen-LICENSE.txt'])
-    output=ROOT/'dist/SADD-Local-AI-Model.zip';temporary=output.with_suffix('.zip.tmp')
+    output=ROOT/'dist/SEDRA-Local-AI-Model.zip';temporary=output.with_suffix('.zip.tmp')
     with zipfile.ZipFile(temporary,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=6) as archive:
         for file in files:
-            archive.write(file,'sadd/'+str(file.relative_to(ROOT)).replace('\\','/'),
+            archive.write(file,'sedra/'+str(file.relative_to(ROOT)).replace('\\','/'),
                           compress_type=zipfile.ZIP_STORED if file.suffix=='.gguf' else zipfile.ZIP_DEFLATED)
     with zipfile.ZipFile(temporary) as check:
         if check.testzip():raise ValueError('Supplement ZIP failed integrity check')
@@ -33,7 +33,7 @@ def build(delivery):
     report={'created_at_utc':datetime.now(timezone.utc).isoformat(),'file':output.name,'bytes':output.stat().st_size,
             'sha256':sha(output),'model_sha256':model['sha256'],'zip_crc':'passed',
             'excluded':'Generated local API token, server state, API key, prompts, answer caches and raw research data',
-            'install':'Extract beside/over the base SADD package, then run Start-SADD.cmd'}
+            'install':'Extract beside/over the base SEDRA package, then run Start-SEDRA.cmd'}
     (ROOT/'dist/local_ai_package_checksums.json').write_text(json.dumps(report,indent=2))
     if delivery:
         folder=Path(delivery);folder.mkdir(parents=True,exist_ok=True)

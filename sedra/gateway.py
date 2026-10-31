@@ -22,7 +22,7 @@ from .alerts import AlertStore
 from .policy_explain import limits as policy_limits
 
 
-POLICY_PROFILE = "sadd-dual-window-anchored-token-restricted-v2"
+POLICY_PROFILE = "sedra-dual-window-anchored-token-restricted-v2"
 WINDOW_SECONDS = 86_400
 LONG_WINDOW_SECONDS = 30 * WINDOW_SECONDS
 LONG_NORMAL_THRESHOLD = .35
@@ -62,7 +62,7 @@ class Gateway(AlertStore):
         self.matcher = FragmentMatcher(documents)
         self._anchor = None
         if str(db_path) == ":memory:":
-            self._db_target = f"file:sadd-{uuid.uuid4().hex}?mode=memory&cache=shared"
+            self._db_target = f"file:sedra-{uuid.uuid4().hex}?mode=memory&cache=shared"
             self._uri = True
             self._anchor = sqlite3.connect(self._db_target, uri=True)
         else:

@@ -7,7 +7,7 @@ import tempfile
 import tarfile
 import unittest
 
-from sadd.behavior import (
+from sedra.behavior import (
     FEATURE_NAMES, budget_threshold, build_demo_snapshot, calibrate_ml_scores,
     evaluate_detector, extract_past_only_features, generate_demo_daily_records,
     score_daily_records,
