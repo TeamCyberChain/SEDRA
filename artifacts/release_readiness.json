@@ -2,14 +2,14 @@
   "recorded_at_utc": "2026-10-31T16:11:04.044311+00:00",
   "functional_ready": true,
   "tests": {
-    "executed_at_utc": "2026-10-31T16:09:48.953648+00:00",
+    "executed_at_utc": "2026-10-31T16:46:58.070399+00:00",
     "python": "3.12.10",
-    "tests_run": 184,
+    "tests_run": 192,
     "failures": 0,
     "errors": 0,
     "skipped": 0,
     "successful": true,
-    "runtime_seconds": 48.298,
+    "runtime_seconds": 99.177,
     "suite": "unittest discovery: behavior, acquisition, matcher, gateway, application HTTP integration",
     "network_scope": "local loopback receiver only; no external AI request",
     "benchmark_performance_is_separate": true
@@ -132,7 +132,7 @@
     "legacy_benchmark_artifacts_unchanged": true
   },
   "product": "SEDRA",
-  "application_version": "0.9.0",
+  "application_version": "0.10.0",
   "sedra_live_smoke_artifact": "artifacts/sedra_live_smoke.json",
   "structured_controls": {
     "profile": "sedra-structured-context-checksum-tr39-v3",
@@ -233,5 +233,13 @@
   "module": "sedra",
   "local_model_alias": "sedra-qwen2.5-1.5b",
   "current_local_ai_smoke": "artifacts/sedra_live_smoke.json",
-  "current_case_smoke": "artifacts/behavior_cases_http_smoke_v1.json"
+  "current_case_smoke": "artifacts/behavior_cases_http_smoke_v1.json",
+  "integrations": {
+    "implemented": true,
+    "verification": "artifacts/integration_verification_v1.json",
+    "optional_oidc": true,
+    "company_idp_connected": false,
+    "external_soar_connected": false,
+    "core_offline_without_sso_verified": true
+  }
 }

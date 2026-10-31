@@ -36,3 +36,7 @@ See `AI_ASSISTANCE.md` for the AI contribution and the team's verification respo
 
 The optional local AI supplement contains official llama.cpp CPU runtime build b12020 (MIT license) and official Qwen2.5-1.5B-Instruct Q4_K_M GGUF weights (Apache License 2.0). Their license texts accompany the supplement as data/local_ai/llama-LICENSE.txt and Qwen-LICENSE.txt. Sources and pinned source/per-file hashes are recorded in artifacts/local_ai_source_manifest.json; setup and scope are described in docs/LOCAL_AI.md. Neither the runtime nor model is claimed as original team work. No OpenAI API key or generated local service token is included in the supplement.
 
+
+## Optional SSO dependencies
+
+PyJWT (MIT), cryptography (Apache-2.0/BSD), cffi and pycparser (MIT) are installed separately through requirements-sso.txt with exact pins. Their distribution license files remain authoritative. OIDC implementation follows https://openid.net/specs/openid-connect-core-1_0.html and uses https://pyjwt.readthedocs.io/en/stable/usage.html for signature/claim verification.

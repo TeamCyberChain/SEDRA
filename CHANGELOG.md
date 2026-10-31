@@ -2,6 +2,13 @@
 
 This records implemented work; executed evidence and its dates remain in the linked artifacts. Historical packages and original failed CERT v1 artifacts are preserved.
 
+## 0.10.0 — 31 October 2026
+
+- Add optional pinned OIDC Code + PKCE, strict RS256/JWKS validation, explicit subject binding, session rotation/expiry/logout and fail-closed SSO mode.
+- Add scoped, expiring, hashed machine keys; revocation/rate limits and attributed SOAR case/alert actions.
+- Add generation-aware durable case change consumption and atomic authenticated external access-report ingestion with actor binding/deduplication across key rotation.
+- Expose a separate integration administration page and explicit protocol/deployment limits. No live company IdP or external SOAR connection is claimed.
+
 ## 0.9.0 — 31 October 2026
 
 - Rename the actual Python package/import path to `sedra`, update launchers, headers, cookie, environment names, download names and local model alias.

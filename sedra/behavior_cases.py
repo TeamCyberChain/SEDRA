@@ -25,7 +25,7 @@ def evidence_snapshot(s,now):
     for e in s.get('ueba',{}).get('timeline',[]):
         if e['event_id'] in refs:
             nodes[e['event_id']]={'id':e['event_id'],'channel':e['channel'],'kind':e['kind'],'at':e['timestamp'],
-                'origin':'OBSERVED_APPLICATION','doc_id':e.get('doc_id'),'request_id':e.get('request_id')}
+                'origin':e.get('origin','OBSERVED_APPLICATION'),'doc_id':e.get('doc_id'),'request_id':e.get('request_id')}
     for e in s.get('endpoint_context',{}).get('events',[]):
         key='endpoint:'+str(e['seq'])
         if key in refs and e['origin']=='REAL_LOCAL_OBSERVATION':
@@ -181,7 +181,7 @@ class CaseStore:
                     'head_hash':row['head_hash'],'note':'Self-contained consistency check, not a signature or independently trusted attestation. Privileged rewrite can recompute hashes.'},
                 'export_scope':'Private local investigation metadata; do not publish Windows source records in a submission archive'}
 
-    def action(self,body,now=None):
+    def action(self,body,now=None,actor='analyst'):
         now=time.time() if now is None else now
         if set(body)-{'case_id','action','action_id','expected_revision','disposition'} or not {'case_id','action','action_id','expected_revision'}<=set(body):raise ValueError('Declared case action fields required')
         if body['action'] not in ('ACKNOWLEDGE','RESOLVE','REOPEN'):raise ValueError('Unknown case action')
@@ -203,7 +203,7 @@ class CaseStore:
             if (body['action']=='ACKNOWLEDGE' and row['status']!='OPEN') or (body['action']=='RESOLVE' and row['status']=='RESOLVED') or (body['action']=='REOPEN' and row['status']!='RESOLVED'):raise CaseConflict('Action is not valid in the current review status')
             disposition=body.get('disposition','UNASSESSED')
             db.execute('UPDATE behavior_cases SET status=?,disposition=? WHERE case_id=?',(status,disposition,row['case_id']))
-            self._event(db,row,body['action'],'analyst',now,{'old_status':row['status'],'new_status':status,'disposition':disposition})
+            self._event(db,row,body['action'],actor,now,{'old_status':row['status'],'new_status':status,'disposition':disposition})
             db.execute('INSERT INTO behavior_case_actions VALUES(?,?,?)',(body['action_id'],hashed,row['case_id']))
             return {'case_id':row['case_id'],'idempotent_replay':False}
 

@@ -1,8 +1,7 @@
 {
   "product": "SEDRA",
-  "version": "0.9.0",
-  "created_at_utc": "2026-10-31T16:11:04.131432+00:00",
-  "excluded": "Private runtime/source data, keys, work, models, presentation and speaker/Q&A assets",
+  "version": "0.10.0",
+  "created_at_utc": "2026-10-31T16:48:25.913813+00:00",
   "files": [
     {
       "path": ".gitattributes",
@@ -11,8 +10,8 @@
     },
     {
       "path": ".github/workflows/verify.yml",
-      "bytes": 1356,
-      "sha256": "0a49d12f3a9ae4b852000e2215ad7f3b84de44c5a2f323c875f82dfd82acdbd3"
+      "bytes": 1380,
+      "sha256": "d8d43dea23b167659dda58bdeba2fc6854195eef631685fd9ec23944617d03bf"
     },
     {
       "path": ".gitignore",
@@ -21,8 +20,8 @@
     },
     {
       "path": "AI_ASSISTANCE.md",
-      "bytes": 5467,
-      "sha256": "3c30bb935e9c2036bf0fc4155d07c31a09859ae5e02b616f21fc08551ea94442"
+      "bytes": 5711,
+      "sha256": "0a00fda866b08d28a269974da0eda3ab7d7ed2046ad8b034913fd43ceafd8404"
     },
     {
       "path": "artifacts/ai_portal_live_smoke.json",
@@ -185,6 +184,11 @@
       "sha256": "b55c52a18f10e037386f803e5e889c00c58ec45fad25d44c9a5394f47371a9de"
     },
     {
+      "path": "artifacts/integration_verification_v1.json",
+      "bytes": 1087,
+      "sha256": "e21e4abaa5c3ab6ceff0bb32bad7bde2ff13930254b3b419a3125e209f4b16d3"
+    },
+    {
       "path": "artifacts/lab_evaluation.json",
       "bytes": 6368,
       "sha256": "5c96cec2f376eb7a90a5e0439dab3e59d38b480fa84ab69aab607a640ed2a37d"
@@ -246,8 +250,8 @@
     },
     {
       "path": "artifacts/release_readiness.json",
-      "bytes": 10716,
-      "sha256": "b9cfba2c4ae33e317af0c8e822f91efbaeea6d0b3e87b1554e2ba51b296532de"
+      "bytes": 10988,
+      "sha256": "f5e27819ec03b7ab19f9a8d6cde7ceb93b772271ad17834dcbf1081944b1c14b"
     },
     {
       "path": "artifacts/research_progress.json",
@@ -281,13 +285,13 @@
     },
     {
       "path": "artifacts/test_output.txt",
-      "bytes": 30654,
-      "sha256": "53602d6ac4bad642f748d7d832ede1e57913294f1d9d3d69584ea160a387d8b3"
+      "bytes": 32044,
+      "sha256": "21af00b2ede1e6d727ddb946d5dcc721090a67ab32b79646828b3f781b11b143"
     },
     {
       "path": "artifacts/test_summary.json",
       "bytes": 437,
-      "sha256": "8694d7103389f9ae76bf7372908e0325e574463a665ca099236d2514ea88092d"
+      "sha256": "2add11d4da3f81c3c245440ca2c41eafa6f16efbcc431f6752b6134bc57b5318"
     },
     {
       "path": "artifacts/ueba_before_v1.json",
@@ -316,8 +320,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 2761,
-      "sha256": "70c82ff07805a1633deeca1c1aa17b3ab8a852eb6dbfef960067f1ba1ef0af1d"
+      "bytes": 3381,
+      "sha256": "5c61273368d47ebcccbde5e79ed5f4cf1da125b2acafb1e9bbef15df66514190"
     },
     {
       "path": "docs/AI_PORTAL.md",
@@ -385,6 +389,11 @@
       "sha256": "fe3672dfaf24dad8a087b26919a9455dbbfb203975f790514d8875d3088d7872"
     },
     {
+      "path": "docs/INTEGRATIONS.md",
+      "bytes": 7339,
+      "sha256": "2996bb5c1d961d79f95f922a1be5b615c3e94a886897678bc328ee0505382a5e"
+    },
+    {
       "path": "docs/LOCAL_AI.md",
       "bytes": 5115,
       "sha256": "c399e8281e26a0199ba33ed2f5634d4668c7247981e5af8498d54269846c46e5"
@@ -436,8 +445,8 @@
     },
     {
       "path": "docs/STATUS.md",
-      "bytes": 13809,
-      "sha256": "2eca51795f1232360c68091c29a1dc52f9e36abbe96bf73a921f37989c0b0601"
+      "bytes": 14549,
+      "sha256": "d7088679604ca6434a05e3f5cf82682cc23b403e2e8dff40df80804fc4bc802b"
     },
     {
       "path": "docs/STRUCTURED_DATA_CONTROLS.md",
@@ -456,8 +465,8 @@
     },
     {
       "path": "docs/TECHNICAL_REPORT.md",
-      "bytes": 7908,
-      "sha256": "ebb371d73b2e914454c0c065e4728c80024e78faf21dbd01932b0454b5184f41"
+      "bytes": 8498,
+      "sha256": "0d681c51f50d9b592d806cc1a7a1320dc81ee1031938f88e3f3cec95abb5e0a3"
     },
     {
       "path": "docs/UEBA.md",
@@ -471,13 +480,18 @@
     },
     {
       "path": "pyproject.toml",
-      "bytes": 412,
-      "sha256": "367d35fd5801fd7b48786a2de90322b3e48519a1f303b42d81cd232a72e4aed1"
+      "bytes": 413,
+      "sha256": "2c46772a7f76a2ca3a33c2ccc021dea47894d92a475286433fd5482c55305f7b"
     },
     {
       "path": "README.md",
-      "bytes": 16718,
-      "sha256": "5af11c8e8c319d865dfba14103c3befb6257acea37cead5daf114f2faa4d29c0"
+      "bytes": 17384,
+      "sha256": "40a98db261f1047159e5c2817c696f80b34cc39a20e00a4143c424236951d353"
+    },
+    {
+      "path": "requirements-sso.txt",
+      "bytes": 64,
+      "sha256": "66cff0cec036a81c7761d20c03429de844998aa4762e6ca348c5d5226e19310b"
     },
     {
       "path": "requirements.txt",
@@ -516,8 +530,8 @@
     },
     {
       "path": "scripts/check_repository.py",
-      "bytes": 2551,
-      "sha256": "312f3276773ceef614e16a4848eb3bc2c0cf5f1465ad6058d5ad3c1fe7cc3417"
+      "bytes": 2588,
+      "sha256": "8df8a0aac5c6122c3ef1af23d244570070ecc6c9a744db2148287bc96159d0da"
     },
     {
       "path": "scripts/check_running.py",
@@ -571,8 +585,8 @@
     },
     {
       "path": "scripts/package_release.py",
-      "bytes": 4707,
-      "sha256": "c3365c40be90838277ec113069645a04707657f37e1927c29ea263e6b1362a77"
+      "bytes": 4730,
+      "sha256": "c839230959d9ed1a4d1dea97e68805fbd05158edb983dba7fc5bdc908e9cfb58"
     },
     {
       "path": "scripts/package_sedra.py",
@@ -625,6 +639,11 @@
       "sha256": "204414b9111ef86b236b5ad30fb2b3102f67a720a9fa9d370a4f1d6f8a96fbf4"
     },
     {
+      "path": "scripts/soar_poll.py",
+      "bytes": 988,
+      "sha256": "832f4835ecc6adc4a675ae7f760c4869f255f35a1fc3712ab46690ace9d5b7a5"
+    },
+    {
       "path": "scripts/start_local_ai.py",
       "bytes": 3268,
       "sha256": "afee90c4d6ae5d4fced1c69fe0a0efb181a1c440a1b85c6cd99cf7ec8c1b5a0f"
@@ -646,8 +665,8 @@
     },
     {
       "path": "sedra/__init__.py",
-      "bytes": 315,
-      "sha256": "9600463f2c6c3618605904b397484fd3b97ef3711993bd6ad573e53eab60321b"
+      "bytes": 316,
+      "sha256": "0fba1ab665f927402827858a6f67b5d0cf436b8f773fd1bb892734e1ddac1286"
     },
     {
       "path": "sedra/ai_portal.py",
@@ -661,8 +680,8 @@
     },
     {
       "path": "sedra/app.py",
-      "bytes": 35437,
-      "sha256": "bd3e3cd0d60a10856a62c1e8e67ebad40cddec15bca0faa740dfe9811d40488b"
+      "bytes": 43266,
+      "sha256": "94845bfc4c89429c330a470f77b01509f645fb6fe83f0576dbafd8c454742443"
     },
     {
       "path": "sedra/behavior.py",
@@ -671,8 +690,8 @@
     },
     {
       "path": "sedra/behavior_cases.py",
-      "bytes": 17399,
-      "sha256": "e5a65264f858898dde9a7fc19b2eafdf3cceb7ea5b19cf00c5bd08aadf59fac3"
+      "bytes": 17427,
+      "sha256": "d768ddd044a6cb10646d411e6cff40a71c733a50f9622780b352cab9f0328aba"
     },
     {
       "path": "sedra/content_security.py",
@@ -705,6 +724,11 @@
       "sha256": "b407e7505f28ed4043b0439c2ee95993e70673c22efe7f4727bbc08a083b44a0"
     },
     {
+      "path": "sedra/integrations.py",
+      "bytes": 10751,
+      "sha256": "61721c366f6577e3f3f81de76b835c4870c9fb43c471782ede126ee0c1b7f3c2"
+    },
+    {
       "path": "sedra/labels.py",
       "bytes": 4477,
       "sha256": "628e0ede0f9e0927146c93b092fe5408851e7eb723b39adbd3aca61154b9034d"
@@ -731,8 +755,8 @@
     },
     {
       "path": "sedra/ueba.py",
-      "bytes": 10697,
-      "sha256": "ac9fa0a1ee0ad86c93d5c2336bbd292b10cd8a5ef33598c708296accebd0668d"
+      "bytes": 10793,
+      "sha256": "008dfe147507d0cdc885ae74ab13ff325d2aeae2421b083702f02287096cca5f"
     },
     {
       "path": "sedra/unicode/confusables-15.0.0.txt",
@@ -776,8 +800,8 @@
     },
     {
       "path": "static/app.js",
-      "bytes": 64416,
-      "sha256": "e896348dca84cffe2b8aebbf6971178019b5381427b61478488cf89c76b554d6"
+      "bytes": 64649,
+      "sha256": "0a2f3fff2ad92c3fc141c8ceeae553c516d296b43babf9ab0168df2f898cab17"
     },
     {
       "path": "static/cases.js",
@@ -791,8 +815,23 @@
     },
     {
       "path": "static/index.html",
-      "bytes": 18977,
-      "sha256": "37da08b4a80197d1ae7a0bfb54fdcf1bac4ae8717267ab5328e09aa980deea9d"
+      "bytes": 19111,
+      "sha256": "97b5467668932fa5334ad6f22cbd4002a76942bdf3d58c477b0c38520e82903b"
+    },
+    {
+      "path": "static/integrations.html",
+      "bytes": 3354,
+      "sha256": "b7bb4dba7be08274ea2c2ecc710d258681ef14c4663ab103248def8a0bfb309f"
+    },
+    {
+      "path": "static/integrations.js",
+      "bytes": 2233,
+      "sha256": "1fece3c21af4c3f376c8e0c64159c1d31d724b73e1f4b0fe5cb1ae3a1e69d23a"
+    },
+    {
+      "path": "static/openapi.json",
+      "bytes": 10755,
+      "sha256": "28c834b9a948d0f8992f34885301f4091144854e9e7cf09297af270522f7cb1c"
     },
     {
       "path": "static/portal.css",
@@ -821,8 +860,8 @@
     },
     {
       "path": "static/ueba.js",
-      "bytes": 14040,
-      "sha256": "6c30c33a0774a5a0d5cacf033254401e451f518bb175b1d16819a28808346988"
+      "bytes": 14084,
+      "sha256": "f6074d9d25a2a639215acf06b592088dd7e537e89806ef3eee05970019ecb465"
     },
     {
       "path": "tests/test_acquisition.py",
@@ -870,6 +909,11 @@
       "sha256": "bb1978f7a5dafb6ff24eeb1a1cce7486115fd5bc0c6e0893d934f385938e690c"
     },
     {
+      "path": "tests/test_integrations.py",
+      "bytes": 11218,
+      "sha256": "0c93002e5aac8783788edc91e330a35ea266ffa3f6b2e3d25218639748a685df"
+    },
+    {
       "path": "tests/test_labels.py",
       "bytes": 6406,
       "sha256": "dea9f6e2df461e5f013e142fd57e456a18caf59c6760c85c330c8c3c5022355b"
@@ -896,8 +940,8 @@
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
-      "bytes": 3197,
-      "sha256": "66f24d5980ffde15f95591a38e52fd5fb01015ed7ec7f123c150fdfb2d2aa155"
+      "bytes": 3598,
+      "sha256": "6ad21afebc55b8e5d74718cdad8aad7cb6efe78cb244d67bdaa253216333e8f7"
     }
   ]
 }

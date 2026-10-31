@@ -215,7 +215,7 @@ function setBusy(value, buttonId) {
   $("run-mosaic").disabled = value || state?.session?.subject_id !== "lab-001";
   $("load-judge-example").disabled = value;
   if (buttonId) $(buttonId).disabled = value;
-  $("identity-select").disabled = value;
+  $("identity-select").disabled = value || Boolean(state?.session?.principal);
   $("reset-demo").disabled = value || !isAnalyst();
   $("send-transfer").disabled = value || !canTransfer() || !$("transfer-text").value.trim();
   $("open-document").disabled = value || !selectedDocument;
@@ -285,6 +285,8 @@ function changeTab(tab, updateHash = true) {
 function render() {
   const identity = isAnalyst() ? "analyst" : state.session?.subject_id || "analyst";
   $("identity-select").value = identity;
+  $("identity-select").disabled = Boolean(state.session?.principal);
+  document.querySelector('label[for="identity-select"]').textContent=state.session?.principal?"SSO identity":"Demo identity";
   $("snapshot-time").textContent = `Refreshed ${dateTime(lastLoaded.toISOString())}`;
   renderSourceContext();
   renderOverview();

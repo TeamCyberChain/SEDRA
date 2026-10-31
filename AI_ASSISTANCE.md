@@ -36,3 +36,5 @@ The supplied **Digital Challenge Azerbaijan — Cyber Hackathon invitation and i
 Section 4, rule 10, requires disclosure of external components and AI tools when requested, and prohibits fabricated results or misleading authorship claims. This file supplies that disclosure proactively. It does not claim that the prototype was developed without assistance or that organizers have separately approved this particular implementation.
 
 The invitation states that later final rules provided during the event take precedence over conflicting preliminary provisions. The team should apply the final instructions it receives and submit the actual source, evidence, and explanation of its work.
+
+Codex assisted the 0.10 scoped integration APIs, OIDC protocol adapter, administration UI and real loopback protocol/security tests. No external organization SSO or SOAR connection was established; protocol fixtures are labeled local tests.

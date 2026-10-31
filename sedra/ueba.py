@@ -56,7 +56,7 @@ def assess(subject,reads,requests,history,now,*,truncated=False):
         d=row.get('detail',{})
         if row.get('kind')!='document_read':continue
         events.append({'id':'audit:'+str(row['id']),'at':at,'channel':'document','kind':'document_read',
-            'protected':d.get('classification') in ('controlled_excerpt','restricted'),
+            'origin':d.get('source','OBSERVED_APPLICATION'),'protected':d.get('classification') in ('controlled_excerpt','restricted'),
             'doc_id':d.get('doc_id'),'request_id':None,'types':[],'route':None,'bytes':0})
     seen=set()
     for row in requests:
@@ -116,7 +116,7 @@ def assess(subject,reads,requests,history,now,*,truncated=False):
     effective=max(daily,live_score,guard)
     timeline=[{'event_id':e['id'],'timestamp':e['at'],'channel':e['channel'],'kind':e['kind'],
         'doc_id':e['doc_id'],'request_id':e['request_id'],'detector_types':e['types'],
-        'route':e['route'],'body_bytes':e['bytes'],'state':e.get('state')} for e in recent[-60:]]
+        'origin':e.get('origin','OBSERVED_APPLICATION'),'route':e['route'],'body_bytes':e['bytes'],'state':e.get('state')} for e in recent[-60:]]
     buckets=[]
     for i in range(12):
         start=now-LONG+i*150;items=[e for e in recent if start<e['at']<=start+150]

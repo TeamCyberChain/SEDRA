@@ -1,6 +1,10 @@
-# SEDRA 0.9 current status
+# SEDRA 0.10 current status
 
 Recorded 31 October 2026. Current values come from executed artifacts.
+
+## Scoped integration and identity
+
+OIDC Code + PKCE/RS256 and explicit issuer-subject bindings are implemented as an optional server-configured mode. A real loopback RSA-signed issuer test validates the protocol; no company tenant is connected. SSO disables demo switching and unauthenticated API access. Expiring/hashed/revocable machine keys enable bounded SOAR reads, generation-aware case changes, attributed revision/idempotency actions and atomic bound-subject document-access telemetry. External reports retain their provenance and can change UEBA/case behavior. See INTEGRATIONS.md and the current test summary for executed verification. Optional requirements-sso.txt is installed by CI; core offline wheels remain separate.
 
 ## Current naming and publication scope
 

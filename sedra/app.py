@@ -34,6 +34,7 @@ from .ueba import assess, INPUT_LIMIT, HISTORY_DAYS
 from .endpoint import EndpointSensor, augment
 from .behavior_cases import CaseStore, CaseConflict
 from .policy_explain import counterfactual
+from .integrations import Integrations,OIDC,AuthError,Conflict,RateLimit
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -55,6 +56,9 @@ class AppState:
         self.receiver_url = f"http://127.0.0.1:{self.receiver_server.server_port}"
         # Localhost calls must remain localhost even in a proxied development environment.
         self.local_http = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+        self.integrations=Integrations(self.data_dir/'integrations.sqlite')
+        config=os.getenv('SEDRA_OIDC_CONFIG')
+        self.oidc=OIDC(json.loads(Path(config).read_text(encoding='utf-8'))) if config else None
         self.sessions = {}
         self.guard = threading.RLock()
         self.active_transfers = 0
@@ -132,6 +136,13 @@ class AppState:
                     FROM gateway_requests WHERE subject_id=? AND created_at>=? AND created_at<=?
                     ORDER BY created_at DESC,row_id DESC LIMIT ?''',(uid,lower,now,INPUT_LIMIT+1)).fetchall()
                 reads=[dict(r)|{'detail':json.loads(r['detail'])} for r in raw[:INPUT_LIMIT]]
+                external=self.integrations.reads(uid,lower,now,INPUT_LIMIT+1)
+                for e in external:
+                    e.update(subject_id=uid,kind='document_read')
+                    e['detail']['classification']=next(d['classification'] for d in DOCUMENTS if d['id']==e['detail']['doc_id'])
+                reads=sorted(reads+external,key=lambda r:r['timestamp'],reverse=True)
+                input_truncated=len(reads)>INPUT_LIMIT
+                reads=reads[:INPUT_LIMIT]
                 metadata=[]
                 for row in requests[:INPUT_LIMIT]:
                     item=dict(row);snapshot=json.loads(item.pop('snapshot_json'))
@@ -140,7 +151,7 @@ class AppState:
                     item['matched_document_ids']=[d['doc_id'] for d in snapshot.get('matched_documents',[]) if d.get('confirmed')]
                     metadata.append(item)
                 assessed=assess(subject,reads,metadata,self.snapshot['history'],now,
-                    truncated=len(raw)>INPUT_LIMIT or len(requests)>INPUT_LIMIT)
+                    truncated=input_truncated or len(raw)>INPUT_LIMIT or len(requests)>INPUT_LIMIT)
                 assessed=augment(assessed,self.endpoint.view(uid,now=now))
                 assessed['ueba']['request_evidence']=metadata[:20]
                 try:
@@ -163,7 +174,7 @@ class AppState:
 
     def case_action(self,session,body):
         if session['role']!='analyst':raise PermissionError('Only Analyst can manage UEBA cases')
-        return self.cases.action(body)
+        return self.cases.action(body,actor=session.get('principal','analyst'))
 
     def explain_policy(self,session,body):
         if session['role']!='analyst':raise PermissionError('Only Analyst can preview frozen policy evidence')
@@ -286,7 +297,7 @@ class AppState:
     def update_alert(self,session,body):
         if session['role']!='analyst':
             raise PermissionError('Only the Analyst demo role may manage security alerts')
-        return self.gateway.update_alert(body,actor='analyst')
+        return self.gateway.update_alert(body,actor=session.get('principal','analyst'))
 
     def update_labels(self, session, body):
         if session['role'] != 'analyst':
@@ -389,6 +400,7 @@ class AppState:
             self.portal.reset()
             self.endpoint.reset()
             self.cases.reset()
+            with self.integrations.db() as external:external.execute('DELETE FROM external_events')
             with self.db() as db:
                 db.execute("DELETE FROM audit")
 
@@ -420,9 +432,10 @@ def handler_for(app):
             session_id = cookie[cookie_name].value if cookie_name in cookie else ""
             with app.guard:
                 session = app.sessions.get(session_id)
-            if session and time.time() - session["created_at"] < 8 * 3600:
+            if session and time.time() - session["created_at"] < 8 * 3600 and time.time()<session.get("expires_at",float("inf")):
                 return session_id, session, False
             session_id, session = app.new_session()
+            if app.oidc:session['role']='unauthenticated'
             return session_id, session, True
 
         def local_origin(self):
@@ -447,17 +460,74 @@ def handler_for(app):
             self.send_header("Referrer-Policy", "same-origin")
             self.send_header("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'self'")
             if cookie:
-                self.send_header("Set-Cookie", f"sedra_session_{self.server.server_port}={cookie}; Path=/; HttpOnly; SameSite=Strict")
+                self.send_header("Set-Cookie", f"sedra_session_{self.server.server_port}={cookie}; Path=/; HttpOnly; SameSite={'Lax' if app.oidc else 'Strict'}")
             self.end_headers()
             self.wfile.write(encoded)
+
+        def redirect(self,url,cookie):
+            self.send_response(302);self.send_header('Location',url);self.send_header('Cache-Control','no-store')
+            self.send_header('Set-Cookie',f"sedra_session_{self.server.server_port}={cookie}; Path=/; HttpOnly; SameSite=Lax")
+            self.send_header('Content-Length','0');self.end_headers()
+
+        def machine(self,path,body=None):
+            route=path.path;params=urllib.parse.parse_qs(path.query)
+            routes={'/api/v1/alerts':'alerts:read','/api/v1/alerts/action':'alerts:write','/api/v1/cases':'cases:read','/api/v1/cases/changes':'cases:read','/api/v1/ueba':'ueba:read','/api/v1/cases/action':'cases:write','/api/v1/telemetry':'telemetry:write'}
+            try:
+                if route not in routes:return self.respond(404,{'error':'Unknown integration route'})
+                writing=route in ('/api/v1/cases/action','/api/v1/alerts/action','/api/v1/telemetry')
+                if writing!=(body is not None):return self.respond(405,{'error':'Method not allowed'})
+                key=app.integrations.authorize(self.headers.get('Authorization'),routes[route])
+                if route=='/api/v1/alerts':result=app.gateway.alerts_feed(before=int(params['before'][0]) if params.get('before') else None)
+                elif route=='/api/v1/alerts/action':result=app.gateway.update_alert(body,actor='api:'+key['id'])
+                elif route=='/api/v1/cases':result=app.cases.feed()
+                elif route=='/api/v1/ueba':result=app.ueba_view({'role':'analyst'},params.get('subject',['lab-001'])[0])
+                elif route=='/api/v1/cases/action':
+                    result=app.cases.action(body,actor='api:'+key['id'])
+                elif route=='/api/v1/telemetry':
+                    with app.guard:
+                        result=app.integrations.ingest(body,key,{d['id'] for d in DOCUMENTS})
+                        for uid in key['subjects']:app.capture_case(uid)
+                else:
+                    after=int(params.get('after',['0'])[0]);limit=int(params.get('limit',['100'])[0])
+                    if after<0 or not 1<=limit<=100:raise ValueError('Bounded cursor/limit required')
+                    with app.cases.db() as c:
+                        c.execute('BEGIN');generation=c.execute("SELECT value FROM behavior_case_meta WHERE key='generation'").fetchone()[0]
+                        if ('generation' not in params and after) or int(params.get('generation',[str(generation)])[0])!=generation:raise Conflict('Case generation changed; restart from after=0')
+                        rows=c.execute('SELECT h.rowid cursor,h.payload_json,b.subject_id FROM behavior_case_history h JOIN behavior_cases b USING(case_id) WHERE h.rowid>? ORDER BY h.rowid LIMIT ?',(after,limit)).fetchall()
+                    items=[]
+                    for row in rows:
+                        p=json.loads(row['payload_json']);snap=p.get('snapshot',{})
+                        items.append({'cursor':row['cursor'],'case_id':p['case_id'],'subject_id':row['subject_id'],'revision':p['revision'],'action':p['action'],'actor':p['actor'],'at':p['at'],'priority':snap.get('priority',p.get('current_live_priority')),'channels':snap.get('channels',[]),'source_count':len(snap.get('trigger_source_ids',[]))})
+                    result={'items':items,'generation':generation,'next_cursor':items[-1]['cursor'] if items else after,'delivery':'Consumer checkpoints only after processing; retry same cursor for at-least-once consumption'}
+                return self.respond(200,result)
+            except AuthError:return self.respond(401,{'error':'Valid scoped bearer key required'})
+            except PermissionError as e:return self.respond(403,{'error':str(e)})
+            except RateLimit as e:return self.respond(429,{'error':str(e)})
+            except (Conflict,CaseConflict,AlertConflict) as e:return self.respond(409,{'error':str(e)})
+            except (ValueError,KeyError,TypeError) as e:return self.respond(400,{'error':str(e)})
 
         def do_GET(self):
             if not self.local_origin():
                 return self.respond(403, {'error':'Loopback origin required'})
+            path_check=urllib.parse.urlparse(self.path)
+            if path_check.path.startswith('/api/v1/'):return self.machine(path_check)
             session_id, session, fresh = self.session()
             path = urllib.parse.urlparse(self.path)
             cookie = session_id if fresh else None
             try:
+                if path.path=='/auth/login' and app.oidc:
+                    with app.guard:url=app.oidc.begin(session_id)
+                    return self.redirect(url,session_id)
+                if path.path=='/auth/callback' and app.oidc:
+                    with app.guard:
+                        identity,claims=app.oidc.finish(urllib.parse.parse_qs(path.query),session_id)
+                        new_id,new_session=app.new_session(identity);new_session.update(principal=claims['iss']+'|'+claims['sub'],expires_at=claims['exp'])
+                        app.sessions.pop(session_id,None)
+                    return self.redirect('/',new_id)
+                if app.oidc and path.path.startswith('/api/') and session['role']=='unauthenticated':return self.respond(401,{'error':'SSO login required','login_url':'/auth/login'},cookie=cookie)
+                if path.path=='/api/integrations/keys':
+                    if session['role']!='analyst':raise PermissionError('Analyst required')
+                    return self.respond(200,{'keys':app.integrations.listing(),'sso_enabled':bool(app.oidc)},cookie=cookie)
                 if path.path == "/api/state":
                     return self.respond(200, app.view(session), cookie=cookie)
                 if path.path == '/api/alerts':
@@ -487,7 +557,7 @@ def handler_for(app):
                     return self.respond(200, doc | {'metadata': app.gateway.catalog_labels()[doc_id]}, cookie=cookie)
                 if path.path == "/health":
                     return self.respond(200, {"status": "ok", "product":"SEDRA", "mode": "local_lab", "build_version":__version__, "model_version": app.snapshot.get("model_version")})
-                allowed = {"/": "index.html", "/index.html": "index.html", "/app.js": "app.js", "/alerts.js":"alerts.js", "/ueba.js":"ueba.js", "/endpoint.js":"endpoint.js", "/cases.js":"cases.js", "/style.css": "style.css", "/sedra.css": "sedra.css",
+                allowed = {"/": "index.html", "/index.html": "index.html", "/app.js": "app.js", "/alerts.js":"alerts.js", "/ueba.js":"ueba.js", "/endpoint.js":"endpoint.js", "/cases.js":"cases.js", "/openapi.json":"openapi.json", "/integrations":"integrations.html", "/integrations.js":"integrations.js", "/style.css": "style.css", "/sedra.css": "sedra.css",
                            '/portal':'portal.html', '/portal/':'portal.html', '/portal.js':'portal.js', '/portal.css':'portal.css'}
                 if path.path not in allowed:
                     return self.respond(404, {"error": "Not found"})
@@ -511,7 +581,16 @@ def handler_for(app):
             raw_body = self.rfile.read(length)
             if not self.local_origin():
                 return self.respond(403, {'error':'Loopback origin required'})
+            route_check=urllib.parse.urlparse(self.path)
+            if route_check.path.startswith('/api/v1/'):
+                try:
+                    if self.headers.get('Content-Type','').split(';')[0]!='application/json':raise ValueError('JSON required')
+                    body=json.loads(raw_body)
+                    if not isinstance(body,dict):raise ValueError('Object required')
+                except (ValueError,TypeError):return self.respond(400,{'error':'Valid JSON object required'})
+                return self.machine(route_check,body)
             session_id, session, fresh = self.session()
+            if app.oidc and session['role']=='unauthenticated':return self.respond(401,{'error':'SSO login required'})
             if fresh or not hmac.compare_digest(self.headers.get("X-CSRF-Token", "").encode(), session["csrf_token"].encode()):
                 return self.respond(403, {"error": "Valid session and CSRF token required; refresh the workbench"})
             if self.headers.get("Content-Type", "").split(";")[0].strip() != "application/json":
@@ -521,7 +600,15 @@ def handler_for(app):
                 if not isinstance(body, dict):
                     raise ValueError("A JSON object is required")
                 route = urllib.parse.urlparse(self.path).path
+                if route=='/api/integrations/keys':
+                    if session['role']!='analyst':raise PermissionError('Analyst required')
+                    if body.get('action')=='revoke' and set(body)=={'action','id'}:return self.respond(200,app.integrations.revoke(body['id']))
+                    return self.respond(200,app.integrations.create(body,app.subjects))
+                if route=='/api/logout':
+                    with app.guard:app.sessions.pop(session_id,None)
+                    return self.respond(200,{'logged_out':True})
                 if route == "/api/session":
+                    if app.oidc:raise PermissionError('Demo identity switching is disabled in SSO mode')
                     identity = body.get("identity")
                     if identity not in ("analyst", "lab-001", "lab-002"):
                         raise ValueError("Choose a declared laboratory identity")

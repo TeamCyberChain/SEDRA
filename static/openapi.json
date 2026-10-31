@@ -1,0 +1,411 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SEDRA scoped integration API",
+    "version": "0.10.0",
+    "description": "Loopback prototype. See docs/INTEGRATIONS.md for cursor, authorization and evidence contracts."
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8765"
+    }
+  ],
+  "paths": {
+    "/api/v1/alerts": {
+      "get": {
+        "summary": "alerts:read /alerts",
+        "x-required-scope": "alerts:read",
+        "security": [
+          {
+            "bearerKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid schema"
+          },
+          "401": {
+            "description": "Invalid/expired/revoked key"
+          },
+          "403": {
+            "description": "Scope or subject denied"
+          },
+          "409": {
+            "description": "Revision, source-fact or generation conflict"
+          },
+          "429": {
+            "description": "Per-key quota exceeded"
+          }
+        },
+        "parameters": [
+          {
+            "name": "before",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Older alert sequence cursor"
+          }
+        ]
+      }
+    },
+    "/api/v1/alerts/action": {
+      "post": {
+        "summary": "alerts:write /alerts/action",
+        "x-required-scope": "alerts:write",
+        "security": [
+          {
+            "bearerKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid schema"
+          },
+          "401": {
+            "description": "Invalid/expired/revoked key"
+          },
+          "403": {
+            "description": "Scope or subject denied"
+          },
+          "409": {
+            "description": "Revision, source-fact or generation conflict"
+          },
+          "429": {
+            "description": "Per-key quota exceeded"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewAction"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases": {
+      "get": {
+        "summary": "cases:read /cases",
+        "x-required-scope": "cases:read",
+        "security": [
+          {
+            "bearerKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid schema"
+          },
+          "401": {
+            "description": "Invalid/expired/revoked key"
+          },
+          "403": {
+            "description": "Scope or subject denied"
+          },
+          "409": {
+            "description": "Revision, source-fact or generation conflict"
+          },
+          "429": {
+            "description": "Per-key quota exceeded"
+          }
+        }
+      }
+    },
+    "/api/v1/cases/changes": {
+      "get": {
+        "summary": "cases:read /cases/changes",
+        "x-required-scope": "cases:read",
+        "security": [
+          {
+            "bearerKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid schema"
+          },
+          "401": {
+            "description": "Invalid/expired/revoked key"
+          },
+          "403": {
+            "description": "Scope or subject denied"
+          },
+          "409": {
+            "description": "Revision, source-fact or generation conflict"
+          },
+          "429": {
+            "description": "Per-key quota exceeded"
+          }
+        },
+        "parameters": [
+          {
+            "name": "after",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Last processed cursor; first call 0"
+          },
+          {
+            "name": "generation",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Required with nonzero cursor; reset on generation conflict"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Page size 1\u2013100; default 100"
+          }
+        ]
+      }
+    },
+    "/api/v1/cases/action": {
+      "post": {
+        "summary": "cases:write /cases/action",
+        "x-required-scope": "cases:write",
+        "security": [
+          {
+            "bearerKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid schema"
+          },
+          "401": {
+            "description": "Invalid/expired/revoked key"
+          },
+          "403": {
+            "description": "Scope or subject denied"
+          },
+          "409": {
+            "description": "Revision, source-fact or generation conflict"
+          },
+          "429": {
+            "description": "Per-key quota exceeded"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewAction"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ueba": {
+      "get": {
+        "summary": "ueba:read /ueba",
+        "x-required-scope": "ueba:read",
+        "security": [
+          {
+            "bearerKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid schema"
+          },
+          "401": {
+            "description": "Invalid/expired/revoked key"
+          },
+          "403": {
+            "description": "Scope or subject denied"
+          },
+          "409": {
+            "description": "Revision, source-fact or generation conflict"
+          },
+          "429": {
+            "description": "Per-key quota exceeded"
+          }
+        },
+        "parameters": [
+          {
+            "name": "subject",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Known realm actor; default lab-001"
+          }
+        ]
+      }
+    },
+    "/api/v1/telemetry": {
+      "post": {
+        "summary": "telemetry:write /telemetry",
+        "x-required-scope": "telemetry:write",
+        "security": [
+          {
+            "bearerKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid schema"
+          },
+          "401": {
+            "description": "Invalid/expired/revoked key"
+          },
+          "403": {
+            "description": "Scope or subject denied"
+          },
+          "409": {
+            "description": "Revision, source-fact or generation conflict"
+          },
+          "429": {
+            "description": "Per-key quota exceeded"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Telemetry"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerKey": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "SEDRA scoped API key"
+      }
+    },
+    "schemas": {
+      "Telemetry": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "events"
+        ],
+        "properties": {
+          "events": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "event_id",
+                "subject_id",
+                "occurred_at",
+                "kind",
+                "doc_id"
+              ],
+              "properties": {
+                "event_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "subject_id": {
+                  "type": "string"
+                },
+                "occurred_at": {
+                  "type": "number",
+                  "description": "UTC epoch seconds, preceding 30 minutes"
+                },
+                "kind": {
+                  "const": "protected_document_access"
+                },
+                "doc_id": {
+                  "type": "string",
+                  "enum": [
+                    "araz-plan",
+                    "isiq-research",
+                    "restricted-runbook",
+                    "public-note"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "ReviewAction": {
+        "type": "object",
+        "description": "Closed server schema; use case_id for cases, alert_id for alerts. Resolution disposition is mandatory only for RESOLVE.",
+        "properties": {
+          "case_id": {
+            "type": "string"
+          },
+          "alert_id": {
+            "type": "string"
+          },
+          "action_id": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 100
+          },
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "READ",
+              "ACKNOWLEDGE",
+              "RESOLVE",
+              "REOPEN"
+            ]
+          },
+          "disposition": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action_id",
+          "expected_revision",
+          "action"
+        ]
+      }
+    }
+  }
+}

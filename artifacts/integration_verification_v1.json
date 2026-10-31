@@ -1,0 +1,23 @@
+{
+  "executed_at_utc": "2026-10-31T16:47:40.539685+00:00",
+  "full_suite": "artifacts/test_summary.json",
+  "targeted_integration_tests": 8,
+  "additional_adversarial_oidc_recheck_tests": 2,
+  "successful": true,
+  "transport": "Actual loopback HTTP clients, local RSA-signed OIDC issuer/token/JWKS endpoints and real SQLite persistence",
+  "verified": [
+    "scope/subject isolation",
+    "key hashing, listing secrecy, expiry, revocation, persistence, rate budget",
+    "closed schemas, timestamps, atomic conflict rollback",
+    "deduplication across key rotation",
+    "external reports change UEBA and open independent case",
+    "generation-aware change consumption",
+    "scoped attributed idempotent revision-checked SOAR actions",
+    "PKCE code exchange, browser state, nonce, issuer, audience, signature, expiry, subject binding, local logout",
+    "UI key issue/revoke; secret cleared",
+    "core works without optional SSO dependencies"
+  ],
+  "external_company_idp_connected": false,
+  "external_soar_connected": false,
+  "no_secrets_exported": true
+}

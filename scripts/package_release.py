@@ -26,7 +26,7 @@ def selected_files():
             if re.match(r'SEDRA_Final_EN_v\d+\.pptx$',path.name):continue
             if path.name=='python_version_guard.txt':continue
             files.append(path)
-    for name in ['README.md','AI_ASSISTANCE.md','THIRD_PARTY_NOTICES.md','requirements.txt','pyproject.toml','package.json',
+    for name in ['README.md','AI_ASSISTANCE.md','THIRD_PARTY_NOTICES.md','requirements.txt','requirements-sso.txt','pyproject.toml','package.json',
                  '.gitignore','.gitattributes','SECURITY.md','CHANGELOG.md','REVIEW_START.md','Start-SEDRA.cmd','Setup-SEDRA.cmd','Resume-CERT-Research.cmd','Setup-Local-AI.cmd','Start-Local-AI.cmd']:
         files.append(ROOT/name)
     return sorted(set(files))

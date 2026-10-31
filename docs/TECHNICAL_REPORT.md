@@ -1,6 +1,10 @@
-# SEDRA 0.9 technical report
+# SEDRA 0.10 technical report
 
 Team CyberChain · Digital Challenge Azerbaijan 2026 · Topic 6 · 31 October 2026 development review snapshot.
+
+## Identity and integration update
+
+The current release adds optional OIDC Code/PKCE with strict RS256 verification and explicit subject bindings, plus scoped machine keys and versioned SOAR APIs. Authenticated external access reports can drive UEBA while retaining an external-report origin. Full operating contracts, setup and tested limits are in INTEGRATIONS.md. Tests use an actual loopback issuer and HTTP clients, not a configured company IdP or external SOAR tenant. Production identity/retention, collector attestation and externally exposed deployment remain separate work.
 
 ## Problem and implemented result
 

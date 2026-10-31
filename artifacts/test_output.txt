@@ -126,6 +126,14 @@ test_registered_public_phrase_is_candidate_not_protected_evidence (test_gateway.
 test_repeated_phrase_in_source_does_not_double_matched_coverage (test_gateway.MatchingContractTests.test_repeated_phrase_in_source_does_not_double_matched_coverage) ... ok
 test_three_tokens_have_separate_anchored_evidence (test_gateway.MatchingContractTests.test_three_tokens_have_separate_anchored_evidence) ... ok
 test_tr39_confusable_resolves_to_same_source_evidence (test_gateway.MatchingContractTests.test_tr39_confusable_resolves_to_same_source_evidence) ... ok
+test_atomic_batch_rejects_conflict_subject_spoof_future_and_score (test_integrations.IntegrationHTTPTests.test_atomic_batch_rejects_conflict_subject_spoof_future_and_score) ... ok
+test_employee_and_missing_csrf_cannot_issue_keys (test_integrations.IntegrationHTTPTests.test_employee_and_missing_csrf_cannot_issue_keys) ... ok
+test_expiry_persistence_and_rate_budget (test_integrations.IntegrationHTTPTests.test_expiry_persistence_and_rate_budget) ... ok
+test_real_http_telemetry_changes_ueba_without_client_score_and_deduplicates (test_integrations.IntegrationHTTPTests.test_real_http_telemetry_changes_ueba_without_client_score_and_deduplicates) ... ok
+test_scope_revocation_no_cookie_fallback_and_secrets_not_listed (test_integrations.IntegrationHTTPTests.test_scope_revocation_no_cookie_fallback_and_secrets_not_listed) ... ok
+test_soar_case_actions_are_scoped_revision_checked_and_attributed (test_integrations.IntegrationHTTPTests.test_soar_case_actions_are_scoped_revision_checked_and_attributed) ... ok
+test_real_code_pkce_signed_id_token_cookie_rotation_and_no_demo_switch (test_integrations.OIDCTests.test_real_code_pkce_signed_id_token_cookie_rotation_and_no_demo_switch) ... ok
+test_wrong_nonce_issuer_audience_signature_algorithm_and_unknown_subject_fail (test_integrations.OIDCTests.test_wrong_nonce_issuer_audience_signature_algorithm_and_unknown_subject_fail) ... ok
 test_analyst_can_restore_controlled_floor_without_weakening_fixed_restricted (test_labels.GovernedLabelTests.test_analyst_can_restore_controlled_floor_without_weakening_fixed_restricted) ... ok
 test_closed_schema_rejects_untrusted_tags_and_fields (test_labels.GovernedLabelTests.test_closed_schema_rejects_untrusted_tags_and_fields) ... ok
 test_floors_and_public_exclusions_cannot_be_weakened (test_labels.GovernedLabelTests.test_floors_and_public_exclusions_cannot_be_weakened) ... ok
@@ -184,6 +192,6 @@ test_request_ledger_drives_blocks_even_if_secondary_audit_event_is_missing (test
 test_scopes_no_new_endpoint_ingestion_and_masked_evidence (test_ueba.UEBAHTTPTests.test_scopes_no_new_endpoint_ingestion_and_masked_evidence) ... ok
 
 ----------------------------------------------------------------------
-Ran 184 tests in 45.886s
+Ran 192 tests in 97.465s
 
 OK

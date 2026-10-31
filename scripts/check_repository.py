@@ -16,7 +16,7 @@ def main():
         'docs/REVIEWER_GUIDE.md','.github/workflows/verify.yml','sedra/behavior_cases.py']
     for name in required:
         if name not in names:problems.append({'path':name,'reason':'required review file missing'})
-    patterns=[('OpenAI key',re.compile(r'\bsk-(?:(?:proj|svcacct)-)?[A-Za-z0-9_-]{32,}')),
+    patterns=[('SEDRA machine key',re.compile(r'sedra_k_[0-9a-f]{16}\.[A-Za-z0-9_-]{40,}')),('OpenAI key',re.compile(r'\bsk-(?:(?:proj|svcacct)-)?[A-Za-z0-9_-]{32,}')),
         ('GitHub token',re.compile(r'\b(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,})'))]
     for name in names:
         p=Path(name)
