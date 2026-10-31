@@ -1,0 +1,13 @@
+{
+  "recorded_at_utc": "2026-10-31T12:43:05.781299+00:00",
+  "python_compilation": "passed",
+  "frontend_syntax": "passed",
+  "browser_visual_qa": "Overview, Investigation, Transfer Lab, local AI portal and offline slide navigation manually checked",
+  "tests_artifact": "artifacts/test_summary.json",
+  "live_http_artifact": "artifacts/live_smoke.json",
+  "fresh_offline_environment_artifact": "artifacts/offline_clean_smoke.json",
+  "presentation_artifact": "artifacts/presentation_verification.json",
+  "local_ai_browser_artifact": "artifacts/local_ai_live_smoke.json",
+  "local_ai_http_artifact": "artifacts/local_ai_http_smoke.json",
+  "production_systems_touched": false
+}

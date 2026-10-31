@@ -1,0 +1,32 @@
+{
+  "recorded_at_utc": "2026-10-31T12:43:05.781299+00:00",
+  "target": "Windows amd64 / CPython 3.12",
+  "network_free_install_verified": true,
+  "wheels": [
+    {
+      "file": "joblib-1.5.3-py3-none-any.whl",
+      "bytes": 309071,
+      "sha256": "5fc3c5039fc5ca8c0276333a188bbd59d6b7ab37fe6632daa76bc7f9ec18e713"
+    },
+    {
+      "file": "numpy-2.3.5-cp312-cp312-win_amd64.whl",
+      "bytes": 12782922,
+      "sha256": "86945f2ee6d10cdfd67bcb4069c1662dd711f7e2a4343db5cecec06b87cf31aa"
+    },
+    {
+      "file": "scikit_learn-1.8.0-cp312-cp312-win_amd64.whl",
+      "bytes": 8019359,
+      "sha256": "35c007dedb2ffe38fe3ee7d201ebac4a2deccd2408e8621d53067733e3c74809"
+    },
+    {
+      "file": "scipy-1.17.0-cp312-cp312-win_amd64.whl",
+      "bytes": 36328121,
+      "sha256": "0937a0b0d8d593a198cededd4c439a0ea216a3f36653901ea1f3e4be949056f8"
+    },
+    {
+      "file": "threadpoolctl-3.6.0-py3-none-any.whl",
+      "bytes": 18638,
+      "sha256": "43a0b8fd5a2928500110039e43a5eed8480b918967083ea48dc3ab9f13c4a7fb"
+    }
+  ]
+}

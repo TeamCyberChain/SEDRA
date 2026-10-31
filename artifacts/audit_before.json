@@ -1,0 +1,74 @@
+{
+  "restricted_three_words": {
+    "decision": "ALLOW",
+    "reason_codes": [
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  },
+  "restricted_two_words": {
+    "decision": "ALLOW",
+    "reason_codes": [
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  },
+  "inserted_words": {
+    "decision": "ALLOW",
+    "reason_codes": [
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  },
+  "cyrillic_homoglyph": {
+    "decision": "ALLOW",
+    "reason_codes": [
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  },
+  "reversed_order": {
+    "decision": "ALLOW",
+    "reason_codes": [
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  },
+  "aws_access_id": {
+    "decision": "ALLOW",
+    "reason_codes": [
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  },
+  "pem_private": {
+    "decision": "ALLOW",
+    "reason_codes": [
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  },
+  "card_luhn": {
+    "decision": "ALLOW",
+    "reason_codes": [
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  },
+  "az_iban": {
+    "decision": "ALLOW",
+    "reason_codes": [
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  },
+  "spaced_secret": {
+    "decision": "ALLOW",
+    "reason_codes": [
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  },
+  "base64_secret": {
+    "decision": "ALLOW",
+    "reason_codes": [
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  },
+  "benign_public": {
+    "decision": "ALLOW",
+    "reason_codes": [
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  }
+}

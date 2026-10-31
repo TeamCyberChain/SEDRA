@@ -1,0 +1,125 @@
+{
+  "archive": "r4.2.tar.bz2",
+  "members": [
+    {
+      "archive_member": "r4.2/file.csv",
+      "local_path": "file.csv",
+      "bytes": 193055265,
+      "sha256": "637281bd6d8947b2cccf90bca7096e8cfad711eab1e425c61f886b0e4edfda7f"
+    },
+    {
+      "archive_member": "r4.2/readme.txt",
+      "local_path": "release-README.txt",
+      "bytes": 6613,
+      "sha256": "104d7f5cd8c3c7559439a3ccff96989ad008437a61daed189982777a8e2b9760"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2011-03.csv",
+      "local_path": "LDAP/2011-03.csv",
+      "bytes": 128969,
+      "sha256": "cbc4d943ab74f747c13e20f1d791d53f9fa81ac0457b8f73e4842299d3ffcecb"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2010-11.csv",
+      "local_path": "LDAP/2010-11.csv",
+      "bytes": 136363,
+      "sha256": "80b0759e7289b5ab0aa2d860cb3e0a844a749085b2abf8b9c07164eb00567ef6"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2011-04.csv",
+      "local_path": "LDAP/2011-04.csv",
+      "bytes": 127277,
+      "sha256": "84e4fa9dda9ccece9b4f952d2a8663d52fc4beab58c61bdf8e1072c521ab8e4d"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2010-07.csv",
+      "local_path": "LDAP/2010-07.csv",
+      "bytes": 144625,
+      "sha256": "c89a9a16d8e67c1cd3e49ac502c5a50fa25b771030010531f62fbbd6a6ebd548"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2010-09.csv",
+      "local_path": "LDAP/2010-09.csv",
+      "bytes": 140493,
+      "sha256": "abd85c31572322a10cd2687362ab50577c7bec2d46f182761d6302426eb0225e"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2011-05.csv",
+      "local_path": "LDAP/2011-05.csv",
+      "bytes": 127120,
+      "sha256": "bf746f99568d10123304023fe84fa19bb4db6505b94368b1596c998be39d28d1"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2011-02.csv",
+      "local_path": "LDAP/2011-02.csv",
+      "bytes": 130614,
+      "sha256": "636055106abd85b8cab306948964c7fe7f73a12ca5c78e28773fbb75eeb01f13"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2010-10.csv",
+      "local_path": "LDAP/2010-10.csv",
+      "bytes": 138106,
+      "sha256": "35fb24b0a30a332d5dcb16c8e35a53975c88f9c0e9a1a086686056f5fdca94bd"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2010-08.csv",
+      "local_path": "LDAP/2010-08.csv",
+      "bytes": 142475,
+      "sha256": "0ee7aecd3715c943e9e4f4cc8f54db68c40b92d8d65b9cbbb2c8160014aa9e2e"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2010-01.csv",
+      "local_path": "LDAP/2010-01.csv",
+      "bytes": 150609,
+      "sha256": "62141725b98f301680678142fde1219fca124d817583e00c6c5952ee67504a06"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2010-06.csv",
+      "local_path": "LDAP/2010-06.csv",
+      "bytes": 145683,
+      "sha256": "39e37bb971c5d609d3a1c05c37f9790646c0444dff819130d2be7a9b10ca55fb"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2010-05.csv",
+      "local_path": "LDAP/2010-05.csv",
+      "bytes": 146599,
+      "sha256": "627fa561284eab52b0f69868787912a7cf34703753c099f1ec52c740b600417f"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2010-02.csv",
+      "local_path": "LDAP/2010-02.csv",
+      "bytes": 148860,
+      "sha256": "1b1ed17b228b141638e5a1b6a07cb8a06f2a6614e45fd4aef582cb4aeca8f87f"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2011-01.csv",
+      "local_path": "LDAP/2011-01.csv",
+      "bytes": 132131,
+      "sha256": "bc7bb211459be62f090d4d02dbaa441acaca11584c9b4e9c09560709557bfcea"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2010-03.csv",
+      "local_path": "LDAP/2010-03.csv",
+      "bytes": 147778,
+      "sha256": "a83fe140467b98d368c89e7fbfea0f0c924313f3ae1b91c6e9244132b23e2a5c"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2010-04.csv",
+      "local_path": "LDAP/2010-04.csv",
+      "bytes": 147493,
+      "sha256": "09810689b160dc8470b6b3b6d4b37b39d5667bfc25b99ddf949de0f1b6c259aa"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2009-12.csv",
+      "local_path": "LDAP/2009-12.csv",
+      "bytes": 150609,
+      "sha256": "62141725b98f301680678142fde1219fca124d817583e00c6c5952ee67504a06"
+    },
+    {
+      "archive_member": "r4.2/LDAP/2010-12.csv",
+      "local_path": "LDAP/2010-12.csv",
+      "bytes": 133904,
+      "sha256": "e50f80fa45032ab2147b33306146547d644a76b9d96325ffa81fa080b63b5c95"
+    }
+  ]
+}

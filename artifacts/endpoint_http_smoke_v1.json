@@ -1,0 +1,32 @@
+{
+  "executed_at_utc": "2026-10-31T14:39:28.173659+00:00",
+  "successful": true,
+  "scope": "Isolated real Windows current-identity collector, owned Python process, 10 real synthetic lab file creations and loopback HTTP; no external AI or real USB/authentication generated",
+  "endpoint_before": 0,
+  "endpoint_after": 90,
+  "observed_file_changes": 10,
+  "cim_owned_process_observed": true,
+  "historical_self_session_records": 10,
+  "collector_coverage": {
+    "security": "no_matching_events_or_unavailable",
+    "session_log": "readable_current_identity_only",
+    "usb": "connected_presence_polling_no_contents_read",
+    "process": "connected_server_child_processes_only",
+    "files": "connected_scoped_metadata_polling"
+  },
+  "before_decision": "ALLOW",
+  "after_decision": "BLOCK",
+  "thresholds": [
+    0.2,
+    0.1
+  ],
+  "same_original_payload_sha256": "0de38d16187a5dec42f1bc6bd7e53f7927eeded858d98a8d4b57ee95de04f0bb",
+  "endpoint_context_frozen": true,
+  "alert_created": true,
+  "public_negative_control": "ALLOW",
+  "receiver_receipts": 2,
+  "employee_control_http": 403,
+  "missing_csrf_http": 403,
+  "physical_usb_tested": false,
+  "privacy": "Only aggregate outcomes exported; real Windows event records, identity fingerprints and sensor salt remain private runtime data"
+}

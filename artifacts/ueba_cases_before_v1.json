@@ -1,0 +1,9 @@
+{
+  "scope": "Isolated integrity fixtures, not live Windows events",
+  "unrelated_process_plus_same_file_modifications_score": 90,
+  "same_file_observations": 8,
+  "distinct_files": 1,
+  "duplicate_advanced_sqlite_sequence": true,
+  "independent_behavior_case_queue": false,
+  "frozen_policy_counterfactual_endpoint": false
+}

@@ -1,0 +1,7 @@
+{
+  "version_before": "0.4.0",
+  "blocked_requests_recorded": 9,
+  "alert_endpoint_status": 404,
+  "dedicated_alert_workflow_present": false,
+  "scope": "Read-only check of the local prototype before alert implementation"
+}

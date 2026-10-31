@@ -1,0 +1,199 @@
+Portable transcription of the supplied invitation and rules. Recipient address omitted; rule text preserved.
+
+SOURCE: Gmail - Digital Challenge Azerbaijan - Cyber Hackathon - DƏVƏT və İLKİN QAYDALAR.PDF
+PAGES: 4
+
+--- PAGE 1 ---
+Digital Challenge Azerbaijan - Cyber Hackathon - DƏVƏT və İLKİN QAYDALAR
+1 message
+
+AKM Info <akm.info@idda.az>                                                                             Thu, Oct 29, 2026 at 14:29
+
+  Hörmətli yarışçı,
+
+
+  Sizə məmnuniyyətlə bildiririk ki, Digital Challenge Azerbaijan yarışı çərçivəsində Azərbaycan Kibertəhlükəsizlik
+  Mərkəzinin İsrailin Technion Universiteti ilə əməkdaşlıq çərçivəsində təşkil etdiyi Cyber Hackathon
+ mərhələsində iştirak etmək üçün komandanız ilk 10-a seçilmişdir.
+
+  Sizi bu münasibətlə təbrik edir və qarşıdakı yarışda uğurlar arzulayırıq!
+
+  1. Cyber Hackathon mərhələsi haqqında ümumi məlumat
+
+      Mərhələnin adı: Cyber Hackathon
+
+       Yarışın formatı: MVP yaratmaq üçün yarış
+
+        İştirak formatı: Azərbaycan Kibertəhlükəsizlik Mərkəzində, Mərkəz tərəfindən təmin edilən kompüterlər
+      və ya öz komputerləriniz ilə vasitəsilə
+
+       Yarışın dili: İngilis dili
+       Yarışın müddəti: 31 oktyabr 2026-cı il saat 08:30-dan 22:00-dək // 01 noyabr 2026-cı il saat 08:00-dan
+       18:30-dək
+
+  Yarış Azərbaycan Kibertəhlükəsizlik Mərkəzi tərəfindən xüsusi olaraq hazırlanmış unikal texniki mühitdə
+  keçiriləcəkdir. İştirak yalnız Mərkəzdə fiziki olaraq iştirak etdiyiniz halda etibarlı hesab olunur.
+
+  2. Ünvan
+
+  Bakı şəhəri, Nizami rayonu, Heydər Əliyev prospekti 152, Çinar Plaza, 27-ci mərtəbə.
+
+  3. Tarix və vaxt
+
+  3.1. Yarışın birinci günü:
+
+        Tarix: 31 oktyabr 2026-cı il
+
+       Qeydiyyatın başlanması: 08:30
+
+        İştirakçılar üçün giriş və qaydaların izahı: 09:15-09:30
+
+       Yarışın başlanması: 09:30
+
+       Yarışın birinci günün başa çatması: 22:00
+
+  3.2. Yarışın ikinci günü:
+
+        Tarix: 01 noyabr 2026-cı il
+
+       Yarışın başlanması: 08:00
+
+       Yarışın birinci günün başa çatması: 18:30
+
+--- PAGE 2 ---
+İştirakçıların yarışın birinci günü qeydiyyat üçün saat 08:30-da, yarışın ikinci gün isə 08:00-da Mərkəzdə
+olmaları tələb olunur. Gecikmə yarışa buraxılmamaqla nəticələnə bilər.
+
+QEYD: Yarış zamanı detallı Agenda sizinlə paylaşılacaq.
+
+4. İştirak və təhlükəsizlik qaydaları
+
+Cyber Hackathon yarışının şəffaflığını, ədalətliliyini, informasiya təhlükəsizliyini və bütün iştirakçılar üçün
+bərabər şəraitin təmin edilməsini məqsədilə aşağıdakı qaydalara riayət olunması məcburidir:
+
+   1. Şəxsiyyətin təsdiqi: Hər bir iştirakçı yarış başlamazdan əvvəl şəxsiyyətini təsdiq edən sənədi təqdim
+      etməlidir. Şəxsiyyət vəsiqəsi, sürücülük vəsiqəsi və ya myGov tətbiqində mövcud olan müvafiq rəqəmsal
+     sənəd qəbul edilir.
+
+   2. Komanda tərkibi və iştirakı: İştirakçılar təsdiq edilmiş komanda tərkibinə uyğun olaraq yarışda iştirak
+      etməlidirlər. Komanda üzvünün iştirak etməməsi, yarışa gec qoşulması və ya yarış zamanı ayrılması ilə
+      bağlı hallar təşkilatçılar tərəfindən qiymətləndirilir. Belə hallar avtomatik olaraq əlavə bal, vaxt güzəşti və
+     ya digər qiymətləndirmə üstünlüyü əldə etmək hüququ yaratmır.
+
+   3. Komanda işi və müstəqillik: Komandalar tapşırıqları öz üzvlərinin bilik və bacarıqları əsasında həll
+      etməlidirlər. Digər komandalardan, kənar şəxslərdən və yarışda iştirak etməyən mütəxəssislərdən
+      tapşırıqların həllinə yönəlmiş icazəsiz yardım almaq, həll yollarını və məxfi məlumatları paylaşmaq,
+     habelə başqa komandanın işinə müdaxilə etmək qadağandır. Təşkilatçılar və mentorlar tərəfindən
+      verilən dəstək yalnız müəyyən edilmiş çərçivədə və bütün komandalar üçün tətbiq olunan qaydalara
+     uyğun həyata keçirilə bilər.
+
+   4. Texniki mühit və avadanlıqlardan istifadə: İştirakçılar təşkilatçılar tərəfindən təqdim edilmiş və ya
+     əvvəlcədən istifadəsinə icazə verilmiş texniki vasitələrdən istifadə etməlidirlər. Mərkəzin təqdim etdiyi
+     kompüterlərdə və ya şəxsi kompüterlərinizdən istifadə etməklə iştirak edə bilərsiniz.
+
+   5. İnformasiya təhlükəsizliyi və icazəli fəaliyyət: İştirakçılar yalnız Cyber Hackathon üçün ayrılmış texniki
+     mühitdə və icazə verilmiş sistemlər, resurslar və hədəflər üzərində fəaliyyət göstərə bilərlər. Yarış
+     mühitindən kənar sistemlərə icazəsiz müdaxilə etmək, digər komandaların resurslarına və
+     məlumatlarına çıxış əldə etməyə çalışmaq, yarış infrastrukturunun fəaliyyətinə mane olmaq,
+      təhlükəsizlik nəzarətlərini icazəsiz keçmək və yarışın normal gedişinə təsir göstərə biləcək hərəkətlər
+     etmək qadağandır.
+
+   6. Süni intellekt və xarici resurslardan istifadə: Süni intellekt alətlərindən, internet resurslarından, açıq
+     mənbəli proqram təminatından, kitabxanalardan və digər xarici vasitələrdən istifadə mümkündür.
+      İstifadəsinə icazə verilən vasitələrdən əldə olunan nəticələrə görə məsuliyyət komandanın üzərinə düşür.
+       İştirakçılar təqdim etdikləri həllərin işləmə prinsiplərini izah edə və onların hazırlanmasında istifadə
+     olunan yanaşmaları əsaslandıra bilməlidirlər.
+
+   7. Nəzarət və monitorinq: Yarış müddətində təşkilatçılar tərəfindən müəyyən edilmiş nəzarət və texniki
+     monitorinq mexanizmləri tətbiq edilə bilər. İştirakçılar yarışın təhlükəsizliyinin, şəffaflığının və qaydalara
+     uyğunluğunun yoxlanılması məqsədilə həyata keçirilən əsaslandırılmış nəzarət tədbirləri ilə əməkdaşlıq
+      etməlidirlər.
+
+   8. Mobil telefonlar və digər ağıllı cihazlar: Mobil telefonlardan, ağıllı saatlardan, planşetlərdən və digər
+     əlavə ağıllı cihazlardan istifadə qadağandır. İstifadəsi məhdudlaşdırılan cihazlar yarış başlamazdan
+      əvvəl müəyyən edilmiş qaydada təhvil verilməli və yarış başa çatdıqdan sonra geri qaytarılmalıdır. Zəruri
+     kommunikasiya və fövqəladə hallar üçün istisnalar yalnız təşkilatçıların icazəsi ilə mümkündür.
+
+   9. Şəxsi əşyalar və köməkçi materiallar: İştirakçılar yalnız istifadəsinə icazə verilmiş şəxsi əşyalardan və
+     köməkçi materiallardan istifadə edə bilərlər. Qeydlər, çap materialları, kalkulyatorlar və digər vasitələrin
+      istifadəsi təşkilatçıların müəyyən etdiyi tələblərə uyğun olmalıdır. İcazəsiz materiallardan istifadə
+     qadağandır.
+
+--- PAGE 3 ---
+  10. Layihə, kod və nəticələrin təqdim edilməsi: Komandalar hazırladıqları layihələri, mənbə kodlarını, texniki
+      sənədləri, təqdimatları və digər tələb olunan materialları müəyyən edilmiş müddətdə və formatda təqdim
+      etməlidirlər. Təqdim edilən həllər komandanın faktiki işini əks etdirməli, istifadə olunan xarici
+     komponentlər və süni intellekt vasitələri barədə məlumatlar tələb olunduqda açıqlanmalıdır. Başqa
+     komandalara məxsus işlərin mənimsənilməsi, nəticələrin saxtalaşdırılması və ya müəlliflik barədə yanlış
+    məlumat verilməsi qadağandır.
+
+  11. Texniki nasazlıqlar və fövqəladə hallar: Texniki nasazlıq, enerji və ya şəbəkə problemi, sağlamlıqla bağlı
+      çətinlik və digər fövqəladə vəziyyət yarandıqda iştirakçılar dərhal məsul təşkilatçıya məlumat
+      verməlidirlər. Vaxtın uzadılması, texniki fasilə və ya digər güzəştlər yalnız hadisənin
+     qiymətləndirilməsindən və təşkilatçıların qərarından sonra tətbiq edilə bilər. Fərdi texniki problemlər
+     avtomatik olaraq əlavə vaxt və ya qiymətləndirmə üstünlüyü yaratmır.
+
+  12. Qayda pozuntuları və məsuliyyət: Yarış qaydalarının pozulması, icazəsiz kənar müdaxilə, texniki mühitin
+      təhlükəsizliyinə xələl gətirilməsi və ya qiymətləndirmə prosesinə təsir göstərilməsi halları təşkilatçılar
+      tərəfindən araşdırılır. Pozuntunun xarakterindən və təsdiqlənmiş yarış qaydalarından asılı olaraq,
+      xəbərdarlıq, müvafiq tapşırıq üzrə nəticənin ləğvi, balın azaldılması, komandanın diskvalifikasiyası və ya
+      digər müvafiq tədbirlər tətbiq edilə bilər.
+
+5. Məxfilik, layihə nəticələri və növbəti mərhələyə keçid
+
+      Nəticələrin qiymətləndirilməsi: Komandaların nəticələri əvvəlcədən müəyyən edilmiş qiymətləndirmə
+     meyarları əsasında qiymətləndiriləcəkdir.
+
+     Növbəti mərhələyə keçid: Cyber Hackathon nəticələrindən asılı olmayaraq növbəti mərhələdə iştirak
+    hüququ qazanacaqsınız. Bu Mərhələdə yığdığınız bal Cyber War yarışının nəticələri ilə cəmlənəcəkdir.
+
+     Məxfi məlumatların qorunması: Yarış tapşırıqlarının, texniki infrastrukturun, giriş məlumatlarının, həll
+       yollarının, digər komandaların layihələrinin və təşkilatçılar tərəfindən məxfi hesab edilən digər
+     məlumatların icazəsiz paylaşılması və yayılması qadağandır.
+
+      Layihələrin və məlumatların istifadəsi: İştirakçılar təqdim etdikləri layihələrin üçüncü şəxslərin
+      hüquqlarını pozmamasını təmin etməli, istifadə etdikləri açıq mənbəli komponentlərin lisenziya
+      şərtlərinə riayət etməli və layihə materiallarının təqdim edilməsi ilə bağlı təşkilatçılar tərəfindən
+     əvvəlcədən elan edilmiş tələbləri yerinə yetirməlidirlər. Layihələrə dair müəlliflik hüquqları və sonrakı
+      istifadə şərtləri ayrıca müəyyən edilmiş qaydalarla tənzimlənir.
+
+     Foto və video çəkiliş: Yarışın işıqlandırılması, sənədləşdirilməsi və hesabatlılıq məqsədilə foto və video
+      çəkiliş həyata keçirilə bilər.
+
+    Geyim qaydası: Xüsusi geyim tələbi müəyyən edilmədiyi halda iştirakçılara rahat, səliqəli və tədbirin
+     işgüzar mühitinə uyğun geyim seçmək tövsiyə olunur.
+
+    QEYD: Cyber Hackathon zamanı iştirakçılarla paylaşılacaq yekun qaydalar bu sənəddə qeyd olunan
+     müddəalarla ziddiyyət təşkil etdiyi halda, müvafiq məsələlər üzrə Hackathon zamanı təqdim edilmiş son
+      versiyalı qaydalar əsas götürüləcək və ziddiyyət təşkil edən əvvəlki müddəalar tətbiq edilməyəcəkdir.
+
+6. Son qeydlər
+
+Yarışın vaxtında və problemsiz başlaması üçün qeydiyyat saatına riayət etməyiniz, şəxsiyyətinizi təsdiq edən
+sənədi özünüzlə gətirməyiniz və bütün komanda üzvlərinin iştirakını əvvəlcədən təmin etməyiniz xahiş olunur.
+
+Sizə Digital Challenge Azerbaijan – Cyber Hackathon mərhələsində uğurlar arzulayırıq!
+
+Hörmətlə,
+
+Azərbaycan Kibertəhlükəsizlik Mərkəzi
+
+--- PAGE 4 ---
+  Məktubu qəbul edən şəxsin nəzərinə: Bu elektron məktubda əks olunan və əlavəsindəki məlumatlar yalnız bu məktubun
+  ünvanlandığı şəxs və ya digər səlahiyyətli şəxslərin istifadəsi üçün nəzərdə tutulur. Gələcəkdə bu elektron məktubun və ya
+  əlavəsindəki məlumatların səlahiyyəti olmayan digər şəxslərə çatdırılması nəticəsində baş verə biləcək hər hansı bir hüquq
+  pozuntusuna, kommersiya sirrinin, məxfi məlumatların açıqlanmasına və digər qanunsuz hərəkətlər nəticəsində vurulmuş ziyana
+  görə İnnovasiya və Rəqəmsal İnkişaf Agentliyi heç bir məsuliyyət daşımır. Məktubun sizə göndərilməsi, sizin tərəfdən səlahiyyəti
+  olmayan digər şəxslərə ötürülməsi və ya çap edilərək təqdim olunmasına İnnovasiya və Rəqəmsal İnkişaf Agentliyinin razılığı kimi
+  başa düşülməməlidir. Əgər siz səhvən bu elektron məktubu və əlavəsində olan məlumat(lar)ı almısınızsa, bu barədə bizi dərhal
+  məlumatlandırın və məktubu e-poçt hesabınızdan silin.
+
+''''
+
+  Confidentiality notice and disclaimer: The information contained in this e-mail and attached files is intended solely for the use of
+  the individual it is addressed to and others authorized to receive it. If this e-mail and/or attached files are passed on to unauthorized
+  persons Innovation and Digital Development Agency will not be liable for any damage that can be caused by disclosure of
+  commercial and other classified information or any other violation of the law. The receipt of this e-mail does not imply that
+  Innovation and Digital Development Agency permits you to forward it to unauthorized persons or present them a hard copy of it. If
+  you have received this e-mail and attached file(s) by mistake, please notify us immediately by responding to this email and then
+  delete it from your e-mail system.

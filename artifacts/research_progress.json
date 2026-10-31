@@ -1,0 +1,7 @@
+{
+  "stage": "downloading_official_archive",
+  "status": "failed",
+  "updated_at_utc": "2026-10-31T11:33:12.368364+00:00",
+  "detail": "Command '['C:\\\\Users\\\\ilham.mammadli\\\\Downloads\\\\SADD_Hackathon_Starter_v0_1\\\\sadd\\\\.venv\\\\Scripts\\\\python.exe', '-u', 'C:\\\\Users\\\\ilham.mammadli\\\\Downloads\\\\SADD_Hackathon_Starter_v0_1\\\\sadd\\\\scripts\\\\download_cert.py', '--destination', 'data/cert']' returned non-zero exit status 1.",
+  "scope": "official public CERT acquisition and local development evaluation"
+}

@@ -1,0 +1,9 @@
+{
+  "source_events": 445581,
+  "active_copy_user_days": 45907,
+  "source_sha256": "637281bd6d8947b2cccf90bca7096e8cfad711eab1e425c61f886b0e4edfda7f",
+  "member_bytes": 193055265,
+  "verification": "Exact member hash matches pinned v1 source. Current parent archive is incomplete; this is not a new multichannel benchmark.",
+  "model_rerun": false,
+  "ldap_rejoined": false
+}

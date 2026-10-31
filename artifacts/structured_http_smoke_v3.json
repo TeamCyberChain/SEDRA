@@ -1,0 +1,786 @@
+{
+  "executed_at_utc": "2026-10-31T13:46:32.657064+00:00",
+  "successful": true,
+  "scope": "Isolated HTTP app; synthetic cases and managed local model; no cloud or bank/identity lookup",
+  "positive_blocked": 43,
+  "negative_controls_forwarded": 20,
+  "independent_receiver_receipts": 20,
+  "rows": [
+    {
+      "name": "fin_label",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "6a7dff83c387ab8be74abfd6406a80806ba22f53ae3151209b97c8fd2d26f4d0"
+    },
+    {
+      "name": "fin_az_label",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "14d9684e4d372bc2d8da3d3123a4e08ae71aac231a7c107ff16deaa51afaf6cd"
+    },
+    {
+      "name": "fin_english_label",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "dd5d7f911861cb0b333a4d227da21936fce47b33bfe2f6b58e6bfc45e10a3a4b"
+    },
+    {
+      "name": "fin_json",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "d6df3e012e8b3a386eee7b511604536e2c769369c4add5ffaa311b42d5c8e092"
+    },
+    {
+      "name": "fin_json_escaped",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "75addec3ba0cab043fa7869db5c7511cd2b90c597cdb201727318374e407774e"
+    },
+    {
+      "name": "fin_json_nested",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "0d876ad99d2c558c7d189d638f8d6242dfeff6d431913ecfdbbb07f51c538d3d"
+    },
+    {
+      "name": "fin_json_escaped_message",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "cfe5cbe96e24996c566cc8c999827913f75a884d897c1a4338afe1a35c8d9793"
+    },
+    {
+      "name": "fin_csv",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "6fd50542254c8dbe9c8c83ae75501ad3e5be6fcb2576dc516eea60e3fdeec8c4"
+    },
+    {
+      "name": "fin_tsv",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "3b789c77f3fff7532089ed9cdc751fed8b80446c0b1b7b7934d3bf9544ce5c30"
+    },
+    {
+      "name": "fin_semicolon",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "a6015827a60fcbf1a72d5c1e4bcfed5d1d51af2966ede8ed3d1153f23f3544e7"
+    },
+    {
+      "name": "fin_single_column",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "02bd3066db0ea4138710d6267baa68989ed45440e65722137c3b8ba1ae0ca046"
+    },
+    {
+      "name": "fin_numeric_json",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "96155294efb909ba03f44df2918de8b36e7c77e35e408c62d72648e63a4805fc"
+    },
+    {
+      "name": "fin_spaced",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "4e9ca00fc86d6db5412dc19f2a24678c5994ea1c8964f77b9c25229e17963a9c"
+    },
+    {
+      "name": "fin_grouped",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "42c79ced6f9df503b691b364e809d72ca64fc29f928cecd8636a6de54684e7ff"
+    },
+    {
+      "name": "fin_confusable",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "6c677d23ee335f67c0e4028aea1b40f80c4fc12dacfffebf2c50bac41128f5bb"
+    },
+    {
+      "name": "fin_ignorable",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "6314f578cecbea9e5a66c285797d7a97c90aed6cc13ea4b61eee821333d5608a"
+    },
+    {
+      "name": "fin_decimal_digits",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "9c721d91a3d5da19423dcbc3ac6e8313e276aa27c0ab7b8ea40d95a3ff266764"
+    },
+    {
+      "name": "fin_fullwidth",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "0b6a4f8b18e579cd99ca97bb1761fbc5a5e632e61f52e6dff1a05a15eb43f965"
+    },
+    {
+      "name": "fin_base64",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "body_sha256": "8af188671ca3f2d525f04aebf0a0336488cbad2ded5bfafd592fe2165ae6384b"
+    },
+    {
+      "name": "az_iban_alphanumeric",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_IBAN_MOD97"
+      ],
+      "body_sha256": "58a5f8d1c95002654d859efc71fd282c8d8dd73a2321b1f787d9a333b7d25db9"
+    },
+    {
+      "name": "az_iban_groups",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_IBAN_MOD97"
+      ],
+      "body_sha256": "e6c3a9d34818858c99a0c0805f89dff41e45e3ffc7a331d5f7bba0b30a1e760d"
+    },
+    {
+      "name": "az_iban_spaced",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_IBAN_MOD97"
+      ],
+      "body_sha256": "03e5ad2b20617e40217172a7ccfcc8d422ef6748afb9b6d6cfef70bd7320a2d3"
+    },
+    {
+      "name": "az_iban_lowercase",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_IBAN_MOD97"
+      ],
+      "body_sha256": "e76083e117f1c95f7be73a0305076866185fba0939bd6d8712559ee053fb31c0"
+    },
+    {
+      "name": "az_iban_confusable",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_IBAN_MOD97"
+      ],
+      "body_sha256": "c51211bd1ac0c331af44cefedc61fb4effcc652408bd7f56d6c907ce63904154"
+    },
+    {
+      "name": "az_iban_decimal_digits",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_IBAN_MOD97"
+      ],
+      "body_sha256": "11ed22cc8624606d52d1085ce739698a5679aaf859e1ad9bfac1612bb0e3e66b"
+    },
+    {
+      "name": "az_iban_json_escaped",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_IBAN_MOD97"
+      ],
+      "body_sha256": "8f86a30a5360257447745e5cd08efbb71642362f7e337e4b80ca8f5425f55669"
+    },
+    {
+      "name": "az_iban_base64",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AZ_IBAN_MOD97"
+      ],
+      "body_sha256": "bfd20e635a903285a9e60e5676c0cd58e0034ec27f7408844455c52b776f4dd9"
+    },
+    {
+      "name": "gb_iban",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "IBAN_MOD97"
+      ],
+      "body_sha256": "3f691d8337973d6249cd1ecbb048717f02c0f12ae5538289ac1238b978034b90"
+    },
+    {
+      "name": "de_iban",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "IBAN_MOD97"
+      ],
+      "body_sha256": "b33e78e78ae58d80bd1bc9707e39ebf8081b94e66cb2292467fb7dd9a70a1f7a"
+    },
+    {
+      "name": "tr_iban",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "IBAN_MOD97"
+      ],
+      "body_sha256": "587122a7c2d5941c69d2d94663215d1b40754ed463849e3ef64e9842e8b62d70"
+    },
+    {
+      "name": "card_az",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "PAYMENT_CARD_LUHN"
+      ],
+      "body_sha256": "ec8bae49d64c9757fd907a48d10fd48f98f188f69a4c36883517be8c8a6f051f"
+    },
+    {
+      "name": "card_json",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "PAYMENT_CARD_LUHN"
+      ],
+      "body_sha256": "1eddf25322dbaadad67d3556443009d9f7a457582bd01fc3e794514d9eef4db4"
+    },
+    {
+      "name": "card_csv",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "PAYMENT_CARD_LUHN"
+      ],
+      "body_sha256": "cda0fcf214b8f09e3538d955195836df678ba85a8d2b6df6c095421f5a4230c3"
+    },
+    {
+      "name": "card_decimal_digits",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "PAYMENT_CARD_LUHN"
+      ],
+      "body_sha256": "524905f6af093c0a5de5eaafce2fb8911b2d49aa9361276fae65200f6d49dc1f"
+    },
+    {
+      "name": "credential_json",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "LABELED_CREDENTIAL"
+      ],
+      "body_sha256": "c14ba188c561191105b1c0ba9702a029083294d6dddcb7bcd022438c132fecb4"
+    },
+    {
+      "name": "credential_short",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "LABELED_CREDENTIAL"
+      ],
+      "body_sha256": "688737f0ca0495aed2a441a3b11b93eff718a8c9c1ad432a33d2bc608254c7a4"
+    },
+    {
+      "name": "credential_az",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "LABELED_CREDENTIAL"
+      ],
+      "body_sha256": "c17538b58c78973c654cea7e0d8f53e9ae7d879e247924a9d9a8862c7a8002fc"
+    },
+    {
+      "name": "credential_csv",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "LABELED_CREDENTIAL"
+      ],
+      "body_sha256": "81fe3a095f155b7d802f6ece8283252b9e2a32e47c7ee6e99ee481fa13a1a9e1"
+    },
+    {
+      "name": "credential_json_escaped",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "LABELED_CREDENTIAL"
+      ],
+      "body_sha256": "2081f9fa6feec26dc4ac9120f373de4ab8318db83f922a485c0882f0ca957124"
+    },
+    {
+      "name": "aws_spaced",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "AWS_ACCESS_KEY_ID"
+      ],
+      "body_sha256": "df53577f44778394cd6a8b2c968ebfed7961758b8dbdfe12db7d0f2d65a45877"
+    },
+    {
+      "name": "bearer",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "BEARER_TOKEN"
+      ],
+      "body_sha256": "bbe35930d6942b6e0194716c8d5357095803e8500594d145893037dbb3229a6c"
+    },
+    {
+      "name": "pem_private",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "PEM_PRIVATE_KEY"
+      ],
+      "body_sha256": "ab7bc699f0f8645a9981c6f4704decc57be1de5063c0721ecada509682db3bb7"
+    },
+    {
+      "name": "sedra_marker",
+      "status": 200,
+      "decision": "BLOCK",
+      "types": [
+        "SYNTHETIC_SECRET"
+      ],
+      "body_sha256": "a4e267f5b69edde8dd84e9401c769fef91b8e30b4a56b04eae039bb141e3efc9"
+    },
+    {
+      "name": "ordinary_identifier",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "fin_documentation",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "fin_placeholder",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "fin_too_short",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "fin_too_long",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "fin_invalid_alphabet",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "fin_spaced_too_long",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "fin_other_column",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "card_other_column",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "plain_number",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "invalid_card",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "invalid_iban_checksum",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "invalid_country",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "wrong_country_length",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "wrong_bban",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "api_documentation",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "password_documentation",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "api_key_documentation",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "public_key",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    },
+    {
+      "name": "public_base64",
+      "status": 200,
+      "decision": "ALLOW",
+      "state": "FORWARDED_CONFIRMED"
+    }
+  ],
+  "portal_blocks": [
+    {
+      "sample": "fin_json",
+      "provider_contacted": false,
+      "request": {
+        "behavior_context": {
+          "as_of": "2026-10-30T23:59:59+04:00",
+          "behavior_score": 85,
+          "completed_day_score": 0,
+          "live_context": {
+            "as_of": "2026-10-31T13:46:31.682220+00:00",
+            "blocked_attempts": 43,
+            "limitation": "Lab policy rule; not a probability or a live IF prediction",
+            "protected_document_reads": 0,
+            "rule": "6 protected reads or 3 blocked attempts in 120 seconds",
+            "score": 85,
+            "source": "observed_application_events",
+            "window_seconds": 120
+          },
+          "ml_score": 0.0,
+          "model_version": "iforest-lab-daily-v1",
+          "provenance": "synthetic_lab",
+          "provider_model": "sadd-qwen2.5-1.5b",
+          "provider_route": "local_ai",
+          "rule_score": 0.0
+        },
+        "behavior_score": 85.0,
+        "body_bytes": 35,
+        "body_sha256": "4bc24e6a5e08f7347cf653b952a7e6f5afdefd110c2ea947576113a07775f3ba",
+        "created_at": 1793454391.6822207,
+        "decision": "BLOCK",
+        "destination": "local_ai",
+        "destination_trust_class": "unapproved_ai",
+        "long_threshold": 0.2,
+        "long_token_threshold": 0.25,
+        "long_window_seconds": 2592000,
+        "matched_documents": [],
+        "minimum_candidate_tokens": 2,
+        "model_profiles": {
+          "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
+          "normalization": "sadd-nfkc-dicp15-az-en-v1",
+          "policy": "sadd-dual-window-anchored-token-restricted-v2",
+          "structured": "sedra-structured-context-checksum-tr39-v3"
+        },
+        "normalization_flags": {
+          "mixed_script_tokens": 0,
+          "removed_default_ignorables": 0
+        },
+        "reason_codes": [
+          "STRUCTURED_AZ_FIN_CONTEXTUAL",
+          "NO_ELIGIBLE_PROTECTED_MATCH",
+          "HIGH_BEHAVIOR_TIGHTENS_EXCERPT_LIMIT"
+        ],
+        "request_id": "portal-fin_json",
+        "request_state": "BLOCKED",
+        "security_tags": {
+          "basis": "structured-detector",
+          "business_tags": [],
+          "detector_tags": [
+            "AZ_FIN_CONTEXTUAL"
+          ],
+          "document_ids": [],
+          "profile": "sedra-governed-labels-v1",
+          "scope_note": "Unclassified means no eligible protected match or structured finding; it is not a public-data certification.",
+          "sensitivity": "restricted"
+        },
+        "state": "BLOCKED",
+        "structured_findings": [
+          {
+            "action": "BLOCK",
+            "category": "personal_identifiers",
+            "confidence": "high",
+            "confidence_basis": "rule_evidence_not_probability",
+            "detector_profile": "sedra-structured-context-checksum-tr39-v3",
+            "normalization_steps": [],
+            "representation": "original / json_field",
+            "representations": [
+              "original / json_field",
+              "original"
+            ],
+            "sensitivity": "restricted",
+            "type": "AZ_FIN_CONTEXTUAL",
+            "validation_checks": [
+              "explicit_field_context",
+              "7_character_format",
+              "restricted_alphabet"
+            ],
+            "value_sha256": "cb53ccdfdaa74474278a662fc5e51f0bce36bca76d93f2956d60abf8a2102658"
+          }
+        ],
+        "subject_id": "lab-001",
+        "threshold": 0.1,
+        "token_counts": {
+          "az": 4,
+          "en": 4
+        },
+        "token_threshold": 0.12,
+        "window_seconds": 86400,
+        "new_state": "BLOCKED",
+        "updated_at": 1793454391.6822207,
+        "send_started_at": null,
+        "expires_at": null,
+        "idempotent_replay": false,
+        "history": [
+          {
+            "at": 1793454391.6822207,
+            "old_state": null,
+            "new_state": "BLOCKED",
+            "reason": "POLICY_EVALUATION"
+          }
+        ],
+        "old_state": null,
+        "matches": [],
+        "reasoncodes": [
+          "STRUCTURED_AZ_FIN_CONTEXTUAL",
+          "NO_ELIGIBLE_PROTECTED_MATCH",
+          "HIGH_BEHAVIOR_TIGHTENS_EXCERPT_LIMIT"
+        ],
+        "model_version": "iforest-lab-daily-v1",
+        "provenance": "synthetic_lab"
+      }
+    },
+    {
+      "sample": "iban_grouped",
+      "provider_contacted": false,
+      "request": {
+        "behavior_context": {
+          "as_of": "2026-10-30T23:59:59+04:00",
+          "behavior_score": 85,
+          "completed_day_score": 0,
+          "live_context": {
+            "as_of": "2026-10-31T13:46:31.744568+00:00",
+            "blocked_attempts": 44,
+            "limitation": "Lab policy rule; not a probability or a live IF prediction",
+            "protected_document_reads": 0,
+            "rule": "6 protected reads or 3 blocked attempts in 120 seconds",
+            "score": 85,
+            "source": "observed_application_events",
+            "window_seconds": 120
+          },
+          "ml_score": 0.0,
+          "model_version": "iforest-lab-daily-v1",
+          "provenance": "synthetic_lab",
+          "provider_model": "sadd-qwen2.5-1.5b",
+          "provider_route": "local_ai",
+          "rule_score": 0.0
+        },
+        "behavior_score": 85.0,
+        "body_bytes": 40,
+        "body_sha256": "93f88e279a154ddfcbfebb65733215b1e956709ac2045df41dfef6540bd99cd9",
+        "created_at": 1793454391.7445688,
+        "decision": "BLOCK",
+        "destination": "local_ai",
+        "destination_trust_class": "unapproved_ai",
+        "long_threshold": 0.2,
+        "long_token_threshold": 0.25,
+        "long_window_seconds": 2592000,
+        "matched_documents": [],
+        "minimum_candidate_tokens": 2,
+        "model_profiles": {
+          "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
+          "normalization": "sadd-nfkc-dicp15-az-en-v1",
+          "policy": "sadd-dual-window-anchored-token-restricted-v2",
+          "structured": "sedra-structured-context-checksum-tr39-v3"
+        },
+        "normalization_flags": {
+          "mixed_script_tokens": 0,
+          "removed_default_ignorables": 0
+        },
+        "reason_codes": [
+          "STRUCTURED_AZ_IBAN_MOD97",
+          "NO_ELIGIBLE_PROTECTED_MATCH",
+          "HIGH_BEHAVIOR_TIGHTENS_EXCERPT_LIMIT"
+        ],
+        "request_id": "portal-iban_grouped",
+        "request_state": "BLOCKED",
+        "security_tags": {
+          "basis": "structured-detector",
+          "business_tags": [],
+          "detector_tags": [
+            "AZ_IBAN_MOD97"
+          ],
+          "document_ids": [],
+          "profile": "sedra-governed-labels-v1",
+          "scope_note": "Unclassified means no eligible protected match or structured finding; it is not a public-data certification.",
+          "sensitivity": "restricted"
+        },
+        "state": "BLOCKED",
+        "structured_findings": [
+          {
+            "action": "BLOCK",
+            "category": "financial",
+            "confidence": "high",
+            "confidence_basis": "rule_evidence_not_probability",
+            "detector_profile": "sedra-structured-context-checksum-tr39-v3",
+            "normalization_steps": [],
+            "representation": "original",
+            "representations": [
+              "original"
+            ],
+            "sensitivity": "restricted",
+            "type": "AZ_IBAN_MOD97",
+            "validation_checks": [
+              "country_format",
+              "country_length",
+              "mod97",
+              "swift_registry_103"
+            ],
+            "value_sha256": "58a5f8d1c95002654d859efc71fd282c8d8dd73a2321b1f787d9a333b7d25db9"
+          }
+        ],
+        "subject_id": "lab-001",
+        "threshold": 0.1,
+        "token_counts": {
+          "az": 8,
+          "en": 8
+        },
+        "token_threshold": 0.12,
+        "window_seconds": 86400,
+        "new_state": "BLOCKED",
+        "updated_at": 1793454391.7445688,
+        "send_started_at": null,
+        "expires_at": null,
+        "idempotent_replay": false,
+        "history": [
+          {
+            "at": 1793454391.7445688,
+            "old_state": null,
+            "new_state": "BLOCKED",
+            "reason": "POLICY_EVALUATION"
+          }
+        ],
+        "old_state": null,
+        "matches": [],
+        "reasoncodes": [
+          "STRUCTURED_AZ_IBAN_MOD97",
+          "NO_ELIGIBLE_PROTECTED_MATCH",
+          "HIGH_BEHAVIOR_TIGHTENS_EXCERPT_LIMIT"
+        ],
+        "model_version": "iforest-lab-daily-v1",
+        "provenance": "synthetic_lab"
+      }
+    }
+  ],
+  "local_ai": {
+    "provider": "Local AI \u00b7 Qwen / llama.cpp",
+    "response_id": "chatcmpl-qL9IdvsduAwlFsqUalsgwllOrvOq8Wt5",
+    "provider_request_id": "",
+    "model": "sadd-qwen2.5-1.5b",
+    "status": "completed",
+    "answer": "42",
+    "usage": {
+      "input_tokens": 61,
+      "output_tokens": 3,
+      "total_tokens": 64
+    },
+    "output_sha256": "73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049",
+    "evidence_kind": "local_model_response_observed_by_gateway",
+    "independent_delivery_receipt": false,
+    "external_data_transfer": false,
+    "runtime": "llama.cpp CPU",
+    "model_family": "Qwen2.5-1.5B-Instruct Q4_K_M"
+  },
+  "counts": {
+    "attempted": 66,
+    "forwarded": 21,
+    "blocked": 45,
+    "unknown": 0
+  }
+}

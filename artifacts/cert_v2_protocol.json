@@ -1,0 +1,21 @@
+{
+  "experiment": "cert_r4.2_multichannel_calendar_v2",
+  "evaluation_status": "development_on_previously_inspected_release",
+  "frozen_before_v2_execution": true,
+  "channels": ["device", "logon", "http", "file"],
+  "population": "all dated LDAP roster members within the intersection of complete source-file calendar-day ranges",
+  "train_end": "2010-06-30",
+  "validation_end": "2010-09-30",
+  "primary_labels": "actor, channel, original ID and timestamp matched official observables; day positive only for declared incident actor",
+  "secondary_labels": "declared actor master incident interval, with actual modeled activity on the day",
+  "features": "per-channel counts and unusual-hour counts; earlier personal and peer count deviations; workstation novelty from earlier activity",
+  "cold_start": "keep days; use previous-day population/eligible peer reference, explicitly marked limited until 14 prior calendar days",
+  "baseline_days": 28,
+  "reference_hours": [9, 18],
+  "models": ["rules_personal", "rules_peer", "isolation_forest", "combined"],
+  "isolation_forest": {"n_estimators":160,"max_samples":256,"seed":42,"labels_used":false},
+  "combination": "0.6 validation-ECDF rule deviation + 0.4 validation-ECDF IF anomaly",
+  "workload": "validation-frozen threshold for 1 alert per 100 user-days; deterministic SHA256 user-day tie break independent of labels",
+  "metrics": ["TP", "FP", "FN", "TN", "average_precision", "prevalence", "alerts_per_100_user_days", "false_alerted_actors", "coverage_adjusted_actor_episode_recall", "delay_days"],
+  "holdout_warning": "r4.2 is development evidence. No independent efficacy or production accuracy claim. Original v1 0 TP retained."
+}

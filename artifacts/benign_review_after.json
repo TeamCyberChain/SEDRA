@@ -1,0 +1,14 @@
+[
+  {
+    "text": "Please explain behavior priority in UEBA.",
+    "decision": "ALLOW"
+  },
+  {
+    "text": "The content rule explains a public laboratory marker.",
+    "decision": "ALLOW"
+  },
+  {
+    "text": "This marker authenticates no real service and grants no access.",
+    "decision": "ALLOW"
+  }
+]

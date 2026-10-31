@@ -1,0 +1,454 @@
+{
+  "source_url": "https://www.swift.com/swift-resource/9606/download",
+  "source_release": "103",
+  "source_date": "2026-09",
+  "retrieved_on": "2026-10-31",
+  "scope": "Country formats and MOD97 only; no bank assignment, account existence or ownership verification",
+  "countries": {
+    "AD": {
+      "structure": "AD2!n4!n4!n12!c",
+      "length": 24,
+      "public_registry_example": "AD1200012030200359100100"
+    },
+    "AE": {
+      "structure": "AE2!n3!n16!n",
+      "length": 23,
+      "public_registry_example": "AE070331234567890123456"
+    },
+    "AL": {
+      "structure": "AL2!n8!n16!c",
+      "length": 28,
+      "public_registry_example": "AL47212110090000000235698741"
+    },
+    "AT": {
+      "structure": "AT2!n5!n11!n",
+      "length": 20,
+      "public_registry_example": "AT611904300234573201"
+    },
+    "AZ": {
+      "structure": "AZ2!n4!a20!c",
+      "length": 28,
+      "public_registry_example": "AZ21NABZ00000000137010001944"
+    },
+    "BA": {
+      "structure": "BA2!n3!n3!n8!n2!n",
+      "length": 20,
+      "public_registry_example": "BA391290079401028494"
+    },
+    "BE": {
+      "structure": "BE2!n3!n7!n2!n",
+      "length": 16,
+      "public_registry_example": "BE68539007547034"
+    },
+    "BG": {
+      "structure": "BG2!n4!a4!n2!n8!c",
+      "length": 22,
+      "public_registry_example": "BG80BNBG96611020345678"
+    },
+    "BH": {
+      "structure": "BH2!n4!a14!c",
+      "length": 22,
+      "public_registry_example": "BH67BMAG00001299123456"
+    },
+    "BI": {
+      "structure": "BI2!n5!n5!n11!n2!n",
+      "length": 27,
+      "public_registry_example": "BI4210000100010000332045181"
+    },
+    "BR": {
+      "structure": "BR2!n8!c5!n10!n1!c1!c",
+      "length": 29,
+      "public_registry_example": "BR6699999A03000010009795493C1"
+    },
+    "BY": {
+      "structure": "BY2!n4!c4!n16!c",
+      "length": 28,
+      "public_registry_example": "BY13NBRB3600900000002Z00AB00"
+    },
+    "CH": {
+      "structure": "CH2!n5!n12!c",
+      "length": 21,
+      "public_registry_example": "CH9300762011623852957"
+    },
+    "CR": {
+      "structure": "CR2!n4!n14!n",
+      "length": 22,
+      "public_registry_example": "CR05015202001026284066"
+    },
+    "CY": {
+      "structure": "CY2!n3!n5!n16!c",
+      "length": 28,
+      "public_registry_example": "CY17002001280000001200527600"
+    },
+    "CZ": {
+      "structure": "CZ2!n4!n6!n10!n",
+      "length": 24,
+      "public_registry_example": "CZ6508000000192000145399"
+    },
+    "DE": {
+      "structure": "DE2!n8!n10!n",
+      "length": 22,
+      "public_registry_example": "DE89370400440532013000"
+    },
+    "DJ": {
+      "structure": "DJ2!n5!n5!n11!n2!n",
+      "length": 27,
+      "public_registry_example": "DJ2100010000000154000100186"
+    },
+    "DK": {
+      "structure": "DK2!n4!n9!n1!n",
+      "length": 18,
+      "public_registry_example": "DK5000400440116243"
+    },
+    "DO": {
+      "structure": "DO2!n4!c20!n",
+      "length": 28,
+      "public_registry_example": "DO28BAGR00000001212453611324"
+    },
+    "EE": {
+      "structure": "EE2!n2!n14!n",
+      "length": 20,
+      "public_registry_example": "EE382200221020145685"
+    },
+    "EG": {
+      "structure": "EG2!n4!n4!n17!n",
+      "length": 29,
+      "public_registry_example": "EG380019000500000000263180002"
+    },
+    "ES": {
+      "structure": "ES2!n4!n4!n1!n1!n10!n",
+      "length": 24,
+      "public_registry_example": "ES9121000418450200051332"
+    },
+    "FI": {
+      "structure": "FI2!n3!n11!n",
+      "length": 18,
+      "public_registry_example": "FI2112345600000785"
+    },
+    "FK": {
+      "structure": "FK2!n2!a12!n",
+      "length": 18,
+      "public_registry_example": "FK88SC123456789012"
+    },
+    "FO": {
+      "structure": "FO2!n4!n9!n1!n",
+      "length": 18,
+      "public_registry_example": "FO6264600001631634"
+    },
+    "FR": {
+      "structure": "FR2!n5!n5!n11!c2!n",
+      "length": 27,
+      "public_registry_example": "FR1420041010050500013M02606"
+    },
+    "GB": {
+      "structure": "GB2!n4!a6!n8!n",
+      "length": 22,
+      "public_registry_example": "GB29NWBK60161331926819"
+    },
+    "GE": {
+      "structure": "GE2!n2!a16!n",
+      "length": 22,
+      "public_registry_example": "GE29NB0000000101904917"
+    },
+    "GI": {
+      "structure": "GI2!n4!a15!c",
+      "length": 23,
+      "public_registry_example": "GI75NWBK000000007099453"
+    },
+    "GL": {
+      "structure": "GL2!n4!n9!n1!n",
+      "length": 18,
+      "public_registry_example": "GL8964710001000206"
+    },
+    "GR": {
+      "structure": "GR2!n3!n4!n16!c",
+      "length": 27,
+      "public_registry_example": "GR1601101250000000012300695"
+    },
+    "GT": {
+      "structure": "GT2!n4!c20!c",
+      "length": 28,
+      "public_registry_example": "GT82TRAJ01020000001210029690"
+    },
+    "HN": {
+      "structure": "HN2!n4!a20!n",
+      "length": 28,
+      "public_registry_example": "HN88CABF00000000000250005469"
+    },
+    "HR": {
+      "structure": "HR2!n7!n10!n",
+      "length": 21,
+      "public_registry_example": "HR1210010051863000160"
+    },
+    "HU": {
+      "structure": "HU2!n3!n4!n1!n15!n1!n",
+      "length": 28,
+      "public_registry_example": "HU42117730161111101800000000"
+    },
+    "IE": {
+      "structure": "IE2!n4!a6!n8!n",
+      "length": 22,
+      "public_registry_example": "IE29AIBK93115212345678"
+    },
+    "IL": {
+      "structure": "IL2!n3!n3!n13!n",
+      "length": 23,
+      "public_registry_example": "IL620108000000099999999"
+    },
+    "IQ": {
+      "structure": "IQ2!n4!a3!n12!n",
+      "length": 23,
+      "public_registry_example": "IQ98NBIQ850123456789012"
+    },
+    "IS": {
+      "structure": "IS2!n4!n2!n6!n10!n",
+      "length": 26,
+      "public_registry_example": "IS140159260076545510730339"
+    },
+    "IT": {
+      "structure": "IT2!n1!a5!n5!n12!c",
+      "length": 27,
+      "public_registry_example": "IT60X0542811101000000123456"
+    },
+    "JO": {
+      "structure": "JO2!n4!a4!n18!c",
+      "length": 30,
+      "public_registry_example": "JO94CBJO0010000000000131000302"
+    },
+    "KW": {
+      "structure": "KW2!n4!a22!c",
+      "length": 30,
+      "public_registry_example": "KW81CBKU0000000000001234560101"
+    },
+    "KZ": {
+      "structure": "KZ2!n3!n13!c",
+      "length": 20,
+      "public_registry_example": "KZ86125KZT5004100100"
+    },
+    "LB": {
+      "structure": "LB2!n4!n20!c",
+      "length": 28,
+      "public_registry_example": "LB62099900000001001901229114"
+    },
+    "LC": {
+      "structure": "LC2!n4!a24!c",
+      "length": 32,
+      "public_registry_example": "LC55HEMM000100010012001200023015"
+    },
+    "LI": {
+      "structure": "LI2!n5!n12!c",
+      "length": 21,
+      "public_registry_example": "LI21088100002324013AA"
+    },
+    "LT": {
+      "structure": "LT2!n5!n11!n",
+      "length": 20,
+      "public_registry_example": "LT121000011101001000"
+    },
+    "LU": {
+      "structure": "LU2!n3!n13!c",
+      "length": 20,
+      "public_registry_example": "LU280019400644750000"
+    },
+    "LV": {
+      "structure": "LV2!n4!a13!c",
+      "length": 21,
+      "public_registry_example": "LV80BANK0000435195001"
+    },
+    "LY": {
+      "structure": "LY2!n3!n3!n15!n",
+      "length": 25,
+      "public_registry_example": "LY83002048000020100120361"
+    },
+    "MC": {
+      "structure": "MC2!n5!n5!n11!c2!n",
+      "length": 27,
+      "public_registry_example": "MC5811222000010123456789030"
+    },
+    "MD": {
+      "structure": "MD2!n2!c18!c",
+      "length": 24,
+      "public_registry_example": "MD24AG000225100013104168"
+    },
+    "ME": {
+      "structure": "ME2!n3!n13!n2!n",
+      "length": 22,
+      "public_registry_example": "ME25505000012345678951"
+    },
+    "MK": {
+      "structure": "MK2!n3!n10!c2!n",
+      "length": 19,
+      "public_registry_example": "MK07250120000058984"
+    },
+    "MN": {
+      "structure": "MN2!n4!n12!n",
+      "length": 20,
+      "public_registry_example": "MN121234123456789123"
+    },
+    "MR": {
+      "structure": "MR2!n5!n5!n11!n2!n",
+      "length": 27,
+      "public_registry_example": "MR1300020001010000123456753"
+    },
+    "MT": {
+      "structure": "MT2!n4!a5!n18!c",
+      "length": 31,
+      "public_registry_example": "MT84MALT011000012345MTLCAST001S"
+    },
+    "MU": {
+      "structure": "MU2!n4!a2!n2!n12!n3!n3!a",
+      "length": 30,
+      "public_registry_example": "MU17BOMM0101101030300200000MUR"
+    },
+    "NI": {
+      "structure": "NI2!n4!a20!n",
+      "length": 28,
+      "public_registry_example": "NI45BAPR00000013000003558124"
+    },
+    "NL": {
+      "structure": "NL2!n4!a10!n",
+      "length": 18,
+      "public_registry_example": "NL91ABNA0417164300"
+    },
+    "NO": {
+      "structure": "NO2!n4!n6!n1!n",
+      "length": 15,
+      "public_registry_example": "NO9386011117947"
+    },
+    "OM": {
+      "structure": "OM2!n3!n16!c",
+      "length": 23,
+      "public_registry_example": "OM810180000001299123456"
+    },
+    "PK": {
+      "structure": "PK2!n4!a16!c",
+      "length": 24,
+      "public_registry_example": "PK36SCBL0000001123456702"
+    },
+    "PL": {
+      "structure": "PL2!n8!n16!n",
+      "length": 28,
+      "public_registry_example": "PL61109010140000071219812874"
+    },
+    "PS": {
+      "structure": "PS2!n4!a21!c",
+      "length": 29,
+      "public_registry_example": "PS92PALS000000000400123456702"
+    },
+    "PT": {
+      "structure": "PT2!n4!n4!n11!n2!n",
+      "length": 25,
+      "public_registry_example": "PT50000201231234567890154"
+    },
+    "QA": {
+      "structure": "QA2!n4!a21!c",
+      "length": 29,
+      "public_registry_example": "QA58DOHB00001234567890ABCDEFG"
+    },
+    "RO": {
+      "structure": "RO2!n4!a16!c",
+      "length": 24,
+      "public_registry_example": "RO49AAAA1B31007593840000"
+    },
+    "RS": {
+      "structure": "RS2!n3!n13!n2!n",
+      "length": 22,
+      "public_registry_example": "RS35260005601001611379"
+    },
+    "RU": {
+      "structure": "RU2!n9!n5!n15!c",
+      "length": 33,
+      "public_registry_example": "RU0304452522540817810538091310419"
+    },
+    "SA": {
+      "structure": "SA2!n2!n18!c",
+      "length": 24,
+      "public_registry_example": "SA0380000000608010167519"
+    },
+    "SC": {
+      "structure": "SC2!n4!a2!n2!n16!n3!a",
+      "length": 31,
+      "public_registry_example": "SC18SSCB11010000000000001497USD"
+    },
+    "SD": {
+      "structure": "SD2!n2!n12!n",
+      "length": 18,
+      "public_registry_example": "SD2129010501234001"
+    },
+    "SE": {
+      "structure": "SE2!n3!n16!n1!n",
+      "length": 24,
+      "public_registry_example": "SE4550000000058398257466"
+    },
+    "SI": {
+      "structure": "SI2!n5!n8!n2!n",
+      "length": 19,
+      "public_registry_example": "SI56263300012039086"
+    },
+    "SK": {
+      "structure": "SK2!n4!n6!n10!n",
+      "length": 24,
+      "public_registry_example": "SK3112000000198742637541"
+    },
+    "SM": {
+      "structure": "SM2!n1!a5!n5!n12!c",
+      "length": 27,
+      "public_registry_example": "SM86U0322509800000000270100"
+    },
+    "SO": {
+      "structure": "SO2!n4!n3!n12!n",
+      "length": 23,
+      "public_registry_example": "SO211000001001000100141"
+    },
+    "ST": {
+      "structure": "ST2!n4!n4!n11!n2!n",
+      "length": 25,
+      "public_registry_example": "ST23000100010051845310146"
+    },
+    "SV": {
+      "structure": "SV2!n4!a20!n",
+      "length": 28,
+      "public_registry_example": "SV62CENR00000000000000700025"
+    },
+    "TL": {
+      "structure": "TL2!n3!n14!n2!n",
+      "length": 23,
+      "public_registry_example": "TL380080012345678910157"
+    },
+    "TN": {
+      "structure": "TN2!n2!n3!n13!n2!n",
+      "length": 24,
+      "public_registry_example": "TN5910006035183598478831"
+    },
+    "TR": {
+      "structure": "TR2!n5!n1!n16!c",
+      "length": 26,
+      "public_registry_example": "TR330006100519786457841326"
+    },
+    "UA": {
+      "structure": "UA2!n6!n19!c",
+      "length": 29,
+      "public_registry_example": "UA213223130000026007233566001"
+    },
+    "VA": {
+      "structure": "VA2!n3!n15!n",
+      "length": 22,
+      "public_registry_example": "VA59001123000012345678"
+    },
+    "VG": {
+      "structure": "VG2!n4!a16!n",
+      "length": 24,
+      "public_registry_example": "VG96VPVG0000012345678901"
+    },
+    "XK": {
+      "structure": "XK2!n4!n10!n2!n",
+      "length": 20,
+      "public_registry_example": "XK051212012345678906"
+    },
+    "YE": {
+      "structure": "YE2!n4!a4!n18!c",
+      "length": 30,
+      "public_registry_example": "YE15CBYE0001018861234567891234"
+    }
+  }
+}

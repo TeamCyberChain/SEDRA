@@ -1,0 +1,98 @@
+{
+  "executed_at_utc": "2026-10-31T14:05:58.825721+00:00",
+  "version": "0.5.0",
+  "successful": true,
+  "scope": "Isolated loopback HTTP, synthetic fixtures, no AI inference or external notification sent",
+  "policy_block_alert": {
+    "seq": 1,
+    "alert_id": "SE-962ce05fb287440ca1336bb11bd11eb0",
+    "kind": "POLICY_BLOCK",
+    "severity": "high",
+    "title": "Sensitive data blocked",
+    "category": "structured_sensitive_data",
+    "severity_basis": "Supported identifier/financial rule matched; blocked before delivery",
+    "occurred_at": 1793455558.4398723,
+    "created_at": 1793455558.4398723,
+    "status": "OPEN",
+    "disposition": "UNASSESSED",
+    "assigned_to": null,
+    "read_at": null,
+    "updated_at": 1793455558.4398723,
+    "revision": 0,
+    "subject_id": "lab-001",
+    "request_id": "alert-http-fin-test",
+    "destination": "public_ai",
+    "decision": "BLOCK",
+    "state": "BLOCKED",
+    "body_sha256": "6a7dff83c387ab8be74abfd6406a80806ba22f53ae3151209b97c8fd2d26f4d0",
+    "body_bytes": 13,
+    "behavior_score": 0.0,
+    "display_id": "SEDRA-000001",
+    "imported_from_ledger": false,
+    "profile": "sedra-gateway-alerts-v1",
+    "environment": "synthetic_lab",
+    "reason_codes": [
+      "STRUCTURED_AZ_FIN_CONTEXTUAL",
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ],
+    "security_tags": {
+      "basis": "structured-detector",
+      "business_tags": [],
+      "detector_tags": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "document_ids": [],
+      "profile": "sedra-governed-labels-v1",
+      "scope_note": "Unclassified means no eligible protected match or structured finding; it is not a public-data certification.",
+      "sensitivity": "restricted"
+    },
+    "detector_types": [
+      "AZ_FIN_CONTEXTUAL"
+    ],
+    "delivery_uncertain": false,
+    "outcome": "Prevented by policy",
+    "workflow_note": "Analyst review does not change enforcement, resend content or establish compromise."
+  },
+  "blocked_retry_deduplicated": true,
+  "masked_value_absent": true,
+  "employee_feed_detail_and_action_http": 403,
+  "missing_csrf_http": 403,
+  "stale_revision_http": 409,
+  "repeated_action_deduplicated": true,
+  "analyst_history": [
+    {
+      "event_id": 1,
+      "actor": "analyst",
+      "at": 1793455558.600039,
+      "action": "ACKNOWLEDGE",
+      "old_status": "OPEN",
+      "new_status": "IN_REVIEW",
+      "disposition": "UNASSESSED"
+    },
+    {
+      "event_id": 2,
+      "actor": "analyst",
+      "at": 1793455558.632055,
+      "action": "RESOLVE",
+      "old_status": "IN_REVIEW",
+      "new_status": "RESOLVED",
+      "disposition": "EXPECTED_TEST"
+    }
+  ],
+  "resolved_request_remained": "BLOCKED",
+  "portal_block_before_provider": true,
+  "uncertainty_before": "Delivery unconfirmed",
+  "uncertainty_after": "Delivery confirmed",
+  "reconciliation_receipts_before": 1,
+  "reconciliation_receipts_after": 1,
+  "reconciliation_did_not_close_analyst_review": "OPEN",
+  "final_counts": {
+    "total": 3,
+    "open": 2,
+    "in_review": 0,
+    "resolved": 1,
+    "unread": 2,
+    "active": 2,
+    "critical_active": 0
+  }
+}

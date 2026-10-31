@@ -1,0 +1,12 @@
+[project]
+name = "sedra-lab"
+version = "0.8.0"
+description = "Local explainable UEBA and cumulative AI-transfer protection laboratory"
+requires-python = ">=3.12,<3.13"
+dependencies = ["numpy==2.3.5", "scikit-learn==1.8.0", "scipy==1.17.0", "joblib==1.5.3", "threadpoolctl==3.6.0"]
+
+[tool.setuptools]
+packages = ["sadd"]
+
+[tool.setuptools.package-data]
+sadd = ["unicode/*.txt", "iban_formats.json"]

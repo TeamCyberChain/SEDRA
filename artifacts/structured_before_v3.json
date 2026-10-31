@@ -1,0 +1,77 @@
+{
+  "scope": "Synthetic detector-only regression probes; no service or account validation",
+  "cases": [
+    {
+      "name": "fin_label",
+      "detected_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "expected": "BLOCK"
+    },
+    {
+      "name": "fin_az_label",
+      "detected_types": [],
+      "expected": "BLOCK"
+    },
+    {
+      "name": "fin_json",
+      "detected_types": [],
+      "expected": "BLOCK"
+    },
+    {
+      "name": "fin_spaced",
+      "detected_types": [],
+      "expected": "BLOCK"
+    },
+    {
+      "name": "fin_confusable",
+      "detected_types": [],
+      "expected": "BLOCK"
+    },
+    {
+      "name": "fin_csv",
+      "detected_types": [],
+      "expected": "BLOCK"
+    },
+    {
+      "name": "az_iban_alphanumeric",
+      "detected_types": [],
+      "expected": "BLOCK"
+    },
+    {
+      "name": "az_iban_groups",
+      "detected_types": [],
+      "expected": "BLOCK"
+    },
+    {
+      "name": "az_iban_spaced",
+      "detected_types": [],
+      "expected": "BLOCK"
+    },
+    {
+      "name": "gb_iban",
+      "detected_types": [],
+      "expected": "BLOCK"
+    },
+    {
+      "name": "card_az",
+      "detected_types": [],
+      "expected": "BLOCK"
+    },
+    {
+      "name": "credential_json",
+      "detected_types": [],
+      "expected": "BLOCK"
+    },
+    {
+      "name": "credential_short",
+      "detected_types": [],
+      "expected": "BLOCK"
+    },
+    {
+      "name": "aws_spaced",
+      "detected_types": [],
+      "expected": "BLOCK"
+    }
+  ]
+}

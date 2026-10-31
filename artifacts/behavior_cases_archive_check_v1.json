@@ -1,0 +1,12 @@
+{
+  "executed_at_utc": "2026-10-31T15:08:44.625092+00:00",
+  "successful": true,
+  "scope": "Extracted source archive, existing isolated Python 3.12 pinned-dependency environment; no network installation",
+  "targeted_tests_run": 21,
+  "failures": 0,
+  "errors": 0,
+  "code_files_compared_to_final_checkout": 75,
+  "all_code_hashes_match": true,
+  "code_manifest_sha256": "e63b5852ee55a462cb421a90bd471278f021b19757b87bb5b27b076d69aafffe",
+  "includes": "Endpoint quality, behavior-case storage/workflow and HTTP, frozen-policy replay and hard-policy boundaries"
+}

@@ -1,0 +1,710 @@
+{
+  "executed_at_utc": "2026-10-31T12:39:47.626470+00:00",
+  "successful": true,
+  "scope": "Actual local Qwen inference through SADD; no cloud provider, test double or reset",
+  "inference_roundtrip_seconds": 0.573,
+  "answer": {
+    "request": {
+      "behavior_context": {
+        "as_of": "2026-10-30T23:59:59+04:00",
+        "behavior_score": 0,
+        "completed_day_score": 0,
+        "live_context": {
+          "as_of": "2026-10-31T12:39:46.974276+00:00",
+          "blocked_attempts": 0,
+          "limitation": "Lab policy rule; not a probability or a live IF prediction",
+          "protected_document_reads": 0,
+          "rule": "6 protected reads or 3 blocked attempts in 120 seconds",
+          "score": 0,
+          "source": "observed_application_events",
+          "window_seconds": 120
+        },
+        "ml_score": 0.0,
+        "model_version": "iforest-lab-daily-v1",
+        "provenance": "synthetic_lab",
+        "provider_model": "sadd-qwen2.5-1.5b",
+        "provider_route": "local_ai",
+        "rule_score": 0.0
+      },
+      "behavior_score": 0.0,
+      "body_bytes": 48,
+      "body_sha256": "0684153b78b786b8d0171c5537c3aaae4b32760d0749a8c2d575a22690ae7a6c",
+      "created_at": 1793450386.974276,
+      "decision": "ALLOW",
+      "destination": "local_ai",
+      "destination_trust_class": "unapproved_ai",
+      "long_threshold": 0.35,
+      "long_token_threshold": 0.4,
+      "long_window_seconds": 2592000,
+      "matched_documents": [],
+      "minimum_candidate_tokens": 2,
+      "model_profiles": {
+        "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
+        "normalization": "sadd-nfkc-dicp15-az-en-v1",
+        "policy": "sadd-dual-window-anchored-token-restricted-v2"
+      },
+      "normalization_flags": {
+        "mixed_script_tokens": 0,
+        "removed_default_ignorables": 0
+      },
+      "reason_codes": [
+        "NO_ELIGIBLE_PROTECTED_MATCH"
+      ],
+      "request_id": "local-live-e0e0e0743edb44408842b675189659ac",
+      "request_state": "FORWARDED_CONFIRMED",
+      "state": "FORWARDED_CONFIRMED",
+      "structured_findings": [],
+      "subject_id": "lab-001",
+      "threshold": 0.2,
+      "token_counts": {
+        "az": 10,
+        "en": 10
+      },
+      "token_threshold": 0.25,
+      "window_seconds": 86400,
+      "new_state": "FORWARDED_CONFIRMED",
+      "updated_at": 1793450387.493752,
+      "send_started_at": 1793450386.9962637,
+      "expires_at": 1793450416.974276,
+      "idempotent_replay": false,
+      "history": [
+        {
+          "at": 1793450386.974276,
+          "old_state": null,
+          "new_state": "RESERVED",
+          "reason": "POLICY_EVALUATION"
+        },
+        {
+          "at": 1793450386.9962637,
+          "old_state": "RESERVED",
+          "new_state": "SENDING",
+          "reason": "OUTBOUND_SEND_CLAIMED"
+        },
+        {
+          "at": 1793450387.493752,
+          "old_state": "SENDING",
+          "new_state": "FORWARDED_CONFIRMED",
+          "reason": "RECEIVER_ACKNOWLEDGED"
+        }
+      ],
+      "old_state": "SENDING",
+      "matches": [],
+      "reasoncodes": [
+        "NO_ELIGIBLE_PROTECTED_MATCH"
+      ],
+      "model_version": "iforest-lab-daily-v1",
+      "provenance": "synthetic_lab"
+    },
+    "provider_contacted": true,
+    "ai": {
+      "provider": "Local AI · Qwen / llama.cpp",
+      "response_id": "chatcmpl-sbhbbbTUke7H6BvaK2aGXe3367nu7jwO",
+      "provider_request_id": "",
+      "model": "sadd-qwen2.5-1.5b",
+      "status": "completed",
+      "answer": "42",
+      "usage": {
+        "input_tokens": 62,
+        "output_tokens": 3,
+        "total_tokens": 65
+      },
+      "output_sha256": "73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049",
+      "evidence_kind": "local_model_response_observed_by_gateway",
+      "independent_delivery_receipt": false,
+      "external_data_transfer": false,
+      "runtime": "llama.cpp CPU",
+      "model_family": "Qwen2.5-1.5B-Instruct Q4_K_M"
+    }
+  },
+  "idempotent_retry": {
+    "request": {
+      "behavior_context": {
+        "as_of": "2026-10-30T23:59:59+04:00",
+        "behavior_score": 0,
+        "completed_day_score": 0,
+        "live_context": {
+          "as_of": "2026-10-31T12:39:46.974276+00:00",
+          "blocked_attempts": 0,
+          "limitation": "Lab policy rule; not a probability or a live IF prediction",
+          "protected_document_reads": 0,
+          "rule": "6 protected reads or 3 blocked attempts in 120 seconds",
+          "score": 0,
+          "source": "observed_application_events",
+          "window_seconds": 120
+        },
+        "ml_score": 0.0,
+        "model_version": "iforest-lab-daily-v1",
+        "provenance": "synthetic_lab",
+        "provider_model": "sadd-qwen2.5-1.5b",
+        "provider_route": "local_ai",
+        "rule_score": 0.0
+      },
+      "behavior_score": 0.0,
+      "body_bytes": 48,
+      "body_sha256": "0684153b78b786b8d0171c5537c3aaae4b32760d0749a8c2d575a22690ae7a6c",
+      "created_at": 1793450386.974276,
+      "decision": "ALLOW",
+      "destination": "local_ai",
+      "destination_trust_class": "unapproved_ai",
+      "long_threshold": 0.35,
+      "long_token_threshold": 0.4,
+      "long_window_seconds": 2592000,
+      "matched_documents": [],
+      "minimum_candidate_tokens": 2,
+      "model_profiles": {
+        "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
+        "normalization": "sadd-nfkc-dicp15-az-en-v1",
+        "policy": "sadd-dual-window-anchored-token-restricted-v2"
+      },
+      "normalization_flags": {
+        "mixed_script_tokens": 0,
+        "removed_default_ignorables": 0
+      },
+      "reason_codes": [
+        "NO_ELIGIBLE_PROTECTED_MATCH"
+      ],
+      "request_id": "local-live-e0e0e0743edb44408842b675189659ac",
+      "request_state": "FORWARDED_CONFIRMED",
+      "state": "FORWARDED_CONFIRMED",
+      "structured_findings": [],
+      "subject_id": "lab-001",
+      "threshold": 0.2,
+      "token_counts": {
+        "az": 10,
+        "en": 10
+      },
+      "token_threshold": 0.25,
+      "window_seconds": 86400,
+      "new_state": "FORWARDED_CONFIRMED",
+      "updated_at": 1793450387.493752,
+      "send_started_at": 1793450386.9962637,
+      "expires_at": 1793450416.974276,
+      "idempotent_replay": true,
+      "history": [
+        {
+          "at": 1793450386.974276,
+          "old_state": null,
+          "new_state": "RESERVED",
+          "reason": "POLICY_EVALUATION"
+        },
+        {
+          "at": 1793450386.9962637,
+          "old_state": "RESERVED",
+          "new_state": "SENDING",
+          "reason": "OUTBOUND_SEND_CLAIMED"
+        },
+        {
+          "at": 1793450387.493752,
+          "old_state": "SENDING",
+          "new_state": "FORWARDED_CONFIRMED",
+          "reason": "RECEIVER_ACKNOWLEDGED"
+        }
+      ],
+      "old_state": "SENDING",
+      "matches": [],
+      "reasoncodes": [
+        "NO_ELIGIBLE_PROTECTED_MATCH"
+      ],
+      "model_version": "iforest-lab-daily-v1",
+      "provenance": "synthetic_lab"
+    },
+    "provider_contacted": true,
+    "ai": {
+      "provider": "Local AI · Qwen / llama.cpp",
+      "response_id": "chatcmpl-sbhbbbTUke7H6BvaK2aGXe3367nu7jwO",
+      "provider_request_id": "",
+      "model": "sadd-qwen2.5-1.5b",
+      "status": "completed",
+      "answer": "42",
+      "usage": {
+        "input_tokens": 62,
+        "output_tokens": 3,
+        "total_tokens": 65
+      },
+      "output_sha256": "73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049",
+      "evidence_kind": "local_model_response_observed_by_gateway",
+      "independent_delivery_receipt": false,
+      "external_data_transfer": false,
+      "runtime": "llama.cpp CPU",
+      "model_family": "Qwen2.5-1.5B-Instruct Q4_K_M"
+    }
+  },
+  "restricted": {
+    "request": {
+      "behavior_context": {
+        "as_of": "2026-10-30T23:59:59+04:00",
+        "behavior_score": 0,
+        "completed_day_score": 0,
+        "live_context": {
+          "as_of": "2026-10-31T12:39:47.601786+00:00",
+          "blocked_attempts": 0,
+          "limitation": "Lab policy rule; not a probability or a live IF prediction",
+          "protected_document_reads": 0,
+          "rule": "6 protected reads or 3 blocked attempts in 120 seconds",
+          "score": 0,
+          "source": "observed_application_events",
+          "window_seconds": 120
+        },
+        "ml_score": 0.0,
+        "model_version": "iforest-lab-daily-v1",
+        "provenance": "synthetic_lab",
+        "provider_model": "sadd-qwen2.5-1.5b",
+        "provider_route": "local_ai",
+        "rule_score": 0.0
+      },
+      "behavior_score": 0.0,
+      "body_bytes": 47,
+      "body_sha256": "ba8c2ba7264836120946ecfafd596b2f7ed330fded220a2102650d422a51500e",
+      "created_at": 1793450387.6017861,
+      "decision": "BLOCK",
+      "destination": "local_ai",
+      "destination_trust_class": "unapproved_ai",
+      "long_threshold": 0.35,
+      "long_token_threshold": 0.4,
+      "long_window_seconds": 2592000,
+      "matched_documents": [
+        {
+          "boilerplate_candidate_count": 0,
+          "candidate_count": 0,
+          "candidate_source_positions": [],
+          "classification": "restricted",
+          "confirmed": true,
+          "denominator": 21,
+          "doc_id": "restricted-runbook",
+          "eligible_match_count": 0,
+          "evaluation_coverage": {
+            "attempted": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "blocked": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "prospective": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0.0
+            }
+          },
+          "evidence_methods": [
+            "anchored_short_sequence"
+          ],
+          "id": "restricted-runbook",
+          "language": "en",
+          "long_evaluation_coverage": {
+            "attempted": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "blocked": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "prospective": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0.0
+            }
+          },
+          "long_prospective_coverage": 0.5714285714285714,
+          "long_token_evaluation_coverage": {
+            "attempted": {
+              "count": 4,
+              "ratio": 0.5714285714285714
+            },
+            "blocked": {
+              "count": 4,
+              "ratio": 0.5714285714285714
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "prospective": {
+              "count": 4,
+              "ratio": 0.5714285714285714
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0.0
+            }
+          },
+          "prospective_count": 0,
+          "prospective_coverage": 0.0,
+          "request_coverage": 0.0,
+          "source_sha256": "7b907cdd44d00a6f3150cf955505ca42d85414b3c29cd8aa8d19b491cb410747",
+          "source_token_count": 46,
+          "title": "Restricted test runbook",
+          "token_denominator": 7,
+          "token_evaluation_coverage": {
+            "attempted": {
+              "count": 4,
+              "ratio": 0.5714285714285714
+            },
+            "blocked": {
+              "count": 4,
+              "ratio": 0.5714285714285714
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "prospective": {
+              "count": 4,
+              "ratio": 0.5714285714285714
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0.0
+            }
+          },
+          "token_match_count": 4,
+          "token_prospective_coverage": 0.5714285714285714,
+          "total_distinct_grams": 43,
+          "version": "2",
+          "coverage": {
+            "attempted": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "blocked": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "prospective": {
+              "count": 0,
+              "ratio": 0.0
+            }
+          },
+          "attempted_coverage": 0.047619047619047616,
+          "attempted_count": 1,
+          "forwarded_coverage": 0.0,
+          "forwarded_count": 0,
+          "reserved_coverage": 0.0,
+          "reserved_count": 0,
+          "unknown_coverage": 0.0,
+          "unknown_count": 0,
+          "blocked_coverage": 0.047619047619047616,
+          "blocked_count": 1,
+          "committed_coverage": 0.0,
+          "committed_count": 0
+        }
+      ],
+      "minimum_candidate_tokens": 2,
+      "model_profiles": {
+        "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
+        "normalization": "sadd-nfkc-dicp15-az-en-v1",
+        "policy": "sadd-dual-window-anchored-token-restricted-v2"
+      },
+      "normalization_flags": {
+        "mixed_script_tokens": 0,
+        "removed_default_ignorables": 0
+      },
+      "reason_codes": [
+        "KNOWN_DEMO_SECRET",
+        "STRUCTURED_SYNTHETIC_SECRET",
+        "RESTRICTED_DOCUMENT_MATCH"
+      ],
+      "request_id": "local-block-f5cbb5f4aeb944d28306f5c96c61fea2",
+      "request_state": "BLOCKED",
+      "state": "BLOCKED",
+      "structured_findings": [
+        {
+          "action": "BLOCK",
+          "confidence": "high",
+          "representation": "original",
+          "type": "SYNTHETIC_SECRET",
+          "value_sha256": "d15045494edf3c2043ee605e15abe14e5a1930d1fc557e2f683ea6d9692aefa2"
+        }
+      ],
+      "subject_id": "lab-001",
+      "threshold": 0.2,
+      "token_counts": {
+        "az": 5,
+        "en": 5
+      },
+      "token_threshold": 0.25,
+      "window_seconds": 86400,
+      "new_state": "BLOCKED",
+      "updated_at": 1793450387.6017861,
+      "send_started_at": null,
+      "expires_at": null,
+      "idempotent_replay": false,
+      "history": [
+        {
+          "at": 1793450387.6017861,
+          "old_state": null,
+          "new_state": "BLOCKED",
+          "reason": "POLICY_EVALUATION"
+        }
+      ],
+      "old_state": null,
+      "matches": [
+        {
+          "boilerplate_candidate_count": 0,
+          "candidate_count": 0,
+          "candidate_source_positions": [],
+          "classification": "restricted",
+          "confirmed": true,
+          "denominator": 21,
+          "doc_id": "restricted-runbook",
+          "eligible_match_count": 0,
+          "evaluation_coverage": {
+            "attempted": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "blocked": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "prospective": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0.0
+            }
+          },
+          "evidence_methods": [
+            "anchored_short_sequence"
+          ],
+          "id": "restricted-runbook",
+          "language": "en",
+          "long_evaluation_coverage": {
+            "attempted": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "blocked": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "prospective": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0.0
+            }
+          },
+          "long_prospective_coverage": 0.5714285714285714,
+          "long_token_evaluation_coverage": {
+            "attempted": {
+              "count": 4,
+              "ratio": 0.5714285714285714
+            },
+            "blocked": {
+              "count": 4,
+              "ratio": 0.5714285714285714
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "prospective": {
+              "count": 4,
+              "ratio": 0.5714285714285714
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0.0
+            }
+          },
+          "prospective_count": 0,
+          "prospective_coverage": 0.0,
+          "request_coverage": 0.0,
+          "source_sha256": "7b907cdd44d00a6f3150cf955505ca42d85414b3c29cd8aa8d19b491cb410747",
+          "source_token_count": 46,
+          "title": "Restricted test runbook",
+          "token_denominator": 7,
+          "token_evaluation_coverage": {
+            "attempted": {
+              "count": 4,
+              "ratio": 0.5714285714285714
+            },
+            "blocked": {
+              "count": 4,
+              "ratio": 0.5714285714285714
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "prospective": {
+              "count": 4,
+              "ratio": 0.5714285714285714
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0.0
+            }
+          },
+          "token_match_count": 4,
+          "token_prospective_coverage": 0.5714285714285714,
+          "total_distinct_grams": 43,
+          "version": "2",
+          "coverage": {
+            "attempted": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "blocked": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0.0
+            },
+            "prospective": {
+              "count": 0,
+              "ratio": 0.0
+            }
+          },
+          "attempted_coverage": 0.047619047619047616,
+          "attempted_count": 1,
+          "forwarded_coverage": 0.0,
+          "forwarded_count": 0,
+          "reserved_coverage": 0.0,
+          "reserved_count": 0,
+          "unknown_coverage": 0.0,
+          "unknown_count": 0,
+          "blocked_coverage": 0.047619047619047616,
+          "blocked_count": 1,
+          "committed_coverage": 0.0,
+          "committed_count": 0
+        }
+      ],
+      "reasoncodes": [
+        "KNOWN_DEMO_SECRET",
+        "STRUCTURED_SYNTHETIC_SECRET",
+        "RESTRICTED_DOCUMENT_MATCH"
+      ],
+      "model_version": "iforest-lab-daily-v1",
+      "provenance": "synthetic_lab"
+    },
+    "provider_contacted": false,
+    "ai": null
+  },
+  "outbound_claims_before_retry": 1,
+  "outbound_claims_after_retry": 1,
+  "unauthenticated_inference_rejected": true
+}

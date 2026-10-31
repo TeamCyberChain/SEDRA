@@ -1,0 +1,23 @@
+{
+  "executed_at_utc": "2026-10-31T12:41:57.762226+00:00",
+  "results": [
+    {
+      "sample": "initial_ai_safety_question",
+      "text": "Explain in three short sentences how a company can use AI safely without sharing confidential information.",
+      "eligible_evidence": [
+        {
+          "doc_id": "araz-plan",
+          "fourgrams": 0,
+          "anchored_tokens": 3
+        }
+      ]
+    },
+    {
+      "sample": "selected_public_workshop_question",
+      "text": "Please help me write a concise agenda for a public cybersecurity workshop. Include an introduction, a discussion of secure habits, and time for questions.",
+      "eligible_evidence": []
+    }
+  ],
+  "decision": "Use the registered public workshop example for the prepared demonstration; matcher/policies unchanged.",
+  "limitation": "Distinctive-token heuristics can match ordinary public wording in a small corpus. The initial question contributed three anchored tokens and could be over-restricted after prior exposure or elevated context. This is not a population false-positive evaluation."
+}

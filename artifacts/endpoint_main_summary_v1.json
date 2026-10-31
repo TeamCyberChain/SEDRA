@@ -1,0 +1,13 @@
+{
+  "executed_at_utc": "2026-10-31T14:37:31.097562+00:00",
+  "successful": true,
+  "scope": "Actual Windows collector and real owned process/file test through main local HTTP app. No physical USB or new authentication was generated.",
+  "endpoint_before_browser": 0,
+  "endpoint_after": 90,
+  "origin": "REAL_LOCAL_OBSERVATION",
+  "usb_physical_test": "Not performed; user has no USB device",
+  "real_file_changes": 10,
+  "real_owned_process_observed": true,
+  "historical_self_session_records": 10,
+  "privacy": "Private source records moved to work/endpoint_main_live_v1.json; not included in source archives"
+}

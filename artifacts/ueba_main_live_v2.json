@@ -1,0 +1,346 @@
+{
+  "executed_at_utc": "2026-10-31T14:26:52.656276+00:00",
+  "scope": "Main local app; browser-generated synthetic 3-read/2-block sequence followed by one synthetic FIN block. No model inference or external request.",
+  "browser_sequence_verified": true,
+  "current_policy": {
+    "effective_score": 85,
+    "daily_component": 0,
+    "live_component": 85,
+    "quality_guard": 0,
+    "combination": "max; no summation of correlated signals",
+    "boundary": 70,
+    "mode": "tightened",
+    "normal_24h_4gram_limit": 0.2,
+    "active_24h_4gram_limit": 0.1,
+    "scope": "Controlled-excerpt budgets only. Restricted content and supported structured findings always block."
+  },
+  "model_context": {
+    "status": "fresh",
+    "eligible_for_policy": true,
+    "as_of": "2026-10-30T23:59:59+04:00",
+    "age_seconds": 66413.6,
+    "maximum_age_hours": 72,
+    "recorded_score": 0,
+    "applied_score": 0,
+    "profile": "iforest-lab-daily-v1",
+    "provenance": "synthetic_lab",
+    "history_days": 28,
+    "note": "Dated completed-day synthetic Isolation Forest + rules. Never fitted on partial live activity."
+  },
+  "active_rules": [
+    "sustained_sensitive_attempts",
+    "access_then_sensitive_attempts"
+  ],
+  "current_rule_evidence": [
+    {
+      "rule_id": "protected_read_burst",
+      "title": "Protected-content access burst",
+      "score": 0,
+      "active": false,
+      "observed": 0,
+      "activation": 6,
+      "window_seconds": 120,
+      "evidence_ids": [],
+      "evidence_count": 0,
+      "note": "Includes repeated reads of the same document; a small lab trigger, not learned employee intent."
+    },
+    {
+      "rule_id": "policy_block_burst",
+      "title": "Repeated policy blocks",
+      "score": 0,
+      "active": false,
+      "observed": 0,
+      "activation": 3,
+      "window_seconds": 120,
+      "evidence_ids": [],
+      "evidence_count": 0,
+      "note": "Unique durable gateway requests only. Retries and audit duplicates do not increase this count."
+    },
+    {
+      "rule_id": "sustained_sensitive_attempts",
+      "title": "Sensitive attempts over a longer window",
+      "score": 75,
+      "active": true,
+      "observed": 4,
+      "activation": 4,
+      "window_seconds": 1800,
+      "evidence_ids": [
+        "gateway:17",
+        "gateway:18",
+        "gateway:19",
+        "gateway:20"
+      ],
+      "evidence_count": 4,
+      "note": "Catches spaced attempts outside the two-minute burst; finite 30-minute scope."
+    },
+    {
+      "rule_id": "multiple_sensitive_types",
+      "title": "Multiple sensitive data types attempted",
+      "score": 0,
+      "active": false,
+      "observed": {
+        "attempts": 4,
+        "types": [
+          "AZ_FIN_CONTEXTUAL"
+        ]
+      },
+      "activation": {
+        "attempts": 3,
+        "types": 2
+      },
+      "window_seconds": 1800,
+      "evidence_ids": [
+        "gateway:17",
+        "gateway:18",
+        "gateway:19",
+        "gateway:20"
+      ],
+      "evidence_count": 4,
+      "note": "Different supported detector types plus repeated blocked requests; types are not independently validated secrets."
+    },
+    {
+      "rule_id": "access_then_sensitive_attempts",
+      "title": "Protected access followed by sensitive attempts",
+      "score": 85,
+      "active": true,
+      "observed": {
+        "protected_reads": 3,
+        "subsequent_attempts": 2
+      },
+      "activation": {
+        "reads": 3,
+        "attempts": 2
+      },
+      "window_seconds": 1800,
+      "evidence_ids": [
+        "audit:32",
+        "audit:33",
+        "audit:34",
+        "gateway:19",
+        "gateway:20"
+      ],
+      "evidence_count": 5,
+      "note": "Three protected reads must precede both attempts. Temporal correlation does not prove the values came from the accessed document."
+    },
+    {
+      "rule_id": "personal_activity_deviation",
+      "title": "Activity above personal active-window norm",
+      "score": 0,
+      "active": false,
+      "observed": {
+        "actions": 7,
+        "robust_deviation": null
+      },
+      "activation": {
+        "minimum_actions": 10,
+        "robust_deviation": 6
+      },
+      "window_seconds": 1800,
+      "evidence_ids": [
+        "gateway:17",
+        "gateway:18",
+        "audit:32",
+        "audit:33",
+        "audit:34",
+        "gateway:19",
+        "gateway:20"
+      ],
+      "evidence_count": 7,
+      "note": "Advisory alone (60). Requires at least 14 earlier active bins over 7 days. No synthetic history is substituted."
+    }
+  ],
+  "new_request_id": "ueba-frozen-50de833e6869",
+  "alert_id": "SE-f79f36c1d6a7418cb8cef0cc23c58cd5",
+  "frozen_context": {
+    "as_of": "2026-10-30T23:59:59+04:00",
+    "behavior_score": 85,
+    "completed_day_score": 0,
+    "live_context": {
+      "active_rule_ids": [
+        "sustained_sensitive_attempts",
+        "access_then_sensitive_attempts"
+      ],
+      "as_of": "2026-10-31T14:26:52.558114+00:00",
+      "blocked_attempts": 0,
+      "detector_types_30m": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "input_bound_reached": false,
+      "limitation": "Application-only correlation; not live IF or probability of malicious intent",
+      "long_window_seconds": 1800,
+      "personal_baseline": {
+        "active_bins": 2,
+        "inactive_slots_imputed": false,
+        "lookback_days": 28,
+        "median": null,
+        "minimum_bins": 14,
+        "minimum_days": 7,
+        "observed_days": 1,
+        "reference_ends_before": 1793455012.5581138,
+        "robust_scale": null,
+        "scope": "Observed app actions in earlier complete active 30-minute bins; not an endpoint workday baseline",
+        "status": "insufficient_history",
+        "window_seconds": 1800
+      },
+      "profile": "sedra-app-ueba-v2",
+      "protected_document_reads": 0,
+      "rule": "maximum of declared app UEBA rules",
+      "rules": [
+        {
+          "activation": 6,
+          "active": false,
+          "evidence_count": 0,
+          "evidence_ids": [],
+          "note": "Includes repeated reads of the same document; a small lab trigger, not learned employee intent.",
+          "observed": 0,
+          "rule_id": "protected_read_burst",
+          "score": 0,
+          "title": "Protected-content access burst",
+          "window_seconds": 120
+        },
+        {
+          "activation": 3,
+          "active": false,
+          "evidence_count": 0,
+          "evidence_ids": [],
+          "note": "Unique durable gateway requests only. Retries and audit duplicates do not increase this count.",
+          "observed": 0,
+          "rule_id": "policy_block_burst",
+          "score": 0,
+          "title": "Repeated policy blocks",
+          "window_seconds": 120
+        },
+        {
+          "activation": 4,
+          "active": true,
+          "evidence_count": 4,
+          "evidence_ids": [
+            "gateway:17",
+            "gateway:18",
+            "gateway:19",
+            "gateway:20"
+          ],
+          "note": "Catches spaced attempts outside the two-minute burst; finite 30-minute scope.",
+          "observed": 4,
+          "rule_id": "sustained_sensitive_attempts",
+          "score": 75,
+          "title": "Sensitive attempts over a longer window",
+          "window_seconds": 1800
+        },
+        {
+          "activation": {
+            "attempts": 3,
+            "types": 2
+          },
+          "active": false,
+          "evidence_count": 4,
+          "evidence_ids": [
+            "gateway:17",
+            "gateway:18",
+            "gateway:19",
+            "gateway:20"
+          ],
+          "note": "Different supported detector types plus repeated blocked requests; types are not independently validated secrets.",
+          "observed": {
+            "attempts": 4,
+            "types": [
+              "AZ_FIN_CONTEXTUAL"
+            ]
+          },
+          "rule_id": "multiple_sensitive_types",
+          "score": 0,
+          "title": "Multiple sensitive data types attempted",
+          "window_seconds": 1800
+        },
+        {
+          "activation": {
+            "attempts": 2,
+            "reads": 3
+          },
+          "active": true,
+          "evidence_count": 5,
+          "evidence_ids": [
+            "audit:32",
+            "audit:33",
+            "audit:34",
+            "gateway:19",
+            "gateway:20"
+          ],
+          "note": "Three protected reads must precede both attempts. Temporal correlation does not prove the values came from the accessed document.",
+          "observed": {
+            "protected_reads": 3,
+            "subsequent_attempts": 2
+          },
+          "rule_id": "access_then_sensitive_attempts",
+          "score": 85,
+          "title": "Protected access followed by sensitive attempts",
+          "window_seconds": 1800
+        },
+        {
+          "activation": {
+            "minimum_actions": 10,
+            "robust_deviation": 6
+          },
+          "active": false,
+          "evidence_count": 7,
+          "evidence_ids": [
+            "gateway:17",
+            "gateway:18",
+            "audit:32",
+            "audit:33",
+            "audit:34",
+            "gateway:19",
+            "gateway:20"
+          ],
+          "note": "Advisory alone (60). Requires at least 14 earlier active bins over 7 days. No synthetic history is substituted.",
+          "observed": {
+            "actions": 7,
+            "robust_deviation": null
+          },
+          "rule_id": "personal_activity_deviation",
+          "score": 0,
+          "title": "Activity above personal active-window norm",
+          "window_seconds": 1800
+        }
+      ],
+      "score": 85,
+      "sensitive_attempts_30m": 4,
+      "source": "observed_application_events",
+      "unique_protected_documents_30m": 1,
+      "window_seconds": 120
+    },
+    "ml_score": 0.0,
+    "model_context": {
+      "age_seconds": 66413.6,
+      "applied_score": 0,
+      "as_of": "2026-10-30T23:59:59+04:00",
+      "eligible_for_policy": true,
+      "history_days": 28,
+      "maximum_age_hours": 72,
+      "note": "Dated completed-day synthetic Isolation Forest + rules. Never fitted on partial live activity.",
+      "profile": "iforest-lab-daily-v1",
+      "provenance": "synthetic_lab",
+      "recorded_score": 0,
+      "status": "fresh"
+    },
+    "model_version": "iforest-lab-daily-v1",
+    "policy_context": {
+      "active_24h_4gram_limit": 0.1,
+      "boundary": 70,
+      "combination": "max; no summation of correlated signals",
+      "daily_component": 0,
+      "effective_score": 85,
+      "live_component": 85,
+      "mode": "tightened",
+      "normal_24h_4gram_limit": 0.2,
+      "quality_guard": 0,
+      "scope": "Controlled-excerpt budgets only. Restricted content and supported structured findings always block."
+    },
+    "provenance": "synthetic_lab",
+    "rule_score": 0.0
+  },
+  "decision": "BLOCK",
+  "masked_evidence": true,
+  "browser_export_verified": true,
+  "existing_activity_preserved": true
+}

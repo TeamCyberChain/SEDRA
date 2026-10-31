@@ -1,0 +1,235 @@
+{
+  "executed_at_utc": "2026-10-31T14:06:22.294865+00:00",
+  "request_id": "live-alert-f4df5f389917",
+  "alert_id": "SE-7a35c356dbeb448b8bab7664e130b2c9",
+  "decision": "BLOCK",
+  "state": "BLOCKED",
+  "original_payload_sha256": "6a7dff83c387ab8be74abfd6406a80806ba22f53ae3151209b97c8fd2d26f4d0",
+  "before_counts": {
+    "total": 9,
+    "open": 9,
+    "in_review": 0,
+    "resolved": 0,
+    "unread": 9,
+    "active": 9,
+    "critical_active": 0
+  },
+  "after_counts": {
+    "total": 10,
+    "open": 10,
+    "in_review": 0,
+    "resolved": 0,
+    "unread": 10,
+    "active": 10,
+    "critical_active": 0
+  },
+  "same_request_replay_extra_alerts": 0,
+  "scope": "Main local demo; one synthetic FIN event; no inference or external call",
+  "browser_automatically_announced_without_refresh": true,
+  "browser_analyst_workflow": {
+    "alert": {
+      "seq": 10,
+      "alert_id": "SE-7a35c356dbeb448b8bab7664e130b2c9",
+      "kind": "POLICY_BLOCK",
+      "severity": "high",
+      "title": "Sensitive data blocked",
+      "category": "structured_sensitive_data",
+      "severity_basis": "Supported identifier/financial rule matched; blocked before delivery",
+      "occurred_at": 1793455582.2001555,
+      "created_at": 1793455582.2001555,
+      "status": "RESOLVED",
+      "disposition": "EXPECTED_TEST",
+      "assigned_to": "analyst",
+      "read_at": 1793455593.9780695,
+      "updated_at": 1793455612.1319773,
+      "revision": 3,
+      "subject_id": "lab-001",
+      "request_id": "live-alert-f4df5f389917",
+      "destination": "public_ai",
+      "decision": "BLOCK",
+      "state": "BLOCKED",
+      "body_sha256": "6a7dff83c387ab8be74abfd6406a80806ba22f53ae3151209b97c8fd2d26f4d0",
+      "body_bytes": 13,
+      "behavior_score": 0.0,
+      "display_id": "SEDRA-000010",
+      "imported_from_ledger": false,
+      "profile": "sedra-gateway-alerts-v1",
+      "environment": "synthetic_lab",
+      "reason_codes": [
+        "STRUCTURED_AZ_FIN_CONTEXTUAL",
+        "NO_ELIGIBLE_PROTECTED_MATCH"
+      ],
+      "security_tags": {
+        "basis": "structured-detector",
+        "business_tags": [],
+        "detector_tags": [
+          "AZ_FIN_CONTEXTUAL"
+        ],
+        "document_ids": [],
+        "profile": "sedra-governed-labels-v1",
+        "scope_note": "Unclassified means no eligible protected match or structured finding; it is not a public-data certification.",
+        "sensitivity": "restricted"
+      },
+      "detector_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "delivery_uncertain": false,
+      "outcome": "Prevented by policy",
+      "workflow_note": "Analyst review does not change enforcement, resend content or establish compromise."
+    },
+    "history": [
+      {
+        "event_id": 1,
+        "actor": "analyst",
+        "at": 1793455593.9780695,
+        "action": "READ",
+        "old_status": "OPEN",
+        "new_status": "OPEN",
+        "disposition": "UNASSESSED"
+      },
+      {
+        "event_id": 2,
+        "actor": "analyst",
+        "at": 1793455604.328199,
+        "action": "ACKNOWLEDGE",
+        "old_status": "OPEN",
+        "new_status": "IN_REVIEW",
+        "disposition": "UNASSESSED"
+      },
+      {
+        "event_id": 3,
+        "actor": "analyst",
+        "at": 1793455612.1319773,
+        "action": "RESOLVE",
+        "old_status": "IN_REVIEW",
+        "new_status": "RESOLVED",
+        "disposition": "EXPECTED_TEST"
+      }
+    ],
+    "request": {
+      "behavior_context": {
+        "as_of": "2026-10-30T23:59:59+04:00",
+        "behavior_score": 0,
+        "completed_day_score": 0,
+        "live_context": {
+          "as_of": "2026-10-31T14:06:22.200155+00:00",
+          "blocked_attempts": 0,
+          "limitation": "Lab policy rule; not a probability or a live IF prediction",
+          "protected_document_reads": 0,
+          "rule": "6 protected reads or 3 blocked attempts in 120 seconds",
+          "score": 0,
+          "source": "observed_application_events",
+          "window_seconds": 120
+        },
+        "ml_score": 0.0,
+        "model_version": "iforest-lab-daily-v1",
+        "provenance": "synthetic_lab",
+        "rule_score": 0.0
+      },
+      "behavior_score": 0.0,
+      "body_bytes": 13,
+      "body_sha256": "6a7dff83c387ab8be74abfd6406a80806ba22f53ae3151209b97c8fd2d26f4d0",
+      "created_at": 1793455582.2001555,
+      "decision": "BLOCK",
+      "destination": "public_ai",
+      "destination_trust_class": "unapproved_ai",
+      "long_threshold": 0.35,
+      "long_token_threshold": 0.4,
+      "long_window_seconds": 2592000,
+      "matched_documents": [],
+      "minimum_candidate_tokens": 2,
+      "model_profiles": {
+        "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
+        "normalization": "sadd-nfkc-dicp15-az-en-v1",
+        "policy": "sadd-dual-window-anchored-token-restricted-v2",
+        "structured": "sedra-structured-context-checksum-tr39-v3"
+      },
+      "normalization_flags": {
+        "mixed_script_tokens": 0,
+        "removed_default_ignorables": 0
+      },
+      "reason_codes": [
+        "STRUCTURED_AZ_FIN_CONTEXTUAL",
+        "NO_ELIGIBLE_PROTECTED_MATCH"
+      ],
+      "request_id": "live-alert-f4df5f389917",
+      "request_state": "BLOCKED",
+      "security_tags": {
+        "basis": "structured-detector",
+        "business_tags": [],
+        "detector_tags": [
+          "AZ_FIN_CONTEXTUAL"
+        ],
+        "document_ids": [],
+        "profile": "sedra-governed-labels-v1",
+        "scope_note": "Unclassified means no eligible protected match or structured finding; it is not a public-data certification.",
+        "sensitivity": "restricted"
+      },
+      "state": "BLOCKED",
+      "structured_findings": [
+        {
+          "action": "BLOCK",
+          "category": "personal_identifiers",
+          "confidence": "high",
+          "confidence_basis": "rule_evidence_not_probability",
+          "detector_profile": "sedra-structured-context-checksum-tr39-v3",
+          "normalization_steps": [],
+          "representation": "original",
+          "representations": [
+            "original"
+          ],
+          "sensitivity": "restricted",
+          "type": "AZ_FIN_CONTEXTUAL",
+          "validation_checks": [
+            "explicit_fin_context",
+            "7_character_format",
+            "restricted_alphabet"
+          ],
+          "value_sha256": "cb53ccdfdaa74474278a662fc5e51f0bce36bca76d93f2956d60abf8a2102658"
+        }
+      ],
+      "subject_id": "lab-001",
+      "threshold": 0.2,
+      "token_counts": {
+        "az": 2,
+        "en": 2
+      },
+      "token_threshold": 0.25,
+      "window_seconds": 86400,
+      "alert_ids": [
+        "SE-7a35c356dbeb448b8bab7664e130b2c9"
+      ],
+      "new_state": "BLOCKED",
+      "updated_at": 1793455582.2001555,
+      "send_started_at": null,
+      "expires_at": null,
+      "idempotent_replay": false,
+      "history": [
+        {
+          "at": 1793455582.2001555,
+          "old_state": null,
+          "new_state": "BLOCKED",
+          "reason": "POLICY_EVALUATION"
+        }
+      ],
+      "old_state": null
+    }
+  },
+  "portal_browser_proof": {
+    "request_id": "0139194a-8dd1-4a9c-8e79-ef407659f7e7",
+    "alert_id": "SE-7a4bc2f8d41845f29b544e68465f535e",
+    "provider_contacted": false,
+    "decision": "BLOCK",
+    "employee_result_notice_observed": true
+  },
+  "employee_browser_queue_hidden": true,
+  "final_alert_counts": {
+    "total": 11,
+    "open": 10,
+    "in_review": 0,
+    "resolved": 1,
+    "unread": 9,
+    "active": 10,
+    "critical_active": 0
+  }
+}

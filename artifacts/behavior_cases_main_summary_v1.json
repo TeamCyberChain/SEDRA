@@ -1,0 +1,31 @@
+{
+  "quote": {
+    "decision": "BLOCK",
+    "priority": 90.0,
+    "original_preview": "BLOCK",
+    "excluded_preview": "ALLOW",
+    "case_frozen": true
+  },
+  "fin": {
+    "decision": "BLOCK",
+    "priority": 90.0,
+    "original_preview": "BLOCK",
+    "excluded_preview": "BLOCK",
+    "case_frozen": true
+  },
+  "case": {
+    "peak": 90.0,
+    "current_live": 0.0,
+    "status": "RESOLVED",
+    "disposition": "EXPECTED_LAB_TEST",
+    "captured_priority": 90,
+    "nodes": 14,
+    "edges": 10,
+    "peak_process_file_graph_retained": true,
+    "chain_consistent": true,
+    "snapshot_bound": true
+  },
+  "privacy": "Aggregate outcomes only; private Windows metadata and packet are not exported",
+  "executed_at_utc": "2026-10-31T15:07:34.361447+00:00",
+  "browser_private_export_verified": true
+}

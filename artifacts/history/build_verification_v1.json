@@ -1,0 +1,16 @@
+{
+  "verified_at_utc": "2026-10-31T08:41:51.907234+00:00",
+  "functional_tests": {
+    "passed": 57,
+    "failed": 0,
+    "skipped": 0,
+    "report": "artifacts/test_summary.json"
+  },
+  "frontend_javascript_syntax": "passed",
+  "python_syntax": "passed",
+  "actual_benchmark_namespace_smoke": "passed:204 historical subjects,40 lab subjects;employee benchmark analyst_only",
+  "browser_visual_qa": "not_verified",
+  "browser_limit": "Managed preview uses a separate runtime without declared NumPy dependency. No browser render claimed.",
+  "cert_v1_detection_gate": "failed;see full retained results",
+  "publication": "local source package;no public deployment"
+}

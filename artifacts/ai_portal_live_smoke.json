@@ -1,0 +1,1442 @@
+{
+  "executed_at_utc": "2026-10-31T11:44:31.729Z",
+  "successful": false,
+  "live_provider_reply_verified": false,
+  "blocked_before_provider_verified": true,
+  "scope": "Actual local browser and external OpenAI API; public/synthetic examples only; no provider double",
+  "attempts": [
+    {
+      "request": {
+        "behavior_context": {
+          "as_of": "2026-10-30T23:59:59+04:00",
+          "behavior_score": 0,
+          "completed_day_score": 0,
+          "live_context": {
+            "as_of": "2026-10-31T11:42:01.206384+00:00",
+            "blocked_attempts": 0,
+            "limitation": "Lab policy rule; not a probability or a live IF prediction",
+            "protected_document_reads": 0,
+            "rule": "6 protected reads or 3 blocked attempts in 120 seconds",
+            "score": 0,
+            "source": "observed_application_events",
+            "window_seconds": 120
+          },
+          "ml_score": 0,
+          "model_version": "iforest-lab-daily-v1",
+          "provenance": "synthetic_lab",
+          "provider_model": "gpt-4.1-mini",
+          "rule_score": 0
+        },
+        "behavior_score": 0,
+        "body_bytes": 106,
+        "body_sha256": "8a04e75e3bcf79f7f89095ffd7870134ec696f51bdb1f8cce90cb63f9695f9e8",
+        "created_at": 1793446921.2063842,
+        "decision": "ALLOW",
+        "destination": "openai_api",
+        "destination_trust_class": "unapproved_ai",
+        "long_threshold": 0.35,
+        "long_token_threshold": 0.4,
+        "long_window_seconds": 2592000,
+        "matched_documents": [
+          {
+            "boilerplate_candidate_count": 0,
+            "candidate_count": 0,
+            "candidate_source_positions": [],
+            "classification": "controlled_excerpt",
+            "confirmed": true,
+            "denominator": 182,
+            "doc_id": "araz-plan",
+            "eligible_match_count": 0,
+            "evaluation_coverage": {
+              "attempted": {
+                "count": 48,
+                "ratio": 0.26373626373626374
+              },
+              "blocked": {
+                "count": 44,
+                "ratio": 0.24175824175824176
+              },
+              "committed": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "forwarded": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "prospective": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 0,
+                "ratio": 0
+              }
+            },
+            "evidence_methods": [
+              "distinctive_token_cooccurrence"
+            ],
+            "id": "araz-plan",
+            "language": "en",
+            "long_evaluation_coverage": {
+              "attempted": {
+                "count": 48,
+                "ratio": 0.26373626373626374
+              },
+              "blocked": {
+                "count": 44,
+                "ratio": 0.24175824175824176
+              },
+              "committed": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "forwarded": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "prospective": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 0,
+                "ratio": 0
+              }
+            },
+            "long_prospective_coverage": 0.24074074074074073,
+            "long_token_evaluation_coverage": {
+              "attempted": {
+                "count": 39,
+                "ratio": 0.3611111111111111
+              },
+              "blocked": {
+                "count": 36,
+                "ratio": 0.3333333333333333
+              },
+              "committed": {
+                "count": 25,
+                "ratio": 0.23148148148148148
+              },
+              "forwarded": {
+                "count": 25,
+                "ratio": 0.23148148148148148
+              },
+              "prospective": {
+                "count": 26,
+                "ratio": 0.24074074074074073
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 0,
+                "ratio": 0
+              }
+            },
+            "prospective_count": 33,
+            "prospective_coverage": 0.1813186813186813,
+            "request_coverage": 0,
+            "source_sha256": "bd41319f68fce246248b4e4b7b255926f71bb73cbe784ff24d909e310288de9a",
+            "source_token_count": 201,
+            "title": "Araz expansion memorandum",
+            "token_denominator": 108,
+            "token_evaluation_coverage": {
+              "attempted": {
+                "count": 39,
+                "ratio": 0.3611111111111111
+              },
+              "blocked": {
+                "count": 36,
+                "ratio": 0.3333333333333333
+              },
+              "committed": {
+                "count": 25,
+                "ratio": 0.23148148148148148
+              },
+              "forwarded": {
+                "count": 25,
+                "ratio": 0.23148148148148148
+              },
+              "prospective": {
+                "count": 26,
+                "ratio": 0.24074074074074073
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 0,
+                "ratio": 0
+              }
+            },
+            "token_match_count": 3,
+            "token_prospective_coverage": 0.24074074074074073,
+            "total_distinct_grams": 198,
+            "version": "2",
+            "coverage": {
+              "attempted": {
+                "count": 48,
+                "ratio": 0.26373626373626374
+              },
+              "forwarded": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 0,
+                "ratio": 0
+              },
+              "blocked": {
+                "count": 44,
+                "ratio": 0.24175824175824176
+              },
+              "committed": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "prospective": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              }
+            },
+            "attempted_coverage": 0.26373626373626374,
+            "attempted_count": 48,
+            "forwarded_coverage": 0.1813186813186813,
+            "forwarded_count": 33,
+            "reserved_coverage": 0,
+            "reserved_count": 0,
+            "unknown_coverage": 0,
+            "unknown_count": 0,
+            "blocked_coverage": 0.24175824175824176,
+            "blocked_count": 44,
+            "committed_coverage": 0.1813186813186813,
+            "committed_count": 33
+          }
+        ],
+        "minimum_candidate_tokens": 2,
+        "model_profiles": {
+          "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
+          "normalization": "sadd-nfkc-dicp15-az-en-v1",
+          "policy": "sadd-dual-window-anchored-token-restricted-v2"
+        },
+        "normalization_flags": {
+          "mixed_script_tokens": 0,
+          "removed_default_ignorables": 0
+        },
+        "reason_codes": [
+          "WITHIN_DISCLOSURE_BUDGET"
+        ],
+        "request_id": "ce0cb0e3-8bfe-45c4-9f3f-cdf8adfee7da",
+        "request_state": "DELIVERY_UNKNOWN",
+        "state": "DELIVERY_UNKNOWN",
+        "structured_findings": [],
+        "subject_id": "lab-001",
+        "threshold": 0.2,
+        "token_counts": {
+          "az": 16,
+          "en": 16
+        },
+        "token_threshold": 0.25,
+        "window_seconds": 86400,
+        "new_state": "DELIVERY_UNKNOWN",
+        "updated_at": 1793446921.9516425,
+        "send_started_at": 1793446921.2306225,
+        "expires_at": 1793446951.2063842,
+        "idempotent_replay": false,
+        "history": [
+          {
+            "at": 1793446921.2063842,
+            "old_state": null,
+            "new_state": "RESERVED",
+            "reason": "POLICY_EVALUATION"
+          },
+          {
+            "at": 1793446921.2306225,
+            "old_state": "RESERVED",
+            "new_state": "SENDING",
+            "reason": "OUTBOUND_SEND_CLAIMED"
+          },
+          {
+            "at": 1793446921.9516425,
+            "old_state": "SENDING",
+            "new_state": "DELIVERY_UNKNOWN",
+            "reason": "OUTBOUND_RESULT_UNCERTAIN"
+          }
+        ],
+        "old_state": "SENDING",
+        "matches": [
+          {
+            "boilerplate_candidate_count": 0,
+            "candidate_count": 0,
+            "candidate_source_positions": [],
+            "classification": "controlled_excerpt",
+            "confirmed": true,
+            "denominator": 182,
+            "doc_id": "araz-plan",
+            "eligible_match_count": 0,
+            "evaluation_coverage": {
+              "attempted": {
+                "count": 48,
+                "ratio": 0.26373626373626374
+              },
+              "blocked": {
+                "count": 44,
+                "ratio": 0.24175824175824176
+              },
+              "committed": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "forwarded": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "prospective": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 0,
+                "ratio": 0
+              }
+            },
+            "evidence_methods": [
+              "distinctive_token_cooccurrence"
+            ],
+            "id": "araz-plan",
+            "language": "en",
+            "long_evaluation_coverage": {
+              "attempted": {
+                "count": 48,
+                "ratio": 0.26373626373626374
+              },
+              "blocked": {
+                "count": 44,
+                "ratio": 0.24175824175824176
+              },
+              "committed": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "forwarded": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "prospective": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 0,
+                "ratio": 0
+              }
+            },
+            "long_prospective_coverage": 0.24074074074074073,
+            "long_token_evaluation_coverage": {
+              "attempted": {
+                "count": 39,
+                "ratio": 0.3611111111111111
+              },
+              "blocked": {
+                "count": 36,
+                "ratio": 0.3333333333333333
+              },
+              "committed": {
+                "count": 25,
+                "ratio": 0.23148148148148148
+              },
+              "forwarded": {
+                "count": 25,
+                "ratio": 0.23148148148148148
+              },
+              "prospective": {
+                "count": 26,
+                "ratio": 0.24074074074074073
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 0,
+                "ratio": 0
+              }
+            },
+            "prospective_count": 33,
+            "prospective_coverage": 0.1813186813186813,
+            "request_coverage": 0,
+            "source_sha256": "bd41319f68fce246248b4e4b7b255926f71bb73cbe784ff24d909e310288de9a",
+            "source_token_count": 201,
+            "title": "Araz expansion memorandum",
+            "token_denominator": 108,
+            "token_evaluation_coverage": {
+              "attempted": {
+                "count": 39,
+                "ratio": 0.3611111111111111
+              },
+              "blocked": {
+                "count": 36,
+                "ratio": 0.3333333333333333
+              },
+              "committed": {
+                "count": 25,
+                "ratio": 0.23148148148148148
+              },
+              "forwarded": {
+                "count": 25,
+                "ratio": 0.23148148148148148
+              },
+              "prospective": {
+                "count": 26,
+                "ratio": 0.24074074074074073
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 0,
+                "ratio": 0
+              }
+            },
+            "token_match_count": 3,
+            "token_prospective_coverage": 0.24074074074074073,
+            "total_distinct_grams": 198,
+            "version": "2",
+            "coverage": {
+              "attempted": {
+                "count": 48,
+                "ratio": 0.26373626373626374
+              },
+              "forwarded": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 0,
+                "ratio": 0
+              },
+              "blocked": {
+                "count": 44,
+                "ratio": 0.24175824175824176
+              },
+              "committed": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "prospective": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              }
+            },
+            "attempted_coverage": 0.26373626373626374,
+            "attempted_count": 48,
+            "forwarded_coverage": 0.1813186813186813,
+            "forwarded_count": 33,
+            "reserved_coverage": 0,
+            "reserved_count": 0,
+            "unknown_coverage": 0,
+            "unknown_count": 0,
+            "blocked_coverage": 0.24175824175824176,
+            "blocked_count": 44,
+            "committed_coverage": 0.1813186813186813,
+            "committed_count": 33
+          }
+        ],
+        "reasoncodes": [
+          "WITHIN_DISCLOSURE_BUDGET"
+        ],
+        "model_version": "iforest-lab-daily-v1",
+        "provenance": "synthetic_lab"
+      },
+      "provider_contacted": true,
+      "ai": null,
+      "error": "OpenAI returned HTTP 401. Check key access, model and API billing. No automatic retry."
+    },
+    {
+      "request": {
+        "behavior_context": {
+          "as_of": "2026-10-30T23:59:59+04:00",
+          "behavior_score": 0,
+          "completed_day_score": 0,
+          "live_context": {
+            "as_of": "2026-10-31T11:43:37.520054+00:00",
+            "blocked_attempts": 1,
+            "limitation": "Lab policy rule; not a probability or a live IF prediction",
+            "protected_document_reads": 0,
+            "rule": "6 protected reads or 3 blocked attempts in 120 seconds",
+            "score": 0,
+            "source": "observed_application_events",
+            "window_seconds": 120
+          },
+          "ml_score": 0,
+          "model_version": "iforest-lab-daily-v1",
+          "provenance": "synthetic_lab",
+          "provider_model": "gpt-4.1-mini",
+          "rule_score": 0
+        },
+        "behavior_score": 0,
+        "body_bytes": 106,
+        "body_sha256": "8a04e75e3bcf79f7f89095ffd7870134ec696f51bdb1f8cce90cb63f9695f9e8",
+        "created_at": 1793447017.5200548,
+        "decision": "ALLOW",
+        "destination": "openai_api",
+        "destination_trust_class": "unapproved_ai",
+        "long_threshold": 0.35,
+        "long_token_threshold": 0.4,
+        "long_window_seconds": 2592000,
+        "matched_documents": [
+          {
+            "boilerplate_candidate_count": 0,
+            "candidate_count": 0,
+            "candidate_source_positions": [],
+            "classification": "controlled_excerpt",
+            "confirmed": true,
+            "denominator": 182,
+            "doc_id": "araz-plan",
+            "eligible_match_count": 0,
+            "evaluation_coverage": {
+              "attempted": {
+                "count": 48,
+                "ratio": 0.26373626373626374
+              },
+              "blocked": {
+                "count": 44,
+                "ratio": 0.24175824175824176
+              },
+              "committed": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "forwarded": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "prospective": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 0,
+                "ratio": 0
+              }
+            },
+            "evidence_methods": [
+              "distinctive_token_cooccurrence"
+            ],
+            "id": "araz-plan",
+            "language": "en",
+            "long_evaluation_coverage": {
+              "attempted": {
+                "count": 48,
+                "ratio": 0.26373626373626374
+              },
+              "blocked": {
+                "count": 44,
+                "ratio": 0.24175824175824176
+              },
+              "committed": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "forwarded": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "prospective": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 0,
+                "ratio": 0
+              }
+            },
+            "long_prospective_coverage": 0.24074074074074073,
+            "long_token_evaluation_coverage": {
+              "attempted": {
+                "count": 40,
+                "ratio": 0.37037037037037035
+              },
+              "blocked": {
+                "count": 36,
+                "ratio": 0.3333333333333333
+              },
+              "committed": {
+                "count": 26,
+                "ratio": 0.24074074074074073
+              },
+              "forwarded": {
+                "count": 25,
+                "ratio": 0.23148148148148148
+              },
+              "prospective": {
+                "count": 26,
+                "ratio": 0.24074074074074073
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 3,
+                "ratio": 0.027777777777777776
+              }
+            },
+            "prospective_count": 33,
+            "prospective_coverage": 0.1813186813186813,
+            "request_coverage": 0,
+            "source_sha256": "bd41319f68fce246248b4e4b7b255926f71bb73cbe784ff24d909e310288de9a",
+            "source_token_count": 201,
+            "title": "Araz expansion memorandum",
+            "token_denominator": 108,
+            "token_evaluation_coverage": {
+              "attempted": {
+                "count": 40,
+                "ratio": 0.37037037037037035
+              },
+              "blocked": {
+                "count": 36,
+                "ratio": 0.3333333333333333
+              },
+              "committed": {
+                "count": 26,
+                "ratio": 0.24074074074074073
+              },
+              "forwarded": {
+                "count": 25,
+                "ratio": 0.23148148148148148
+              },
+              "prospective": {
+                "count": 26,
+                "ratio": 0.24074074074074073
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 3,
+                "ratio": 0.027777777777777776
+              }
+            },
+            "token_match_count": 3,
+            "token_prospective_coverage": 0.24074074074074073,
+            "total_distinct_grams": 198,
+            "version": "2",
+            "coverage": {
+              "attempted": {
+                "count": 48,
+                "ratio": 0.26373626373626374
+              },
+              "forwarded": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 0,
+                "ratio": 0
+              },
+              "blocked": {
+                "count": 44,
+                "ratio": 0.24175824175824176
+              },
+              "committed": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "prospective": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              }
+            },
+            "attempted_coverage": 0.26373626373626374,
+            "attempted_count": 48,
+            "forwarded_coverage": 0.1813186813186813,
+            "forwarded_count": 33,
+            "reserved_coverage": 0,
+            "reserved_count": 0,
+            "unknown_coverage": 0,
+            "unknown_count": 0,
+            "blocked_coverage": 0.24175824175824176,
+            "blocked_count": 44,
+            "committed_coverage": 0.1813186813186813,
+            "committed_count": 33
+          }
+        ],
+        "minimum_candidate_tokens": 2,
+        "model_profiles": {
+          "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
+          "normalization": "sadd-nfkc-dicp15-az-en-v1",
+          "policy": "sadd-dual-window-anchored-token-restricted-v2"
+        },
+        "normalization_flags": {
+          "mixed_script_tokens": 0,
+          "removed_default_ignorables": 0
+        },
+        "reason_codes": [
+          "WITHIN_DISCLOSURE_BUDGET"
+        ],
+        "request_id": "1c896444-20a1-4a79-b26e-c707666b0931",
+        "request_state": "DELIVERY_UNKNOWN",
+        "state": "DELIVERY_UNKNOWN",
+        "structured_findings": [],
+        "subject_id": "lab-001",
+        "threshold": 0.2,
+        "token_counts": {
+          "az": 16,
+          "en": 16
+        },
+        "token_threshold": 0.25,
+        "window_seconds": 86400,
+        "new_state": "DELIVERY_UNKNOWN",
+        "updated_at": 1793447025.5375855,
+        "send_started_at": 1793447017.5563214,
+        "expires_at": 1793447047.5200548,
+        "idempotent_replay": true,
+        "history": [
+          {
+            "at": 1793447017.5200548,
+            "old_state": null,
+            "new_state": "RESERVED",
+            "reason": "POLICY_EVALUATION"
+          },
+          {
+            "at": 1793447017.5563214,
+            "old_state": "RESERVED",
+            "new_state": "SENDING",
+            "reason": "OUTBOUND_SEND_CLAIMED"
+          },
+          {
+            "at": 1793447025.5375855,
+            "old_state": "SENDING",
+            "new_state": "DELIVERY_UNKNOWN",
+            "reason": "OUTBOUND_RESULT_UNCERTAIN"
+          }
+        ],
+        "old_state": "SENDING",
+        "matches": [
+          {
+            "boilerplate_candidate_count": 0,
+            "candidate_count": 0,
+            "candidate_source_positions": [],
+            "classification": "controlled_excerpt",
+            "confirmed": true,
+            "denominator": 182,
+            "doc_id": "araz-plan",
+            "eligible_match_count": 0,
+            "evaluation_coverage": {
+              "attempted": {
+                "count": 48,
+                "ratio": 0.26373626373626374
+              },
+              "blocked": {
+                "count": 44,
+                "ratio": 0.24175824175824176
+              },
+              "committed": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "forwarded": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "prospective": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 0,
+                "ratio": 0
+              }
+            },
+            "evidence_methods": [
+              "distinctive_token_cooccurrence"
+            ],
+            "id": "araz-plan",
+            "language": "en",
+            "long_evaluation_coverage": {
+              "attempted": {
+                "count": 48,
+                "ratio": 0.26373626373626374
+              },
+              "blocked": {
+                "count": 44,
+                "ratio": 0.24175824175824176
+              },
+              "committed": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "forwarded": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "prospective": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 0,
+                "ratio": 0
+              }
+            },
+            "long_prospective_coverage": 0.24074074074074073,
+            "long_token_evaluation_coverage": {
+              "attempted": {
+                "count": 40,
+                "ratio": 0.37037037037037035
+              },
+              "blocked": {
+                "count": 36,
+                "ratio": 0.3333333333333333
+              },
+              "committed": {
+                "count": 26,
+                "ratio": 0.24074074074074073
+              },
+              "forwarded": {
+                "count": 25,
+                "ratio": 0.23148148148148148
+              },
+              "prospective": {
+                "count": 26,
+                "ratio": 0.24074074074074073
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 3,
+                "ratio": 0.027777777777777776
+              }
+            },
+            "prospective_count": 33,
+            "prospective_coverage": 0.1813186813186813,
+            "request_coverage": 0,
+            "source_sha256": "bd41319f68fce246248b4e4b7b255926f71bb73cbe784ff24d909e310288de9a",
+            "source_token_count": 201,
+            "title": "Araz expansion memorandum",
+            "token_denominator": 108,
+            "token_evaluation_coverage": {
+              "attempted": {
+                "count": 40,
+                "ratio": 0.37037037037037035
+              },
+              "blocked": {
+                "count": 36,
+                "ratio": 0.3333333333333333
+              },
+              "committed": {
+                "count": 26,
+                "ratio": 0.24074074074074073
+              },
+              "forwarded": {
+                "count": 25,
+                "ratio": 0.23148148148148148
+              },
+              "prospective": {
+                "count": 26,
+                "ratio": 0.24074074074074073
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 3,
+                "ratio": 0.027777777777777776
+              }
+            },
+            "token_match_count": 3,
+            "token_prospective_coverage": 0.24074074074074073,
+            "total_distinct_grams": 198,
+            "version": "2",
+            "coverage": {
+              "attempted": {
+                "count": 48,
+                "ratio": 0.26373626373626374
+              },
+              "forwarded": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "reserved": {
+                "count": 0,
+                "ratio": 0
+              },
+              "unknown": {
+                "count": 0,
+                "ratio": 0
+              },
+              "blocked": {
+                "count": 44,
+                "ratio": 0.24175824175824176
+              },
+              "committed": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              },
+              "prospective": {
+                "count": 33,
+                "ratio": 0.1813186813186813
+              }
+            },
+            "attempted_coverage": 0.26373626373626374,
+            "attempted_count": 48,
+            "forwarded_coverage": 0.1813186813186813,
+            "forwarded_count": 33,
+            "reserved_coverage": 0,
+            "reserved_count": 0,
+            "unknown_coverage": 0,
+            "unknown_count": 0,
+            "blocked_coverage": 0.24175824175824176,
+            "blocked_count": 44,
+            "committed_coverage": 0.1813186813186813,
+            "committed_count": 33
+          }
+        ],
+        "reasoncodes": [
+          "WITHIN_DISCLOSURE_BUDGET"
+        ],
+        "model_version": "iforest-lab-daily-v1",
+        "provenance": "synthetic_lab"
+      },
+      "provider_contacted": true,
+      "ai": null,
+      "error": "OpenAI returned HTTP 429. Check key access, model and API billing. No automatic retry."
+    }
+  ],
+  "restricted_result": {
+    "request": {
+      "behavior_context": {
+        "as_of": "2026-10-30T23:59:59+04:00",
+        "behavior_score": 0,
+        "completed_day_score": 0,
+        "live_context": {
+          "as_of": "2026-10-31T11:42:11.582113+00:00",
+          "blocked_attempts": 0,
+          "limitation": "Lab policy rule; not a probability or a live IF prediction",
+          "protected_document_reads": 0,
+          "rule": "6 protected reads or 3 blocked attempts in 120 seconds",
+          "score": 0,
+          "source": "observed_application_events",
+          "window_seconds": 120
+        },
+        "ml_score": 0,
+        "model_version": "iforest-lab-daily-v1",
+        "provenance": "synthetic_lab",
+        "provider_model": "gpt-4.1-mini",
+        "rule_score": 0
+      },
+      "behavior_score": 0,
+      "body_bytes": 80,
+      "body_sha256": "dd6045cd84c4c6ebb31bafe55e71b79ffa5a77f9206721f91f257e03080590f6",
+      "created_at": 1793446931.5821137,
+      "decision": "BLOCK",
+      "destination": "openai_api",
+      "destination_trust_class": "unapproved_ai",
+      "long_threshold": 0.35,
+      "long_token_threshold": 0.4,
+      "long_window_seconds": 2592000,
+      "matched_documents": [
+        {
+          "boilerplate_candidate_count": 0,
+          "candidate_count": 1,
+          "candidate_source_positions": [
+            0
+          ],
+          "classification": "restricted",
+          "confirmed": true,
+          "denominator": 21,
+          "doc_id": "restricted-runbook",
+          "eligible_match_count": 1,
+          "evaluation_coverage": {
+            "attempted": {
+              "count": 0,
+              "ratio": 0
+            },
+            "blocked": {
+              "count": 0,
+              "ratio": 0
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0
+            },
+            "prospective": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0
+            }
+          },
+          "evidence_methods": [
+            "anchored_short_sequence",
+            "exact_4gram",
+            "tr39_4gram"
+          ],
+          "id": "restricted-runbook",
+          "language": "en",
+          "long_evaluation_coverage": {
+            "attempted": {
+              "count": 0,
+              "ratio": 0
+            },
+            "blocked": {
+              "count": 0,
+              "ratio": 0
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0
+            },
+            "prospective": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0
+            }
+          },
+          "long_prospective_coverage": 0.5714285714285714,
+          "long_token_evaluation_coverage": {
+            "attempted": {
+              "count": 2,
+              "ratio": 0.2857142857142857
+            },
+            "blocked": {
+              "count": 2,
+              "ratio": 0.2857142857142857
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0
+            },
+            "prospective": {
+              "count": 4,
+              "ratio": 0.5714285714285714
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0
+            }
+          },
+          "prospective_count": 1,
+          "prospective_coverage": 0.047619047619047616,
+          "request_coverage": 0.047619047619047616,
+          "source_sha256": "7b907cdd44d00a6f3150cf955505ca42d85414b3c29cd8aa8d19b491cb410747",
+          "source_token_count": 46,
+          "title": "Restricted test runbook",
+          "token_denominator": 7,
+          "token_evaluation_coverage": {
+            "attempted": {
+              "count": 2,
+              "ratio": 0.2857142857142857
+            },
+            "blocked": {
+              "count": 2,
+              "ratio": 0.2857142857142857
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0
+            },
+            "prospective": {
+              "count": 4,
+              "ratio": 0.5714285714285714
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0
+            }
+          },
+          "token_match_count": 4,
+          "token_prospective_coverage": 0.5714285714285714,
+          "total_distinct_grams": 43,
+          "version": "2",
+          "coverage": {
+            "attempted": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0
+            },
+            "blocked": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0
+            },
+            "prospective": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            }
+          },
+          "attempted_coverage": 0.047619047619047616,
+          "attempted_count": 1,
+          "forwarded_coverage": 0,
+          "forwarded_count": 0,
+          "reserved_coverage": 0,
+          "reserved_count": 0,
+          "unknown_coverage": 0,
+          "unknown_count": 0,
+          "blocked_coverage": 0.047619047619047616,
+          "blocked_count": 1,
+          "committed_coverage": 0,
+          "committed_count": 0
+        }
+      ],
+      "minimum_candidate_tokens": 2,
+      "model_profiles": {
+        "matching": "4grams-plus-anchored-distinctive-tokens-tr39-v2",
+        "normalization": "sadd-nfkc-dicp15-az-en-v1",
+        "policy": "sadd-dual-window-anchored-token-restricted-v2"
+      },
+      "normalization_flags": {
+        "mixed_script_tokens": 0,
+        "removed_default_ignorables": 0
+      },
+      "reason_codes": [
+        "KNOWN_DEMO_SECRET",
+        "STRUCTURED_SYNTHETIC_SECRET",
+        "RESTRICTED_DOCUMENT_MATCH"
+      ],
+      "request_id": "5a7e7070-2834-4c81-ad23-ed3d2dba6d0e",
+      "request_state": "BLOCKED",
+      "state": "BLOCKED",
+      "structured_findings": [
+        {
+          "action": "BLOCK",
+          "confidence": "high",
+          "representation": "original",
+          "type": "SYNTHETIC_SECRET",
+          "value_sha256": "d15045494edf3c2043ee605e15abe14e5a1930d1fc557e2f683ea6d9692aefa2"
+        }
+      ],
+      "subject_id": "lab-001",
+      "threshold": 0.2,
+      "token_counts": {
+        "az": 9,
+        "en": 9
+      },
+      "token_threshold": 0.25,
+      "window_seconds": 86400,
+      "new_state": "BLOCKED",
+      "updated_at": 1793446931.5821137,
+      "send_started_at": null,
+      "expires_at": null,
+      "idempotent_replay": false,
+      "history": [
+        {
+          "at": 1793446931.5821137,
+          "old_state": null,
+          "new_state": "BLOCKED",
+          "reason": "POLICY_EVALUATION"
+        }
+      ],
+      "old_state": null,
+      "matches": [
+        {
+          "boilerplate_candidate_count": 0,
+          "candidate_count": 1,
+          "candidate_source_positions": [
+            0
+          ],
+          "classification": "restricted",
+          "confirmed": true,
+          "denominator": 21,
+          "doc_id": "restricted-runbook",
+          "eligible_match_count": 1,
+          "evaluation_coverage": {
+            "attempted": {
+              "count": 0,
+              "ratio": 0
+            },
+            "blocked": {
+              "count": 0,
+              "ratio": 0
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0
+            },
+            "prospective": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0
+            }
+          },
+          "evidence_methods": [
+            "anchored_short_sequence",
+            "exact_4gram",
+            "tr39_4gram"
+          ],
+          "id": "restricted-runbook",
+          "language": "en",
+          "long_evaluation_coverage": {
+            "attempted": {
+              "count": 0,
+              "ratio": 0
+            },
+            "blocked": {
+              "count": 0,
+              "ratio": 0
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0
+            },
+            "prospective": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0
+            }
+          },
+          "long_prospective_coverage": 0.5714285714285714,
+          "long_token_evaluation_coverage": {
+            "attempted": {
+              "count": 2,
+              "ratio": 0.2857142857142857
+            },
+            "blocked": {
+              "count": 2,
+              "ratio": 0.2857142857142857
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0
+            },
+            "prospective": {
+              "count": 4,
+              "ratio": 0.5714285714285714
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0
+            }
+          },
+          "prospective_count": 1,
+          "prospective_coverage": 0.047619047619047616,
+          "request_coverage": 0.047619047619047616,
+          "source_sha256": "7b907cdd44d00a6f3150cf955505ca42d85414b3c29cd8aa8d19b491cb410747",
+          "source_token_count": 46,
+          "title": "Restricted test runbook",
+          "token_denominator": 7,
+          "token_evaluation_coverage": {
+            "attempted": {
+              "count": 2,
+              "ratio": 0.2857142857142857
+            },
+            "blocked": {
+              "count": 2,
+              "ratio": 0.2857142857142857
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0
+            },
+            "prospective": {
+              "count": 4,
+              "ratio": 0.5714285714285714
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0
+            }
+          },
+          "token_match_count": 4,
+          "token_prospective_coverage": 0.5714285714285714,
+          "total_distinct_grams": 43,
+          "version": "2",
+          "coverage": {
+            "attempted": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "forwarded": {
+              "count": 0,
+              "ratio": 0
+            },
+            "reserved": {
+              "count": 0,
+              "ratio": 0
+            },
+            "unknown": {
+              "count": 0,
+              "ratio": 0
+            },
+            "blocked": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            },
+            "committed": {
+              "count": 0,
+              "ratio": 0
+            },
+            "prospective": {
+              "count": 1,
+              "ratio": 0.047619047619047616
+            }
+          },
+          "attempted_coverage": 0.047619047619047616,
+          "attempted_count": 1,
+          "forwarded_coverage": 0,
+          "forwarded_count": 0,
+          "reserved_coverage": 0,
+          "reserved_count": 0,
+          "unknown_coverage": 0,
+          "unknown_count": 0,
+          "blocked_coverage": 0.047619047619047616,
+          "blocked_count": 1,
+          "committed_coverage": 0,
+          "committed_count": 0
+        }
+      ],
+      "reasoncodes": [
+        "KNOWN_DEMO_SECRET",
+        "STRUCTURED_SYNTHETIC_SECRET",
+        "RESTRICTED_DOCUMENT_MATCH"
+      ],
+      "model_version": "iforest-lab-daily-v1",
+      "provenance": "synthetic_lab"
+    },
+    "provider_contacted": false,
+    "ai": null
+  },
+  "remaining_dependency": "OpenAI returned HTTP 429 after an earlier HTTP 401. No AI answer received; API account quota/rate/billing must be resolved."
+}

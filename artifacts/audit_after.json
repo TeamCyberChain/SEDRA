@@ -1,0 +1,81 @@
+{
+  "restricted_three_words": {
+    "decision": "BLOCK",
+    "reason_codes": [
+      "RESTRICTED_DOCUMENT_MATCH"
+    ]
+  },
+  "restricted_two_words": {
+    "decision": "BLOCK",
+    "reason_codes": [
+      "RESTRICTED_DOCUMENT_MATCH"
+    ]
+  },
+  "inserted_words": {
+    "decision": "BLOCK",
+    "reason_codes": [
+      "RESTRICTED_DOCUMENT_MATCH"
+    ]
+  },
+  "cyrillic_homoglyph": {
+    "decision": "BLOCK",
+    "reason_codes": [
+      "RESTRICTED_DOCUMENT_MATCH",
+      "MIXED_SCRIPT_CONTENT_INSPECTED"
+    ]
+  },
+  "reversed_order": {
+    "decision": "BLOCK",
+    "reason_codes": [
+      "RESTRICTED_DOCUMENT_MATCH"
+    ]
+  },
+  "aws_access_id": {
+    "decision": "BLOCK",
+    "reason_codes": [
+      "STRUCTURED_AWS_ACCESS_KEY_ID",
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  },
+  "pem_private": {
+    "decision": "BLOCK",
+    "reason_codes": [
+      "STRUCTURED_PEM_PRIVATE_KEY",
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  },
+  "card_luhn": {
+    "decision": "BLOCK",
+    "reason_codes": [
+      "STRUCTURED_PAYMENT_CARD_LUHN",
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  },
+  "az_iban": {
+    "decision": "BLOCK",
+    "reason_codes": [
+      "STRUCTURED_AZ_IBAN_MOD97",
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  },
+  "spaced_secret": {
+    "decision": "BLOCK",
+    "reason_codes": [
+      "STRUCTURED_SYNTHETIC_SECRET",
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  },
+  "base64_secret": {
+    "decision": "BLOCK",
+    "reason_codes": [
+      "STRUCTURED_SYNTHETIC_SECRET",
+      "RESTRICTED_DOCUMENT_MATCH"
+    ]
+  },
+  "benign_public": {
+    "decision": "ALLOW",
+    "reason_codes": [
+      "NO_ELIGIBLE_PROTECTED_MATCH"
+    ]
+  }
+}

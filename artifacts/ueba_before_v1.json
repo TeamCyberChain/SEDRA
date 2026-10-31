@@ -1,0 +1,9 @@
+{
+  "scope": "Isolated synthetic server-side integrity checks; not a remote exploitation claim",
+  "future_dated_reads_counted": 6,
+  "future_dated_score": 80,
+  "duplicate_unbacked_audit_blocks_counted": 3,
+  "duplicate_score": 85,
+  "stale_completed_day_still_enforced": 100,
+  "freshness_gate_present": false
+}

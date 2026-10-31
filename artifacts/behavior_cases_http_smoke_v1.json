@@ -1,0 +1,36 @@
+{
+  "executed_at_utc": "2026-10-31T15:05:11.715823+00:00",
+  "successful": true,
+  "scope": "Isolated loopback HTTP, real Windows CIM current-identity owned process and real synthetic lab file creation; aggregate proof only",
+  "independent_case_before_any_dlp_block": true,
+  "peak_observed_live_priority": 90,
+  "exact_run_process_file_edges": 10,
+  "original_quote_decisions": [
+    "ALLOW",
+    "BLOCK"
+  ],
+  "original_quote_thresholds": [
+    0.2,
+    0.1
+  ],
+  "same_payload": true,
+  "frozen_ablation_decisions": [
+    "BLOCK",
+    "ALLOW"
+  ],
+  "preview_did_not_resend_or_unblock": true,
+  "hard_fin_still_blocks": true,
+  "case_retained_when_live_window_cooled": true,
+  "peak_graph_retained_during_partial_sequence_expiry": true,
+  "review_workflow": "OPEN -> IN_REVIEW -> RESOLVED / EXPECTED_LAB_TEST",
+  "idempotent_action_replay": true,
+  "stale_revision_http": 409,
+  "employee_read_http": 403,
+  "missing_csrf_http": 403,
+  "hash_chain_consistent": true,
+  "displayed_snapshot_bound": true,
+  "integrity_limit": "Self-contained consistency only; no independently trusted signature or privileged rewrite resistance",
+  "receiver_receipts": 1,
+  "physical_usb_tested": false,
+  "privacy": "Private source rows, case packets, Windows identity fingerprints and sensor salt excluded from this artifact"
+}

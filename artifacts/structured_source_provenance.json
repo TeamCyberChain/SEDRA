@@ -1,0 +1,12 @@
+{
+  "inspected_on": "2026-10-31",
+  "registry_release": "103",
+  "registry_date": "2026-09",
+  "source_url": "https://www.swift.com/swift-resource/9606/download",
+  "country_count": 89,
+  "table_sha256": "b407e7505f28ed4043b0439c2ee95993e70673c22efe7f4727bbc08a083b44a0",
+  "extraction": "Country structures, lengths and public examples extracted from official registry text; no contact/person fields retained",
+  "registry_examples_passed": 89,
+  "registry_checksum_mutations_rejected": 89,
+  "historical_cert_artifacts_unchanged": 5
+}

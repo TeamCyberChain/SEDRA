@@ -1,0 +1,14 @@
+{
+  "dataset": "CERT r4.2",
+  "provenance": "public_synthetic_benchmark",
+  "source_url": "https://ndownloader.figshare.com/files/24856766",
+  "expected_bytes": 4824287500,
+  "observed_bytes": 4824287500,
+  "sha256": "586446b00e83ce5cdabf9dc889b0b6e7a9f44556cee3c03d39445d790122556c",
+  "official_sha256_verified": true,
+  "verification": "scripts/download_cert.py --extract-only checked SHA-256 before extraction",
+  "license": "CC BY 4.0",
+  "doi": "10.1184/R1/12841247.v1",
+  "author": "Brian Lindauer",
+  "full_archive_in_source_zip": false
+}

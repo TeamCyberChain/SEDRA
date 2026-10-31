@@ -1,0 +1,190 @@
+{
+  "provenance": "synthetic_lab",
+  "dataset_generated": true,
+  "dataset_is_synthetic": true,
+  "dataset_generated_by_sadd": true,
+  "claim_scope": "Controlled synthetic lab only; no CERT benchmark or production-accuracy claim.",
+  "unit": "completed_user_day",
+  "label_provenance": "explicit_synthetic_scenario_schedule_v1",
+  "split": {
+    "strategy": "chronological_no_shuffle",
+    "train_end": "2026-09-18",
+    "validation_end": "2026-10-09",
+    "test_start": "2026-10-10",
+    "test_end": "2026-10-30",
+    "train_user_days": 1120,
+    "validation_user_days": 840,
+    "test_user_days": 840,
+    "warmup_excluded_user_days": 560
+  },
+  "baseline": {
+    "prior_only": true,
+    "same_day_peers_excluded": true,
+    "history_days": 28,
+    "minimum_history_days": 14,
+    "peer_minimum_other_users": 5,
+    "updates": "Past observed days, including prior anomalies, enter history; labels never filter history."
+  },
+  "model": {
+    "estimator": "IsolationForest",
+    "n_estimators": 160,
+    "contamination": "auto",
+    "feature_names": [
+      "log_copy_count",
+      "personal_volume_deviation",
+      "peer_volume_deviation",
+      "after_hours_fraction",
+      "after_hours_deviation",
+      "novel_workstation_fraction",
+      "workstation_count"
+    ],
+    "labels_used_in_fit": false,
+    "weights": {
+      "rule_max": 0.6,
+      "ml_tail": 0.4
+    },
+    "weights_status": "Predeclared demo engineering parameters, not learned probabilities."
+  },
+  "ml_calibration": {
+    "valid": true,
+    "reason": null,
+    "sample_count": 840,
+    "q95": 0.591680345359557,
+    "q99": 0.6707013453960845
+  },
+  "operating_points": {
+    "rules": {
+      "threshold": 1.0,
+      "comparison": ">=",
+      "allowed_alerts": 8,
+      "observed_validation_alerts": 8,
+      "validation_user_days": 840,
+      "budget_per_100_user_days": 1.0,
+      "selection_uses_labels": false,
+      "ties": "conservative_threshold_no_top_k_tie_breaking"
+    },
+    "isolation_forest": {
+      "threshold": 0.7405119374792509,
+      "comparison": ">=",
+      "allowed_alerts": 8,
+      "observed_validation_alerts": 8,
+      "validation_user_days": 840,
+      "budget_per_100_user_days": 1.0,
+      "selection_uses_labels": false,
+      "ties": "conservative_threshold_no_top_k_tie_breaking"
+    },
+    "combined": {
+      "threshold": 1.0,
+      "comparison": ">=",
+      "allowed_alerts": 8,
+      "observed_validation_alerts": 8,
+      "validation_user_days": 840,
+      "budget_per_100_user_days": 1.0,
+      "selection_uses_labels": false,
+      "ties": "conservative_threshold_no_top_k_tie_breaking"
+    }
+  },
+  "model_artifact": null,
+  "comparisons": {
+    "rules": {
+      "unit": "completed_user_day",
+      "test_user_days": 840,
+      "positive_user_days": 8,
+      "negative_user_days": 832,
+      "confusion_matrix": {
+        "tp": 7,
+        "fp": 0,
+        "fn": 1,
+        "tn": 832
+      },
+      "precision": 1.0,
+      "recall": 0.875,
+      "f1": 0.9333333333333333,
+      "average_precision": 0.975,
+      "roc_auc": 0.9996995192307692,
+      "alert_count": 7,
+      "alerts_per_100_user_days": 0.8333333333333334,
+      "false_alerts_per_calendar_day": 0.0,
+      "false_alerts_per_100_normal_user_days": 0.0,
+      "actor_recall_in_labeled_malicious_windows": 1.0,
+      "malicious_actors": 4,
+      "actors_detected_in_malicious_windows": 4,
+      "normal_actors": 36,
+      "normal_actors_with_any_alert": 0,
+      "labeled_episodes": 4,
+      "episodes_detected_in_labeled_windows": 4,
+      "episode_recall": 1.0,
+      "mean_detection_delay_days_for_detected_episodes": 0.0,
+      "actor_metric_definition": "An actor is detected only by an alert on that actor's labeled malicious day; alerts on benign days never count as hits."
+    },
+    "isolation_forest": {
+      "unit": "completed_user_day",
+      "test_user_days": 840,
+      "positive_user_days": 8,
+      "negative_user_days": 832,
+      "confusion_matrix": {
+        "tp": 6,
+        "fp": 0,
+        "fn": 2,
+        "tn": 832
+      },
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.8571428571428571,
+      "average_precision": 0.9861111111111112,
+      "roc_auc": 0.9998497596153847,
+      "alert_count": 6,
+      "alerts_per_100_user_days": 0.7142857142857143,
+      "false_alerts_per_calendar_day": 0.0,
+      "false_alerts_per_100_normal_user_days": 0.0,
+      "actor_recall_in_labeled_malicious_windows": 0.75,
+      "malicious_actors": 4,
+      "actors_detected_in_malicious_windows": 3,
+      "normal_actors": 36,
+      "normal_actors_with_any_alert": 0,
+      "labeled_episodes": 4,
+      "episodes_detected_in_labeled_windows": 3,
+      "episode_recall": 0.75,
+      "mean_detection_delay_days_for_detected_episodes": 0.0,
+      "actor_metric_definition": "An actor is detected only by an alert on that actor's labeled malicious day; alerts on benign days never count as hits."
+    },
+    "combined": {
+      "unit": "completed_user_day",
+      "test_user_days": 840,
+      "positive_user_days": 8,
+      "negative_user_days": 832,
+      "confusion_matrix": {
+        "tp": 7,
+        "fp": 0,
+        "fn": 1,
+        "tn": 832
+      },
+      "precision": 1.0,
+      "recall": 0.875,
+      "f1": 0.9333333333333333,
+      "average_precision": 1.0,
+      "roc_auc": 1.0,
+      "alert_count": 7,
+      "alerts_per_100_user_days": 0.8333333333333334,
+      "false_alerts_per_calendar_day": 0.0,
+      "false_alerts_per_100_normal_user_days": 0.0,
+      "actor_recall_in_labeled_malicious_windows": 1.0,
+      "malicious_actors": 4,
+      "actors_detected_in_malicious_windows": 4,
+      "normal_actors": 36,
+      "normal_actors_with_any_alert": 0,
+      "labeled_episodes": 4,
+      "episodes_detected_in_labeled_windows": 4,
+      "episode_recall": 1.0,
+      "mean_detection_delay_days_for_detected_episodes": 0.0,
+      "actor_metric_definition": "An actor is detected only by an alert on that actor's labeled malicious day; alerts on benign days never count as hits."
+    }
+  },
+  "limits": [
+    "No real employees or live enterprise data are represented.",
+    "A daily model does not score a partial current day.",
+    "A dataset label describes a scenario, not an inferred human intent.",
+    "Low support and distribution shift require a separate pilot.",
+    "An alert-budget threshold controls candidate triage, never hard DLP enforcement."
+  ]
+}

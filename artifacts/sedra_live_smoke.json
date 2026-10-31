@@ -1,0 +1,103 @@
+{
+  "executed_at_utc": "2026-10-31T13:20:48.238124+00:00",
+  "product": "SEDRA",
+  "scope": "Isolated temporary HTTP app; synthetic corpus; real managed local Qwen inference; no cloud calls",
+  "successful": true,
+  "same_body_sha256": true,
+  "before_label": {
+    "decision": "ALLOW",
+    "state": "FORWARDED_CONFIRMED",
+    "tags": {
+      "basis": "registered-content-match",
+      "business_tags": [
+        "demo-synthetic",
+        "finance",
+        "intellectual-property",
+        "research"
+      ],
+      "detector_tags": [],
+      "document_ids": [
+        "araz-plan"
+      ],
+      "profile": "sedra-governed-labels-v1",
+      "scope_note": "Unclassified means no eligible protected match or structured finding; it is not a public-data certification.",
+      "sensitivity": "confidential"
+    }
+  },
+  "after_label": {
+    "decision": "BLOCK",
+    "state": "BLOCKED",
+    "tags": {
+      "basis": "registered-content-match",
+      "business_tags": [
+        "demo-synthetic",
+        "research"
+      ],
+      "detector_tags": [],
+      "document_ids": [
+        "araz-plan"
+      ],
+      "profile": "sedra-governed-labels-v1",
+      "scope_note": "Unclassified means no eligible protected match or structured finding; it is not a public-data certification.",
+      "sensitivity": "restricted"
+    },
+    "reasons": [
+      "RESTRICTED_DOCUMENT_MATCH",
+      "GOVERNED_RESTRICTED_LABEL"
+    ]
+  },
+  "old_request_replay_preserved": true,
+  "no_resend_on_replay": true,
+  "structured_card_tags": {
+    "basis": "structured-detector",
+    "business_tags": [],
+    "detector_tags": [
+      "PAYMENT_CARD_LUHN"
+    ],
+    "document_ids": [],
+    "profile": "sedra-governed-labels-v1",
+    "scope_note": "Unclassified means no eligible protected match or structured finding; it is not a public-data certification.",
+    "sensitivity": "restricted"
+  },
+  "real_local_ai": {
+    "provider": "Local AI \u00b7 Qwen / llama.cpp",
+    "response_id": "chatcmpl-kydFvKh5F13IfKYBhdYvzcicKtxWfToF",
+    "provider_request_id": "",
+    "model": "sadd-qwen2.5-1.5b",
+    "status": "completed",
+    "answer": "42",
+    "usage": {
+      "input_tokens": 61,
+      "output_tokens": 3,
+      "total_tokens": 64
+    },
+    "output_sha256": "73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049",
+    "evidence_kind": "local_model_response_observed_by_gateway",
+    "independent_delivery_receipt": false,
+    "external_data_transfer": false,
+    "runtime": "llama.cpp CPU",
+    "model_family": "Qwen2.5-1.5B-Instruct Q4_K_M"
+  },
+  "ai_blocked_before_inference": true,
+  "restored_to_registered_floor": "FORWARDED_CONFIRMED",
+  "employee_label_change_http": 403,
+  "stale_revision_http": 400,
+  "reconciliation": {
+    "before": "DELIVERY_UNKNOWN",
+    "after": "FORWARDED_CONFIRMED",
+    "receipt_count_before": 3,
+    "receipt_count_after": 3
+  },
+  "source_hashes_unchanged": true,
+  "label_revisions": [
+    2,
+    1
+  ],
+  "counts": {
+    "attempted": 7,
+    "forwarded": 4,
+    "blocked": 3,
+    "unknown": 0
+  },
+  "benchmark_claim": "No CERT efficacy measurement is implied."
+}

@@ -1,0 +1,584 @@
+{
+  "executed_at_utc": "2026-10-31T13:42:03.917289+00:00",
+  "profile": "sedra-structured-context-checksum-tr39-v3",
+  "previous_source_sha256": "688f60bf59c3d66d49b8abd1d1e113a5202f6f4cd122af6ba993a45329c1a3ed",
+  "positive_cases": 43,
+  "before_expected_type_detected": 7,
+  "after_expected_type_detected": 43,
+  "negative_controls": 20,
+  "before_control_flags": 1,
+  "after_control_flags": 0,
+  "cases": [
+    {
+      "name": "fin_label",
+      "body_sha256": "6a7dff83c387ab8be74abfd6406a80806ba22f53ae3151209b97c8fd2d26f4d0",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_az_label",
+      "body_sha256": "14d9684e4d372bc2d8da3d3123a4e08ae71aac231a7c107ff16deaa51afaf6cd",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_english_label",
+      "body_sha256": "dd5d7f911861cb0b333a4d227da21936fce47b33bfe2f6b58e6bfc45e10a3a4b",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_json",
+      "body_sha256": "d6df3e012e8b3a386eee7b511604536e2c769369c4add5ffaa311b42d5c8e092",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_json_escaped",
+      "body_sha256": "75addec3ba0cab043fa7869db5c7511cd2b90c597cdb201727318374e407774e",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_json_nested",
+      "body_sha256": "0d876ad99d2c558c7d189d638f8d6242dfeff6d431913ecfdbbb07f51c538d3d",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_json_escaped_message",
+      "body_sha256": "cfe5cbe96e24996c566cc8c999827913f75a884d897c1a4338afe1a35c8d9793",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_csv",
+      "body_sha256": "6fd50542254c8dbe9c8c83ae75501ad3e5be6fcb2576dc516eea60e3fdeec8c4",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_tsv",
+      "body_sha256": "3b789c77f3fff7532089ed9cdc751fed8b80446c0b1b7b7934d3bf9544ce5c30",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_semicolon",
+      "body_sha256": "a6015827a60fcbf1a72d5c1e4bcfed5d1d51af2966ede8ed3d1153f23f3544e7",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_single_column",
+      "body_sha256": "02bd3066db0ea4138710d6267baa68989ed45440e65722137c3b8ba1ae0ca046",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_numeric_json",
+      "body_sha256": "96155294efb909ba03f44df2918de8b36e7c77e35e408c62d72648e63a4805fc",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_spaced",
+      "body_sha256": "4e9ca00fc86d6db5412dc19f2a24678c5994ea1c8964f77b9c25229e17963a9c",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_grouped",
+      "body_sha256": "42c79ced6f9df503b691b364e809d72ca64fc29f928cecd8636a6de54684e7ff",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_confusable",
+      "body_sha256": "6c677d23ee335f67c0e4028aea1b40f80c4fc12dacfffebf2c50bac41128f5bb",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_ignorable",
+      "body_sha256": "6314f578cecbea9e5a66c285797d7a97c90aed6cc13ea4b61eee821333d5608a",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_decimal_digits",
+      "body_sha256": "9c721d91a3d5da19423dcbc3ac6e8313e276aa27c0ab7b8ea40d95a3ff266764",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_fullwidth",
+      "body_sha256": "0b6a4f8b18e579cd99ca97bb1761fbc5a5e632e61f52e6dff1a05a15eb43f965",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "fin_base64",
+      "body_sha256": "8af188671ca3f2d525f04aebf0a0336488cbad2ded5bfafd592fe2165ae6384b",
+      "expected_type": "AZ_FIN_CONTEXTUAL",
+      "before_types": [],
+      "after_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "az_iban_alphanumeric",
+      "body_sha256": "58a5f8d1c95002654d859efc71fd282c8d8dd73a2321b1f787d9a333b7d25db9",
+      "expected_type": "AZ_IBAN_MOD97",
+      "before_types": [],
+      "after_types": [
+        "AZ_IBAN_MOD97"
+      ],
+      "passed": true
+    },
+    {
+      "name": "az_iban_groups",
+      "body_sha256": "e6c3a9d34818858c99a0c0805f89dff41e45e3ffc7a331d5f7bba0b30a1e760d",
+      "expected_type": "AZ_IBAN_MOD97",
+      "before_types": [],
+      "after_types": [
+        "AZ_IBAN_MOD97"
+      ],
+      "passed": true
+    },
+    {
+      "name": "az_iban_spaced",
+      "body_sha256": "03e5ad2b20617e40217172a7ccfcc8d422ef6748afb9b6d6cfef70bd7320a2d3",
+      "expected_type": "AZ_IBAN_MOD97",
+      "before_types": [],
+      "after_types": [
+        "AZ_IBAN_MOD97"
+      ],
+      "passed": true
+    },
+    {
+      "name": "az_iban_lowercase",
+      "body_sha256": "e76083e117f1c95f7be73a0305076866185fba0939bd6d8712559ee053fb31c0",
+      "expected_type": "AZ_IBAN_MOD97",
+      "before_types": [],
+      "after_types": [
+        "AZ_IBAN_MOD97"
+      ],
+      "passed": true
+    },
+    {
+      "name": "az_iban_confusable",
+      "body_sha256": "c51211bd1ac0c331af44cefedc61fb4effcc652408bd7f56d6c907ce63904154",
+      "expected_type": "AZ_IBAN_MOD97",
+      "before_types": [],
+      "after_types": [
+        "AZ_IBAN_MOD97"
+      ],
+      "passed": true
+    },
+    {
+      "name": "az_iban_decimal_digits",
+      "body_sha256": "11ed22cc8624606d52d1085ce739698a5679aaf859e1ad9bfac1612bb0e3e66b",
+      "expected_type": "AZ_IBAN_MOD97",
+      "before_types": [],
+      "after_types": [
+        "AZ_IBAN_MOD97"
+      ],
+      "passed": true
+    },
+    {
+      "name": "az_iban_json_escaped",
+      "body_sha256": "8f86a30a5360257447745e5cd08efbb71642362f7e337e4b80ca8f5425f55669",
+      "expected_type": "AZ_IBAN_MOD97",
+      "before_types": [],
+      "after_types": [
+        "AZ_IBAN_MOD97"
+      ],
+      "passed": true
+    },
+    {
+      "name": "az_iban_base64",
+      "body_sha256": "bfd20e635a903285a9e60e5676c0cd58e0034ec27f7408844455c52b776f4dd9",
+      "expected_type": "AZ_IBAN_MOD97",
+      "before_types": [],
+      "after_types": [
+        "AZ_IBAN_MOD97"
+      ],
+      "passed": true
+    },
+    {
+      "name": "gb_iban",
+      "body_sha256": "3f691d8337973d6249cd1ecbb048717f02c0f12ae5538289ac1238b978034b90",
+      "expected_type": "IBAN_MOD97",
+      "before_types": [],
+      "after_types": [
+        "IBAN_MOD97"
+      ],
+      "passed": true
+    },
+    {
+      "name": "de_iban",
+      "body_sha256": "b33e78e78ae58d80bd1bc9707e39ebf8081b94e66cb2292467fb7dd9a70a1f7a",
+      "expected_type": "IBAN_MOD97",
+      "before_types": [],
+      "after_types": [
+        "IBAN_MOD97"
+      ],
+      "passed": true
+    },
+    {
+      "name": "tr_iban",
+      "body_sha256": "587122a7c2d5941c69d2d94663215d1b40754ed463849e3ef64e9842e8b62d70",
+      "expected_type": "IBAN_MOD97",
+      "before_types": [],
+      "after_types": [
+        "IBAN_MOD97"
+      ],
+      "passed": true
+    },
+    {
+      "name": "card_az",
+      "body_sha256": "ec8bae49d64c9757fd907a48d10fd48f98f188f69a4c36883517be8c8a6f051f",
+      "expected_type": "PAYMENT_CARD_LUHN",
+      "before_types": [],
+      "after_types": [
+        "PAYMENT_CARD_LUHN"
+      ],
+      "passed": true
+    },
+    {
+      "name": "card_json",
+      "body_sha256": "1eddf25322dbaadad67d3556443009d9f7a457582bd01fc3e794514d9eef4db4",
+      "expected_type": "PAYMENT_CARD_LUHN",
+      "before_types": [
+        "PAYMENT_CARD_LUHN"
+      ],
+      "after_types": [
+        "PAYMENT_CARD_LUHN"
+      ],
+      "passed": true
+    },
+    {
+      "name": "card_csv",
+      "body_sha256": "cda0fcf214b8f09e3538d955195836df678ba85a8d2b6df6c095421f5a4230c3",
+      "expected_type": "PAYMENT_CARD_LUHN",
+      "before_types": [
+        "PAYMENT_CARD_LUHN"
+      ],
+      "after_types": [
+        "PAYMENT_CARD_LUHN"
+      ],
+      "passed": true
+    },
+    {
+      "name": "card_decimal_digits",
+      "body_sha256": "524905f6af093c0a5de5eaafce2fb8911b2d49aa9361276fae65200f6d49dc1f",
+      "expected_type": "PAYMENT_CARD_LUHN",
+      "before_types": [
+        "PAYMENT_CARD_LUHN"
+      ],
+      "after_types": [
+        "PAYMENT_CARD_LUHN"
+      ],
+      "passed": true
+    },
+    {
+      "name": "credential_json",
+      "body_sha256": "c14ba188c561191105b1c0ba9702a029083294d6dddcb7bcd022438c132fecb4",
+      "expected_type": "LABELED_CREDENTIAL",
+      "before_types": [],
+      "after_types": [
+        "LABELED_CREDENTIAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "credential_short",
+      "body_sha256": "688737f0ca0495aed2a441a3b11b93eff718a8c9c1ad432a33d2bc608254c7a4",
+      "expected_type": "LABELED_CREDENTIAL",
+      "before_types": [],
+      "after_types": [
+        "LABELED_CREDENTIAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "credential_az",
+      "body_sha256": "c17538b58c78973c654cea7e0d8f53e9ae7d879e247924a9d9a8862c7a8002fc",
+      "expected_type": "LABELED_CREDENTIAL",
+      "before_types": [],
+      "after_types": [
+        "LABELED_CREDENTIAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "credential_csv",
+      "body_sha256": "81fe3a095f155b7d802f6ece8283252b9e2a32e47c7ee6e99ee481fa13a1a9e1",
+      "expected_type": "LABELED_CREDENTIAL",
+      "before_types": [],
+      "after_types": [
+        "LABELED_CREDENTIAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "credential_json_escaped",
+      "body_sha256": "2081f9fa6feec26dc4ac9120f373de4ab8318db83f922a485c0882f0ca957124",
+      "expected_type": "LABELED_CREDENTIAL",
+      "before_types": [],
+      "after_types": [
+        "LABELED_CREDENTIAL"
+      ],
+      "passed": true
+    },
+    {
+      "name": "aws_spaced",
+      "body_sha256": "df53577f44778394cd6a8b2c968ebfed7961758b8dbdfe12db7d0f2d65a45877",
+      "expected_type": "AWS_ACCESS_KEY_ID",
+      "before_types": [],
+      "after_types": [
+        "AWS_ACCESS_KEY_ID"
+      ],
+      "passed": true
+    },
+    {
+      "name": "bearer",
+      "body_sha256": "bbe35930d6942b6e0194716c8d5357095803e8500594d145893037dbb3229a6c",
+      "expected_type": "BEARER_TOKEN",
+      "before_types": [],
+      "after_types": [
+        "BEARER_TOKEN"
+      ],
+      "passed": true
+    },
+    {
+      "name": "pem_private",
+      "body_sha256": "ab7bc699f0f8645a9981c6f4704decc57be1de5063c0721ecada509682db3bb7",
+      "expected_type": "PEM_PRIVATE_KEY",
+      "before_types": [
+        "PEM_PRIVATE_KEY"
+      ],
+      "after_types": [
+        "PEM_PRIVATE_KEY"
+      ],
+      "passed": true
+    },
+    {
+      "name": "sedra_marker",
+      "body_sha256": "a4e267f5b69edde8dd84e9401c769fef91b8e30b4a56b04eae039bb141e3efc9",
+      "expected_type": "SYNTHETIC_SECRET",
+      "before_types": [],
+      "after_types": [
+        "SYNTHETIC_SECRET"
+      ],
+      "passed": true
+    }
+  ],
+  "controls": [
+    {
+      "name": "ordinary_identifier",
+      "body_sha256": "ed8e7880613ec6781c7caab228cef23490716cdb9335051a0e9455b2763670d7",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "fin_documentation",
+      "body_sha256": "f69d01fb612c3cc218031331f40171eb87f46b1104f89d834100d6b79e780d76",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "fin_placeholder",
+      "body_sha256": "0ffed259a99ef73a2cf4df73c6bfb86a71f67d6931096e77f0fd7f90ba2d4480",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "fin_too_short",
+      "body_sha256": "adfb8fe209a1ccd0a6ff9853b83a4daf4ff9bd68b4fa0f63fbf0b74668c946fc",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "fin_too_long",
+      "body_sha256": "25afcf602f383644b2312f5a2b6205c1b6a98372dd4cf17c0b59bdf33fc64beb",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "fin_invalid_alphabet",
+      "body_sha256": "505cdd4cca5f2cadcb2b9d7b9300926b7975d685208d03463f986f308a50c4b9",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "fin_spaced_too_long",
+      "body_sha256": "1b5be801a3f3d4cd199a4b021e363b0912c826dd157ff5c156bba0d27771ebe0",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "fin_other_column",
+      "body_sha256": "310e27e77eff26b64836d5c773fa10de5ceac92a1b044fcb234853eb5d7d7846",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "card_other_column",
+      "body_sha256": "7b79554562eaae140e27ea50eabc250cdf9788e50e7a057d598910934ace7132",
+      "before_types": [
+        "PAYMENT_CARD_LUHN"
+      ],
+      "after_types": []
+    },
+    {
+      "name": "plain_number",
+      "body_sha256": "f24498001780a164285b40b1f8140a1eab25dd4528da69f2300f2255fe5c43de",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "invalid_card",
+      "body_sha256": "03316ed4c874a94519472213cbd382c313613c1b18b7b23f0051af24e6ad64dd",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "invalid_iban_checksum",
+      "body_sha256": "531c913717a5000d558eea8108baa052a76855198ff66eb3ab3b3aeba0f047b8",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "invalid_country",
+      "body_sha256": "5b8f0f13fe27b2425eb6a07c77c03d3f231bb7f8dc3d60d886ef20feacd7e241",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "wrong_country_length",
+      "body_sha256": "096315d5fb5124d49fb2cca14bfbe55d1209e3d67fac8dee0a1695997f59855c",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "wrong_bban",
+      "body_sha256": "7982c2d9ac6333078e652d3ffa569556dd506858b97888c019f2ddd84226e97f",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "api_documentation",
+      "body_sha256": "713e4e528bdbb49659d673d461a952cb7251af9bfb73227ab1f45ab97d5ac713",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "password_documentation",
+      "body_sha256": "190c3f8c16d1e0fbb665dac515b3b877a2b10d09856edc40194dcfd289e16e7f",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "api_key_documentation",
+      "body_sha256": "948c8b55e4a5fb4b49ed4db76fb551a6239d085ed5d353c02793bec013c6d275",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "public_key",
+      "body_sha256": "0f47bbb64700dede53a3d6f0bd368a7657099e6975b92a69531154170d6d2c64",
+      "before_types": [],
+      "after_types": []
+    },
+    {
+      "name": "public_base64",
+      "body_sha256": "b3fc0f7a587878ac53ae18dfe0d5b88be43040013e5cad60cea8b883c4276594",
+      "before_types": [],
+      "after_types": []
+    }
+  ],
+  "iban_country_formats": 89,
+  "scope": "Synthetic adversarial regression set; not an estimate of population precision/recall or account/identity validity.",
+  "successful": true
+}

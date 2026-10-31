@@ -1,0 +1,221 @@
+{
+  "recorded_at_utc": "2026-10-31T15:08:44.628915+00:00",
+  "functional_ready": true,
+  "tests": {
+    "executed_at_utc": "2026-10-31T15:04:27.652963+00:00",
+    "python": "3.12.10",
+    "tests_run": 184,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "runtime_seconds": 56.452,
+    "suite": "unittest discovery: behavior, acquisition, matcher, gateway, application HTTP integration",
+    "network_scope": "local loopback receiver only; no external AI request",
+    "benchmark_performance_is_separate": true
+  },
+  "live_smoke_counts": {
+    "attempted": 7,
+    "forwarded": 4,
+    "blocked": 3,
+    "unknown": 0
+  },
+  "fresh_offline_environment_smoke": true,
+  "v1_artifacts": [
+    {
+      "path": "artifacts/cert_benchmark.json",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/cert_benchmark.model.joblib",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/cert_benchmark_run_summary.json",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/cert_failure_diagnosis.json",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/cert_source_metadata.json",
+      "unchanged": true
+    }
+  ],
+  "v1_failed_gate_retained": true,
+  "v2_execution_complete": false,
+  "research_progress": {
+    "stage": "downloading_official_archive",
+    "status": "failed",
+    "updated_at_utc": "2026-10-31T11:33:12.368364+00:00",
+    "detail": "Command '['C:\\\\Users\\\\ilham.mammadli\\\\Downloads\\\\SADD_Hackathon_Starter_v0_1\\\\sadd\\\\.venv\\\\Scripts\\\\python.exe', '-u', 'C:\\\\Users\\\\ilham.mammadli\\\\Downloads\\\\SADD_Hackathon_Starter_v0_1\\\\sadd\\\\scripts\\\\download_cert.py', '--destination', 'data/cert']' returned non-zero exit status 1.",
+    "scope": "official public CERT acquisition and local development evaluation"
+  },
+  "independent_efficacy_established": false,
+  "ai_portal": {
+    "implemented": true,
+    "openai_live_reply_verified": false,
+    "local_model_live_reply_verified": true,
+    "artifact": "artifacts/ai_portal_live_smoke.json"
+  },
+  "browser_visual_qa": {
+    "screenshots_directory": "artifacts/screenshots",
+    "previous_build_checks": [
+      "Overview",
+      "Investigation",
+      "AI Transfer Lab",
+      "offline presentation navigation"
+    ],
+    "current_build_checks": [
+      "Data Inventory",
+      "Asset inspector and label editing",
+      "Search and sensitivity filter",
+      "AI Workspace real local reply and hard block",
+      "390px inventory and AI workspace no document overflow",
+      "Sensitive data controls catalog",
+      "F\u0130N JSON and grouped IBAN portal blocks",
+      "Spaced F\u0130N real gateway block",
+      "Automatic new-alert banner and unread count",
+      "Alert READ, ACKNOWLEDGE and RESOLVE with expected-test disposition",
+      "Employee alert queue hidden",
+      "AI portal FIN hard block with alert ID and no provider contact",
+      "UEBA profile, baselines, trend, live rule evidence and source timeline",
+      "Run observed sequence button: daily 0, live 85, excerpt limit 10%",
+      "Subject JSON export masks values, excludes session token and scenario labels",
+      "Default 517px viewport has no document overflow",
+      "Local endpoint control starts real owned process and ten scoped files",
+      "Real Windows source origins, historical session timestamps and endpoint score 90",
+      "Independent behavior case from actual owned Windows process and distinct test files",
+      "Typed source graph and peak 90/current 0 with process-file evidence retained",
+      "Frozen quote BLOCK -> ALLOW comparison through UI without resend",
+      "Review resolved with expected-lab-test disposition",
+      "Private JSON export downloaded and payload/hash consistency verified",
+      "Native 586px viewport has no document overflow",
+      "Local AI provider remains ready after app restart; drafts restored"
+    ],
+    "current_screenshots_directory": "outputs/SEDRA-0.8 (delivery workspace)"
+  },
+  "runtime_limitations": [
+    "Local simulated identities, not enterprise SSO",
+    "Offline receiver and opt-in OpenAI portal have different delivery evidence",
+    "No arbitrary semantic/OCR/encoding/collusion coverage",
+    "Finite exposure windows",
+    "V2 r4.2 results are development evidence"
+  ],
+  "sedra_0_3": {
+    "tests": {
+      "executed_at_utc": "2026-10-31T13:17:25.029708+00:00",
+      "python": "3.12.10",
+      "tests_run": 103,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "successful": true,
+      "runtime_seconds": 52.358,
+      "suite": "unittest discovery: behavior, acquisition, matcher, gateway, application HTTP integration",
+      "network_scope": "local loopback receiver only; no external AI request",
+      "benchmark_performance_is_separate": true
+    },
+    "live_governance_smoke": true,
+    "presentation_and_qa": "deferred; previous-build artifacts retained",
+    "legacy_benchmark_artifacts_unchanged": true
+  },
+  "product": "SEDRA",
+  "application_version": "0.8.0",
+  "sedra_live_smoke_artifact": "artifacts/sedra_live_smoke.json",
+  "structured_controls": {
+    "profile": "sedra-structured-context-checksum-tr39-v3",
+    "regression_artifact": "artifacts/structured_regression_v3.json",
+    "http_smoke_artifact": "artifacts/structured_http_smoke_v3.json",
+    "positive_cases_detected": 43,
+    "negative_controls_flagged": 0,
+    "negative_controls_total": 20,
+    "iban_countries": 89,
+    "verified_local_model_reply": true
+  },
+  "alerts": {
+    "profile": "sedra-gateway-alerts-v1",
+    "http_smoke_artifact": "artifacts/alerts_http_smoke_v1.json",
+    "main_live_artifact": "artifacts/alerts_main_live_v1.json",
+    "admission_atomicity_tested": true,
+    "deduplication_and_workflow_concurrency_tested": true,
+    "console_poll_interval_seconds": 2,
+    "polls_while_tab_visible": true,
+    "external_notification_delivery_configured": false,
+    "severity_is_probability": false
+  },
+  "ueba": {
+    "profile": "sedra-app-ueba-v2",
+    "new_tests": 19,
+    "http_smoke": "artifacts/ueba_http_smoke_v2.json",
+    "before_audit": "artifacts/ueba_before_v1.json",
+    "ordered_access_sequence_observed_in_browser": true,
+    "browser_subject_export_verified": true,
+    "before_after_decision": "ALLOW -> BLOCK",
+    "before_after_threshold": [
+      0.2,
+      0.1
+    ],
+    "same_original_body_sha256": true,
+    "daily_model_freshness_hours": 72,
+    "live_windows_seconds": [
+      120,
+      1800
+    ],
+    "actual_personal_baseline_support_required": true,
+    "endpoint_sources_connected": "Scoped opt-in local Windows sensor; not endpoint-wide collection",
+    "independent_efficacy_established": false,
+    "main_live_artifact": "artifacts/ueba_main_live_v2.json",
+    "frozen_ueba_context_verified_in_alert": true
+  },
+  "local_endpoint": {
+    "enabled_opt_in": true,
+    "actual_windows_http_smoke": "artifacts/endpoint_http_smoke_v1.json",
+    "main_summary": "artifacts/endpoint_main_summary_v1.json",
+    "source_origin": "REAL_LOCAL_OBSERVATION",
+    "controlled_file_changes_verified": 10,
+    "owned_process_cim_verified": true,
+    "endpoint_priority_before_after": [
+      0,
+      90
+    ],
+    "actual_session_channel_verified": true,
+    "new_authentication_generated": false,
+    "physical_usb_tested": false,
+    "usb_absence_user_confirmed": true,
+    "security_channel": "unavailable; session fallback only",
+    "identity_mapping": "current Windows identity -> lab-001, explicitly local test",
+    "private_source_records_packaged": false,
+    "profile": "sedra-local-endpoint-v2"
+  },
+  "fresh_offline_environment_smoke_scope": "Prior build pinned-dependency installation; current archive import/test check recorded separately when executed",
+  "behavior_cases": {
+    "profile": "sedra-evidence-case-v1",
+    "new_tests": 21,
+    "http_smoke": "artifacts/behavior_cases_http_smoke_v1.json",
+    "main_summary": "artifacts/behavior_cases_main_summary_v1.json",
+    "independent_case_before_block": true,
+    "peak_evidence_retained_when_signal_cools": true,
+    "same_run_distinct_file_correlation": true,
+    "frozen_rule_ablation_changes_quote_only": true,
+    "hard_fin_stays_blocked": true,
+    "resend_or_policy_change_in_preview": false,
+    "revision_and_idempotency_controls": true,
+    "hash_integrity_scope": "Self-contained consistency, not independently trusted attestation",
+    "private_windows_case_packets_packaged": false,
+    "console_poll_seconds": 8
+  },
+  "cold_archive_current_build_check": {
+    "executed_at_utc": "2026-10-31T15:08:44.625092+00:00",
+    "successful": true,
+    "scope": "Extracted source archive, existing isolated Python 3.12 pinned-dependency environment; no network installation",
+    "targeted_tests_run": 21,
+    "failures": 0,
+    "errors": 0,
+    "code_files_compared_to_final_checkout": 75,
+    "all_code_hashes_match": true,
+    "code_manifest_sha256": "e63b5852ee55a462cb421a90bd471278f021b19757b87bb5b27b076d69aafffe",
+    "includes": "Endpoint quality, behavior-case storage/workflow and HTTP, frozen-policy replay and hard-policy boundaries"
+  }
+}

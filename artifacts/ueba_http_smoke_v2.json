@@ -1,0 +1,673 @@
+{
+  "executed_at_utc": "2026-10-31T14:23:45.140429+00:00",
+  "version": "0.6.0",
+  "successful": true,
+  "scope": "Isolated real HTTP, synthetic inputs, app-only events; no inference/cloud call or efficacy claim",
+  "initial_policy": {
+    "effective_score": 0,
+    "daily_component": 0,
+    "live_component": 0,
+    "quality_guard": 0,
+    "combination": "max; no summation of correlated signals",
+    "boundary": 70,
+    "mode": "standard",
+    "normal_24h_4gram_limit": 0.2,
+    "active_24h_4gram_limit": 0.2,
+    "scope": "Controlled-excerpt budgets only. Restricted content and supported structured findings always block."
+  },
+  "elevated_policy": {
+    "effective_score": 85,
+    "daily_component": 0,
+    "live_component": 85,
+    "quality_guard": 0,
+    "combination": "max; no summation of correlated signals",
+    "boundary": 70,
+    "mode": "tightened",
+    "normal_24h_4gram_limit": 0.2,
+    "active_24h_4gram_limit": 0.1,
+    "scope": "Controlled-excerpt budgets only. Restricted content and supported structured findings always block."
+  },
+  "active_rules_at_3_reads_2_blocks": [
+    "access_then_sensitive_attempts"
+  ],
+  "before": {
+    "decision": "ALLOW",
+    "threshold": 0.2,
+    "body_sha256": "0de38d16187a5dec42f1bc6bd7e53f7927eeded858d98a8d4b57ee95de04f0bb"
+  },
+  "after": {
+    "decision": "BLOCK",
+    "threshold": 0.1,
+    "body_sha256": "0de38d16187a5dec42f1bc6bd7e53f7927eeded858d98a8d4b57ee95de04f0bb"
+  },
+  "frozen_context_replay": true,
+  "receiver_receipts": 2,
+  "public_negative_control": "ALLOW",
+  "portal_block_before_inference": true,
+  "employee_other_subject_http": 403,
+  "live_value_masked": true,
+  "portal_setup": "ready managed local service",
+  "cooled_live_score": 0,
+  "live_baseline": {
+    "status": "insufficient_history",
+    "active_bins": 0,
+    "observed_days": 0,
+    "minimum_bins": 14,
+    "minimum_days": 7,
+    "median": null,
+    "robust_scale": null,
+    "window_seconds": 1800,
+    "lookback_days": 28,
+    "reference_ends_before": 1793454824.6417239,
+    "inactive_slots_imputed": false,
+    "scope": "Observed app actions in earlier complete active 30-minute bins; not an endpoint workday baseline"
+  },
+  "three_local_state_response_times_ms": [
+    78.55,
+    78.06,
+    130.48
+  ],
+  "state_subject_count": 40,
+  "elevated_evidence": {
+    "subject_id": "lab-001",
+    "role": "Finance",
+    "date": "2026-10-30",
+    "copy_count": 32,
+    "after_hours_copies": 2,
+    "workstations": [
+      "workstation-lab-001"
+    ],
+    "label": 0,
+    "scenario": "normal",
+    "episode_id": null,
+    "provenance": "synthetic_lab",
+    "label_provenance": "explicit_synthetic_scenario_schedule_v1",
+    "operation": "removable_media_copy",
+    "dataset_generated": true,
+    "features": {
+      "log_copy_count": 3.4965075614664802,
+      "personal_volume_deviation": 0.5570860145311556,
+      "peer_volume_deviation": 0.6744907594765952,
+      "after_hours_fraction": 0.0625,
+      "after_hours_deviation": 0.6048387096774194,
+      "novel_workstation_fraction": 0.0,
+      "workstation_count": 1
+    },
+    "rule_score": 0.0,
+    "rule_details": [
+      {
+        "rule_id": "copy_volume",
+        "name": "Unusual removable-media copy volume",
+        "severity": 0.0,
+        "observed": 32,
+        "personal_median": 29.0,
+        "peer_median": 26.0,
+        "activation_floor": 52.6868
+      },
+      {
+        "rule_id": "unusual_hour_copy",
+        "name": "Copying at unusual hours",
+        "severity": 0.0,
+        "observed_fraction": 0.0625,
+        "personal_median_fraction": 0.03225806451612903,
+        "robust_deviation": 0.6048387096774194
+      },
+      {
+        "rule_id": "novel_workstation",
+        "name": "Copying from an unfamiliar workstation",
+        "severity": 0.0,
+        "unfamiliar_workstations": [],
+        "personal_history_days": 28
+      }
+    ],
+    "reasons": [
+      "Recorded copying is within the established personal and available peer context."
+    ],
+    "baseline": {
+      "history_days": 28,
+      "last_observation_date": "2026-10-29",
+      "personal_copy_median": 29.0,
+      "peer_copy_median": 26.0,
+      "peer_users": 7,
+      "peer_adjustment_used": true,
+      "peer_role": "Finance",
+      "sufficiency": "minimum_history_met"
+    },
+    "raw_anomaly": 0.37143243264365805,
+    "ml_score": 0.0,
+    "combined_priority": 0.0,
+    "behavior_score": 85,
+    "as_of": "2026-10-30T23:59:59+04:00",
+    "profile": "lab_daily_v1",
+    "feature_version": "daily-copy-v1",
+    "model_version": "iforest-lab-daily-v1",
+    "score_is_probability": false,
+    "completed_day_score": 0,
+    "live_context": {
+      "as_of": "2026-10-31T14:23:44.641724+00:00",
+      "profile": "sedra-app-ueba-v2",
+      "window_seconds": 120,
+      "long_window_seconds": 1800,
+      "protected_document_reads": 3,
+      "blocked_attempts": 2,
+      "score": 85,
+      "source": "observed_application_events",
+      "rule": "maximum of declared app UEBA rules",
+      "rules": [
+        {
+          "rule_id": "protected_read_burst",
+          "title": "Protected-content access burst",
+          "score": 0,
+          "active": false,
+          "observed": 3,
+          "activation": 6,
+          "window_seconds": 120,
+          "evidence_ids": [
+            "audit:2",
+            "audit:3",
+            "audit:4"
+          ],
+          "evidence_count": 3,
+          "note": "Includes repeated reads of the same document; a small lab trigger, not learned employee intent."
+        },
+        {
+          "rule_id": "policy_block_burst",
+          "title": "Repeated policy blocks",
+          "score": 0,
+          "active": false,
+          "observed": 2,
+          "activation": 3,
+          "window_seconds": 120,
+          "evidence_ids": [
+            "gateway:2",
+            "gateway:3"
+          ],
+          "evidence_count": 2,
+          "note": "Unique durable gateway requests only. Retries and audit duplicates do not increase this count."
+        },
+        {
+          "rule_id": "sustained_sensitive_attempts",
+          "title": "Sensitive attempts over a longer window",
+          "score": 0,
+          "active": false,
+          "observed": 2,
+          "activation": 4,
+          "window_seconds": 1800,
+          "evidence_ids": [
+            "gateway:2",
+            "gateway:3"
+          ],
+          "evidence_count": 2,
+          "note": "Catches spaced attempts outside the two-minute burst; finite 30-minute scope."
+        },
+        {
+          "rule_id": "multiple_sensitive_types",
+          "title": "Multiple sensitive data types attempted",
+          "score": 0,
+          "active": false,
+          "observed": {
+            "attempts": 2,
+            "types": [
+              "AZ_FIN_CONTEXTUAL"
+            ]
+          },
+          "activation": {
+            "attempts": 3,
+            "types": 2
+          },
+          "window_seconds": 1800,
+          "evidence_ids": [
+            "gateway:2",
+            "gateway:3"
+          ],
+          "evidence_count": 2,
+          "note": "Different supported detector types plus repeated blocked requests; types are not independently validated secrets."
+        },
+        {
+          "rule_id": "access_then_sensitive_attempts",
+          "title": "Protected access followed by sensitive attempts",
+          "score": 85,
+          "active": true,
+          "observed": {
+            "protected_reads": 3,
+            "subsequent_attempts": 2
+          },
+          "activation": {
+            "reads": 3,
+            "attempts": 2
+          },
+          "window_seconds": 1800,
+          "evidence_ids": [
+            "audit:2",
+            "audit:3",
+            "audit:4",
+            "gateway:2",
+            "gateway:3"
+          ],
+          "evidence_count": 5,
+          "note": "Three protected reads must precede both attempts. Temporal correlation does not prove the values came from the accessed document."
+        },
+        {
+          "rule_id": "personal_activity_deviation",
+          "title": "Activity above personal active-window norm",
+          "score": 0,
+          "active": false,
+          "observed": {
+            "actions": 6,
+            "robust_deviation": null
+          },
+          "activation": {
+            "minimum_actions": 10,
+            "robust_deviation": 6
+          },
+          "window_seconds": 1800,
+          "evidence_ids": [
+            "gateway:1",
+            "audit:2",
+            "audit:3",
+            "audit:4",
+            "gateway:2",
+            "gateway:3"
+          ],
+          "evidence_count": 6,
+          "note": "Advisory alone (60). Requires at least 14 earlier active bins over 7 days. No synthetic history is substituted."
+        }
+      ],
+      "active_rule_ids": [
+        "access_then_sensitive_attempts"
+      ],
+      "personal_baseline": {
+        "status": "insufficient_history",
+        "active_bins": 0,
+        "observed_days": 0,
+        "minimum_bins": 14,
+        "minimum_days": 7,
+        "median": null,
+        "robust_scale": null,
+        "window_seconds": 1800,
+        "lookback_days": 28,
+        "reference_ends_before": 1793454824.6417239,
+        "inactive_slots_imputed": false,
+        "scope": "Observed app actions in earlier complete active 30-minute bins; not an endpoint workday baseline"
+      },
+      "unique_protected_documents_30m": 1,
+      "sensitive_attempts_30m": 2,
+      "detector_types_30m": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "input_bound_reached": false,
+      "limitation": "Application-only correlation; not live IF or probability of malicious intent"
+    },
+    "model_context": {
+      "status": "fresh",
+      "eligible_for_policy": true,
+      "as_of": "2026-10-30T23:59:59+04:00",
+      "age_seconds": 66225.6,
+      "maximum_age_hours": 72,
+      "recorded_score": 0,
+      "applied_score": 0,
+      "profile": "iforest-lab-daily-v1",
+      "provenance": "synthetic_lab",
+      "history_days": 28,
+      "note": "Dated completed-day synthetic Isolation Forest + rules. Never fitted on partial live activity."
+    },
+    "policy_context": {
+      "effective_score": 85,
+      "daily_component": 0,
+      "live_component": 85,
+      "quality_guard": 0,
+      "combination": "max; no summation of correlated signals",
+      "boundary": 70,
+      "mode": "tightened",
+      "normal_24h_4gram_limit": 0.2,
+      "active_24h_4gram_limit": 0.1,
+      "scope": "Controlled-excerpt budgets only. Restricted content and supported structured findings always block."
+    },
+    "ueba": {
+      "profile": "sedra-app-ueba-v2",
+      "timeline": [
+        {
+          "event_id": "gateway:1",
+          "timestamp": 1793456624.3264005,
+          "channel": "gateway",
+          "kind": "outbound_attempt",
+          "doc_id": null,
+          "request_id": "ueba-normal-quote",
+          "detector_types": [],
+          "route": "public_ai",
+          "body_bytes": 238,
+          "state": "FORWARDED_CONFIRMED"
+        },
+        {
+          "event_id": "audit:2",
+          "timestamp": 1793456624.481438,
+          "channel": "document",
+          "kind": "document_read",
+          "doc_id": "araz-plan",
+          "request_id": null,
+          "detector_types": [],
+          "route": null,
+          "body_bytes": 0,
+          "state": null
+        },
+        {
+          "event_id": "audit:3",
+          "timestamp": 1793456624.507404,
+          "channel": "document",
+          "kind": "document_read",
+          "doc_id": "araz-plan",
+          "request_id": null,
+          "detector_types": [],
+          "route": null,
+          "body_bytes": 0,
+          "state": null
+        },
+        {
+          "event_id": "audit:4",
+          "timestamp": 1793456624.537156,
+          "channel": "document",
+          "kind": "document_read",
+          "doc_id": "araz-plan",
+          "request_id": null,
+          "detector_types": [],
+          "route": null,
+          "body_bytes": 0,
+          "state": null
+        },
+        {
+          "event_id": "gateway:2",
+          "timestamp": 1793456624.5643973,
+          "channel": "gateway",
+          "kind": "policy_block",
+          "doc_id": null,
+          "request_id": "ueba-sequence-0",
+          "detector_types": [
+            "AZ_FIN_CONTEXTUAL"
+          ],
+          "route": "public_ai",
+          "body_bytes": 13,
+          "state": "BLOCKED"
+        },
+        {
+          "event_id": "gateway:3",
+          "timestamp": 1793456624.610696,
+          "channel": "gateway",
+          "kind": "policy_block",
+          "doc_id": null,
+          "request_id": "ueba-sequence-1",
+          "detector_types": [
+            "AZ_FIN_CONTEXTUAL"
+          ],
+          "route": "public_ai",
+          "body_bytes": 13,
+          "state": "BLOCKED"
+        }
+      ],
+      "timeline_total_30m": 6,
+      "timeline_limit": 60,
+      "activity_buckets": [
+        {
+          "start": 1793454824.6417239,
+          "end": 1793454974.6417239,
+          "document_reads": 0,
+          "outbound_attempts": 0,
+          "blocks": 0
+        },
+        {
+          "start": 1793454974.6417239,
+          "end": 1793455124.6417239,
+          "document_reads": 0,
+          "outbound_attempts": 0,
+          "blocks": 0
+        },
+        {
+          "start": 1793455124.6417239,
+          "end": 1793455274.6417239,
+          "document_reads": 0,
+          "outbound_attempts": 0,
+          "blocks": 0
+        },
+        {
+          "start": 1793455274.6417239,
+          "end": 1793455424.6417239,
+          "document_reads": 0,
+          "outbound_attempts": 0,
+          "blocks": 0
+        },
+        {
+          "start": 1793455424.6417239,
+          "end": 1793455574.6417239,
+          "document_reads": 0,
+          "outbound_attempts": 0,
+          "blocks": 0
+        },
+        {
+          "start": 1793455574.6417239,
+          "end": 1793455724.6417239,
+          "document_reads": 0,
+          "outbound_attempts": 0,
+          "blocks": 0
+        },
+        {
+          "start": 1793455724.6417239,
+          "end": 1793455874.6417239,
+          "document_reads": 0,
+          "outbound_attempts": 0,
+          "blocks": 0
+        },
+        {
+          "start": 1793455874.6417239,
+          "end": 1793456024.6417239,
+          "document_reads": 0,
+          "outbound_attempts": 0,
+          "blocks": 0
+        },
+        {
+          "start": 1793456024.6417239,
+          "end": 1793456174.6417239,
+          "document_reads": 0,
+          "outbound_attempts": 0,
+          "blocks": 0
+        },
+        {
+          "start": 1793456174.6417239,
+          "end": 1793456324.6417239,
+          "document_reads": 0,
+          "outbound_attempts": 0,
+          "blocks": 0
+        },
+        {
+          "start": 1793456324.6417239,
+          "end": 1793456474.6417239,
+          "document_reads": 0,
+          "outbound_attempts": 0,
+          "blocks": 0
+        },
+        {
+          "start": 1793456474.6417239,
+          "end": 1793456624.6417239,
+          "document_reads": 3,
+          "outbound_attempts": 3,
+          "blocks": 2
+        }
+      ],
+      "daily_trend": [
+        {
+          "date": "2026-10-10",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 21
+        },
+        {
+          "date": "2026-10-11",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 21
+        },
+        {
+          "date": "2026-10-12",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 33
+        },
+        {
+          "date": "2026-10-13",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 38
+        },
+        {
+          "date": "2026-10-14",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 31
+        },
+        {
+          "date": "2026-10-15",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 37
+        },
+        {
+          "date": "2026-10-16",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 27
+        },
+        {
+          "date": "2026-10-17",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 21
+        },
+        {
+          "date": "2026-10-18",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 23
+        },
+        {
+          "date": "2026-10-19",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 43
+        },
+        {
+          "date": "2026-10-20",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 26
+        },
+        {
+          "date": "2026-10-21",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 28
+        },
+        {
+          "date": "2026-10-22",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 37
+        },
+        {
+          "date": "2026-10-23",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 32
+        },
+        {
+          "date": "2026-10-24",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 22
+        },
+        {
+          "date": "2026-10-25",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 17
+        },
+        {
+          "date": "2026-10-26",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 29
+        },
+        {
+          "date": "2026-10-27",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 29
+        },
+        {
+          "date": "2026-10-28",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 29
+        },
+        {
+          "date": "2026-10-29",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 30
+        },
+        {
+          "date": "2026-10-30",
+          "behavior_score": 0,
+          "rule_score": 0.0,
+          "ml_score": 0.0,
+          "copy_count": 32
+        }
+      ],
+      "daily_contributions": {
+        "rules": 0.0,
+        "anomaly": 0.0
+      },
+      "coverage": [
+        {
+          "channel": "Registered document access",
+          "status": "observed_app_only"
+        },
+        {
+          "channel": "Gateway / AI outbound",
+          "status": "observed_app_only"
+        },
+        {
+          "channel": "Endpoint logon / workstation",
+          "status": "not_connected"
+        },
+        {
+          "channel": "USB / file / HTTP endpoint telemetry",
+          "status": "not_connected"
+        }
+      ]
+    }
+  },
+  "counts": {
+    "attempted": 6,
+    "forwarded": 2,
+    "blocked": 4,
+    "unknown": 0
+  }
+}

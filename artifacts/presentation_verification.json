@@ -1,0 +1,14 @@
+{
+  "recorded_at_utc": "2026-10-31T12:43:05.781299+00:00",
+  "slides": 8,
+  "core_slides": 6,
+  "q_and_a_appendix_slides": 2,
+  "sha256": "598382f0de870a03fec3bbd2ff677bbe987f73cf288a439a241213507c4d2562",
+  "package_integrity": "pass",
+  "layout_findings": 0,
+  "first_party_import_passed": true,
+  "native_table_count": 1,
+  "rendered_visual_review": true,
+  "native_powerpoint_open_verified": false,
+  "native_open_limitation": "Automation did not successfully target the owned file-open dialog; no native-rendering claim."
+}
