@@ -6,6 +6,8 @@ Recorded 31 October 2026. Current values come from executed artifacts.
 
 OIDC Code + PKCE/RS256 and explicit issuer-subject bindings are implemented as an optional server-configured mode. A real loopback RSA-signed issuer test validates the protocol; no company tenant is connected. SSO disables demo switching and unauthenticated API access. Expiring/hashed/revocable machine keys enable bounded SOAR reads, generation-aware case changes, attributed revision/idempotency actions and atomic bound-subject document-access telemetry. External reports retain their provenance and can change UEBA/case behavior. See INTEGRATIONS.md and the current test summary for executed verification. Optional requirements-sso.txt is installed by CI; core offline wheels remain separate.
 
+The 0.10 suite has 192 executed tests with zero failures/errors/skips; the exact current execution is artifacts/test_summary.json. An additional live Windows endpoint-to-API test observed 0 → 90, an automatic independent case and a bearer-authenticated OPENED event with 11 process/file source references. Retry/checkpoint behavior and 401/403/revocation checks passed. The demo key was revoked and no secret/raw Windows packet is published. See docs/API_LIVE_DEMO.md and artifacts/api_endpoint_main_smoke_v1.json. This is controlled functional proof without an external SOAR, not enterprise efficacy.
+
 ## Current naming and publication scope
 
 All active package/import paths, launchers, examples, environment variables and model alias use SEDRA. Start with `python -m sedra.app`; the synthetic corpus is version 3. Presentation/PPTX, speaker/Q&A files, old screenshots and the superseded embedded source ZIP are excluded from the current GitHub tree and packages. Existing Git history remains historical.
@@ -18,7 +20,7 @@ Observed high-priority sequences now open durable Analyst cases independently of
 
 The actual isolated Windows HTTP smoke passed independent case creation before a block, same-quote ALLOW -> BLOCK at 20% -> 10%, BLOCK -> hypothetical ALLOW without resend, hard FİN still BLOCK, retained quiet case, Analyst workflow, 403/409 checks and bound consistent history. Main application quote/FİN comparisons also passed. See artifacts/behavior_cases_http_smoke_v1.json, behavior_cases_main_summary_v1.json and docs/BEHAVIOR_CASES.md. Reproduced prior false process/file correlation is retained in artifacts/ueba_cases_before_v1.json; repairs require distinct files and exact owned run and reject dead/old PID evidence. Partial sequence expiry preserves the peak graph.
 
-The current full suite passed 184 tests, zero failures/errors/skips, including 21 new behavior-case, endpoint-quality and frozen-policy tests. Exact execution is in artifacts/test_summary.json. Earlier version sections record their own executed totals. Presentation/Q&A remain deferred. Scope is the authorized local test environment; no enterprise efficacy claim is made. Physical USB remains untested, Security log access unavailable, enterprise SSO/collection/retention open, and CERT multichannel v2 unmeasured. Original CERT v1 remains 0 TP / 476 positives and all five pinned artifacts are unchanged.
+The 0.8 suite passed 184 tests, zero failures/errors/skips, including 21 new behavior-case, endpoint-quality and frozen-policy tests. The current execution is in artifacts/test_summary.json; earlier version sections record their own executed totals. Presentation/Q&A remain deferred. Scope is the authorized local test environment; no enterprise efficacy claim is made. Physical USB remains untested, Security log access unavailable, enterprise rollout/collection/retention open, and CERT multichannel v2 unmeasured. Original CERT v1 remains 0 TP / 476 positives; the later branding migration and hash record are described above.
 
 ## Prior 0.7 local endpoint integration
 
@@ -56,7 +58,7 @@ Governed label revisions and before/after history are stored transactionally wit
 
 Presentation and Q&A are deferred; existing presentation files refer to the previous build. The SEDRA 0.3 application packages are separate from earlier SEDRA deliverables.
 
-## Functional build
+## Historical functional build (0.8)
 
 - 184 executed tests, 0 failures, 0 errors, 0 skips; successful=True.
 - Real loopback smoke: {'attempted': 7, 'forwarded': 4, 'blocked': 3, 'unknown': 0}.
@@ -86,6 +88,6 @@ The local source recheck independently recovered the complete file.csv member an
 
 ## Deliverables and limitations
 
-The local app, source/tests, pinned offline Windows wheels, editable English PPTX, browser fallback, timed speaker script, Q&A, architecture, setup/reset and submission checklist are prepared. A designated GitHub repository has not been supplied or published by this build.
+The source, tests, review documentation, architecture and setup/reset guidance are published to the private TeamCyberChain/SEDRA repository. Runtime databases, credentials, raw endpoint records, provider/model files, offline wheels and presentation assets remain local and excluded from the current GitHub tree. Presentation and Q&A work is deferred at the user's request.
 
-The lab controls its own requests. Enterprise SSO and production provider deployment, endpoint-wide capture, semantic/OCR/arbitrary encoding handling and cross-identity collusion defense remain future work. Finite windows do not provide lifetime protection. Production use requires independent review and shadow-mode evaluation.
+The lab controls its own requests. Optional OIDC is implemented and locally protocol-tested; a real company IdP pilot, production provider deployment, endpoint-wide capture, semantic/OCR/arbitrary encoding handling and cross-identity collusion defense remain future work. Finite windows do not provide lifetime protection. Production use requires independent review and shadow-mode evaluation.

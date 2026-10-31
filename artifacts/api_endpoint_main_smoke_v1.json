@@ -1,0 +1,103 @@
+{
+  "started_at_utc": "2026-10-31T17:12:21.155862+00:00",
+  "base_url": "http://127.0.0.1:8765",
+  "test_scope": "Owned local child process and ten synthetic files in the named endpoint-lab folder. Real OS observations; no compromise, physical USB or new logon claimed.",
+  "key_scopes": [
+    "cases:read",
+    "ueba:read"
+  ],
+  "key_ttl_hours": 1,
+  "key_id": "9e72ad7222df2bb7",
+  "without_key_http": 401,
+  "read_key_write_http": 403,
+  "baseline": {
+    "behavior_score": 0,
+    "endpoint_score": 0,
+    "origin": "REAL_LOCAL_OBSERVATION",
+    "events_total_30m": 0,
+    "active_rules": []
+  },
+  "baseline_cursor": 0,
+  "generation": 0,
+  "probe_started": true,
+  "observed": {
+    "behavior_score": 90,
+    "endpoint_score": 90,
+    "origin": "REAL_LOCAL_OBSERVATION",
+    "events_total_30m": 12,
+    "active_rules": [
+      {
+        "rule_id": "endpoint_scoped_write_burst",
+        "score": 75,
+        "observed": 10,
+        "note": "At least 8 distinct named files in 120s; repeated edits of one file do not multiply this signal."
+      },
+      {
+        "rule_id": "endpoint_owned_process_file_sequence",
+        "score": 90,
+        "observed": 11,
+        "note": "CIM confirms the owned process; at least 8 distinct later files carry the same server-issued probe run. Controlled lab evidence, not compromise."
+      }
+    ]
+  },
+  "probe_event_origins": [
+    "REAL_LOCAL_OBSERVATION"
+  ],
+  "change_feed_http": 200,
+  "change_feed_response": {
+    "items": [
+      {
+        "cursor": 1,
+        "case_id": "UC-015165f388134623b4966d42cc61e15d",
+        "subject_id": "lab-001",
+        "revision": 0,
+        "action": "OPENED",
+        "actor": "engine",
+        "at": 1793466745.5553868,
+        "priority": 90,
+        "channels": [
+          "file",
+          "process"
+        ],
+        "source_count": 11
+      }
+    ],
+    "generation": 0,
+    "next_cursor": 1,
+    "delivery": "Consumer checkpoints only after processing; retry same cursor for at-least-once consumption"
+  },
+  "retry": {
+    "replayed_existing_events": 1,
+    "additional_revisions": 0,
+    "deduplication_key": [
+      "generation",
+      "cursor"
+    ]
+  },
+  "checkpoint_poll": {
+    "after": 1,
+    "items": 0,
+    "next_cursor": 1
+  },
+  "case_counts": {
+    "open": 1,
+    "in_review": 0,
+    "resolved": 0,
+    "total": 1
+  },
+  "cases": [
+    {
+      "case_id": "UC-015165f388134623b4966d42cc61e15d",
+      "subject_id": "lab-001",
+      "status": "OPEN",
+      "revision": 0
+    }
+  ],
+  "passed": true,
+  "revocation": {
+    "revoked": true,
+    "id": "9e72ad7222df2bb7"
+  },
+  "revoked_key_http": 401,
+  "finished_at_utc": "2026-10-31T17:12:40.035760+00:00"
+}
