@@ -35,6 +35,20 @@ def request(i,at,kind='AZ_FIN_CONTEXTUAL',uid='lab-001'):
 
 
 class StreamingUEBATests(unittest.TestCase):
+    def test_rule_evidence_is_independent_of_recent_display_and_has_no_content(self):
+        protected=[read(i,NOW-20) for i in range(6)]
+        public=[read(i+100,NOW-1,protected=False) for i in range(200)]
+        for item in protected+public:item['detail']['text']='PRIVATE_CONTENT_SENTINEL'
+        result=assess(subject(),protected+public,[],[],NOW)
+        evidence=result['ueba']['rule_evidence']
+        self.assertEqual(result['live_context']['score'],80)
+        self.assertEqual(len(result['ueba']['timeline']),60)
+        self.assertEqual({e['event_id'] for e in evidence},{'audit:'+str(i) for i in range(6)})
+        self.assertEqual(result['ueba']['rule_evidence_total'],6)
+        self.assertLessEqual(len(evidence),result['ueba']['rule_evidence_limit'])
+        self.assertNotIn('PRIVATE_CONTENT_SENTINEL',json.dumps(result))
+        self.assertEqual(assess(subject(),public,[],[],NOW)['ueba']['rule_evidence'],[])
+
     def test_future_events_other_actors_and_window_boundaries_do_not_raise_priority(self):
         reads=[read(i,NOW+1) for i in range(6)]+[read(i+10,NOW-1,'lab-002') for i in range(6)]
         reqs=[request(i,NOW+1) for i in range(3)]

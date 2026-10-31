@@ -128,6 +128,7 @@ test_three_tokens_have_separate_anchored_evidence (test_gateway.MatchingContract
 test_tr39_confusable_resolves_to_same_source_evidence (test_gateway.MatchingContractTests.test_tr39_confusable_resolves_to_same_source_evidence) ... ok
 test_atomic_batch_rejects_conflict_subject_spoof_future_and_score (test_integrations.IntegrationHTTPTests.test_atomic_batch_rejects_conflict_subject_spoof_future_and_score) ... ok
 test_case_api_alone_cools_expired_signals_and_preserves_review_and_peak (test_integrations.IntegrationHTTPTests.test_case_api_alone_cools_expired_signals_and_preserves_review_and_peak) ... ok
+test_case_evidence_survives_public_activity_outside_display_timeline (test_integrations.IntegrationHTTPTests.test_case_evidence_survives_public_activity_outside_display_timeline) ... ok
 test_change_feed_alone_emits_one_durable_expiry_revision (test_integrations.IntegrationHTTPTests.test_change_feed_alone_emits_one_durable_expiry_revision) ... ok
 test_employee_and_missing_csrf_cannot_issue_keys (test_integrations.IntegrationHTTPTests.test_employee_and_missing_csrf_cannot_issue_keys) ... ok
 test_expiry_persistence_and_rate_budget (test_integrations.IntegrationHTTPTests.test_expiry_persistence_and_rate_budget) ... ok
@@ -183,6 +184,7 @@ test_legacy_read_trigger_is_explicit_and_decays (test_ueba.StreamingUEBATests.te
 test_ordered_cross_channel_sequence_has_source_ids_and_does_not_assert_origin (test_ueba.StreamingUEBATests.test_ordered_cross_channel_sequence_has_source_ids_and_does_not_assert_origin) ... ok
 test_personal_baseline_excludes_current_future_and_has_support_gate (test_ueba.StreamingUEBATests.test_personal_baseline_excludes_current_future_and_has_support_gate) ... ok
 test_public_activity_and_single_new_identifier_are_not_high_priority (test_ueba.StreamingUEBATests.test_public_activity_and_single_new_identifier_are_not_high_priority) ... ok
+test_rule_evidence_is_independent_of_recent_display_and_has_no_content (test_ueba.StreamingUEBATests.test_rule_evidence_is_independent_of_recent_display_and_has_no_content) ... ok
 test_score_is_max_not_sum_and_labels_do_not_change_it (test_ueba.StreamingUEBATests.test_score_is_max_not_sum_and_labels_do_not_change_it) ... ok
 test_sequence_requires_three_reads_before_the_sensitive_attempts (test_ueba.StreamingUEBATests.test_sequence_requires_three_reads_before_the_sensitive_attempts) ... ok
 test_stale_future_and_low_support_daily_snapshot_never_enforces_as_fresh (test_ueba.StreamingUEBATests.test_stale_future_and_low_support_daily_snapshot_never_enforces_as_fresh) ... ok
@@ -194,6 +196,6 @@ test_request_ledger_drives_blocks_even_if_secondary_audit_event_is_missing (test
 test_scopes_no_new_endpoint_ingestion_and_masked_evidence (test_ueba.UEBAHTTPTests.test_scopes_no_new_endpoint_ingestion_and_masked_evidence) ... ok
 
 ----------------------------------------------------------------------
-Ran 194 tests in 94.491s
+Ran 196 tests in 83.506s
 
 OK

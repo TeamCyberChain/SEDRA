@@ -16,6 +16,7 @@ DAY=86400
 HISTORY_DAYS=28
 MAX_MODEL_AGE=72*3600
 INPUT_LIMIT=20000
+RULE_EVIDENCE_LIMIT=96
 
 
 def epoch(value):
@@ -114,9 +115,16 @@ def assess(subject,reads,requests,history,now,*,truncated=False):
     # Input saturation tightens the boundary as a quality safeguard, not a behavior finding.
     guard=80 if truncated else 0
     effective=max(daily,live_score,guard)
-    timeline=[{'event_id':e['id'],'timestamp':e['at'],'channel':e['channel'],'kind':e['kind'],
-        'doc_id':e['doc_id'],'request_id':e['request_id'],'detector_types':e['types'],
-        'origin':e.get('origin','OBSERVED_APPLICATION'),'route':e['route'],'body_bytes':e['bytes'],'state':e.get('state')} for e in recent[-60:]]
+    def evidence_view(e):
+        return {'event_id':e['id'],'timestamp':e['at'],'channel':e['channel'],'kind':e['kind'],
+            'doc_id':e['doc_id'],'request_id':e['request_id'],'detector_types':e['types'],
+            'origin':e.get('origin','OBSERVED_APPLICATION'),'route':e['route'],'body_bytes':e['bytes'],'state':e.get('state')}
+    timeline=[evidence_view(e) for e in recent[-60:]]
+    # A display window must not erase the source metadata needed by a live rule.
+    # References are already bounded per rule; retain a separate capped projection.
+    rule_refs={key for r in rules if r['active'] for key in r['evidence_ids']}
+    rule_events=[e for e in recent if e['id'] in rule_refs]
+    rule_evidence=[evidence_view(e) for e in rule_events[-RULE_EVIDENCE_LIMIT:]]
     buckets=[]
     for i in range(12):
         start=now-LONG+i*150;items=[e for e in recent if start<e['at']<=start+150]
@@ -144,6 +152,8 @@ def assess(subject,reads,requests,history,now,*,truncated=False):
     return {**subject,'completed_day_score':raw,'behavior_score':effective,'live_context':live,
         'model_context':model,'policy_context':policy,
         'ueba':{'profile':PROFILE,'timeline':timeline,'timeline_total_30m':len(recent),'timeline_limit':60,
+            'rule_evidence':rule_evidence,'rule_evidence_total':len(rule_events),'rule_evidence_limit':RULE_EVIDENCE_LIMIT,
+            'rule_evidence_truncated':len(rule_events)>RULE_EVIDENCE_LIMIT,
             'activity_buckets':buckets,'daily_trend':trend,
             'daily_contributions':{'rules':round(60*subject.get('rule_score',0),2),'anomaly':round(40*subject.get('ml_score',0),2)},
             'coverage':[{'channel':'Registered document access','status':'observed_app_only'},

@@ -2,6 +2,12 @@
 
 This records implemented work; executed evidence and its dates remain in the linked artifacts. Historical packages and original failed CERT v1 artifacts are preserved.
 
+## 0.10.2 — 31 October 2026
+
+- Preserve bounded app-rule source metadata independently of the recent 60-row display timeline, preventing newer public activity from suppressing evidence-bound case creation.
+- Show referenced records outside the recent timeline in the investigation screen; retain provenance and metadata-only limits.
+- Preserve the reproduced 6-protected/61-public failure and repaired real loopback HTTP evidence.
+
 ## 0.10.1 — 31 October 2026
 
 - Refresh finite case priorities on headless case/change-feed reads; preserve peak evidence and review status, emit one durable expiry revision and report refresh status.

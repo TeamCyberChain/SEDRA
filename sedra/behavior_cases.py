@@ -22,7 +22,10 @@ def evidence_snapshot(s,now):
     if not active:return None
     refs={key for r in active for key in r.get('evidence_ids',[])}
     nodes={}
-    for e in s.get('ueba',{}).get('timeline',[]):
+    # Current rule references can precede the latest sixty display rows. Older
+    # stored subjects retain the timeline fallback; neither path accepts bodies.
+    app_evidence=[*s.get('ueba',{}).get('timeline',[]),*s.get('ueba',{}).get('rule_evidence',[])]
+    for e in app_evidence:
         if e['event_id'] in refs:
             nodes[e['event_id']]={'id':e['event_id'],'channel':e['channel'],'kind':e['kind'],'at':e['timestamp'],
                 'origin':e.get('origin','OBSERVED_APPLICATION'),'doc_id':e.get('doc_id'),'request_id':e.get('request_id')}

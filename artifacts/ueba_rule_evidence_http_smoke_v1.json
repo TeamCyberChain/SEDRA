@@ -1,0 +1,18 @@
+{
+  "executed_at_utc": "2026-10-31T17:38:22.013007+00:00",
+  "scope": "Isolated real loopback HTTP with authenticated synthetic document reports; no main data, OS observation or external provider",
+  "expected_phase": "after_repair",
+  "accepted": 67,
+  "origin": "AUTHENTICATED_EXTERNAL_REPORT",
+  "priority": 80,
+  "recent_timeline_rows": 60,
+  "recent_timeline_only_public": true,
+  "retained_rule_records": 6,
+  "case_count": 1,
+  "case_trigger_records": 6,
+  "case_nodes": 6,
+  "case_nodes_only_protected": true,
+  "case_hash_chain_valid": true,
+  "successful": true,
+  "key_revoked": true
+}

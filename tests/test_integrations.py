@@ -56,6 +56,23 @@ class IntegrationHTTPTests(unittest.TestCase):
   self.assertEqual(send([event|{'subject_id':'lab-002'}]),403)
   self.assertEqual(send([event|{'occurred_at':time.time()+60}]),400)
   self.assertEqual(send([event|{'score':100}]),400)
+ def test_case_evidence_survives_public_activity_outside_display_timeline(self):
+  key=self.key(['telemetry:write','ueba:read','cases:read'],['lab-001']);now=time.time()
+  events=[{'event_id':'protected-'+str(i),'subject_id':'lab-001','occurred_at':now-10,'kind':'protected_document_access','doc_id':'araz-plan'} for i in range(6)]
+  events += [{'event_id':'public-'+str(i),'subject_id':'lab-001','occurred_at':now-1,'kind':'protected_document_access','doc_id':'public-note'} for i in range(61)]
+  status,ingested=self.machine('/api/v1/telemetry',key['token'],{'events':events})
+  self.assertEqual(status,200);self.assertEqual(ingested['accepted'],67)
+  current=self.machine('/api/v1/ueba?subject=lab-001',key['token'])[1]
+  self.assertEqual(current['live_context']['score'],80)
+  self.assertEqual(len(current['ueba']['timeline']),60)
+  self.assertTrue(all(e['doc_id']=='public-note' for e in current['ueba']['timeline']))
+  feed=self.machine('/api/v1/cases',key['token'])[1]
+  self.assertEqual(feed['counts']['total'],1)
+  detail=self.app.cases.get(feed['items'][0]['case_id'])
+  self.assertEqual(len(detail['snapshot']['trigger_source_ids']),6)
+  self.assertEqual(len(detail['snapshot']['nodes']),6)
+  self.assertTrue(all(e['doc_id']=='araz-plan' and e['origin']=='AUTHENTICATED_EXTERNAL_REPORT' for e in detail['snapshot']['nodes']))
+  self.assertTrue(detail['integrity']['hash_chain_valid'])
  def seed_expiring_case(self):
   now=time.time();key=self.key(['telemetry:write','cases:read','cases:write'],['lab-001'])
   events=[{'event_id':'expire-'+str(i),'subject_id':'lab-001','occurred_at':now,'kind':'protected_document_access','doc_id':'araz-plan'} for i in range(6)]
