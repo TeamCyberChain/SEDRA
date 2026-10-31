@@ -103,6 +103,8 @@ test_safe_preview_does_not_reserve_exposure_or_create_attempt_rows (test_browser
 test_scope_actor_binding_and_precise_extension_origin (test_browser_guard.BrowserPolicyHTTPTests.test_scope_actor_binding_and_precise_extension_origin) ... ok
 test_sensitive_prompt_and_text_attachment_block_create_masked_alerts (test_browser_guard.BrowserPolicyHTTPTests.test_sensitive_prompt_and_text_attachment_block_create_masked_alerts) ... ok
 test_unknown_oversized_and_mislabeled_files_fail_closed_with_alert (test_browser_guard.BrowserPolicyHTTPTests.test_unknown_oversized_and_mislabeled_files_fail_closed_with_alert) ... ok
+test_console_deep_links_and_assets (test_console_routes.ConsoleRoutesTests.test_console_deep_links_and_assets) ... ok
+test_deep_link_does_not_expand_employee_access (test_console_routes.ConsoleRoutesTests.test_deep_link_does_not_expand_employee_access) ... ok
 test_employee_cannot_start_sensor_or_submit_arbitrary_event_fields (test_endpoint.EndpointScopeTests.test_employee_cannot_start_sensor_or_submit_arbitrary_event_fields) ... ok
 test_actual_file_metadata_poll_is_scoped_and_does_not_read_contents (test_endpoint.EndpointTests.test_actual_file_metadata_poll_is_scoped_and_does_not_read_contents) ... ok
 test_augment_changes_policy_without_training_daily_model (test_endpoint.EndpointTests.test_augment_changes_policy_without_training_daily_model) ... ok
@@ -208,6 +210,6 @@ test_request_ledger_drives_blocks_even_if_secondary_audit_event_is_missing (test
 test_scopes_no_new_endpoint_ingestion_and_masked_evidence (test_ueba.UEBAHTTPTests.test_scopes_no_new_endpoint_ingestion_and_masked_evidence) ... ok
 
 ----------------------------------------------------------------------
-Ran 208 tests in 106.849s
+Ran 210 tests in 107.560s
 
 OK

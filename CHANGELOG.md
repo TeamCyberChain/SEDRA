@@ -1,3 +1,11 @@
+## 0.12.0 — Unified console navigation and investigation
+
+- Add first-class Identity & integrations with scoped credential management, role-aware form states, single-display secrets and conditional SSO navigation.
+- Open alert investigations at dedicated new-tab deep links; retain queue context, masked evidence, authorization and revision-based review.
+- Apply a shared neutral console theme to operations and AI Workspace, balanced refresh icon, readable evidence contrast and responsive navigation.
+- Present user-friendly workspace terminology and identity aliases without changing original source text, payloads, API bindings or exported evidence.
+- Validate real browser flows, key create/revoke and secret clearing on role change, desktop/mobile overflow, plus 210 Python and ten Node tests.
+
 ## 0.11.1 — Browser Guard and observed Gemini control correction
 
 - Add a scoped MV3 Chrome/Edge guard, bound browser inspection API, masked alert context, conservative one-use release accounting and bounded offline metadata reports.

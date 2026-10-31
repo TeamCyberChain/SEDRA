@@ -51,7 +51,7 @@ const icons = {
   investigate: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M8 11h5M10.5 8.5v5"/>',
   boundary: '<path d="M13 3v18M4 8h6M4 16h6M17 12h5m-3-3 3 3-3 3"/><circle cx="3" cy="8" r="1"/><circle cx="3" cy="16" r="1"/>',
   arrow: '<path d="M4 12h16m-6-6 6 6-6 6"/>',
-  refresh: '<path d="M20 7v5h-5M4 17v-5h5M5.2 7a8 8 0 0 1 13-2L20 7M4 17l1.8 2a8 8 0 0 0 13-2"/>',
+  refresh: '<path d="M3 12a9 9 0 0 1 15.36-6.36L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.36 6.36L3 16"/><path d="M8 16H3v5"/>',
   reset: '<path d="M3 4v6h6M3 10a9 9 0 1 1 1 8M12 7v5l3 2"/>',
   flask: '<path d="M9 3h6m-5 0v6L4 19a1.4 1.4 0 0 0 1.3 2h13.4a1.4 1.4 0 0 0 1.3-2L14 9V3M7 15h10M10 18h.01M14 17h.01"/>',
   shield: '<path d="m12 3 8 4v6c0 4-4 7-8 9-4-2-8-5-8-9V7l8-4Z"/><path d="m8 12 3 3 5-6"/>',
@@ -85,12 +85,15 @@ const dateTime = value => {
 };
 
 let state = null;
+const alertPageId = location.pathname === '/alert' ? new URLSearchParams(location.search).get('id') : null;
+if(alertPageId){document.body.classList.add('alert-page');document.querySelector('#view-alerts h1').textContent='Alert investigation';}
 let selectedTab = "overview";
-let selectedSubject = null;
+let selectedSubject = new URLSearchParams(location.search).get('subject');
 let analysisSource = "lab";
 let selectedDocument = null;
 let openedDocument = null;
 let activeRequest = null;
+let initialRequestId = new URLSearchParams(location.search).get('request');
 let pendingTransfer = null;
 let loading = false;
 let mutating = false;
@@ -183,7 +186,7 @@ function renderSourceContext() {
   const benchmark = currentBenchmark() || {};
   const status = benchmark.status || "unavailable";
   const cert = usingBenchmark() && selectedTab !== "lab";
-  $("provenance-badge").innerHTML = `${icon(cert ? "document" : "flask")}${esc(cert ? `${benchmark.dataset || "CERT r4.2"} · published synthetic benchmark` : "Synthetic lab · completed user-day context")}`;
+  $("provenance-badge").innerHTML = `${icon("document")}${esc(cert ? `${benchmark.dataset || "CERT r4.2"} · published synthetic benchmark` : "Sample workspace · recorded activity")}`;
   $("provenance-badge").classList.toggle("benchmark-provenance",cert);
   const research = state?.benchmark_v2 || {};
   const downloaded = research.expected_source_bytes ? Math.min(100,100*(research.source_download_bytes || 0)/research.expected_source_bytes) : 0;
@@ -237,18 +240,22 @@ async function loadState({silent = false} = {}) {
     const previousRole = state?.session?.role;
     state = await api("/api/state");
     if(previousRole && previousRole!==state.session.role)labelDraftDirty=false;
+    document.body.classList.remove("session-required");
+    $("session-signin").hidden=true;
     lastLoaded = new Date();
     ensureAnalysisSelection();
     if (!selectedDocument || !array(state.documents).some(d => d.id === selectedDocument)) {
       selectedDocument = array(state.documents)[0]?.id || null;
       openedDocument = null;
     }
-    if (activeRequest?.request_id) activeRequest = array(state.requests).find(r => r.request_id === activeRequest.request_id) || null;
+    if(initialRequestId){activeRequest=array(state.requests).find(r=>r.request_id===initialRequestId)||null;initialRequestId=null;}
+    else if (activeRequest?.request_id) activeRequest = array(state.requests).find(r => r.request_id === activeRequest.request_id) || null;
     $("connection-status").classList.remove("offline");
     $("connection-status").innerHTML = '<span class="status-dot"></span>Gateway connected';
     showError("");
     render();
   } catch (error) {
+    if(error.status===401){state=null;document.body.classList.add("session-required");$("session-signin").hidden=false;$("identity-select").disabled=true;if(window.SedraIntegrations)window.SedraIntegrations.sync();}
     $("connection-status").classList.add("offline");
     $("connection-status").innerHTML = '<span class="status-dot"></span>Connection unavailable';
     if (!silent || !state) showError(error.message);
@@ -262,7 +269,9 @@ async function loadState({silent = false} = {}) {
 }
 
 function changeTab(tab, updateHash = true) {
-  if (!["overview","alerts","investigation","inventory","lab"].includes(tab)) tab = "overview";
+  if(tab==="transfers")tab="lab";
+  if (!["overview","alerts","investigation","inventory","lab","integrations"].includes(tab)) tab = "overview";
+  if(alertPageId && updateHash){location.assign('/#'+(tab==='lab'?'transfers':tab));return;}
   selectedTab = tab;
   if (updateHash) window.scrollTo({top:0,behavior:"instant"});
   document.querySelectorAll(".view").forEach(view => { view.hidden = view.id !== `view-${tab}`; });
@@ -271,14 +280,15 @@ function changeTab(tab, updateHash = true) {
     button.classList.toggle("active", active);
     if (active) button.setAttribute("aria-current", "page"); else button.removeAttribute("aria-current");
   });
-  $("breadcrumb-current").textContent = {overview:"Overview",investigation:"UEBA",lab:"Transfer Control",inventory:"Data Inventory",alerts:"Alerts"}[tab];
-  if (updateHash) history.replaceState(null, "", `#${tab}`);
+  $("breadcrumb-current").textContent = {overview:"Overview",investigation:"UEBA",lab:"Transfer Control",inventory:"Data Inventory",alerts:alertPageId?"Alert investigation":"Alerts",integrations:"Identity & integrations"}[tab];
+  if (updateHash) history.replaceState(null, "", `/#${tab==="lab"?"transfers":tab}`);
   if (state) {
     renderSourceContext();
     if (tab === "investigation") renderInvestigation();
     if (tab === "lab") renderLab();
     if (tab === "inventory") renderInventory();
     if (tab === "alerts" && typeof renderAlerts === "function") renderAlerts();
+    if(tab==='integrations' && window.SedraIntegrations)window.SedraIntegrations.refresh();
   }
 }
 
@@ -286,7 +296,7 @@ function render() {
   const identity = isAnalyst() ? "analyst" : state.session?.subject_id || "analyst";
   $("identity-select").value = identity;
   $("identity-select").disabled = Boolean(state.session?.principal);
-  document.querySelector('label[for="identity-select"]').textContent=state.session?.principal?"SSO identity":"Demo identity";
+  document.querySelector('label[for="identity-select"]').textContent=state.session?.principal?"SSO identity":"Active identity";
   $("snapshot-time").textContent = `Refreshed ${dateTime(lastLoaded.toISOString())}`;
   renderSourceContext();
   renderOverview();
@@ -298,6 +308,7 @@ function render() {
   renderInventory();
   renderDataTypes();
   if(typeof syncAlertSession === "function") syncAlertSession();
+  if(window.SedraIntegrations){window.SedraIntegrations.sync();if(selectedTab==='integrations')window.SedraIntegrations.refresh();}
   $("send-transfer").disabled = mutating || !canTransfer() || !$("transfer-text").value.trim();
   $("reset-demo").disabled = mutating || !isAnalyst();
   $("reset-demo").title = isAnalyst() ? "Clear the local demo ledger, receiver, and application events" : "Select Analyst to reset the local demo";
@@ -329,13 +340,13 @@ function renderOverview() {
     ["blocked","Blocked","block","Stopped at the boundary"],
     ["unknown","Unconfirmed","clock","Requires reconciliation"]
   ];
-  $("overview-counts").setAttribute("aria-label",cert ? "Historical benchmark support" : "Live lab transfer counters");
+  $("overview-counts").setAttribute("aria-label",cert ? "Historical benchmark support" : "Workspace transfer counters");
   $("live-control-panel").hidden = cert;
   $("live-activity-panel").hidden = cert;
   $("overview-primary-grid").classList.toggle("benchmark-layout",cert);
   $("overview-lower-grid").classList.toggle("benchmark-layout",cert);
   $("risk-source-description").textContent = cert ? "Historical benchmark rows, ordered by priority. V2 shows each displayed subject's highest-scored test day. Dates retain dataset-local time." : "Completed-day model plus separately explained live application signals.";
-  $("evaluation-scope").textContent = cert ? (currentBenchmark().dataset || "CERT benchmark") : "Lab scope";
+  $("evaluation-scope").textContent = cert ? (currentBenchmark().dataset || "CERT benchmark") : "Sample dataset";
   $("overview-counts").innerHTML = metrics.map(([key,label,iconName,note]) => `<div class="metric-card ${key}"><div class="metric-label">${label}${icon(iconName)}</div><div class="metric-number">${esc(display(counts[key]))}</div><div class="metric-footnote">${note}</div></div>`).join("");
   const subjects = [...analysisSubjects()].sort((a,b) => (b.behavior_score ?? -1) - (a.behavior_score ?? -1));
   $("subject-count").textContent = `${subjects.length} subject${subjects.length === 1 ? "" : "s"}`;
@@ -345,7 +356,7 @@ function renderOverview() {
   $("overview-requests").innerHTML = recent.length ? recent.map(request => {
     const tone = decisionTone(request);
     return `<div class="compact-request"><span class="status-icon ${tone}">${icon(tone === "red" ? "block" : tone === "amber" ? "clock" : "send")}</span><div class="compact-request-body"><button data-request="${esc(request.request_id)}"><span class="request-title">${esc(request.subject_id)} <span style="color:#a3af9b;font-weight:400">→</span> ${esc(request.destination || "public_ai")}</span></button><span class="request-time">${esc(dateTime(request.created_at))}</span></div>${badge(request.decision)}${badge(requestState(request),true)}</div>`;
-  }).join("") : '<div class="empty-state inline">No gateway requests yet. Open the lab to start the evidence trail.</div>';
+  }).join("") : '<div class="empty-state inline">No gateway requests yet. Open Transfer Control to start the evidence trail.</div>';
   const comparisons = Object.entries(evaluation.comparisons || {});
   const comparisonTable = comparisons.length ? `<div class="evaluation-table-wrap"><table class="evaluation-table"><thead><tr><th>Detector</th><th>Precision</th><th>Recall</th><th>F1</th></tr></thead><tbody>${comparisons.map(([name,metrics]) => `<tr><th>${esc(name === "isolation_forest" ? "Isolation Forest" : titleCase(name))}</th><td>${metrics.alert_count === 0 ? "—" : percent(metrics.precision)}</td><td>${percent(metrics.recall)}</td><td>${percent(metrics.f1)}</td></tr>`).join("")}</tbody></table></div>` : "";
   const split = evaluation.split;
@@ -359,7 +370,7 @@ function renderOverview() {
   const failedGate = cert && comparisons.length > 0 && comparisons.every(([,m]) => m.positive_user_days > 0 && m.confusion_matrix?.tp === 0);
   const note = cert
     ? `${failedGate ? "Detection gate not passed: this baseline detected zero positive test days. " : ""}${currentBenchmark().dataset || "CERT r4.2"}: historical evaluation on a published synthetic research dataset. V2 uses a previously inspected release and cannot establish independent efficacy. Inspect the selected population and label definition with these results.`
-    : `Controlled synthetic lab results.${["measured","measured_development"].includes(currentBenchmark()?.status) ? " The separate CERT evaluation is available in the data-source selector." : ` CERT status: ${titleCase(currentBenchmark()?.status || "unavailable")}.`}`;
+    : `Controlled sample-data results.${["measured","measured_development"].includes(currentBenchmark()?.status) ? " The separate CERT evaluation is available in the data-source selector." : ` CERT status: ${titleCase(currentBenchmark()?.status || "unavailable")}.`}`;
   $("evaluation-content").innerHTML = `<div class="evaluation-note">${esc(note)}</div>` + comparisonTable + workloadDetail + coverageDetail + splitDetail + supportDetail + selectionDetail + (Object.keys(evaluation).length ? `<details class="evaluation-json"><summary>Inspect methodology, operating points & evidence</summary><pre>${esc(JSON.stringify(evaluation,null,2))}</pre></details>` : '<div class="empty-state inline">No evaluation results have been supplied by the server.</div>');
 }
 
@@ -428,7 +439,7 @@ function renderInvestigation(backgroundRefresh=false) {
     ${!cert && typeof uebaInvestigationHTML === "function" ? uebaInvestigationHTML(subject) : ""}
     <h2 class="section-label">Observed behavioral features</h2><div class="feature-grid">${features.length ? features.map(featureCard).join("") : '<div class="empty-state">No feature values supplied.</div>'}</div>
     <div class="investigation-columns"><section class="panel"><div class="panel-heading"><div><h2>Completed-day model explanation</h2><p>Evidence returned by the behavioral scoring engine.</p></div><span class="neutral-tag">${reasons.length} signals</span></div><div class="reason-list">${reasons.length ? reasons.map(reasonCard).join("") : '<div class="empty-state inline">No explanatory signals were returned.</div>'}</div></section>
-    <section class="panel"><div class="panel-heading"><div><h2>${cert ? "Historical source evidence" : "Application activity"}</h2><p>${cert ? "Dataset provenance and available original identifiers." : "Actual lab events. Separate from the completed-day baseline."}</p></div></div>${activityContent}</section></div>${historyContent}`;
+    <section class="panel"><div class="panel-heading"><div><h2>${cert ? "Historical source evidence" : "Application activity"}</h2><p>${cert ? "Dataset provenance and available original identifiers." : "Recorded application events. Separate from the completed-day baseline."}</p></div></div>${activityContent}</section></div>${historyContent}`;
 }
 
 function renderDocumentOptions() {
@@ -447,7 +458,7 @@ function renderDocument() {
   $("fill-protected").disabled = !doc || mutating;
   if (!doc) {
     $("document-metadata").innerHTML = "";
-    $("document-content").innerHTML = '<p>No lab document has been supplied.</p>';
+    $("document-content").innerHTML = '<p>No registered document has been supplied.</p>';
     $("document-fragments").innerHTML = "";
     return;
   }
@@ -482,7 +493,7 @@ function badge(value,isState = false) {
 
 function renderLab() {
   $("lab-identity-note").classList.toggle("warning", !canTransfer());
-  $("lab-identity-note").innerHTML = `${icon(canTransfer() ? "user" : "info")}<span>${canTransfer() ? `Acting as <strong>${esc(state.session.subject_id)}</strong>. The server session determines the subject of each transfer. This is a local demo identity.` : 'Analyst view. Select <strong>lab-001</strong> or <strong>lab-002</strong> in the demo identity selector to submit a transfer.'}</span>`;
+  $("lab-identity-note").innerHTML = `${icon(canTransfer() ? "user" : "info")}<span>${canTransfer() ? `Acting as <strong>${esc(state.session.subject_id)}</strong>. The server session determines the subject of each transfer. This identity belongs to the sample workspace.` : 'Analyst view. Select <strong>lab-001</strong> or <strong>lab-002</strong> in the identity selector to submit a transfer.'}</span>`;
   renderDocument();
   renderDecision();
   renderReceiver();
@@ -676,7 +687,7 @@ $("export-source-evidence").addEventListener("click", () => {
   const url = URL.createObjectURL(file);
   const link = document.createElement("a");
   link.href = url;
-  link.download = cert ? "sedra-cert-benchmark-evidence.json" : "sedra-live-lab-evaluation.json";
+  link.download = cert ? "sedra-cert-benchmark-evidence.json" : "sedra-workspace-evaluation.json";
   document.body.appendChild(link);
   link.click();
   link.remove();
@@ -733,10 +744,10 @@ $("reset-demo").addEventListener("click", async () => {
   } catch (error) { showError(error.message); }
   finally { setBusy(false,"reset-demo"); }
 });
-window.addEventListener("hashchange", () => changeTab(location.hash.slice(1),false));
+window.addEventListener("hashchange", () => {if(location.hash!=="#main")changeTab(location.hash.slice(1),false);});
 document.addEventListener("visibilitychange", () => { if (!document.hidden && !mutating) loadState({silent:true}); });
 installIcons();
-changeTab(location.hash.slice(1) || "overview",false);
+changeTab(alertPageId?'alerts':location.hash.slice(1)||(location.pathname==='/integrations'?'integrations':'overview'),false);
 loadState();
 setInterval(() => { if (!document.hidden && !mutating && !loading) loadState({silent:true}); }, 8000);
 
@@ -765,7 +776,7 @@ $("live-burst").addEventListener("click", async () => {
 });
 $("run-mosaic").addEventListener("click", async () => {
   if (mutating || state.session.subject_id!=="lab-001") return;
-  if (state.requests.length) { showError("Start with a fresh ledger: select Analyst, reset the demo, then choose lab-001."); return; }
+  if (state.requests.length) { showError("Start with a fresh ledger: select Analyst, reset the demo, then choose User 001."); return; }
   setBusy(true);
   try {
     const source = array(state.documents).find(d=>d.id==="araz-plan");

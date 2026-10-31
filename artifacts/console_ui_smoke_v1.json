@@ -1,0 +1,48 @@
+{
+  "observed_at_utc": "2026-10-31T20:48:07.171327+00:00",
+  "version": "0.12.0",
+  "scope": "Actual local console browser checks with retained synthetic records; no external IdP, policy change or AI call required.",
+  "checks": {
+    "identity_navigation": true,
+    "direct_integrations_route": true,
+    "alert_new_tab_created": true,
+    "queue_did_not_render_inline_detail": true,
+    "alert_detail_loaded_existing_record": true,
+    "display_labels_without_lab_terms_on_main_views": true,
+    "original_ids_and_payloads_retained": true,
+    "credential_created_with_user_alias": true,
+    "credential_secret_cleared_on_role_change": true,
+    "employee_create_disabled": true,
+    "temporary_credential_revoked": true,
+    "portal_local_model_ready": true,
+    "refresh_svg_18_by_18": true,
+    "desktop_1440_no_document_overflow": true,
+    "mobile_390_no_document_overflow": true,
+    "mobile_navigation_wrapped": true,
+    "authentication_expiry_clears_privileged_ui": true,
+    "unconfigured_sso_link_hidden": true,
+    "user_alias_search_supported": true,
+    "viewport_overrides_reset": true,
+    "alert_subject_shortcut_keeps_bound_subject": true,
+    "alert_request_shortcut_selects_recorded_request": true,
+    "source_and_model_reply_display_unmodified": true
+  },
+  "tests": {
+    "python": {
+      "executed_at_utc": "2026-10-31T20:37:45.019226+00:00",
+      "python": "3.12.10",
+      "tests_run": 210,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "successful": true,
+      "runtime_seconds": 109.83,
+      "suite": "unittest discovery: behavior, acquisition, matcher, gateway, application HTTP integration",
+      "network_scope": "local loopback receiver only; no external AI request",
+      "benchmark_performance_is_separate": true
+    },
+    "node_tests": 10
+  },
+  "identity_display_contract": "User 001 is an alias for the original bound identity. Source documents, editable payloads, secrets, code and exported JSON are excluded from display rewriting.",
+  "provenance": "Sample-workspace origin remains explicit in methodology/evaluation. CERT failed-gate history and uncertainty accounting are retained."
+}

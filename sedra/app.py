@@ -598,7 +598,7 @@ def handler_for(app):
                     return self.respond(200, doc | {'metadata': app.gateway.catalog_labels()[doc_id]}, cookie=cookie)
                 if path.path == "/health":
                     return self.respond(200, {"status": "ok", "product":"SEDRA", "mode": "local_lab", "build_version":__version__, "model_version": app.snapshot.get("model_version")})
-                allowed = {"/": "index.html", "/index.html": "index.html", "/app.js": "app.js", "/alerts.js":"alerts.js", "/ueba.js":"ueba.js", "/endpoint.js":"endpoint.js", "/cases.js":"cases.js", "/openapi.json":"openapi.json", "/integrations":"integrations.html", "/integrations.js":"integrations.js", "/style.css": "style.css", "/sedra.css": "sedra.css",
+                allowed = {"/": "index.html", "/index.html": "index.html", "/app.js": "app.js", "/alerts.js":"alerts.js", "/ueba.js":"ueba.js", "/endpoint.js":"endpoint.js", "/cases.js":"cases.js", "/openapi.json":"openapi.json", "/integrations":"index.html", "/alert":"index.html", "/console.css":"console.css", "/presentation.js":"presentation.js", "/integrations.js":"integrations.js", "/style.css": "style.css", "/sedra.css": "sedra.css",
                            '/portal':'portal.html', '/portal/':'portal.html', '/portal.js':'portal.js', '/portal.css':'portal.css',
                            '/browser-lab':'browser-lab.html','/browser-lab.js':'browser-lab.js',
                            '/browser-harness':'browser-harness.html','/browser-harness-transport.js':'browser-harness-transport.js',
