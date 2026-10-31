@@ -1,0 +1,10 @@
+'use strict';
+let labCsrf='';const labStatus=document.getElementById('lab-status'),promptBox=document.getElementById('prompt-textarea');
+async function labCall(path,body){const response=await fetch(path,{method:body?'POST':'GET',headers:body?{'Content-Type':'application/json','X-CSRF-Token':labCsrf}:{},body:body?JSON.stringify(body):undefined});const value=await response.json();if(!response.ok)throw Error(value.error||'Local operation failed');return value;}
+async function receipts(){const value=await labCall('/api/browser-lab/receipts');document.getElementById('receipts').textContent=JSON.stringify(value,null,2);}
+document.getElementById('lab-form').addEventListener('submit',async event=>{event.preventDefault();try{const value=await labCall('/api/browser-lab/receive',{text:promptBox.value,kind:'prompt'});labStatus.textContent='Local receiver acknowledged receipt '+value.receipt+'.';await receipts();}catch(error){labStatus.textContent=error.message;}});
+document.getElementById('lab-file').addEventListener('change',async event=>{try{for(const file of event.target.files){if(!/\.(txt|md|csv|json)$/i.test(file.name)){labStatus.textContent='Guard release observed. This lab receiver demonstrates text uploads only.';continue;}const value=await labCall('/api/browser-lab/receive',{text:await file.text(),kind:'file'});labStatus.textContent='Local file receipt '+value.receipt+'.';}await receipts();}catch(error){labStatus.textContent=error.message;}});
+document.getElementById('load-public').onclick=()=>{promptBox.value='Explain how photosynthesis works in two sentences.';promptBox.dispatchEvent(new InputEvent('input',{bubbles:true}));};
+document.getElementById('load-fin').onclick=()=>{promptBox.value='FIN: 7ABC123';promptBox.dispatchEvent(new InputEvent('input',{bubbles:true}));};
+document.getElementById('refresh-receipts').onclick=()=>receipts().catch(error=>labStatus.textContent=error.message);
+(async()=>{const value=await labCall('/api/state');labCsrf=value.session.csrf_token;await receipts();})().catch(error=>labStatus.textContent=error.message+' · Analyst lab login required.');

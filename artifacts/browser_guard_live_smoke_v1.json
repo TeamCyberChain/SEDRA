@@ -1,0 +1,563 @@
+{
+  "observed_at_utc": "2026-10-31T19:48:04.162217+00:00",
+  "build_version": "0.11.1",
+  "extension_id": "akncbelkcijoipfcfnhpcaajcfagkijm",
+  "scope": "Actual installed managed Chrome extension; synthetic local composer and live Gemini DOM events. No network-wide or independent provider receipt claim.",
+  "local_sensitive_receipts_observed": 0,
+  "public_control_receipts": [
+    {
+      "seq": 2,
+      "at": 1793474883.4371746,
+      "sha256": "f42930c51ce77e41d92a170688d3a5bf90b01f58ba22448b553c271675e81de3",
+      "utf8_bytes": 50,
+      "kind": "file"
+    },
+    {
+      "seq": 1,
+      "at": 1793474850.8040304,
+      "sha256": "f42930c51ce77e41d92a170688d3a5bf90b01f58ba22448b553c271675e81de3",
+      "utf8_bytes": 50,
+      "kind": "prompt"
+    }
+  ],
+  "verified_block_alerts": [
+    {
+      "seq": 1,
+      "alert_id": "SE-63e3769034d54cddae0734f97e987065",
+      "kind": "POLICY_BLOCK",
+      "severity": "high",
+      "title": "Sensitive data blocked",
+      "category": "structured_sensitive_data",
+      "severity_basis": "Supported identifier/financial rule matched; blocked before delivery",
+      "occurred_at": 1793474317.5541987,
+      "created_at": 1793474317.5541987,
+      "status": "OPEN",
+      "disposition": "UNASSESSED",
+      "assigned_to": null,
+      "read_at": null,
+      "updated_at": 1793474317.5541987,
+      "revision": 0,
+      "subject_id": "lab-001",
+      "request_id": "br-30dff022-94db-4cec-b1b7-b7440683a844-40bc68f1e5bba978d1acf348a6288c98",
+      "destination": "browser:sedra-browser-lab",
+      "decision": "BLOCK",
+      "state": "BLOCKED",
+      "body_sha256": "23fd19ecd5471e2777c336f4a2d1eba625d2a329a7deedd4bc8a7242b7173e29",
+      "body_bytes": 12,
+      "behavior_score": 0.0,
+      "display_id": "SEDRA-000001",
+      "imported_from_ledger": false,
+      "profile": "sedra-gateway-alerts-v1",
+      "environment": "synthetic_lab",
+      "reason_codes": [
+        "STRUCTURED_AZ_FIN_CONTEXTUAL",
+        "NO_ELIGIBLE_PROTECTED_MATCH"
+      ],
+      "security_tags": {
+        "basis": "structured-detector",
+        "business_tags": [],
+        "detector_tags": [
+          "AZ_FIN_CONTEXTUAL"
+        ],
+        "document_ids": [],
+        "profile": "sedra-governed-labels-v1",
+        "scope_note": "Unclassified means no eligible protected match or structured finding; it is not a public-data certification.",
+        "sensitivity": "restricted"
+      },
+      "browser_context": {
+        "binding": "3de7e5f5e574cd50bb71b6fdfb65253fec51727fba994cbcc06bd912a0997200",
+        "enforcement": "Extension-reported; not independently attested",
+        "files": [],
+        "host": "sedra-browser-lab",
+        "inspection_failure": null,
+        "mode": "preview",
+        "operation": "paste",
+        "origin": "AUTHENTICATED_BROWSER_REPORT",
+        "profile": "sedra-browser-guard-v1"
+      },
+      "detector_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "delivery_uncertain": false,
+      "outcome": "Browser block decision; extension enforcement reported",
+      "workflow_note": "Analyst review does not change enforcement, resend content or establish compromise."
+    },
+    {
+      "seq": 2,
+      "alert_id": "SE-18b8bd682e484d66b40700c2a4c4f360",
+      "kind": "POLICY_BLOCK",
+      "severity": "high",
+      "title": "Sensitive data blocked",
+      "category": "structured_sensitive_data",
+      "severity_basis": "Supported identifier/financial rule matched; blocked before delivery",
+      "occurred_at": 1793474458.4063296,
+      "created_at": 1793474458.4063296,
+      "status": "OPEN",
+      "disposition": "UNASSESSED",
+      "assigned_to": null,
+      "read_at": null,
+      "updated_at": 1793474458.4063296,
+      "revision": 0,
+      "subject_id": "lab-001",
+      "request_id": "br-30dff022-94db-4cec-b1b7-b7440683a844-058a0910291d8f04a64788465501dc56",
+      "destination": "browser:sedra-browser-lab",
+      "decision": "BLOCK",
+      "state": "BLOCKED",
+      "body_sha256": "c7994271336d7b2ebe5cb64fe06aaf053141027f6cc783369c80c4eb089da883",
+      "body_bytes": 11,
+      "behavior_score": 0.0,
+      "display_id": "SEDRA-000002",
+      "imported_from_ledger": false,
+      "profile": "sedra-gateway-alerts-v1",
+      "environment": "synthetic_lab",
+      "reason_codes": [
+        "STRUCTURED_AZ_FIN_CONTEXTUAL",
+        "NO_ELIGIBLE_PROTECTED_MATCH"
+      ],
+      "security_tags": {
+        "basis": "structured-detector",
+        "business_tags": [],
+        "detector_tags": [
+          "AZ_FIN_CONTEXTUAL"
+        ],
+        "document_ids": [],
+        "profile": "sedra-governed-labels-v1",
+        "scope_note": "Unclassified means no eligible protected match or structured finding; it is not a public-data certification.",
+        "sensitivity": "restricted"
+      },
+      "browser_context": {
+        "binding": "b6588f58122e1fa6a540c804d273b10b7f5b922a2a8dcdcf79e30b7ec9ef4d75",
+        "enforcement": "Extension-reported; not independently attested",
+        "files": [],
+        "host": "sedra-browser-lab",
+        "inspection_failure": null,
+        "mode": "preview",
+        "operation": "draft",
+        "origin": "AUTHENTICATED_BROWSER_REPORT",
+        "profile": "sedra-browser-guard-v1"
+      },
+      "detector_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "delivery_uncertain": false,
+      "outcome": "Browser block decision; extension enforcement reported",
+      "workflow_note": "Analyst review does not change enforcement, resend content or establish compromise."
+    },
+    {
+      "seq": 3,
+      "alert_id": "SE-88824a1a41384de981167a29f19d0d74",
+      "kind": "POLICY_BLOCK",
+      "severity": "high",
+      "title": "Sensitive data blocked",
+      "category": "structured_sensitive_data",
+      "severity_basis": "Supported identifier/financial rule matched; blocked before delivery",
+      "occurred_at": 1793474483.0041149,
+      "created_at": 1793474483.0041149,
+      "status": "OPEN",
+      "disposition": "UNASSESSED",
+      "assigned_to": null,
+      "read_at": null,
+      "updated_at": 1793474483.0041149,
+      "revision": 0,
+      "subject_id": "lab-001",
+      "request_id": "br-6b8c8bbb-e04e-48e0-b30a-6181fb141137",
+      "destination": "browser:sedra-browser-lab",
+      "decision": "BLOCK",
+      "state": "BLOCKED",
+      "body_sha256": "c7994271336d7b2ebe5cb64fe06aaf053141027f6cc783369c80c4eb089da883",
+      "body_bytes": 11,
+      "behavior_score": 0.0,
+      "display_id": "SEDRA-000003",
+      "imported_from_ledger": false,
+      "profile": "sedra-gateway-alerts-v1",
+      "environment": "synthetic_lab",
+      "reason_codes": [
+        "STRUCTURED_AZ_FIN_CONTEXTUAL",
+        "NO_ELIGIBLE_PROTECTED_MATCH"
+      ],
+      "security_tags": {
+        "basis": "structured-detector",
+        "business_tags": [],
+        "detector_tags": [
+          "AZ_FIN_CONTEXTUAL"
+        ],
+        "document_ids": [],
+        "profile": "sedra-governed-labels-v1",
+        "scope_note": "Unclassified means no eligible protected match or structured finding; it is not a public-data certification.",
+        "sensitivity": "restricted"
+      },
+      "browser_context": {
+        "binding": "ef866db566dcebe0bfd0969e872b938f4d46b7146e8a0fc8f05658a1e8752597",
+        "enforcement": "Extension-reported; not independently attested",
+        "files": [],
+        "host": "sedra-browser-lab",
+        "inspection_failure": null,
+        "mode": "release",
+        "operation": "send",
+        "origin": "AUTHENTICATED_BROWSER_REPORT",
+        "profile": "sedra-browser-guard-v1"
+      },
+      "detector_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "delivery_uncertain": false,
+      "outcome": "Browser block decision; extension enforcement reported",
+      "workflow_note": "Analyst review does not change enforcement, resend content or establish compromise."
+    },
+    {
+      "seq": 4,
+      "alert_id": "SE-fe4e06766f084ba8a70d0cb5a776fadf",
+      "kind": "POLICY_BLOCK",
+      "severity": "high",
+      "title": "Sensitive data blocked",
+      "category": "structured_sensitive_data",
+      "severity_basis": "Supported identifier/financial rule matched; blocked before delivery",
+      "occurred_at": 1793474619.3315573,
+      "created_at": 1793474619.3315573,
+      "status": "OPEN",
+      "disposition": "UNASSESSED",
+      "assigned_to": null,
+      "read_at": null,
+      "updated_at": 1793474619.3315573,
+      "revision": 0,
+      "subject_id": "lab-001",
+      "request_id": "br-3fbd211d-7bab-4697-98d4-dc268c250c0e",
+      "destination": "browser:sedra-browser-lab",
+      "decision": "BLOCK",
+      "state": "BLOCKED",
+      "body_sha256": "f63fde276bf1731cb17e26e79f1e764a187626a78157313871b4de2e370d91c3",
+      "body_bytes": 45,
+      "behavior_score": 0.0,
+      "display_id": "SEDRA-000004",
+      "imported_from_ledger": false,
+      "profile": "sedra-gateway-alerts-v1",
+      "environment": "synthetic_lab",
+      "reason_codes": [
+        "STRUCTURED_AZ_FIN_CONTEXTUAL",
+        "NO_ELIGIBLE_PROTECTED_MATCH"
+      ],
+      "security_tags": {
+        "basis": "structured-detector",
+        "business_tags": [],
+        "detector_tags": [
+          "AZ_FIN_CONTEXTUAL"
+        ],
+        "document_ids": [],
+        "profile": "sedra-governed-labels-v1",
+        "scope_note": "Unclassified means no eligible protected match or structured finding; it is not a public-data certification.",
+        "sensitivity": "restricted"
+      },
+      "browser_context": {
+        "binding": "2e8c1d2bbef0a09bbd4c1462289c3f3767960c136ac6bb2431f270c0ceba0afe",
+        "enforcement": "Extension-reported; not independently attested",
+        "files": [
+          {
+            "bytes": 44,
+            "inspection": "text_extracted",
+            "sha256": "4ce33da6f15a734fe437ac797dfc4fc3546597b11ea8a3bc2c0652f320d7505c",
+            "suffix": ".txt"
+          }
+        ],
+        "host": "sedra-browser-lab",
+        "inspection_failure": null,
+        "mode": "release",
+        "operation": "file",
+        "origin": "AUTHENTICATED_BROWSER_REPORT",
+        "profile": "sedra-browser-guard-v1"
+      },
+      "detector_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "delivery_uncertain": false,
+      "outcome": "Browser block decision; extension enforcement reported",
+      "workflow_note": "Analyst review does not change enforcement, resend content or establish compromise."
+    },
+    {
+      "seq": 30,
+      "alert_id": "SE-ba02dd5a016e429ea87a40a69490e429",
+      "kind": "POLICY_BLOCK",
+      "severity": "high",
+      "title": "Sensitive data blocked",
+      "category": "structured_sensitive_data",
+      "severity_basis": "Supported identifier/financial rule matched; blocked before delivery",
+      "occurred_at": 1793475661.3355901,
+      "created_at": 1793475661.3355901,
+      "status": "OPEN",
+      "disposition": "UNASSESSED",
+      "assigned_to": null,
+      "read_at": null,
+      "updated_at": 1793475661.3355901,
+      "revision": 0,
+      "subject_id": "lab-001",
+      "request_id": "br-d467b500-d38f-4891-a9cd-b10f2c9b2ebd-40bc68f1e5bba978d1acf348a6288c98",
+      "destination": "browser:gemini.google.com",
+      "decision": "BLOCK",
+      "state": "BLOCKED",
+      "body_sha256": "23fd19ecd5471e2777c336f4a2d1eba625d2a329a7deedd4bc8a7242b7173e29",
+      "body_bytes": 12,
+      "behavior_score": 75.0,
+      "display_id": "SEDRA-000030",
+      "imported_from_ledger": false,
+      "profile": "sedra-gateway-alerts-v1",
+      "environment": "synthetic_lab",
+      "reason_codes": [
+        "STRUCTURED_AZ_FIN_CONTEXTUAL",
+        "NO_ELIGIBLE_PROTECTED_MATCH",
+        "HIGH_BEHAVIOR_TIGHTENS_EXCERPT_LIMIT"
+      ],
+      "security_tags": {
+        "basis": "structured-detector",
+        "business_tags": [],
+        "detector_tags": [
+          "AZ_FIN_CONTEXTUAL"
+        ],
+        "document_ids": [],
+        "profile": "sedra-governed-labels-v1",
+        "scope_note": "Unclassified means no eligible protected match or structured finding; it is not a public-data certification.",
+        "sensitivity": "restricted"
+      },
+      "browser_context": {
+        "binding": "36e58d2c59aee2e867c48e92313ae0f4b575406c0b53b909210e7cd6991c2cdd",
+        "enforcement": "Extension-reported; not independently attested",
+        "files": [],
+        "host": "gemini.google.com",
+        "inspection_failure": null,
+        "mode": "preview",
+        "operation": "paste",
+        "origin": "AUTHENTICATED_BROWSER_REPORT",
+        "profile": "sedra-browser-guard-v1"
+      },
+      "detector_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "delivery_uncertain": false,
+      "outcome": "Browser block decision; extension enforcement reported",
+      "workflow_note": "Analyst review does not change enforcement, resend content or establish compromise."
+    },
+    {
+      "seq": 31,
+      "alert_id": "SE-644c66eb9bab4769a7cc11bd495ac780",
+      "kind": "POLICY_BLOCK",
+      "severity": "high",
+      "title": "Sensitive data blocked",
+      "category": "structured_sensitive_data",
+      "severity_basis": "Supported identifier/financial rule matched; blocked before delivery",
+      "occurred_at": 1793475759.8605134,
+      "created_at": 1793475759.8605134,
+      "status": "OPEN",
+      "disposition": "UNASSESSED",
+      "assigned_to": null,
+      "read_at": null,
+      "updated_at": 1793475759.8605134,
+      "revision": 0,
+      "subject_id": "lab-001",
+      "request_id": "br-d467b500-d38f-4891-a9cd-b10f2c9b2ebd-058a0910291d8f04a64788465501dc56",
+      "destination": "browser:gemini.google.com",
+      "decision": "BLOCK",
+      "state": "BLOCKED",
+      "body_sha256": "c7994271336d7b2ebe5cb64fe06aaf053141027f6cc783369c80c4eb089da883",
+      "body_bytes": 11,
+      "behavior_score": 75.0,
+      "display_id": "SEDRA-000031",
+      "imported_from_ledger": false,
+      "profile": "sedra-gateway-alerts-v1",
+      "environment": "synthetic_lab",
+      "reason_codes": [
+        "STRUCTURED_AZ_FIN_CONTEXTUAL",
+        "NO_ELIGIBLE_PROTECTED_MATCH",
+        "HIGH_BEHAVIOR_TIGHTENS_EXCERPT_LIMIT"
+      ],
+      "security_tags": {
+        "basis": "structured-detector",
+        "business_tags": [],
+        "detector_tags": [
+          "AZ_FIN_CONTEXTUAL"
+        ],
+        "document_ids": [],
+        "profile": "sedra-governed-labels-v1",
+        "scope_note": "Unclassified means no eligible protected match or structured finding; it is not a public-data certification.",
+        "sensitivity": "restricted"
+      },
+      "browser_context": {
+        "binding": "6a66b3a2b8dee3a4290b239b7fa0755e2920c49584ec27d46e981127df751f34",
+        "enforcement": "Extension-reported; not independently attested",
+        "files": [],
+        "host": "gemini.google.com",
+        "inspection_failure": null,
+        "mode": "preview",
+        "operation": "draft",
+        "origin": "AUTHENTICATED_BROWSER_REPORT",
+        "profile": "sedra-browser-guard-v1"
+      },
+      "detector_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "delivery_uncertain": false,
+      "outcome": "Browser block decision; extension enforcement reported",
+      "workflow_note": "Analyst review does not change enforcement, resend content or establish compromise."
+    },
+    {
+      "seq": 32,
+      "alert_id": "SE-58ac51bff7774b67a6f531bb1d1cdba2",
+      "kind": "POLICY_BLOCK",
+      "severity": "high",
+      "title": "Sensitive data blocked",
+      "category": "structured_sensitive_data",
+      "severity_basis": "Supported identifier/financial rule matched; blocked before delivery",
+      "occurred_at": 1793475812.9342794,
+      "created_at": 1793475812.9342794,
+      "status": "OPEN",
+      "disposition": "UNASSESSED",
+      "assigned_to": null,
+      "read_at": null,
+      "updated_at": 1793475812.9342794,
+      "revision": 0,
+      "subject_id": "lab-001",
+      "request_id": "br-1f94c44b-f3a1-4132-96aa-e42733882ec1",
+      "destination": "browser:gemini.google.com",
+      "decision": "BLOCK",
+      "state": "BLOCKED",
+      "body_sha256": "c7994271336d7b2ebe5cb64fe06aaf053141027f6cc783369c80c4eb089da883",
+      "body_bytes": 11,
+      "behavior_score": 75.0,
+      "display_id": "SEDRA-000032",
+      "imported_from_ledger": false,
+      "profile": "sedra-gateway-alerts-v1",
+      "environment": "synthetic_lab",
+      "reason_codes": [
+        "STRUCTURED_AZ_FIN_CONTEXTUAL",
+        "NO_ELIGIBLE_PROTECTED_MATCH",
+        "HIGH_BEHAVIOR_TIGHTENS_EXCERPT_LIMIT"
+      ],
+      "security_tags": {
+        "basis": "structured-detector",
+        "business_tags": [],
+        "detector_tags": [
+          "AZ_FIN_CONTEXTUAL"
+        ],
+        "document_ids": [],
+        "profile": "sedra-governed-labels-v1",
+        "scope_note": "Unclassified means no eligible protected match or structured finding; it is not a public-data certification.",
+        "sensitivity": "restricted"
+      },
+      "browser_context": {
+        "binding": "554491a2325c1b99fec4f8006d780b5585eb71978910beaaf7b7e3329b33f979",
+        "enforcement": "Extension-reported; not independently attested",
+        "files": [],
+        "host": "gemini.google.com",
+        "inspection_failure": null,
+        "mode": "release",
+        "operation": "send",
+        "origin": "AUTHENTICATED_BROWSER_REPORT",
+        "profile": "sedra-browser-guard-v1"
+      },
+      "detector_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "delivery_uncertain": false,
+      "outcome": "Browser block decision; extension enforcement reported",
+      "workflow_note": "Analyst review does not change enforcement, resend content or establish compromise."
+    },
+    {
+      "seq": 29,
+      "alert_id": "SE-cedc366ae6db48ce895ce07fdacf69d3",
+      "kind": "POLICY_BLOCK",
+      "severity": "high",
+      "title": "Sensitive data blocked",
+      "category": "structured_sensitive_data",
+      "severity_basis": "Supported identifier/financial rule matched; blocked before delivery",
+      "occurred_at": 1793475594.3242218,
+      "created_at": 1793475594.3242218,
+      "status": "OPEN",
+      "disposition": "UNASSESSED",
+      "assigned_to": null,
+      "read_at": null,
+      "updated_at": 1793475594.3242218,
+      "revision": 0,
+      "subject_id": "lab-001",
+      "request_id": "br-38b325f4-71b8-47d9-b63b-d1e222d86bf2",
+      "destination": "browser:gemini.google.com",
+      "decision": "BLOCK",
+      "state": "BLOCKED",
+      "body_sha256": "f63fde276bf1731cb17e26e79f1e764a187626a78157313871b4de2e370d91c3",
+      "body_bytes": 45,
+      "behavior_score": 75.0,
+      "display_id": "SEDRA-000029",
+      "imported_from_ledger": false,
+      "profile": "sedra-gateway-alerts-v1",
+      "environment": "synthetic_lab",
+      "reason_codes": [
+        "STRUCTURED_AZ_FIN_CONTEXTUAL",
+        "NO_ELIGIBLE_PROTECTED_MATCH",
+        "HIGH_BEHAVIOR_TIGHTENS_EXCERPT_LIMIT"
+      ],
+      "security_tags": {
+        "basis": "structured-detector",
+        "business_tags": [],
+        "detector_tags": [
+          "AZ_FIN_CONTEXTUAL"
+        ],
+        "document_ids": [],
+        "profile": "sedra-governed-labels-v1",
+        "scope_note": "Unclassified means no eligible protected match or structured finding; it is not a public-data certification.",
+        "sensitivity": "restricted"
+      },
+      "browser_context": {
+        "binding": "2f4d610556a75026ed5895b37ffdd30c6a6ede585a03b5956c3a97cfad32e89c",
+        "enforcement": "Extension-reported; not independently attested",
+        "files": [
+          {
+            "bytes": 44,
+            "inspection": "text_extracted",
+            "sha256": "4ce33da6f15a734fe437ac797dfc4fc3546597b11ea8a3bc2c0652f320d7505c",
+            "suffix": ".txt"
+          }
+        ],
+        "host": "gemini.google.com",
+        "inspection_failure": null,
+        "mode": "release",
+        "operation": "file",
+        "origin": "AUTHENTICATED_BROWSER_REPORT",
+        "profile": "sedra-browser-guard-v1"
+      },
+      "detector_types": [
+        "AZ_FIN_CONTEXTUAL"
+      ],
+      "delivery_uncertain": false,
+      "outcome": "Browser block decision; extension enforcement reported",
+      "workflow_note": "Analyst review does not change enforcement, resend content or establish compromise."
+    }
+  ],
+  "historical_runtime_counts": {
+    "attempted": 18,
+    "forwarded": 0,
+    "blocked": 16,
+    "unknown": 2
+  },
+  "history_note": "Includes repeated synthetic attempts and the retained pre-0.11.1 Upload & tools control false positives. Counts are not precision or recall metrics. Earlier evidence was not erased.",
+  "corrected_finding": "Outside a form a default submit button type is insufficient to identify Send; live Gemini Upload & tools menu and file picker retested after correction.",
+  "automated_tests": {
+    "executed_at_utc": "2026-10-31T19:37:34.974356+00:00",
+    "python": "3.12.10",
+    "tests_run": 208,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "runtime_seconds": 128.643,
+    "suite": "unittest discovery: behavior, acquisition, matcher, gateway, application HTTP integration",
+    "network_scope": "local loopback receiver only; no external AI request",
+    "benchmark_performance_is_separate": true
+  },
+  "node_tests": {
+    "run": 6,
+    "passed": 6
+  },
+  "limits": [
+    "Edge, ChatGPT and Claude have not been live validated.",
+    "Composer capture is not tamper-resistant egress enforcement; typed text may be read/autosaved by its page.",
+    "Unsupported PDF/images/OCR/archives fail closed; no scanned-content claim.",
+    "Browser releases remain DELIVERY_UNKNOWN; the two local receipts do not attest external AI delivery.",
+    "Browser restart/update clears its session key; reconnect using a bound expiring key."
+  ]
+}

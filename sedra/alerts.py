@@ -41,6 +41,8 @@ def _classification(snapshot,kind):
         return severity,'Disclosure budget exceeded','cumulative_disclosure','24-hour or 30-day disclosure budget; triage priority is not a probability'
     if 'STRUCTURED_INSPECTION_LIMIT' in types:
         return 'medium','Content inspection limit reached','inspection_limits','Inspection could not complete within its declared resource bound'
+    if any(r.startswith('BROWSER_') for r in reasons):
+        return 'medium','Browser inspection blocked','browser_inspection','Mandatory inspection could not complete; sensitive content is not established'
     return 'medium','Outbound request blocked','policy_enforcement','Gateway policy block; no confirmed compromise claim'
 
 
@@ -92,6 +94,8 @@ class AlertStore:
 
     def _alert_view(self,row):
         snapshot=json.loads(row['snapshot_json'])
+        browser=snapshot.get('behavior_context',{}).get('browser')
+        browser_outcome='Local harness block decision; browser extension not attested' if browser and browser.get('origin')=='LOCAL_BROWSER_DOM_HARNESS' else 'Browser block decision; extension enforcement reported'
         uncertainty=row['state'] in ('SENDING','DELIVERY_UNKNOWN')
         return {k:row[k] for k in ('seq','alert_id','kind','severity','title','category','severity_basis',
             'occurred_at','created_at','status','disposition','assigned_to','read_at','updated_at','revision',
@@ -99,9 +103,10 @@ class AlertStore:
             'display_id':f"SEDRA-{row['seq']:06d}",'imported_from_ledger':bool(row['imported']),
             'profile':ALERT_PROFILE,'environment':'synthetic_lab',
             'reason_codes':snapshot.get('reason_codes',[]),'security_tags':snapshot.get('security_tags'),
+            'browser_context':snapshot.get('behavior_context',{}).get('browser'),
             'detector_types':sorted({f['type'] for f in snapshot.get('structured_findings',[])}),
             'delivery_uncertain':uncertainty,
-            'outcome':'Prevented by policy' if row['decision']=='BLOCK' else 'Delivery unconfirmed' if uncertainty else
+            'outcome':(browser_outcome if browser else 'Prevented by policy') if row['decision']=='BLOCK' else 'Delivery unconfirmed' if uncertainty else
                 'Delivery confirmed' if row['state']=='FORWARDED_CONFIRMED' else 'Confirmed not sent' if row['state']=='NOT_SENT_CONFIRMED' else row['state'],
             'workflow_note':'Analyst review does not change enforcement, resend content or establish compromise.'}
 

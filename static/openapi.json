@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "SEDRA scoped integration API",
-    "version": "0.10.2",
+    "version": "0.11.1",
     "description": "Loopback prototype. See docs/INTEGRATIONS.md for cursor, authorization and evidence contracts."
   },
   "servers": [
@@ -306,6 +306,45 @@
           }
         }
       }
+    },
+    "/api/v1/browser/inspect": {
+      "post": {
+        "summary": "Inspect a guarded browser action; never forwards to an AI provider",
+        "x-required-scope": "browser:inspect",
+        "security": [
+          {
+            "bearerKey": []
+          }
+        ],
+        "description": "Key must bind exactly one lab subject. Identity, UEBA score and destination policy are server-computed. ALLOW release is one-use and delivery-unknown. Preview ALLOW does not reserve exposure. See docs/BROWSER_GUARD.md.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BrowserInspection"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ALLOW or BLOCK policy verdict; response includes alert IDs, masked finding types and delivery_confirmed=false"
+          },
+          "400": {
+            "description": "Invalid schema or changed request binding"
+          },
+          "401": {
+            "description": "Invalid, expired or revoked key"
+          },
+          "403": {
+            "description": "Scope, subject or Origin denied"
+          },
+          "429": {
+            "description": "Per-key quota exceeded"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -405,6 +444,88 @@
           "expected_revision",
           "action"
         ]
+      },
+      "BrowserInspection": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "request_id",
+          "host",
+          "operation",
+          "mode",
+          "text",
+          "files"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "pattern": "^br-[A-Za-z0-9_-]{8,96}$"
+          },
+          "host": {
+            "type": "string",
+            "enum": [
+              "gemini.google.com",
+              "chatgpt.com",
+              "chat.openai.com",
+              "claude.ai",
+              "sedra-browser-lab"
+            ]
+          },
+          "operation": {
+            "type": "string",
+            "enum": [
+              "paste",
+              "draft",
+              "send",
+              "file",
+              "drop",
+              "offline"
+            ]
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "preview",
+              "release"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "description": "Combined extracted UTF-8 bound is 64 KiB"
+          },
+          "files": {
+            "type": "array",
+            "maxItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "name",
+                "data"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "string",
+                  "format": "byte",
+                  "description": "Strict Base64, at most 512 KiB decoded per file"
+                }
+              }
+            }
+          },
+          "failure": {
+            "type": "string",
+            "enum": [
+              "FILE_TOO_LARGE",
+              "UNSUPPORTED_FILE",
+              "LOCAL_INSPECTION_FAILED",
+              "BACKEND_UNAVAILABLE",
+              "UNSUPPORTED_COMPOSER"
+            ]
+          }
+        }
       }
     }
   }

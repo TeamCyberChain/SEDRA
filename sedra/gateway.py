@@ -283,7 +283,7 @@ class Gateway(AlertStore):
         return result
 
     def evaluate(self, subject_id, request_id, text, behavior_score,
-                 destination="public_ai", now=None, behavior_context=None) -> dict:
+                 destination="public_ai", now=None, behavior_context=None, preview=False, inspection_block=None) -> dict:
         subject_id = _identifier(subject_id, "subject_id")
         request_id = _identifier(request_id, "request_id")
         destination = _identifier(destination, "destination")
@@ -311,7 +311,7 @@ class Gateway(AlertStore):
 
             coverage = self._coverage(con, subject_id, trust_class, now)
             long_coverage = self._coverage(con, subject_id, trust_class, now, LONG_WINDOW_SECONDS)
-            block_reasons, info_reasons = [], []
+            block_reasons, info_reasons = ([inspection_block] if inspection_block else []), []
             if inspected["contains_demo_secret"]:
                 block_reasons.append("KNOWN_DEMO_SECRET")
             for finding in inspected['structured_findings']:
@@ -398,6 +398,8 @@ class Gateway(AlertStore):
                                         "mixed_script_tokens": inspected['mixed_script_tokens']},
                 "window_seconds": WINDOW_SECONDS,
             }
+            if preview and decision == 'ALLOW':
+                return result | {'state':'PREVIEW_ALLOWED','request_state':'PREVIEW_ALLOWED','idempotent_replay':False}
             expires = now + RESERVATION_TTL if state == "RESERVED" else None
             cursor = con.execute(
                 "INSERT INTO gateway_requests(subject_id,request_id,destination,trust_class,body_sha256,body_bytes,"

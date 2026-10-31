@@ -41,6 +41,12 @@ jobs:
             node --check $script.FullName
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           }
+          foreach ($script in Get-ChildItem browser-extension -Filter *.js) {
+            node --check $script.FullName
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+      - name: Verify extension worker isolation and offline queue
+        run: node --test tests/browser_extension_worker.cjs
 
 # No secrets, provider inference, physical USB, raw CERT download, OS policy
 # change, or automatic deployment is required by this verification workflow.

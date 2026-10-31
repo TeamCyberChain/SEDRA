@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "SEDRA Browser Guard",
+  "version": "0.11.1",
+  "description": "Local policy checks for AI composers and bounded text/Office attachments. Scoped pilot, not endpoint-wide DLP.",
+  "key": "MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAm5dB4oLpiZ/g5olGPBdk6SEVxcS9kk5iqC9hJXkMRZEkFk8d8DrAMdrmuJ8l1pOn+avjBcGlow7/Y0/Wgg7iPRlcAPewbelp/ds/IOLW2QPMnVA5fOxtNtLykTxQI0BjBwmdUqh7noQL+QRjEuMoswOE5aUf8Qad8igpvzIwXTuZw3UWInM7Usbf9hRxKNiW7s+QoXgWr9FJI39mpP+Vdtv52NF21OWc4b42M28KPfUstDLaB0reggZLyE4mmHc99qONAL5SiO71bZpI7p8uQAQwzbbfBcpV+BYCNK1tJgqcePcA9dK8y+kPy2gLz6hkbh2spZ9wWLIM81PlFA3ICRb7ZGj24Zds2GqWN7N1OTohfdFeXSkXeuCfny6Ad2p1s3NPSVlV/fUNVaK7FDnFe5qsi5cZZ4C+TXOjggDXJvLU+MgewU1uKdFo1YtDiHroajaIAhCVP8EoqryWr75Yhx5NE0Ac6bTFmhbb8atKoaIWtwEM9cpCuKAX3kbvHtGNAgMBAAE=",
+  "permissions": [
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8765/*"
+  ],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "options_page": "options.html",
+  "action": {
+    "default_popup": "options.html",
+    "default_title": "SEDRA Browser Guard"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://gemini.google.com/*",
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://claude.ai/*",
+        "http://127.0.0.1:8765/browser-lab*"
+      ],
+      "js": [
+        "core.js",
+        "guard.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'"
+  },
+  "update_url": "http://127.0.0.1:8765/browser-deployment/updates.xml"
+}

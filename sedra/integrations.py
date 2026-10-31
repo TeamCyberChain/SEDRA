@@ -2,7 +2,7 @@
 import base64,hashlib,hmac,json,math,secrets,sqlite3,time,urllib.parse,urllib.request
 from contextlib import contextmanager
 
-SCOPES={'alerts:read','alerts:write','cases:read','ueba:read','cases:write','telemetry:write'}
+SCOPES={'alerts:read','alerts:write','cases:read','ueba:read','cases:write','telemetry:write','browser:inspect'}
 class AuthError(PermissionError):pass
 class Conflict(ValueError):pass
 class RateLimit(ValueError):pass
@@ -27,6 +27,7 @@ class Integrations:
   if not isinstance(scopes,list) or not scopes or any(s not in SCOPES for s in scopes):raise ValueError('Explicit supported scopes required')
   if not isinstance(subjects,list) or len(subjects)>40 or any(s not in known for s in subjects):raise ValueError('Known subjects only')
   if 'telemetry:write' in scopes and not subjects:raise ValueError('Telemetry keys require explicit bound subjects')
+  if 'browser:inspect' in scopes and len(set(subjects))!=1:raise ValueError('Browser inspection keys require exactly one bound subject')
   if type(ttl) not in (int,float) or not math.isfinite(ttl) or not 1<=ttl<=2160:raise ValueError('TTL must be 1–2160 hours')
   identifier=secrets.token_hex(8);token='sedra_k_'+identifier+'.'+secrets.token_urlsafe(32);now=time.time()
   with self.db() as c:c.execute('INSERT INTO integration_keys(id,name,hash,scopes,subjects,expires,created) VALUES(?,?,?,?,?,?,?)',(identifier,name.strip(),hashlib.sha256(token.encode()).hexdigest(),canonical(sorted(set(scopes))),canonical(sorted(set(subjects))),now+ttl*3600,now))

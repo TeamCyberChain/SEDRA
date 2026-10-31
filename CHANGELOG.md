@@ -1,3 +1,11 @@
+## 0.11.1 — Browser Guard and observed Gemini control correction
+
+- Add a scoped MV3 Chrome/Edge guard, bound browser inspection API, masked alert context, conservative one-use release accounting and bounded offline metadata reports.
+- Inspect bounded UTF text and DOCX/XLSX; reject unsupported, encrypted, embedded-binary and resource-exceeding input without claiming successful content inspection.
+- Add a synthetic local composer and independent receipt ledger, exact-origin authorization and a seven-file CRX3 signing pipeline for explicitly authorized managed deployment.
+- Correct the live-reproduced Gemini Upload & tools false positive: a default submit type counts only when a button belongs to a form. Preserve explicit Send selectors/labels and add a regression.
+- Record 208 Python and six Node tests passing. Local Chrome negative/public controls and live Gemini synthetic paste/send/file checks were executed; no universal network or external-delivery attestation is claimed.
+
 # SEDRA development record
 
 This records implemented work; executed evidence and its dates remain in the linked artifacts. Historical packages and original failed CERT v1 artifacts are preserved.

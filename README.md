@@ -2,9 +2,13 @@
 
 **Team CyberChain · Digital Challenge Azerbaijan 2026 · Topic 6 · private development review.**
 
-Start with the [reviewer guide](docs/REVIEWER_GUIDE.md), [requirements mapping](docs/REQUIREMENTS_TRACEABILITY.md), [technical report](docs/TECHNICAL_REPORT.md) and [actual 196-test result](artifacts/test_summary.json). [AI assistance](AI_ASSISTANCE.md) and [external components](THIRD_PARTY_NOTICES.md) are disclosed. Source/test evidence describes the current 0.10.2 build; presentation/Q&A files are excluded from this repository at the team request. This review checkpoint does not assert final organizer acceptance.
+Start with the [reviewer guide](docs/REVIEWER_GUIDE.md), [requirements mapping](docs/REQUIREMENTS_TRACEABILITY.md), [technical report](docs/TECHNICAL_REPORT.md) and [actual 208-test result](artifacts/test_summary.json). [AI assistance](AI_ASSISTANCE.md) and [external components](THIRD_PARTY_NOTICES.md) are disclosed. Source/test evidence describes the current 0.11.1 build; presentation/Q&A files are excluded from this repository at the team request. This review checkpoint does not assert final organizer acceptance.
 
 SEDRA connects past-only user-day UEBA and observed live application signals to a real transfer decision, then verifies what an independent local receiver obtained. The offline hackathon lab uses fictional identities/documents. The AI portal sends only allowed requests to a real local Qwen CPU model or, when selected and available, the OpenAI Responses API. Local model inference has executed successfully; the OpenAI account returned 429 and has no successful reply claim.
+
+## SEDRA 0.11: Browser Guard pilot
+
+A reviewed Chrome/Edge MV3 extension checks supported paste, typed-draft, send and file events on explicit Gemini/ChatGPT/Claude origins. It calls the bound `browser:inspect` API and creates masked security alerts. Bounded text/DOCX/XLSX inspection fails closed on unknown formats; allowed browser releases remain conservatively delivery-unknown. An isolated local lab provides independent receipts. See [setup, signed managed deployment and coverage limits](docs/BROWSER_GUARD.md). Chrome Gemini and ChatGPT composers have been tested with synthetic FİN via paste, typed Send and TXT upload. Edge testing was deferred by the user after an organization installation-policy block. Claude requires login; neither is claimed live-validated. The observed Gemini upload-control false positive was fixed in 0.11.1 and regression-tested.
 
 ## SEDRA 0.10: SSO and scoped SOAR integration
 

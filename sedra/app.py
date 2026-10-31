@@ -35,6 +35,7 @@ from .endpoint import EndpointSensor, augment
 from .behavior_cases import CaseStore, CaseConflict
 from .policy_explain import counterfactual
 from .integrations import Integrations,OIDC,AuthError,Conflict,RateLimit
+from .browser_guard import BrowserGuard,EXTENSION_ORIGIN
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -72,6 +73,7 @@ class AppState:
         self.case_capture_error=None
         self.portal = AIPortal(self)
         self.endpoint.on_change=lambda:self.capture_case('lab-001')
+        self.browser_guard=BrowserGuard(self)
 
     @contextmanager
     def db(self):
@@ -146,6 +148,7 @@ class AppState:
                 metadata=[]
                 for row in requests[:INPUT_LIMIT]:
                     item=dict(row);snapshot=json.loads(item.pop('snapshot_json'))
+                    if snapshot.get('behavior_context',{}).get('browser',{}).get('operation')=='offline':continue
                     item['detector_types']=[f['type'] for f in snapshot.get('structured_findings',[])]
                     item['reason_codes']=snapshot.get('reason_codes',[])
                     item['matched_document_ids']=[d['doc_id'] for d in snapshot.get('matched_documents',[]) if d.get('confirmed')]
@@ -468,7 +471,8 @@ def handler_for(app):
             if name not in ('127.0.0.1','localhost','::1'):
                 return False
             origin = self.headers.get('Origin')
-            return origin is None or origin == 'http://'+host
+            extension_request=urllib.parse.urlsplit(self.path).path=='/api/v1/browser/inspect' and origin==EXTENSION_ORIGIN
+            return origin is None or origin == 'http://'+host or extension_request
 
         def respond(self, status, data, content_type="application/json; charset=utf-8", cookie=None):
             encoded = data if isinstance(data, bytes) else json.dumps(data, ensure_ascii=False, allow_nan=False).encode("utf-8")
@@ -476,6 +480,11 @@ def handler_for(app):
             self.send_header("Content-Type", content_type)
             self.send_header("Content-Length", str(len(encoded)))
             self.send_header("Cache-Control", "no-store")
+            if urllib.parse.urlsplit(self.path).path=='/api/v1/browser/inspect' and self.headers.get('Origin')==EXTENSION_ORIGIN:
+                self.send_header('Access-Control-Allow-Origin',EXTENSION_ORIGIN)
+                self.send_header('Vary','Origin')
+                self.send_header('Access-Control-Allow-Methods','POST, OPTIONS')
+                self.send_header('Access-Control-Allow-Headers','Authorization, Content-Type')
             self.send_header("X-Content-Type-Options", "nosniff")
             self.send_header("Referrer-Policy", "same-origin")
             self.send_header("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'self'")
@@ -491,12 +500,13 @@ def handler_for(app):
 
         def machine(self,path,body=None):
             route=path.path;params=urllib.parse.parse_qs(path.query)
-            routes={'/api/v1/alerts':'alerts:read','/api/v1/alerts/action':'alerts:write','/api/v1/cases':'cases:read','/api/v1/cases/changes':'cases:read','/api/v1/ueba':'ueba:read','/api/v1/cases/action':'cases:write','/api/v1/telemetry':'telemetry:write'}
+            routes={'/api/v1/alerts':'alerts:read','/api/v1/alerts/action':'alerts:write','/api/v1/cases':'cases:read','/api/v1/cases/changes':'cases:read','/api/v1/ueba':'ueba:read','/api/v1/cases/action':'cases:write','/api/v1/telemetry':'telemetry:write','/api/v1/browser/inspect':'browser:inspect'}
             try:
                 if route not in routes:return self.respond(404,{'error':'Unknown integration route'})
-                writing=route in ('/api/v1/cases/action','/api/v1/alerts/action','/api/v1/telemetry')
+                writing=route in ('/api/v1/cases/action','/api/v1/alerts/action','/api/v1/telemetry','/api/v1/browser/inspect')
                 if writing!=(body is not None):return self.respond(405,{'error':'Method not allowed'})
                 key=app.integrations.authorize(self.headers.get('Authorization'),routes[route])
+                if route=='/api/v1/browser/inspect':return self.respond(200,app.browser_guard.inspect(body,key))
                 if route=='/api/v1/alerts':result=app.gateway.alerts_feed(before=int(params['before'][0]) if params.get('before') else None)
                 elif route=='/api/v1/alerts/action':result=app.gateway.update_alert(body,actor='api:'+key['id'])
                 elif route=='/api/v1/cases':result=app.case_view({'role':'analyst'})
@@ -536,6 +546,16 @@ def handler_for(app):
             path = urllib.parse.urlparse(self.path)
             cookie = session_id if fresh else None
             try:
+                deployment_files={'/browser-deployment/updates.xml':('updates.xml','application/xml'),
+                                  '/browser-deployment/sedra-browser-guard.crx':('sedra-browser-guard.crx','application/x-chrome-extension')}
+                if path.path in deployment_files:
+                    name,kind=deployment_files[path.path]
+                    file=ROOT/'data/browser-deployment/public'/name
+                    if not file.is_file():return self.respond(404,{'error':'Browser deployment package not prepared'})
+                    return self.respond(200,file.read_bytes(),kind)
+                if path.path=='/api/browser-lab/receipts':
+                    if session['role']!='analyst':raise PermissionError('Analyst required')
+                    return self.respond(200,app.browser_guard.lab_receipts(),cookie=cookie)
                 if path.path=='/auth/login' and app.oidc:
                     with app.guard:url=app.oidc.begin(session_id)
                     return self.redirect(url,session_id)
@@ -579,7 +599,10 @@ def handler_for(app):
                 if path.path == "/health":
                     return self.respond(200, {"status": "ok", "product":"SEDRA", "mode": "local_lab", "build_version":__version__, "model_version": app.snapshot.get("model_version")})
                 allowed = {"/": "index.html", "/index.html": "index.html", "/app.js": "app.js", "/alerts.js":"alerts.js", "/ueba.js":"ueba.js", "/endpoint.js":"endpoint.js", "/cases.js":"cases.js", "/openapi.json":"openapi.json", "/integrations":"integrations.html", "/integrations.js":"integrations.js", "/style.css": "style.css", "/sedra.css": "sedra.css",
-                           '/portal':'portal.html', '/portal/':'portal.html', '/portal.js':'portal.js', '/portal.css':'portal.css'}
+                           '/portal':'portal.html', '/portal/':'portal.html', '/portal.js':'portal.js', '/portal.css':'portal.css',
+                           '/browser-lab':'browser-lab.html','/browser-lab.js':'browser-lab.js',
+                           '/browser-harness':'browser-harness.html','/browser-harness-transport.js':'browser-harness-transport.js',
+                           '/browser-test/core.js':'../browser-extension/core.js','/browser-test/guard.js':'../browser-extension/guard.js'}
                 if path.path not in allowed:
                     return self.respond(404, {"error": "Not found"})
                 file = ROOT / "static" / allowed[path.path]
@@ -592,12 +615,18 @@ def handler_for(app):
                 traceback.print_exc()
                 return self.respond(500, {"error": "Local application error; inspect the terminal log"}, cookie=cookie)
 
+        def do_OPTIONS(self):
+            if urllib.parse.urlsplit(self.path).path!='/api/v1/browser/inspect' or not self.local_origin():
+                return self.respond(403,{'error':'Extension origin required'})
+            return self.respond(200,{})
+
         def do_POST(self):
             try:
                 length = int(self.headers.get('Content-Length','0'))
             except ValueError:
                 return self.respond(413, {'error':'Invalid request length'})
-            if not 0 < length <= 100000:
+            limit=1600000 if urllib.parse.urlsplit(self.path).path=='/api/v1/browser/inspect' else 100000
+            if not 0 < length <= limit:
                 return self.respond(413, {'error':'Request body is too large or missing'})
             raw_body = self.rfile.read(length)
             if not self.local_origin():
@@ -621,6 +650,11 @@ def handler_for(app):
                 if not isinstance(body, dict):
                     raise ValueError("A JSON object is required")
                 route = urllib.parse.urlparse(self.path).path
+                if route=='/api/browser-lab/inspect':
+                    if session['role']!='analyst':raise PermissionError('Analyst required for the explicit local DOM harness')
+                    if body.get('host')!='sedra-browser-lab':raise ValueError('Local harness destination only')
+                    return self.respond(200,app.browser_guard.inspect(body,{'subjects':['lab-001']},source='LOCAL_BROWSER_DOM_HARNESS'))
+                if route=='/api/browser-lab/receive':return self.respond(200,app.browser_guard.lab_receive(body))
                 if route=='/api/integrations/keys':
                     if session['role']!='analyst':raise PermissionError('Analyst required')
                     if body.get('action')=='revoke' and set(body)=={'action','id'}:return self.respond(200,app.integrations.revoke(body['id']))
