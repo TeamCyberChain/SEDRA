@@ -119,10 +119,16 @@ class IntegrationHTTPTests(unittest.TestCase):
   detail=self.app.cases.get(case['case_id']);self.assertEqual(detail['history'][-1]['actor'],'api:'+writer['id'])
  def test_expiry_persistence_and_rate_budget(self):
   k=self.key(['cases:read']);store=self.app.integrations
-  for _ in range(120):store.authorize('Bearer '+k['token'],'cases:read')
-  with self.assertRaises(RateLimit):store.authorize('Bearer '+k['token'],'cases:read')
-  with store.db() as c:c.execute('UPDATE integration_keys SET expires=0 WHERE id=?',(k['id'],))
-  with self.assertRaises(AuthError):Integrations(store.path).authorize('Bearer '+k['token'],'cases:read')
+  # Wall-clock minute rollover is valid production behavior, not a failed budget.
+  # Pin one window, then explicitly advance into the next one.
+  now=time.time()
+  with patch('sedra.integrations.time.time',return_value=now) as clock:
+   for _ in range(120):store.authorize('Bearer '+k['token'],'cases:read')
+   with self.assertRaises(RateLimit):store.authorize('Bearer '+k['token'],'cases:read')
+   clock.return_value=(int(now//60)+1)*60
+   self.assertEqual(store.authorize('Bearer '+k['token'],'cases:read')['id'],k['id'])
+   with store.db() as c:c.execute('UPDATE integration_keys SET expires=0 WHERE id=?',(k['id'],))
+   with self.assertRaises(AuthError):Integrations(store.path).authorize('Bearer '+k['token'],'cases:read')
 
 try:
  import jwt

@@ -5,6 +5,7 @@
 - Apply a shared neutral console theme to operations and AI Workspace, balanced refresh icon, readable evidence contrast and responsive navigation.
 - Present user-friendly workspace terminology and identity aliases without changing original source text, payloads, API bindings or exported evidence.
 - Validate real browser flows, key create/revoke and secret clearing on role change, desktop/mobile overflow, plus 210 Python and ten Node tests.
+- Pin the API budget test clock and explicitly verify minute rollover after CI exposed a wall-clock boundary race; production rate limits remain unchanged.
 
 ## 0.11.1 — Browser Guard and observed Gemini control correction
 
