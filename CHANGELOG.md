@@ -2,6 +2,11 @@
 
 This records implemented work; executed evidence and its dates remain in the linked artifacts. Historical packages and original failed CERT v1 artifacts are preserved.
 
+## 0.10.1 — 31 October 2026
+
+- Refresh finite case priorities on headless case/change-feed reads; preserve peak evidence and review status, emit one durable expiry revision and report refresh status.
+- Retain the reproduced stale-score finding and real Windows endpoint-to-API demonstration, including cursor replay/checkpoint and key revocation evidence.
+
 ## 0.10.0 — 31 October 2026
 
 - Add optional pinned OIDC Code + PKCE, strict RS256/JWKS validation, explicit subject binding, session rotation/expiry/logout and fail-closed SSO mode.

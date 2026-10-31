@@ -21,7 +21,7 @@ def main():
     log = output.getvalue()
     artifacts = ROOT / "artifacts"
     artifacts.mkdir(exist_ok=True)
-    (artifacts / "test_output.txt").write_text(log, encoding="utf-8")
+    (artifacts / "test_output.txt").write_text(log, encoding="utf-8", newline="\n")
     report = {
         "executed_at_utc": datetime.now(timezone.utc).isoformat(),
         "python": platform.python_version(),
@@ -32,7 +32,7 @@ def main():
         "network_scope": "local loopback receiver only; no external AI request",
         "benchmark_performance_is_separate": True,
     }
-    (artifacts / "test_summary.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+    (artifacts / "test_summary.json").write_text(json.dumps(report, indent=2), encoding="utf-8", newline="\n")
     print(json.dumps(report, indent=2))
     if not result.wasSuccessful():
         print(log)

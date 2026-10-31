@@ -103,7 +103,7 @@ finally:
     result['finished_at_utc'] = datetime.now(timezone.utc).isoformat()
     result['passed'] = result.get('passed',False) and result.get('revoked_key_http')==401
     OUT.mkdir(parents=True, exist_ok=True)
-    (OUT/'result.json').write_text(json.dumps(result,indent=2,ensure_ascii=False),encoding='utf-8')
+    (OUT/'result.json').write_text(json.dumps(result,indent=2,ensure_ascii=False),encoding='utf-8',newline='\n')
     print(json.dumps(result,ensure_ascii=True), flush=True)
 
 if not result['passed']:

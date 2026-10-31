@@ -127,6 +127,8 @@ test_repeated_phrase_in_source_does_not_double_matched_coverage (test_gateway.Ma
 test_three_tokens_have_separate_anchored_evidence (test_gateway.MatchingContractTests.test_three_tokens_have_separate_anchored_evidence) ... ok
 test_tr39_confusable_resolves_to_same_source_evidence (test_gateway.MatchingContractTests.test_tr39_confusable_resolves_to_same_source_evidence) ... ok
 test_atomic_batch_rejects_conflict_subject_spoof_future_and_score (test_integrations.IntegrationHTTPTests.test_atomic_batch_rejects_conflict_subject_spoof_future_and_score) ... ok
+test_case_api_alone_cools_expired_signals_and_preserves_review_and_peak (test_integrations.IntegrationHTTPTests.test_case_api_alone_cools_expired_signals_and_preserves_review_and_peak) ... ok
+test_change_feed_alone_emits_one_durable_expiry_revision (test_integrations.IntegrationHTTPTests.test_change_feed_alone_emits_one_durable_expiry_revision) ... ok
 test_employee_and_missing_csrf_cannot_issue_keys (test_integrations.IntegrationHTTPTests.test_employee_and_missing_csrf_cannot_issue_keys) ... ok
 test_expiry_persistence_and_rate_budget (test_integrations.IntegrationHTTPTests.test_expiry_persistence_and_rate_budget) ... ok
 test_real_http_telemetry_changes_ueba_without_client_score_and_deduplicates (test_integrations.IntegrationHTTPTests.test_real_http_telemetry_changes_ueba_without_client_score_and_deduplicates) ... ok
@@ -192,6 +194,6 @@ test_request_ledger_drives_blocks_even_if_secondary_audit_event_is_missing (test
 test_scopes_no_new_endpoint_ingestion_and_masked_evidence (test_ueba.UEBAHTTPTests.test_scopes_no_new_endpoint_ingestion_and_masked_evidence) ... ok
 
 ----------------------------------------------------------------------
-Ran 192 tests in 93.559s
+Ran 194 tests in 94.491s
 
 OK

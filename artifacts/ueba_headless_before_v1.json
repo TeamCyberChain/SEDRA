@@ -1,0 +1,8 @@
+{
+  "scope": "Isolated real loopback HTTP with authenticated synthetic document reports and advanced test clock; no main-ledger changes",
+  "baseline_score": 80.0,
+  "after_121s_case_api_score": 80.0,
+  "after_121s_ueba_api_score": 0,
+  "finding": "Case API retains expired live score until UEBA context is explicitly evaluated",
+  "reproduced": true
+}

@@ -168,9 +168,29 @@ class AppState:
         with self.guard:
             return self.endpoint.start() if body['action']=='start' else self.endpoint.stop() if body['action']=='stop' else self.endpoint.run_probe()
 
+    def refresh_case_signals(self,now=None):
+        """Cool persisted live priorities for pull consumers without a console.
+
+        Only the latest nonzero case per known laboratory actor is assessed.
+        Source observation callbacks still capture new activity immediately.
+        This is read-time maintenance, not an autonomous expiry scheduler.
+        """
+        now=time.time() if now is None else float(now)
+        with self.guard:
+            with self.cases.db() as db:
+                rows=db.execute('''SELECT c.subject_id FROM behavior_cases c
+                    WHERE c.current_score<>0 AND c.seq=(SELECT max(latest.seq)
+                    FROM behavior_cases latest WHERE latest.subject_id=c.subject_id)''').fetchall()
+            subjects=[self.subjects[row['subject_id']] for row in rows if row['subject_id'] in self.subjects]
+            assessed=self.live_subjects(subjects,now=now) if subjects else []
+            return {'evaluated_at':now,'subjects_evaluated':len(subjects),
+                'status':'partial' if any(s['behavior_case'] is None for s in assessed) else 'current'}
+
     def case_view(self,session,case_id=None,packet=False):
         if session['role']!='analyst':raise PermissionError('Only Analyst can review UEBA cases')
-        return self.cases.get(case_id,packet=packet) if case_id else self.cases.feed()
+        freshness=self.refresh_case_signals()
+        result=self.cases.get(case_id,packet=packet) if case_id else self.cases.feed()
+        return result|{'signal_refresh':freshness}
 
     def case_action(self,session,body):
         if session['role']!='analyst':raise PermissionError('Only Analyst can manage UEBA cases')
@@ -479,7 +499,7 @@ def handler_for(app):
                 key=app.integrations.authorize(self.headers.get('Authorization'),routes[route])
                 if route=='/api/v1/alerts':result=app.gateway.alerts_feed(before=int(params['before'][0]) if params.get('before') else None)
                 elif route=='/api/v1/alerts/action':result=app.gateway.update_alert(body,actor='api:'+key['id'])
-                elif route=='/api/v1/cases':result=app.cases.feed()
+                elif route=='/api/v1/cases':result=app.case_view({'role':'analyst'})
                 elif route=='/api/v1/ueba':result=app.ueba_view({'role':'analyst'},params.get('subject',['lab-001'])[0])
                 elif route=='/api/v1/cases/action':
                     result=app.cases.action(body,actor='api:'+key['id'])
@@ -490,6 +510,7 @@ def handler_for(app):
                 else:
                     after=int(params.get('after',['0'])[0]);limit=int(params.get('limit',['100'])[0])
                     if after<0 or not 1<=limit<=100:raise ValueError('Bounded cursor/limit required')
+                    freshness=app.refresh_case_signals()
                     with app.cases.db() as c:
                         c.execute('BEGIN');generation=c.execute("SELECT value FROM behavior_case_meta WHERE key='generation'").fetchone()[0]
                         if ('generation' not in params and after) or int(params.get('generation',[str(generation)])[0])!=generation:raise Conflict('Case generation changed; restart from after=0')
@@ -498,7 +519,7 @@ def handler_for(app):
                     for row in rows:
                         p=json.loads(row['payload_json']);snap=p.get('snapshot',{})
                         items.append({'cursor':row['cursor'],'case_id':p['case_id'],'subject_id':row['subject_id'],'revision':p['revision'],'action':p['action'],'actor':p['actor'],'at':p['at'],'priority':snap.get('priority',p.get('current_live_priority')),'channels':snap.get('channels',[]),'source_count':len(snap.get('trigger_source_ids',[]))})
-                    result={'items':items,'generation':generation,'next_cursor':items[-1]['cursor'] if items else after,'delivery':'Consumer checkpoints only after processing; retry same cursor for at-least-once consumption'}
+                    result={'items':items,'generation':generation,'next_cursor':items[-1]['cursor'] if items else after,'delivery':'Consumer checkpoints only after processing; retry same cursor for at-least-once consumption','signal_refresh':freshness}
                 return self.respond(200,result)
             except AuthError:return self.respond(401,{'error':'Valid scoped bearer key required'})
             except PermissionError as e:return self.respond(403,{'error':str(e)})

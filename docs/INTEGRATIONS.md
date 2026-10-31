@@ -20,6 +20,8 @@ All `/api/v1/` requests require `Authorization: Bearer <key>`. Browser cookies c
 
 A SOAR consumer requests changes with `after=0`, saves the returned `generation` and `next_cursor` **after** durable processing, then sends both on subsequent requests. Retry the same cursor after failure; consumption is at least once and the consumer deduplicates by generation/cursor or case/revision. A reset changes generation; on 409 restart from after=0. No external broker or cross-database transactional outbox is claimed.
 
+Case reads and change-feed polls refresh finite live priorities for the latest nonzero case per known lab subject. A headless consumer therefore receives a durable SIGNAL_STATE revision when a signal expires without opening the console or querying the subject endpoint. Peak evidence and Analyst review status are preserved; unchanged polls do not create extra revisions. `signal_refresh` reports evaluation time, assessed subject count and current/partial persistence status. This is bounded read-time maintenance, not an autonomous scheduler: with no activity or reads, the persisted state changes on the next poll. Source callbacks still capture new activity separately. Delivery retries can have new freshness metadata; deduplicate durable items by generation/cursor.
+
 Telemetry payload:
 
 ```json

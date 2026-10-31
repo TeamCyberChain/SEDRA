@@ -2,6 +2,7 @@
 import base64,hashlib,json,secrets,tempfile,threading,time,unittest,urllib.request,urllib.parse
 from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
 from pathlib import Path
+from unittest.mock import patch
 from sedra.app import AppState,handler_for
 from sedra.integrations import OIDC,AuthError,Conflict,Integrations,RateLimit
 from test_app import LocalClient
@@ -55,6 +56,38 @@ class IntegrationHTTPTests(unittest.TestCase):
   self.assertEqual(send([event|{'subject_id':'lab-002'}]),403)
   self.assertEqual(send([event|{'occurred_at':time.time()+60}]),400)
   self.assertEqual(send([event|{'score':100}]),400)
+ def seed_expiring_case(self):
+  now=time.time();key=self.key(['telemetry:write','cases:read','cases:write'],['lab-001'])
+  events=[{'event_id':'expire-'+str(i),'subject_id':'lab-001','occurred_at':now,'kind':'protected_document_access','doc_id':'araz-plan'} for i in range(6)]
+  self.assertEqual(self.machine('/api/v1/telemetry',key['token'],{'events':events})[0],200)
+  return now,key,self.machine('/api/v1/cases',key['token'])[1]['items'][0]
+ def test_case_api_alone_cools_expired_signals_and_preserves_review_and_peak(self):
+  now,key,case=self.seed_expiring_case()
+  snapshot=self.app.cases.get(case['case_id'])['snapshot']
+  action={'case_id':case['case_id'],'action':'ACKNOWLEDGE','action_id':'headless-review-001','expected_revision':case['revision']}
+  self.assertEqual(self.machine('/api/v1/cases/action',key['token'],action)[0],200)
+  with patch('sedra.app.time.time',return_value=now+121):
+   status,feed=self.machine('/api/v1/cases',key['token']);self.assertEqual(status,200)
+   quiet=feed['items'][0];self.assertEqual(quiet['current_score'],0)
+   self.assertEqual(feed['signal_refresh']['status'],'current');self.assertEqual(feed['signal_refresh']['subjects_evaluated'],1)
+   self.assertEqual(quiet['peak_score'],80);self.assertEqual(quiet['status'],'IN_REVIEW')
+   self.assertEqual(quiet['revision'],case['revision']+2)
+   again=self.machine('/api/v1/cases',key['token'])[1]['items'][0]
+   self.assertEqual(again['revision'],quiet['revision'])
+  packet=self.app.cases.get(case['case_id']);self.assertEqual(packet['snapshot'],snapshot)
+  self.assertTrue(packet['integrity']['hash_chain_valid']);self.assertTrue(packet['integrity']['displayed_snapshot_bound'])
+ def test_change_feed_alone_emits_one_durable_expiry_revision(self):
+  now,key,case=self.seed_expiring_case()
+  first=self.machine('/api/v1/cases/changes?after=0',key['token'])[1]
+  path=f"/api/v1/cases/changes?after={first['next_cursor']}&generation={first['generation']}"
+  with patch('sedra.app.time.time',return_value=now+121):
+   status,page=self.machine(path,key['token']);self.assertEqual(status,200)
+   self.assertEqual(len(page['items']),1);event=page['items'][0]
+   self.assertEqual(event['case_id'],case['case_id']);self.assertEqual(event['action'],'SIGNAL_STATE');self.assertEqual(event['priority'],0)
+   self.assertEqual(event['revision'],case['revision']+1)
+   self.assertEqual(self.machine(path,key['token'])[1]['items'],page['items'])
+   next_path=f"/api/v1/cases/changes?after={page['next_cursor']}&generation={page['generation']}"
+   self.assertEqual(self.machine(next_path,key['token'])[1]['items'],[])
  def test_soar_case_actions_are_scoped_revision_checked_and_attributed(self):
   producer=self.key(['telemetry:write'],['lab-001']);now=time.time()
   events=[{'event_id':str(i),'subject_id':'lab-001','occurred_at':now,'kind':'protected_document_access','doc_id':'araz-plan'} for i in range(6)]

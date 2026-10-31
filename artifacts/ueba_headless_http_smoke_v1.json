@@ -1,0 +1,44 @@
+{
+  "executed_at_utc": "2026-10-31T17:19:55.514772+00:00",
+  "scope": "Isolated actual loopback HTTP and real clock; authenticated synthetic access reports, not OS observations; no main ledger or provider access",
+  "console_or_subject_endpoint_reads": 0,
+  "source_origin": "AUTHENTICATED_EXTERNAL_REPORT",
+  "source_age_at_final_read_seconds": 120.331,
+  "before": {
+    "current_score": 80.0,
+    "peak_score": 80.0
+  },
+  "after": {
+    "current_score": 0.0,
+    "peak_score": 80.0,
+    "status": "OPEN"
+  },
+  "expiry_feed": {
+    "items": [
+      {
+        "cursor": 2,
+        "case_id": "UC-4579a29e2d3043a984efb73b0879e2fd",
+        "subject_id": "lab-001",
+        "revision": 1,
+        "action": "SIGNAL_STATE",
+        "actor": "engine",
+        "at": 1793467201.6789482,
+        "priority": 0,
+        "channels": [],
+        "source_count": 0
+      }
+    ],
+    "generation": 0,
+    "next_cursor": 2,
+    "delivery": "Consumer checkpoints only after processing; retry same cursor for at-least-once consumption",
+    "signal_refresh": {
+      "evaluated_at": 1793467201.6789482,
+      "subjects_evaluated": 1,
+      "status": "current"
+    }
+  },
+  "replayed_items": 1,
+  "next_poll_items": 0,
+  "successful": true,
+  "key_revoked": true
+}

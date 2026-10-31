@@ -1,4 +1,4 @@
-# SEDRA 0.10 current status
+# SEDRA 0.10.1 current status
 
 Recorded 31 October 2026. Current values come from executed artifacts.
 
@@ -6,7 +6,9 @@ Recorded 31 October 2026. Current values come from executed artifacts.
 
 OIDC Code + PKCE/RS256 and explicit issuer-subject bindings are implemented as an optional server-configured mode. A real loopback RSA-signed issuer test validates the protocol; no company tenant is connected. SSO disables demo switching and unauthenticated API access. Expiring/hashed/revocable machine keys enable bounded SOAR reads, generation-aware case changes, attributed revision/idempotency actions and atomic bound-subject document-access telemetry. External reports retain their provenance and can change UEBA/case behavior. See INTEGRATIONS.md and the current test summary for executed verification. Optional requirements-sso.txt is installed by CI; core offline wheels remain separate.
 
-The 0.10 suite has 192 executed tests with zero failures/errors/skips; the exact current execution is artifacts/test_summary.json. An additional live Windows endpoint-to-API test observed 0 → 90, an automatic independent case and a bearer-authenticated OPENED event with 11 process/file source references. Retry/checkpoint behavior and 401/403/revocation checks passed. The demo key was revoked and no secret/raw Windows packet is published. See docs/API_LIVE_DEMO.md and artifacts/api_endpoint_main_smoke_v1.json. This is controlled functional proof without an external SOAR, not enterprise efficacy.
+The current suite has 194 executed tests with zero failures/errors/skips; the exact execution is artifacts/test_summary.json. An additional live Windows endpoint-to-API test observed 0 → 90, an automatic independent case and a bearer-authenticated OPENED event with 11 process/file source references. Retry/checkpoint behavior and 401/403/revocation checks passed. The demo key was revoked and no secret/raw Windows packet is published. See docs/API_LIVE_DEMO.md and artifacts/api_endpoint_main_smoke_v1.json. This is controlled functional proof without an external SOAR, not enterprise efficacy.
+
+Two new HTTP regression tests first reproduced a headless integration defect: an expired short-window signal remained 80 in the case API while subject evaluation correctly returned 0. Case queue/detail and change-feed reads now perform bounded live refresh for latest nonzero cases, independent of the browser. A separate actual HTTP smoke with an unmodified real clock and explicitly synthetic authenticated source reports observed 80 → 0, peak 80 and OPEN preserved, one durable SIGNAL_STATE revision, replay without duplication and an empty subsequent checkpoint poll. See artifacts/ueba_headless_before_v1.json, artifacts/ueba_headless_http_smoke_v1.json and scripts/smoke_headless_cases.py. This is read-time maintenance; no autonomous scheduler or independent OS attestation is claimed by that isolated smoke.
 
 ## Current naming and publication scope
 

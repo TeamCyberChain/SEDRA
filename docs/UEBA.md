@@ -39,6 +39,8 @@ The gateway freezes the full compact rule/model/policy context at admission. Exi
 
 The current display recomputes on console refresh, normally every 8 seconds; policy admissions compute server context on each new request. Finite live windows decay, and the immutable request/alert record remains for investigation. Activity reset clears the observed app history and live baseline support while preserving governed labels; the fixed generated daily model remains dated.
 
+The case queue/detail and machine change-feed endpoints also refresh latest nonzero cases at read time. Headless polling can therefore record an expired signal as a durable SIGNAL_STATE revision without requiring a browser or subject-UEBA call. Peak source graph and review status remain intact, and repeated unchanged reads do not advance the revision. This bounded maintenance is not a timer-based scheduler; elapsed state is recorded when the next read or observation evaluates it. The response includes signal_refresh evaluation metadata, and partial case persistence must not be presented as fully current.
+
 Employee evidence and export are restricted to the employee's own subject. The Analyst demo role may inspect all fictional subjects. `GET /api/ueba?subject=lab-001` is read-only; no arbitrary endpoint-event ingestion API is exposed. Subject exports contain masked metadata, not raw detector values or provider responses. Source IDs/hashes and identities still require access controls. The local role selector remains a demonstration, not enterprise SSO.
 
 ## Safe live validation
