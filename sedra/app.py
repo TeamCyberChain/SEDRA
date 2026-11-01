@@ -25,6 +25,7 @@ from . import __version__
 from .audit_log import AuditLog
 from .accounts import Accounts
 from .analytics import Reports,aggregate,export_csv,export_pdf
+from .agent_telemetry import AgentTelemetry
 from .dashboards import Dashboards,DashboardConflict,METRICS,WIDGETS
 from .behavior import build_demo_snapshot
 from .corpus import DOCUMENTS, catalog
@@ -42,7 +43,7 @@ from .integrations import Integrations,OIDC,AuthError,Conflict,RateLimit
 from .browser_guard import BrowserGuard,EXTENSION_ORIGIN
 
 ROOT = Path(__file__).resolve().parent.parent
-AUDIT_ROUTES = {'/boards.css','/api/dashboards/saved','/brand.css','/motion.js','/sedra-logo.svg','/sedra-logo-mono.svg','/sedra-wordmark.svg','/api/accounts/mfa','/api/account/mfa/replace/start','/api/account/mfa/replace/confirm','/shell.js','/shell.css','/login.css','/api/dashboards','/api/reports','/workbench.js','/workbench.css','/api/account/mfa/enroll','/api/account/mfa/verify','/api/accounts/password','/api/account/context','/api/account/bootstrap','/api/account/login','/api/accounts','/api/accounts/users','/api/accounts/roles','/settings.js','/settings.css','/login','/login.js','/alerts.js','/app.js','/audit.js','/browser-harness-transport.js','/browser-harness.html','/browser-lab.html','/browser-lab.js','/cases.js','/console.css','/endpoint.js','/index.html','/integrations.html','/integrations.js','/openapi.json','/portal.css','/portal.html','/portal.js','/presentation.js','/sedra.css','/style.css','/theme.css','/theme.js','/ueba.js','/api/audit/context','/api/reset', '/api/integrations/keys', '/api/logout', '/browser-lab', '/api/v1/ueba', '/api/state', '/api/ueba/counterfactual', '/health', '/api/audit', '/api/document', '/api/v1/cases', '/browser-harness', '/api/session', '/portal', '/api/v1/alerts/action', '/api/reconcile', '/api/endpoint/action', '/api/alerts', '/api/v1/telemetry', '/api/endpoint', '/api/transfer', '/api/ueba/cases', '/api/portal/status', '/api/portal/configure', '/auth/callback', '/api/v1/alerts', '/api/portal/chat', '/', '/api/v1/cases/changes', '/auth/login', '/api/catalog/labels', '/integrations', '/alert', '/api/v1/browser/inspect', '/api/v1/cases/action', '/api/alerts/action', '/api/ueba', '/api/audit/ui', '/api/ueba/cases/action'}
+AUDIT_ROUTES = {'/api/agents','/api/v1/endpoint/events','/boards.css','/api/dashboards/saved','/brand.css','/motion.js','/sedra-logo.svg','/sedra-logo-mono.svg','/sedra-wordmark.svg','/api/accounts/mfa','/api/account/mfa/replace/start','/api/account/mfa/replace/confirm','/shell.js','/shell.css','/login.css','/api/dashboards','/api/reports','/workbench.js','/workbench.css','/api/account/mfa/enroll','/api/account/mfa/verify','/api/accounts/password','/api/account/context','/api/account/bootstrap','/api/account/login','/api/accounts','/api/accounts/users','/api/accounts/roles','/settings.js','/settings.css','/login','/login.js','/alerts.js','/app.js','/audit.js','/browser-harness-transport.js','/browser-harness.html','/browser-lab.html','/browser-lab.js','/cases.js','/console.css','/endpoint.js','/index.html','/integrations.html','/integrations.js','/openapi.json','/portal.css','/portal.html','/portal.js','/presentation.js','/sedra.css','/style.css','/theme.css','/theme.js','/ueba.js','/api/audit/context','/api/reset', '/api/integrations/keys', '/api/logout', '/browser-lab', '/api/v1/ueba', '/api/state', '/api/ueba/counterfactual', '/health', '/api/audit', '/api/document', '/api/v1/cases', '/browser-harness', '/api/session', '/portal', '/api/v1/alerts/action', '/api/reconcile', '/api/endpoint/action', '/api/alerts', '/api/v1/telemetry', '/api/endpoint', '/api/transfer', '/api/ueba/cases', '/api/portal/status', '/api/portal/configure', '/auth/callback', '/api/v1/alerts', '/api/portal/chat', '/', '/api/v1/cases/changes', '/auth/login', '/api/catalog/labels', '/integrations', '/alert', '/api/v1/browser/inspect', '/api/v1/cases/action', '/api/alerts/action', '/api/ueba', '/api/audit/ui', '/api/ueba/cases/action'}
 
 
 def utcnow():
@@ -73,6 +74,7 @@ class AppState:
         # Localhost calls must remain localhost even in a proxied development environment.
         self.local_http = urllib.request.build_opener(urllib.request.ProxyHandler({}))
         self.integrations=Integrations(self.data_dir/'integrations.sqlite')
+        self.agent_telemetry=AgentTelemetry(self.integrations)
         config=os.getenv('SEDRA_OIDC_CONFIG')
         self.oidc=OIDC(json.loads(Path(config).read_text(encoding='utf-8'))) if config else None
         self.sessions = {}
@@ -173,6 +175,7 @@ class AppState:
                 assessed=assess(subject,reads,metadata,self.snapshot['history'],now,
                     truncated=input_truncated or len(raw)>INPUT_LIMIT or len(requests)>INPUT_LIMIT)
                 assessed=augment(assessed,self.endpoint.view(uid,now=now))
+                assessed=self.agent_telemetry.augment(assessed,now)
                 refs={key for rule in assessed['live_context']['rules'] if rule['active'] for key in rule['evidence_ids']}
                 referenced=[r for r in metadata if 'gateway:'+str(r['row_id']) in refs][:RULE_EVIDENCE_LIMIT]
                 assessed['ueba']['request_evidence']=referenced+[r for r in metadata if 'gateway:'+str(r['row_id']) not in refs][:max(0,RULE_EVIDENCE_LIMIT-len(referenced))]
@@ -364,7 +367,7 @@ class AppState:
             raise ValueError("simulate_ack_loss must be a boolean")
         subject = self.live_subject(self.subjects[subject_id])
         context = {k:subject[k] for k in ('as_of','model_version','provenance','behavior_score',
-                   'rule_score','ml_score','completed_day_score','live_context','model_context','policy_context','endpoint_context','behavior_case') if k in subject}
+                   'rule_score','ml_score','completed_day_score','live_context','model_context','policy_context','endpoint_context','agent_context','behavior_case') if k in subject}
         with self.guard:
             self.active_transfers += 1
         try:
@@ -549,13 +552,18 @@ def handler_for(app):
 
         def machine(self,path,body=None):
             route=path.path;params=urllib.parse.parse_qs(path.query)
-            routes={'/api/v1/alerts':'alerts:read','/api/v1/alerts/action':'alerts:write','/api/v1/cases':'cases:read','/api/v1/cases/changes':'cases:read','/api/v1/ueba':'ueba:read','/api/v1/cases/action':'cases:write','/api/v1/telemetry':'telemetry:write','/api/v1/browser/inspect':'browser:inspect'}
+            routes={'/api/v1/endpoint/events':'endpoint:write','/api/v1/alerts':'alerts:read','/api/v1/alerts/action':'alerts:write','/api/v1/cases':'cases:read','/api/v1/cases/changes':'cases:read','/api/v1/ueba':'ueba:read','/api/v1/cases/action':'cases:write','/api/v1/telemetry':'telemetry:write','/api/v1/browser/inspect':'browser:inspect'}
             try:
                 if route not in routes:return self.respond(404,{'error':'Unknown integration route'})
-                writing=route in ('/api/v1/cases/action','/api/v1/alerts/action','/api/v1/telemetry','/api/v1/browser/inspect')
+                writing=route in ('/api/v1/endpoint/events','/api/v1/cases/action','/api/v1/alerts/action','/api/v1/telemetry','/api/v1/browser/inspect')
                 if writing!=(body is not None):return self.respond(405,{'error':'Method not allowed'})
                 key=app.integrations.authorize(self.headers.get('Authorization'),routes[route])
                 self._audit_actor='api:'+key['id']
+                if route=='/api/v1/endpoint/events':
+                    with app.guard:
+                        result=app.agent_telemetry.ingest(body,key)
+                        app.capture_case(body['subject_id'])
+                    return self.respond(200,result)
                 if route=='/api/v1/browser/inspect':return self.respond(200,app.browser_guard.inspect(body,key))
                 if route=='/api/v1/alerts':result=app.gateway.alerts_feed(before=int(params['before'][0]) if params.get('before') else None)
                 elif route=='/api/v1/alerts/action':result=app.gateway.update_alert(body,actor='api:'+key['id'])
@@ -639,6 +647,9 @@ def handler_for(app):
                     return self.respond(200,{'keys':app.integrations.listing(),'sso_enabled':bool(app.oidc),'accounts_enabled':app.accounts.enabled},cookie=cookie)
                 if path.path == "/api/state":
                     return self.respond(200, app.view(session), cookie=cookie)
+                if path.path=='/api/agents':
+                    if session['role']!='analyst':raise PermissionError('Analyst required')
+                    return self.respond(200,{'items':app.agent_telemetry.devices()},cookie=cookie)
                 if path.path=='/api/dashboards':
                     if session['role']!='analyst':raise PermissionError('Analyst access required for executive dashboards')
                     days=int(urllib.parse.parse_qs(path.query).get('days',['7'])[0])

@@ -1,0 +1,11 @@
+{
+  "observed_at_utc": "2026-11-01T09:06:49.990957+00:00",
+  "local_native_execution_successful": false,
+  "windows_error": 5,
+  "error": "Access is denied",
+  "local_administrator": false,
+  "windows_service_installed": false,
+  "os_policy_changed": false,
+  "execution_restriction_bypassed": false,
+  "note": "Native source compiles locally. Real EXE and SCM lifecycle verification is delegated to the existing authorized Windows CI workflow; no local native pass is claimed."
+}

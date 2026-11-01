@@ -13,7 +13,7 @@ function uebaPaneHTML(s,part){
   }
   return html('.ueba-rules');
  }
- if(part==='endpoint')return html('.endpoint-panel')||'<div class="panel workspace-empty">No endpoint identity is mapped to this subject.</div>';
+ if(part==='endpoint')return (typeof agentPanelHTML==='function'?agentPanelHTML(s):'')+(html('.endpoint-panel')||'<div class="panel workspace-empty">No local endpoint identity is mapped to this subject.</div>');
  if(part==='coverage')return html('.ueba-coverage');
  if(part==='activity'){
   const chart=t.content.querySelector('.ueba-charts')?.children[1];

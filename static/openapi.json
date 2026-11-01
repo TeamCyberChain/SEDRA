@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "SEDRA scoped integration API",
-    "version": "0.19.0",
+    "version": "0.20.0",
     "description": "Loopback prototype. See docs/INTEGRATIONS.md for cursor, authorization and evidence contracts."
   },
   "servers": [
@@ -590,6 +590,50 @@
           },
           "409": {
             "description": "Stale revision or status conflict"
+          }
+        }
+      }
+    },
+    "/api/v1/endpoint/events": {
+      "post": {
+        "summary": "Ingest device-bound endpoint metadata; endpoint:write only",
+        "description": "Exact enrolled device_id, bound subject_id, events (0\u201350), four-channel coverage and cumulative dropped count. Event IDs deduplicate atomically; changed facts return 409. Nonfuture events no older than seven days. See docs/WINDOWS_AGENT.md for closed fingerprint schemas.",
+        "security": [
+          {
+            "bearerKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bound acknowledgment; accepted/duplicates and exact acked_event_ids"
+          },
+          "400": {
+            "description": "Invalid metadata or time"
+          },
+          "401": {
+            "description": "Invalid/expired/revoked key"
+          },
+          "403": {
+            "description": "Wrong device, subject or scope"
+          },
+          "409": {
+            "description": "Changed event facts"
+          },
+          "429": {
+            "description": "Rate/retention capacity"
+          }
+        }
+      }
+    },
+    "/api/agents": {
+      "get": {
+        "summary": "Analyst-only enrolled device directory, reported coverage/freshness",
+        "responses": {
+          "200": {
+            "description": "No secrets; device/key metadata"
+          },
+          "403": {
+            "description": "Analyst required"
           }
         }
       }

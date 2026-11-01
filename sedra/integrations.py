@@ -2,7 +2,7 @@
 import base64,hashlib,hmac,json,math,secrets,sqlite3,time,urllib.parse,urllib.request
 from contextlib import contextmanager
 
-SCOPES={'alerts:read','alerts:write','cases:read','ueba:read','cases:write','telemetry:write','browser:inspect'}
+SCOPES={'alerts:read','alerts:write','cases:read','ueba:read','cases:write','telemetry:write','browser:inspect','endpoint:write'}
 class AuthError(PermissionError):pass
 class Conflict(ValueError):pass
 class RateLimit(ValueError):pass
@@ -13,6 +13,7 @@ class Integrations:
   self.path=str(path)
   with self.db() as c:c.executescript('''CREATE TABLE IF NOT EXISTS integration_keys(id TEXT PRIMARY KEY,name TEXT,hash TEXT,scopes TEXT,subjects TEXT,expires REAL,revoked INTEGER DEFAULT 0,created REAL,last_used REAL);
    CREATE TABLE IF NOT EXISTS integration_usage(key_id TEXT,minute INTEGER,n INTEGER,PRIMARY KEY(key_id,minute));
+   CREATE TABLE IF NOT EXISTS agent_devices(id TEXT PRIMARY KEY,key_id TEXT UNIQUE,subject_id TEXT NOT NULL,name TEXT,created REAL,last_seen REAL,coverage TEXT NOT NULL,dropped INTEGER NOT NULL DEFAULT 0);
    CREATE TABLE IF NOT EXISTS external_events(seq INTEGER PRIMARY KEY AUTOINCREMENT,event_id TEXT UNIQUE,payload_hash TEXT,subject_id TEXT,at REAL,doc_id TEXT,key_id TEXT);''')
  @contextmanager
  def db(self):
@@ -29,9 +30,16 @@ class Integrations:
   if 'telemetry:write' in scopes and not subjects:raise ValueError('Telemetry keys require explicit bound subjects')
   if 'browser:inspect' in scopes and len(set(subjects))!=1:raise ValueError('Browser inspection keys require exactly one bound subject')
   if type(ttl) not in (int,float) or not math.isfinite(ttl) or not 1<=ttl<=2160:raise ValueError('TTL must be 1–2160 hours')
+  endpoint='endpoint:write' in scopes
+  if endpoint and (set(scopes)!={'endpoint:write'} or len(subjects)!=1):raise ValueError('Endpoint credentials require only endpoint:write and exactly one subject')
+  device=secrets.token_hex(16) if endpoint else None
   identifier=secrets.token_hex(8);token='sedra_k_'+identifier+'.'+secrets.token_urlsafe(32);now=time.time()
-  with self.db() as c:c.execute('INSERT INTO integration_keys(id,name,hash,scopes,subjects,expires,created) VALUES(?,?,?,?,?,?,?)',(identifier,name.strip(),hashlib.sha256(token.encode()).hexdigest(),canonical(sorted(set(scopes))),canonical(sorted(set(subjects))),now+ttl*3600,now))
-  return {'id':identifier,'token':token,'expires_at':now+ttl*3600,'display_once':True}
+  with self.db() as c:
+   c.execute('BEGIN IMMEDIATE')
+   if endpoint and (c.execute('SELECT count(*) FROM agent_devices').fetchone()[0]>=256 or c.execute('SELECT count(*) FROM agent_devices WHERE subject_id=?',(subjects[0],)).fetchone()[0]>=16):raise ValueError('Endpoint enrollment capacity reached')
+   c.execute('INSERT INTO integration_keys(id,name,hash,scopes,subjects,expires,created) VALUES(?,?,?,?,?,?,?)',(identifier,name.strip(),hashlib.sha256(token.encode()).hexdigest(),canonical(sorted(set(scopes))),canonical(sorted(set(subjects))),now+ttl*3600,now))
+   if endpoint:c.execute('INSERT INTO agent_devices(id,key_id,subject_id,name,created,coverage) VALUES(?,?,?,?,?,?)',(device,identifier,subjects[0],name.strip(),now,'{}'))
+  return {'id':identifier,'token':token,'expires_at':now+ttl*3600,'display_once':True,**({'device_id':device,'subject_id':subjects[0]} if endpoint else {})}
  def listing(self):
   with self.db() as c:return [dict(r)|{'scopes':json.loads(r['scopes']),'subjects':json.loads(r['subjects'])} for r in c.execute('SELECT id,name,scopes,subjects,expires,revoked,created,last_used FROM integration_keys ORDER BY created DESC')]
  def revoke(self,key):

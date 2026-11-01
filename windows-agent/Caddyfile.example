@@ -1,0 +1,12 @@
+# Review and replace hostname. This is a deployment template, not an installer.
+sedra.company.example {
+    @endpoint path /api/v1/endpoint/events
+    handle @endpoint {
+        reverse_proxy 127.0.0.1:8765 {
+            header_up Host 127.0.0.1:8765
+        }
+    }
+    handle {
+        respond 404
+    }
+}

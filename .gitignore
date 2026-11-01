@@ -35,3 +35,6 @@ artifacts/screenshots/local-ai-blocked.png
 artifacts/screenshots/local-ai-portal.png
 artifacts/screenshots/overview.png
 artifacts/screenshots/receiver-proof.png
+
+windows-agent/bin/
+windows-agent/package/

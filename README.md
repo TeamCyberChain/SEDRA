@@ -2,9 +2,13 @@
 
 **Team CyberChain Â· Digital Challenge Azerbaijan 2026 Â· Topic 6 Â· private development review.**
 
-Start with the [reviewer guide](docs/REVIEWER_GUIDE.md), [requirements mapping](docs/REQUIREMENTS_TRACEABILITY.md), [technical report](docs/TECHNICAL_REPORT.md) and [actual 250-test result](artifacts/test_summary.json). [AI assistance](AI_ASSISTANCE.md) and [external components](THIRD_PARTY_NOTICES.md) are disclosed. Source/test evidence describes the current 0.19.0 build; presentation/Q&A files are excluded from this repository at the team request. This review checkpoint does not assert final organizer acceptance.
+Start with the [reviewer guide](docs/REVIEWER_GUIDE.md), [requirements mapping](docs/REQUIREMENTS_TRACEABILITY.md), [technical report](docs/TECHNICAL_REPORT.md) and [actual 258-test result](artifacts/test_summary.json). [AI assistance](AI_ASSISTANCE.md) and [external components](THIRD_PARTY_NOTICES.md) are disclosed. Source/test evidence describes the current 0.20.0 build; presentation/Q&A files are excluded from this repository at the team request. This review checkpoint does not assert final organizer acceptance.
 
 SEDRA connects past-only user-day UEBA and observed live application signals to a real transfer decision, then verifies what an independent local receiver obtained. The offline hackathon lab uses fictional identities/documents. The AI portal sends only allowed requests to a real local Qwen CPU model or, when selected and available, the OpenAI Responses API. Local model inference has executed successfully; the OpenAI account returned 429 and has no successful reply claim.
+
+## SEDRA 0.20: standalone Windows service agent
+
+A native .NET Framework Windows Service pilot collects explicitly scoped file/process/USB/session metadata and uploads to a device/subject-bound endpoint API. DPAPI/ACL-protected enrollment, bounded durable spool, acknowledgment validation, replay deduplication and server-computed UEBA/cases are implemented. Customer-bound subjects exclude generated daily history from enforcement. See [installation, privacy, limits and actual verification](docs/WINDOWS_AGENT.md). The developer laptop blocked native EXE execution and is not elevated; no local standalone service install is claimed. Native/SCM tests run separately in Windows CI.
 
 ## SEDRA 0.19: saved dashboards and consistent workspaces
 

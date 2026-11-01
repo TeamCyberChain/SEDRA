@@ -1,0 +1,12 @@
+{
+  "server_url": "https://sedra.company.example/",
+  "device_id": "REPLACE_WITH_ENROLLED_DEVICE_ID",
+  "subject_id": "REPLACE_WITH_BOUND_SUBJECT_ID",
+  "target_user_sid": "REPLACE_WITH_ASSIGNED_WINDOWS_USER_SID",
+  "watch_directories": ["C:\\SEDRA-Watched"],
+  "process_names": [],
+  "poll_seconds": 15,
+  "allow_loopback_http": false,
+  "collect_usb": true,
+  "collect_session": true
+}

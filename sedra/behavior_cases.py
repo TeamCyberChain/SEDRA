@@ -34,6 +34,8 @@ def evidence_snapshot(s,now):
         if key in refs and e['origin']=='REAL_LOCAL_OBSERVATION':
             nodes[key]={'id':key,'channel':e['channel'],'kind':e['kind'],'at':e['at'],
                 'origin':e['origin'],'detail':e['detail']}
+    for e in app_evidence:
+        if e['event_id'] in nodes and e.get('origin')=='AUTHENTICATED_ENDPOINT_REPORT':nodes[e['event_id']]['detail']=e['detail']
     primary=sorted(nodes)
     if not primary:return None
     candidates=s.get('ueba',{}).get('request_evidence',[])
@@ -73,6 +75,8 @@ def evidence_snapshot(s,now):
         'limits':['Priority is not maliciousness probability.','Temporal edges do not establish causation or exfiltration.',
             'Sources and rule references are bounded; source counts and displayed records can differ.',
             'Daily model is generated lab data; endpoint observations are labeled separately.']}
+    if s.get('agent_context'):
+        snapshot['identity_binding']='Explicit enrolled device/credential to subject mapping; authenticated reports, not independent endpoint attestation'
     semantic=dict(snapshot);semantic.pop('captured_at')
     semantic['model_context']={k:v for k,v in semantic['model_context'].items() if k!='age_seconds'}
     if semantic.get('baseline_support'):semantic['baseline_support']={k:v for k,v in semantic['baseline_support'].items() if k!='reference_ends_before'}

@@ -18,6 +18,14 @@ test_concurrent_token_only_exposure_reserves_atomically (test_adversarial.Review
 test_daily_drip_hits_30_day_limit_after_24_hour_budget_resets (test_adversarial.ReviewRegressionTests.test_daily_drip_hits_30_day_limit_after_24_hour_budget_resets) ... ok
 test_distinctive_two_word_drip_is_counted_without_fabricated_fourgrams (test_adversarial.ReviewRegressionTests.test_distinctive_two_word_drip_is_counted_without_fabricated_fourgrams) ... ok
 test_real_document_reads_change_same_subject_same_text_decision (test_adversarial.ReviewRegressionTests.test_real_document_reads_change_same_subject_same_text_decision) ... ok
+test_concurrent_identical_retries_have_one_set_of_events (test_agent_telemetry.AgentHTTPTests.test_concurrent_identical_retries_have_one_set_of_events) ... ok
+test_devices_do_not_combine_files_and_delayed_reports_are_not_live (test_agent_telemetry.AgentHTTPTests.test_devices_do_not_combine_files_and_delayed_reports_are_not_live) ... ok
+test_enrollment_binding_scope_revocation_and_employee_denial (test_agent_telemetry.AgentHTTPTests.test_enrollment_binding_scope_revocation_and_employee_denial) ... ok
+test_enrollment_does_not_apply_generated_persona_as_customer_history (test_agent_telemetry.AgentHTTPTests.test_enrollment_does_not_apply_generated_persona_as_customer_history) ... ok
+test_future_old_events_and_heartbeat_are_bounded (test_agent_telemetry.AgentHTTPTests.test_future_old_events_and_heartbeat_are_bounded) ... ok
+test_real_http_rule_case_policy_and_frozen_replay (test_agent_telemetry.AgentHTTPTests.test_real_http_rule_case_policy_and_frozen_replay) ... ok
+test_replay_conflict_atomic_batch_and_metadata_only (test_agent_telemetry.AgentHTTPTests.test_replay_conflict_atomic_batch_and_metadata_only) ... ok
+test_usb_baseline_is_not_arrival_and_process_alone_has_no_score (test_agent_telemetry.AgentHTTPTests.test_usb_baseline_is_not_arrival_and_process_alone_has_no_score) ... ok
 test_allowed_result_and_idempotent_retry (test_ai_portal.PortalIntegrationTests.test_allowed_result_and_idempotent_retry) ... ok
 test_client_cannot_override_context_identity_model_or_destination (test_ai_portal.PortalIntegrationTests.test_client_cannot_override_context_identity_model_or_destination) ... ok
 test_concurrent_same_id_has_one_external_send (test_ai_portal.PortalIntegrationTests.test_concurrent_same_id_has_one_external_send) ... ok
@@ -250,6 +258,6 @@ test_request_ledger_drives_blocks_even_if_secondary_audit_event_is_missing (test
 test_scopes_no_new_endpoint_ingestion_and_masked_evidence (test_ueba.UEBAHTTPTests.test_scopes_no_new_endpoint_ingestion_and_masked_evidence) ... ok
 
 ----------------------------------------------------------------------
-Ran 250 tests in 178.987s
+Ran 258 tests in 233.282s
 
 OK

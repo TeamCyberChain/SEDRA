@@ -3,10 +3,10 @@
   const el=id=>document.getElementById(id);
   let sessionEpoch=null,running=false,submitting=false,secretTimer;
   function status(message){el('integration-status').textContent=message;}
-  function clearSecret(){clearTimeout(secretTimer);el('issued-key').textContent='';el('issued-key').hidden=true;}
+  function clearSecret(){clearTimeout(secretTimer);el('issued-key').textContent='';el('issued-key').hidden=true;el('agent-enrollment').textContent='';}
   function sync(){
     const epoch=state?.session?.csrf_token;
-    if(epoch!==sessionEpoch){sessionEpoch=epoch;clearSecret();el('key-list').replaceChildren();}
+    if(epoch!==sessionEpoch){sessionEpoch=epoch;clearSecret();el('key-list').replaceChildren();el('agent-list').replaceChildren();}
     el('key-form').querySelectorAll('input,button').forEach(node=>node.disabled=!isAnalyst()||submitting);
     if(!isAnalyst())status('Analyst access is required to manage credentials.');
   }
@@ -28,7 +28,7 @@
       const subjects=el('key-subjects').value.split(',').map(value=>value.trim().replace(/^user[ -]?(\d+)$/i,(_,n)=>'lab-'+n.padStart(3,'0'))).filter(Boolean);
       const result=await api('/api/integrations/keys',{name:el('key-name').value,ttl_hours:Number(el('key-ttl').value),scopes:[...el('key-form').querySelectorAll('[name=scope]:checked')].map(node=>node.value),subjects});
       if(epoch!==sessionEpoch)return;
-      el('issued-key').textContent=result.token;el('issued-key').hidden=false;secretTimer=setTimeout(clearSecret,60000);await refresh();
+      el('agent-enrollment').textContent=result.device_id?'Agent device ID: '+result.device_id+' · subject: '+result.subject_id+'. Keep these IDs in agent config; enter the credential privately during installation.':'';el('issued-key').textContent=result.token;el('issued-key').hidden=false;secretTimer=setTimeout(clearSecret,60000);await refresh();
     }catch(error){status(error.message);}finally{submitting=false;sync();}
   });
   el('key-list').addEventListener('click',async event=>{
@@ -37,6 +37,8 @@
     try{await api('/api/integrations/keys',{action:'revoke',id:button.dataset.revoke});clearSecret();await refresh();}
     catch(error){status(error.message);button.disabled=false;}
   });
+  async function agents(){sync();if(!isAnalyst())return;const epoch=sessionEpoch;try{const r=await api('/api/agents');if(epoch!==sessionEpoch||!isAnalyst())return;el('agent-list').innerHTML=r.items.length?r.items.map(d=>`<article class="credential"><strong>${esc(d.name)}</strong><p>${esc(d.id)} · ${esc(d.subject_id)} · ${esc(d.connection)} · credential ${d.credential_active?'active':'expired/revoked'}</p><small>${esc(JSON.stringify(d.coverage))} · reported dropped ${d.dropped}</small></article>`).join(''):'<p>No enrolled endpoint agents.</p>';}catch(e){if(epoch===sessionEpoch&&isAnalyst())el('agent-list').textContent=e.message;}}
+  el('refresh-agents').onclick=agents;
   el('refresh-integrations').onclick=refresh;
   el('sso-logout').onclick=async()=>{try{await api('/api/logout',{});clearSecret();location.assign('/');}catch(error){status(error.message);}};
   window.SedraIntegrations={refresh,sync};

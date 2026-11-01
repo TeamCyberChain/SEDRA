@@ -1,3 +1,7 @@
+## 0.20.0 Windows service agent pilot
+
+Native Windows service sources, installer/uninstaller, device-bound endpoint API and scoped UEBA integration are implemented. The developer laptop rejects native EXE execution (WinError 5) and is not elevated; local service installation is not claimed. Native collection and actual SCM lifecycle are separately verified by the Windows CI smoke scripts. See WINDOWS_AGENT.md and exact-head CI results. This does not establish production deployment, endpoint attestation or enterprise detection efficacy.
+
 ## 0.19.0 workspace refinement
 
 Saved Analyst dashboards and widgets are implemented with owner isolation, revision conflict protection, retained configuration and recoverable archive/restore. Console/portal headers, invariant logo color and sign-in full-name placement are unified. UEBA and Users parent menus toggle closed on repeat clicks. See `DASHBOARD_BUILDER.md` and the current actual test artifacts. This release does not change benchmark claims, mandatory MFA or delivery reconciliation.

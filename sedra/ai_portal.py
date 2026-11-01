@@ -192,7 +192,7 @@ class AIPortal:
             subject = session['subject_id']
             live = self.app.live_subject(self.app.subjects[subject])
             context = {k: live[k] for k in ('as_of', 'model_version', 'provenance', 'behavior_score',
-                       'rule_score', 'ml_score', 'completed_day_score', 'live_context', 'model_context', 'policy_context', 'endpoint_context', 'behavior_case') if k in live}
+                       'rule_score', 'ml_score', 'completed_day_score', 'live_context', 'model_context', 'policy_context', 'endpoint_context', 'agent_context', 'behavior_case') if k in live}
             context['provider_model'] = model
             context['provider_route'] = route
             result = self.app.gateway.evaluate(subject, request_id, text, live['behavior_score'],

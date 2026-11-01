@@ -111,7 +111,7 @@ class BrowserGuard:
             except KeyError:prior=None
             if prior and prior.get('behavior_context',{}).get('browser',{}).get('binding')!=binding:raise ValueError('Browser request ID reused with changed facts')
             subject=self.app.live_subject(self.app.subjects[uid])
-            context={k:subject[k] for k in ('live_context','model_context','policy_context','endpoint_context')}
+            context={k:subject[k] for k in ('live_context','model_context','policy_context','endpoint_context','agent_context') if k in subject}
             context['browser']={'profile':'sedra-browser-guard-v1','origin':source,'operation':operation,'mode':mode,
                 'host':host,'files':metadata,'binding':binding,'inspection_failure':failure,
                 'enforcement':'Extension-reported; not independently attested' if source=='AUTHENTICATED_BROWSER_REPORT' else 'Local DOM harness; no installed-extension attestation'}

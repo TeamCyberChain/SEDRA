@@ -1,3 +1,10 @@
+## 0.20.0 — Native Windows service agent pilot
+
+- Add explicit device/subject-bound endpoint credentials and atomic metadata ingestion with replay/conflict checks.
+- Add a native LocalService collector, DPAPI enrollment, bounded durable queue, exact acknowledgments and recovery/uninstall tooling.
+- Connect separately attributed agent rules to UEBA policy, cases and analyst device/endpoint views; exclude generated history from customer-bound policy.
+- Add native Windows foreground and actual SCM smoke checks to CI. Record the developer laptop native-execution/admin restriction without bypass.
+
 ## 0.19.0 — Saved dashboards and workspace consistency
 
 - Add owner-scoped saved dashboards with eight widget types, bounded metrics, title/width/order editing, optimistic revisions and recoverable archive/restore.
