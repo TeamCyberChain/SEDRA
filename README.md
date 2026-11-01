@@ -2,9 +2,15 @@
 
 **Team CyberChain · Digital Challenge Azerbaijan 2026 · Topic 6 · private development review.**
 
-Start with the [reviewer guide](docs/REVIEWER_GUIDE.md), [requirements mapping](docs/REQUIREMENTS_TRACEABILITY.md), [technical report](docs/TECHNICAL_REPORT.md) and [actual 244-test result](artifacts/test_summary.json). [AI assistance](AI_ASSISTANCE.md) and [external components](THIRD_PARTY_NOTICES.md) are disclosed. Source/test evidence describes the current 0.18.0 build; presentation/Q&A files are excluded from this repository at the team request. This review checkpoint does not assert final organizer acceptance.
+Start with the [reviewer guide](docs/REVIEWER_GUIDE.md), [requirements mapping](docs/REQUIREMENTS_TRACEABILITY.md), [technical report](docs/TECHNICAL_REPORT.md) and [actual 244-test result](artifacts/test_summary.json). [AI assistance](AI_ASSISTANCE.md) and [external components](THIRD_PARTY_NOTICES.md) are disclosed. Source/test evidence describes the current 0.18.1 build; presentation/Q&A files are excluded from this repository at the team request. This review checkpoint does not assert final organizer acceptance.
 
 SEDRA connects past-only user-day UEBA and observed live application signals to a real transfer decision, then verifies what an independent local receiver obtained. The offline hackathon lab uses fictional identities/documents. The AI portal sends only allowed requests to a real local Qwen CPU model or, when selected and available, the OpenAI Responses API. Local model inference has executed successfully; the OpenAI account returned 429 and has no successful reply claim.
+
+## SEDRA 0.18.1: identity and motion
+
+SEDRA means **Sensitive Enterprise Data Risk Assurance**, as declared in the existing governance documentation. The new original geometric S monogram represents a data path with an inspection point. Vector mark, monochrome and wordmark sources are in `static/sedra-logo.svg`, `static/sedra-logo-mono.svg` and `static/sedra-wordmark.svg`; the same geometry is used in sign-in, console, AI Workspace and favicon. No external fonts, image generator or animation CDN is required. This is an original project design, not a trademark-clearance claim.
+
+Sign-in uses a generic Username placeholder and complete light/dark surfaces. A short cosmetic opening and button interactions respect reduced-motion preferences. The opening is non-interactive, excluded from assistive navigation and removed automatically; it never waits for a network response or blocks authentication. Motion code does not read form values or persist interaction coordinates.
 
 ## SEDRA 0.18: collapsible navigation and authenticator lifecycle
 

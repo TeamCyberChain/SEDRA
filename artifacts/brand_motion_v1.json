@@ -1,0 +1,91 @@
+{
+  "version": "0.18.1",
+  "observed_at_utc": "2026-11-01T07:28:59.085138+00:00",
+  "main_health": {
+    "status": "ok",
+    "product": "SEDRA",
+    "mode": "local_lab",
+    "build_version": "0.18.1",
+    "model_version": "iforest-lab-daily-v1"
+  },
+  "retained_counts": {
+    "attempted": 32,
+    "confirmed": 1,
+    "blocked": 28,
+    "unknown": 3
+  },
+  "accounts_passwords_roles_factors_recovery_registrations_preserved": true,
+  "asset_http_checks": {
+    "/brand.css": {
+      "status": 200,
+      "content_type": "text/css; charset=utf-8",
+      "bytes": 4753
+    },
+    "/motion.js": {
+      "status": 200,
+      "content_type": "text/javascript; charset=utf-8",
+      "bytes": 1772
+    },
+    "/sedra-logo.svg": {
+      "status": 200,
+      "content_type": "image/svg+xml; charset=utf-8",
+      "bytes": 339
+    },
+    "/sedra-logo-mono.svg": {
+      "status": 200,
+      "content_type": "image/svg+xml; charset=utf-8",
+      "bytes": 339
+    },
+    "/sedra-wordmark.svg": {
+      "status": 200,
+      "content_type": "image/svg+xml; charset=utf-8",
+      "bytes": 644
+    }
+  },
+  "browser_scope": "Isolated loopback fixture, fictional account with existing test recovery code; no real factor modified",
+  "observed_checks": {
+    "username_placeholder": "Username",
+    "full_name": "Sensitive Enterprise Data Risk Assurance",
+    "opening_present_on_page_load": true,
+    "opening_aria_hidden": true,
+    "opening_pointer_events": "none",
+    "opening_removed_automatically": true,
+    "button_ripple_observed": true,
+    "ripple_cleaned_up_afterwards": true,
+    "reduced_motion": {
+      "opening_present": false,
+      "brand_animation": "none",
+      "button_transition_duration": "0s",
+      "emulation_reset_after_test": true
+    },
+    "whole_signin_light_and_dark_including_story": true,
+    "light_story_background": "rgb(232, 238, 235)",
+    "dark_story_background": "rgb(22, 28, 31)",
+    "horizontal_overflow": false,
+    "mfa_signin_return_to_dashboard": true,
+    "console_and_portal_share_mark": true,
+    "browser_console_errors": []
+  },
+  "node_tests_passed": 15,
+  "prior_core_full_python_regression": {
+    "executed_at_utc": "2026-11-01T07:08:51.026884+00:00",
+    "python": "3.12.10",
+    "tests_run": 244,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "runtime_seconds": 168.242,
+    "suite": "unittest discovery: behavior, acquisition, matcher, gateway, application HTTP integration",
+    "network_scope": "local loopback receiver only; no external AI request",
+    "benchmark_performance_is_separate": true
+  },
+  "regression_note": "Branding changes were verified with existing Node tests, JS syntax and live browser/HTTP checks; exact-head full Python regression runs separately in GitHub CI.",
+  "exports": {
+    "svg": 3,
+    "transparent_png": 3,
+    "png_width": 1024,
+    "vectors_are_original_project_geometry": true,
+    "trademark_clearance_not_asserted": true
+  }
+}

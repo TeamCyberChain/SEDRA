@@ -1,4 +1,7 @@
-# SEDRA 0.18.0 current status
+# SEDRA 0.18.1 current status
+
+Version 0.18.1 adds the SEDRA vector identity, full-page sign-in appearance and short reduced-motion-aware opening/button animation. Username accepts the existing account identifiers; no credential, MFA or UEBA policy is changed.
+
 
 Version 0.18.0 adds persistent collapsible navigation, redesigned sign-in and reauthenticated MFA administration/owner replacement. Mandatory MFA remains enforced. See MFA_MANAGEMENT.md.
 

@@ -1,3 +1,10 @@
+## 0.18.1 — SEDRA brand and restrained motion
+
+- Replace the surname-specific sign-in hint with Username; apply Appearance to both halves of the page.
+- Introduce the original S flow monogram, matching vector exports and favicon; display the established full SEDRA name.
+- Add a short nonblocking branded opening, staged content entrance and button hover/press/ripple feedback.
+- Respect reduced-motion settings and keep all assets local/offline. Authentication and MFA policies are unchanged.
+
 ## 0.18.0 — Navigation and authenticator lifecycle
 
 - Add a persistent, accessible sidebar toggle to both the console and AI Workspace, including hidden-sidebar keyboard isolation and mobile layout.
