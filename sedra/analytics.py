@@ -91,9 +91,12 @@ class Reports:
 
 def export_csv(report):
     s=io.StringIO();w=csv.writer(s);w.writerow(['Section','Metric','Value'])
+    x=report['snapshot']
+    for key,value in [('Report ID',report['id']),('Title',report['title']),('Scope',x['scope']['label']),('Window days',x['window']['days']),('Window start UTC',datetime.fromtimestamp(x['window']['start'],timezone.utc).isoformat()),('Window end UTC',datetime.fromtimestamp(x['window']['end'],timezone.utc).isoformat()),('Chart timezone',x['window']['chart_timezone'])]:w.writerow(['Report metadata',key,value])
     for k,v in report['snapshot']['metrics'].items():w.writerow(['Selected period',k,v])
     for k,v in report['snapshot']['cases'].items():w.writerow(['Current retained cases',k,v])
     for r in report['snapshot']['trend']:w.writerow(['Daily attempts',r['day'],r['attempts']])
+    for note in x['definitions']:w.writerow(['Interpretation','Definition',note])
     w.writerow(['Integrity','Snapshot SHA-256',report['sha256']])
     return s.getvalue().encode('utf-8-sig')
 

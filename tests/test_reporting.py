@@ -37,6 +37,7 @@ class ReportingHTTPTests(unittest.TestCase):
     self.assertEqual(response.status,200);self.assertIn(mime,response.headers['Content-Type']);self.assertTrue(response.read().startswith(prefix));self.assertEqual(response.headers['Cache-Control'],'no-store')
   from sedra.analytics import export_csv
   csv=export_csv(r).decode('utf-8-sig');self.assertIn('Snapshot SHA-256',csv);self.assertNotIn('A1B2C3D',csv)
+  for metadata in ('All authorized identities','Window start UTC','Window end UTC','Interpretation','Security operations report'):self.assertIn(metadata,csv)
   self.assertEqual(self.admin.request('/api/reports',{'template':'executive','days':True,'subject_id':''})[0],400)
   self.assertEqual(self.admin.request('/api/reports',{'template':[],'days':7,'subject_id':''})[0],400)
   self.assertEqual(self.admin.request('/api/reports',{'template':'activity','days':7,'subject_id':''},token=False)[0],403)
