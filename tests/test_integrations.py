@@ -153,7 +153,7 @@ class OIDCTests(unittest.TestCase):
     q=urllib.parse.parse_qs(self.rfile.read(int(self.headers['Content-Length'])).decode());r=records.pop(q['code'][0])
     challenge=base64.urlsafe_b64encode(hashlib.sha256(q['code_verifier'][0].encode()).digest()).decode().rstrip('=')
     outer.assertEqual(challenge,r['code_challenge']);outer.assertTrue(self.headers['Authorization'].startswith('Basic '))
-    token=jwt.encode({'iss':issuer_url,'aud':'sedra-client','sub':'allowed-person','nonce':r['nonce'],'iat':int(time.time()),'exp':int(time.time())+300},private,algorithm='RS256',headers={'kid':'local-fixture'})
+    token=jwt.encode({'iss':issuer_url,'aud':'sedra-client','sub':'allowed-person','amr':['pwd','otp'],'nonce':r['nonce'],'iat':int(time.time()),'exp':int(time.time())+300},private,algorithm='RS256',headers={'kid':'local-fixture'})
     self.send_response(200);self.end_headers();self.wfile.write(json.dumps({'id_token':token}).encode())
   issuer=ThreadingHTTPServer(('127.0.0.1',0),Issuer);thread=threading.Thread(target=issuer.serve_forever,daemon=True);thread.start();issuer_url=f'http://127.0.0.1:{issuer.server_port}'
   config={'issuer':issuer_url,'client_id':'sedra-client','client_secret':'synthetic-local-client-secret','authorization_endpoint':issuer_url+'/authorize','token_endpoint':issuer_url+'/token','jwks_uri':issuer_url+'/keys','redirect_uri':self.base+'/auth/callback','identities':{'allowed-person':'analyst'}}
@@ -171,9 +171,9 @@ class OIDCTests(unittest.TestCase):
  def test_wrong_nonce_issuer_audience_signature_algorithm_and_unknown_subject_fail(self):
   key=rsa.generate_private_key(public_exponent=65537,key_size=2048);jwk=json.loads(jwt.algorithms.RSAAlgorithm.to_jwk(key.public_key()));jwk.update(kid='test',alg='RS256')
   config={'issuer':'https://issuer.example','client_id':'client','client_secret':'synthetic','authorization_endpoint':'https://issuer.example/auth','token_endpoint':'https://issuer.example/token','jwks_uri':'https://issuer.example/keys','redirect_uri':'http://127.0.0.1/auth/callback','identities':{'one':'analyst'}}
-  for change in ({'nonce':'wrong'},{'iss':'https://evil.example'},{'aud':'other'},{'sub':'unknown'},{'exp':1},{'_bad_signature':True},{'_bad_algorithm':True}):
+  for change in ({'amr':['pwd']},{'nonce':'wrong'},{'iss':'https://evil.example'},{'aud':'other'},{'sub':'unknown'},{'exp':1},{'_bad_signature':True},{'_bad_algorithm':True}):
    oidc=OIDC(config);url=oidc.begin('browser');q=urllib.parse.parse_qs(urllib.parse.urlsplit(url).query)
-   claims={'iss':config['issuer'],'aud':'client','sub':'one','nonce':q['nonce'][0],'iat':int(time.time()),'exp':int(time.time())+300}|change
+   claims={'iss':config['issuer'],'aud':'client','sub':'one','amr':['pwd','otp'],'nonce':q['nonce'][0],'iat':int(time.time()),'exp':int(time.time())+300}|change
    if change.get('_bad_signature'):token=jwt.encode(claims,rsa.generate_private_key(public_exponent=65537,key_size=2048),algorithm='RS256',headers={'kid':'test'})
    elif change.get('_bad_algorithm'):token=jwt.encode(claims,'synthetic-hmac-secret-with-more-than-thirty-two-characters',algorithm='HS256',headers={'kid':'test'})
    else:token=jwt.encode(claims,key,algorithm='RS256',headers={'kid':'test'})

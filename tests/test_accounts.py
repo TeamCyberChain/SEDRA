@@ -7,9 +7,19 @@ class AccountHTTPTests(unittest.TestCase):
  setUp=support.IntegrationHTTPTests.setUp
  tearDown=support.IntegrationHTTPTests.tearDown
  def bootstrap(self):
-  s,v=self.admin.request('/api/account/bootstrap',{'username':'testadmin','password':'Synthetic-Test-Password-42','role_id':'administrator','subject':''});self.assertEqual(s,200);self.admin.csrf=self.admin.request('/api/account/context')[1]['csrf_token']
+  self.recovery={}
+  s,v=self.admin.request('/api/account/bootstrap',{'username':'testadmin','password':'Synthetic-Test-Password-42','role_id':'administrator','subject':''});self.assertEqual(s,200);self.complete_mfa(self.admin,'testadmin')
+ def complete_mfa(self,c,name):
+  from sedra.mfa import totp
+  context=c.request('/api/account/context')[1];c.csrf=context['csrf_token']
+  if not context['mfa']['enrolled']:
+   status,enrollment=c.request('/api/account/mfa/enroll',{});self.assertEqual(status,200);code=totp(enrollment['secret'])
+  else:code=self.recovery[name].pop()
+  status,result=c.request('/api/account/mfa/verify',{'code':code});self.assertEqual(status,200)
+  if result['recovery_codes']:self.recovery[name]=result['recovery_codes']
+  c.csrf=c.request('/api/account/context')[1]['csrf_token']
  def login(self,name='testadmin',password='Synthetic-Test-Password-42'):
-  c=LocalClient(self.base);s,v=c.request('/api/account/context');self.assertEqual(s,200);c.csrf=v['csrf_token'];self.assertEqual(c.request('/api/account/login',{'username':name,'password':password})[0],200);c.csrf=c.request('/api/account/context')[1]['csrf_token'];return c
+  c=LocalClient(self.base);s,v=c.request('/api/account/context');self.assertEqual(s,200);c.csrf=v['csrf_token'];self.assertEqual(c.request('/api/account/login',{'username':name,'password':password})[0],200);self.complete_mfa(c,name);return c
  def test_bootstrap_closes_demo_switching_rotates_sessions_and_requires_login(self):
   old=LocalClient(self.base).login('lab-001');self.bootstrap()
   self.assertEqual(old.request('/api/state')[0],401)

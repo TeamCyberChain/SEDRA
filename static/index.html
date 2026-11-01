@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#132739">
   <title>SEDRA — Security Operations</title>
   <link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/sedra.css"><link rel="stylesheet" href="/console.css"><script src="/presentation.js" defer></script>
-  <script src="/app.js" defer></script><script src="/alerts.js" defer></script><script src="/ueba.js" defer></script><script src="/endpoint.js" defer></script><script src="/cases.js" defer></script><script src="/integrations.js" defer></script><script src="/audit.js" defer></script>
+  <script src="/app.js" defer></script><script src="/alerts.js" defer></script><script src="/ueba.js" defer></script><script src="/endpoint.js" defer></script><script src="/cases.js" defer></script><script src="/integrations.js" defer></script><script src="/audit.js" defer></script><script src="/workbench.js" defer></script><link rel="stylesheet" href="/workbench.css">
 <link rel="stylesheet" href="/theme.css"><link rel="stylesheet" href="/settings.css"><script src="/settings.js" defer></script></head>
 <body>
   <a class="skip-link" href="#main">Skip to workspace</a>
@@ -17,11 +17,11 @@
       <nav class="navigation">
         <button class="nav-item active" data-tab="overview"><span data-icon="overview"></span>Overview</button>
         <button class="nav-item" data-tab="alerts"><span data-icon="bell"></span>Alerts<span id="alerts-nav-count" class="alert-nav-count" hidden></span></button>
-        <button class="nav-item" data-tab="investigation"><span data-icon="investigate"></span>UEBA</button>
+        <button class="nav-item" data-tab="investigation" aria-expanded="false" aria-controls="ueba-subnav"><span data-icon="investigate"></span>UEBA<span class="nav-chevron">⌄</span></button><div id="ueba-subnav" class="workspace-subnav" hidden><button data-ueba-section="summary">Summary</button><button data-ueba-section="cases" data-ueba-admin>Cases</button><button data-ueba-section="signals">Detection logic</button><button data-ueba-section="activity">Activity & sources</button><button data-ueba-section="endpoint">Endpoint</button><button data-ueba-section="models">Models & baselines</button><button data-ueba-section="coverage">Coverage</button></div>
         <button class="nav-item" data-tab="inventory"><span data-icon="document"></span>Data Inventory</button>
         <button class="nav-item" data-tab="lab"><span data-icon="boundary"></span>Transfer Control<span class="nav-dot" aria-hidden="true"></span></button>
         <button class="nav-item" data-tab="integrations"><span data-icon="lock"></span>Identity &amp; Integrations</button>
-        <a class="nav-item" href="/portal" style="text-decoration:none"><span data-icon="send"></span>AI Workspace ↗</a>
+        <button class="nav-item" data-tab="dashboards"><span data-icon="overview"></span>Dashboards</button><button class="nav-item" data-tab="reports"><span data-icon="document"></span>Reports</button><a class="nav-item" href="/portal" style="text-decoration:none"><span data-icon="send"></span>AI Workspace ↗</a>
       </nav>
       <div class="sidebar-bottom"><button class="settings-open" type="button">⚙ Settings</button><button id="reset-demo" hidden>Reset activity</button></div>
     </aside>
@@ -34,6 +34,8 @@
         <details class="provenance-row"><summary>Data &amp; methodology</summary><div class="provenance-content"><span id="provenance-badge" class="provenance-badge"><span data-icon="flask"></span>Sample workspace · recorded activity</span><span id="benchmark-status-note" class="benchmark-note">Waiting for benchmark status</span><a href="/#overview" class="methodology-link">Inspect evaluation evidence</a></div></details>
         <div id="alert-notification" class="alert-notification" role="status" aria-live="polite" hidden><span class="notification-mark" aria-hidden="true">!</span><div><strong id="alert-notification-title"></strong><p id="alert-notification-description"></p></div><button class="text-button" id="review-alert-notification">Review alerts ↗</button><button class="icon-button" id="dismiss-alert-notification" aria-label="Dismiss alert notification">×</button></div>
         <div id="error-banner" class="error-banner" role="alert" hidden></div>
+        <section id="view-dashboards" class="view" hidden><div class="workspace-heading"><div><span class="workspace-overline">LEADERSHIP / OPERATIONS</span><h1>Dashboards</h1><p>Understand recorded activity, decisions and the actions that need attention.</p></div><div class="workspace-controls"><label>Period<select id="dashboard-period"><option value="1">Last 24 hours</option><option value="7" selected>Last 7 days</option><option value="30">Last 30 days</option></select></label><button class="button secondary" id="refresh-dashboards">Refresh</button></div></div><div id="dashboards-content"></div></section>
+        <section id="view-reports" class="view" hidden><div class="workspace-heading"><div><span class="workspace-overline">REPORTING / SAVED EVIDENCE</span><h1>Reports</h1><p>Generate scoped reports from recorded operational data.</p></div></div><div id="reports-content"></div></section>
         <section id="view-overview" class="view" aria-label="Security overview">
           <div class="page-heading"><div><div class="eyebrow">SEDRA / OPERATIONS</div><h1>Security operations</h1><p class="lead">Monitor behavior, inspect sensitive data and trace every transfer decision.</p></div><div class="heading-art" aria-hidden="true"><svg viewBox="0 0 220 160"><path d="M18 39h42l30 42h41l31-45h42M18 120h42l30-39" fill="none" stroke="#d2ddd6" stroke-width="1.5"/><path d="M91 81h39" stroke="#127c75" stroke-width="3"/><circle cx="18" cy="39" r="6" fill="#d4dfd9"/><circle cx="18" cy="120" r="6" fill="#d4dfd9"/><circle cx="204" cy="36" r="6" fill="#127c75"/><circle cx="109" cy="81" r="34" fill="#e5efea" stroke="#cddfd3"/><path d="m109 60 17 7v14c0 9-9 16-17 21-8-5-17-12-17-21V67l17-7Z" fill="#127c75"/><path d="m101 80 6 6 11-13" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>DETECT → DECIDE → VERIFY</span></div></div>
           <div id="data-source-controls" class="source-controls" hidden><div class="source-picker"><label for="data-source-select">Data source</label><select id="data-source-select"><option value="lab">Workspace activity</option><option value="cert" disabled>CERT v1 · failed detection gate</option><option value="cert-v2" disabled>CERT v2 · multichannel development</option></select></div><p id="data-source-context" class="source-context"></p><button id="export-source-evidence" class="button secondary">Export evidence JSON<span data-icon="document"></span></button></div>
@@ -63,7 +65,7 @@
           <p class="scope-note">Discovery covers four registered synthetic texts. Endpoint files, Microsoft Purview labels, cloud drives, OCR and arbitrary uploads are not connected.</p>
         </section>
         <section id="view-investigation" class="view" aria-label="Subject investigation" hidden>
-          <div class="page-heading compact"><div><div class="eyebrow">SEDRA / INVESTIGATION</div><h1>UEBA investigation</h1><p id="investigation-source-description" class="lead">Connect behavioral signals to their source context and transfer history.</p></div><div class="subject-selector"><label for="subject-select">Investigate subject</label><select id="subject-select"></select></div></div>
+          <div class="page-heading compact"><div><div class="eyebrow">SEDRA / INVESTIGATION</div><h1>UEBA</h1><p id="investigation-source-description" class="lead">Choose a section in the UEBA menu to inspect behavior, evidence or source coverage.</p></div><div class="subject-selector"><label for="subject-select">Investigate subject</label><select id="subject-select"></select></div></div>
           <div id="investigation-content"></div>
         </section>
         <section id="view-lab" class="view" aria-label="AI transfer control" hidden>

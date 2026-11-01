@@ -3,3 +3,13 @@ scikit-learn==1.8.0
 scipy==1.17.0
 joblib==1.5.3
 threadpoolctl==3.6.0
+
+# Mandatory account MFA and generated reports
+cryptography==50.0.2
+cffi==2.1.1
+pycparser==3.12
+qrcode==8.2
+colorama==0.4.6
+reportlab==4.5.1
+pillow==13.0.0
+charset-normalizer==3.5.2

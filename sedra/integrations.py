@@ -119,6 +119,8 @@ class OIDC:
    claims=self.jwt.decode(token,public_key,algorithms=['RS256'],audience=self.c['client_id'],issuer=self.c['issuer'],options={'require':['exp','iat','sub','iss','aud','nonce']})
    if claims['nonce']!=pending['nonce'] or not isinstance(claims['sub'],str) or claims.get('azp',self.c['client_id'])!=self.c['client_id']:raise ValueError()
    if isinstance(claims['aud'],list) and len(claims['aud'])>1 and claims.get('azp')!=self.c['client_id']:raise ValueError()
+   amr=claims.get('amr',[])
+   if not isinstance(amr,list) or any(not isinstance(x,str) for x in amr) or not ('mfa' in amr or {'pwd','otp'}<=set(amr)):raise ValueError()
    identity=self.c['identities'].get(claims['sub'])
    if identity not in ('analyst','lab-001','lab-002'):raise ValueError()
    return identity,claims

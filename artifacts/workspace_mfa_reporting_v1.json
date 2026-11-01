@@ -1,0 +1,153 @@
+{
+  "version": "0.17.0",
+  "verified_at_utc": "2026-11-01T06:45:52.056698+00:00",
+  "main_service": {
+    "health": {
+      "status": "ok",
+      "product": "SEDRA",
+      "mode": "local_lab",
+      "build_version": "0.17.0",
+      "model_version": "iforest-lab-daily-v1"
+    },
+    "retained_counts": {
+      "attempted": 32,
+      "forwarded": 1,
+      "blocked": 28,
+      "unknown": 3
+    },
+    "administrator_mfa_enrolled_by_owner": true,
+    "user_mfa_enrollment_pending": true,
+    "all_local_accounts_require_second_factor": true,
+    "existing_passwords_not_changed": true,
+    "protected_enrollment_backup_created": true,
+    "scoped_endpoint_sensor_opted_in_after_restart": true
+  },
+  "browser_fixture": {
+    "scope": "Isolated port 8766, fictional Administrator and User with test factors; no real account MFA seed read or automated enrollment",
+    "mfa_signin_success_for_both_roles": true,
+    "dashboard_views": [
+      "Executive overview",
+      "Data protection",
+      "Behavior & review",
+      "Source coverage"
+    ],
+    "dashboard_report_period_consistency_checked": true,
+    "ueba_sections": [
+      {
+        "expandedGraphs": 0,
+        "hash": "#ueba/cases",
+        "headings": [
+          "Behavior casework"
+        ],
+        "height": 844,
+        "part": "cases"
+      },
+      {
+        "expandedGraphs": 0,
+        "hash": "#ueba/signals",
+        "headings": [
+          "Live detection logic"
+        ],
+        "height": 1734,
+        "part": "signals"
+      },
+      {
+        "expandedGraphs": 0,
+        "hash": "#ueba/activity",
+        "headings": [
+          "Observed activity \u00c2\u00b7 30 minutes",
+          "Correlated source timeline"
+        ],
+        "height": 1238,
+        "part": "activity"
+      },
+      {
+        "expandedGraphs": 0,
+        "hash": "#ueba/endpoint",
+        "headings": [
+          "Local endpoint evidence"
+        ],
+        "height": 1691,
+        "part": "endpoint"
+      },
+      {
+        "expandedGraphs": 0,
+        "hash": "#ueba/models",
+        "headings": [
+          "Model eligibility and baseline support",
+          "Completed-day trend",
+          "Completed-day features",
+          "Completed-day explanation"
+        ],
+        "height": 1891,
+        "part": "models"
+      },
+      {
+        "expandedGraphs": 0,
+        "hash": "#ueba/coverage",
+        "headings": [
+          "Telemetry coverage & safe validation"
+        ],
+        "height": 948,
+        "part": "coverage"
+      },
+      {
+        "expandedGraphs": 0,
+        "hash": "#ueba/summary",
+        "headings": [
+          "Behavior intelligence",
+          "What needs attention"
+        ],
+        "height": 1039,
+        "part": "summary"
+      }
+    ],
+    "detection_logic_height_after_collapsing_inactive_rules": 889,
+    "case_graphs_collapsed_by_default": true,
+    "executive_report_saved_through_ui": true,
+    "user_report_saved_through_ui": true,
+    "admin_observed_attempts": 4,
+    "user_own_attempts": 3,
+    "user_scope_options": 1,
+    "privileged_user_navigation_hidden": true,
+    "browser_console_errors_observed": []
+  },
+  "exports": {
+    "formats": [
+      "PDF",
+      "CSV",
+      "JSON"
+    ],
+    "pdf_csv_binary_http_checks_passed": true,
+    "pdf_pages_rendered_and_visually_reviewed": 2,
+    "pdf_sample_source": "Fictional isolated fixture report; not enterprise performance evidence",
+    "snapshots_survive_activity_reset": true,
+    "global_report_not_exposed_by_ownership_after_role_downgrade": true
+  },
+  "regression": {
+    "executed_at_utc": "2026-11-01T06:43:35.943140+00:00",
+    "python": "3.12.10",
+    "tests_run": 238,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "runtime_seconds": 156.218,
+    "suite": "unittest discovery: behavior, acquisition, matcher, gateway, application HTTP integration",
+    "network_scope": "local loopback receiver only; no external AI request",
+    "benchmark_performance_is_separate": true
+  },
+  "additional_checks": {
+    "node_tests_passed": 13,
+    "latest_reporting_tests_passed": 3,
+    "javascript_syntax_passed": true,
+    "pip_check_passed": true
+  },
+  "limits": [
+    "Real User authenticator enrollment still pending; policy enforced at first sign-in",
+    "TOTP is not phishing resistant; no automated lost-factor reset",
+    "Eight-hour process-local sessions end on restart; sign in again after final deployment",
+    "No organizational IdP or enterprise efficacy validation; CERT v1 zero TP preserved",
+    "Reports and audit stores require operational retention and storage monitoring"
+  ]
+}

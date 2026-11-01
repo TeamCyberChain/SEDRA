@@ -177,6 +177,13 @@ test_local_ai_is_independent_of_exhausted_cloud_budget (test_local_ai.LocalPorta
 test_local_inference_needs_no_cloud_key_and_never_calls_cloud (test_local_ai.LocalPortalTests.test_local_inference_needs_no_cloud_key_and_never_calls_cloud) ... ok
 test_local_restricted_block_contacts_neither_model (test_local_ai.LocalPortalTests.test_local_restricted_block_contacts_neither_model) ... ok
 test_local_timeout_no_cloud_fallback (test_local_ai.LocalPortalTests.test_local_timeout_no_cloud_fallback) ... ok
+test_atomic_totp_replay_prevention_and_version_binding (test_mfa.MFACryptoTests.test_atomic_totp_replay_prevention_and_version_binding) ... ok
+test_attempt_throttle_and_expired_codes (test_mfa.MFACryptoTests.test_attempt_throttle_and_expired_codes) ... ok
+test_rfc6238_sha1_vectors (test_mfa.MFACryptoTests.test_rfc6238_sha1_vectors) ... ok
+test_seed_sealed_recovery_hashed_and_codes_one_use (test_mfa.MFACryptoTests.test_seed_sealed_recovery_hashed_and_codes_one_use) ... ok
+test_late_revoked_cookie_cannot_overwrite_completed_mfa_session (test_mfa.MFAHTTPTests.test_late_revoked_cookie_cannot_overwrite_completed_mfa_session) ... ok
+test_no_password_verified_session_cannot_enroll_or_use_mfa_routes (test_mfa.MFAHTTPTests.test_no_password_verified_session_cannot_enroll_or_use_mfa_routes) ... ok
+test_password_stage_cannot_read_application_and_enrollment_requires_valid_csrf_code (test_mfa.MFAHTTPTests.test_password_stage_cannot_read_application_and_enrollment_requires_valid_csrf_code) ... ok
 test_calendar_ingest_retains_zero_days_and_exact_source_evidence (test_multichannel.MultichannelContractTests.test_calendar_ingest_retains_zero_days_and_exact_source_evidence) ... ok
 test_channel_qualified_labels_exclude_other_actor_context (test_multichannel.MultichannelContractTests.test_channel_qualified_labels_exclude_other_actor_context) ... ok
 test_first_device_use_after_zero_calendar_days_is_scoreable (test_multichannel.MultichannelContractTests.test_first_device_use_after_zero_calendar_days_is_scoreable) ... ok
@@ -187,6 +194,9 @@ test_real_api_redacts_and_attributes_denials (test_platform_audit.HTTPTests.test
 test_reset_preserves_audit_and_employee_cannot_read (test_platform_audit.HTTPTests.test_reset_preserves_audit_and_employee_cannot_read) ... ok
 test_concurrent_persistence_and_keyset_pagination (test_platform_audit.StoreTests.test_concurrent_persistence_and_keyset_pagination) ... ok
 test_ui_closed_schema_and_bounded_rate (test_platform_audit.StoreTests.test_ui_closed_schema_and_bounded_rate) ... ok
+test_pdf_csv_integrity_and_closed_generation_schema (test_reporting.ReportingHTTPTests.test_pdf_csv_integrity_and_closed_generation_schema) ... ok
+test_saved_report_is_immutable_authorized_and_survives_activity_reset (test_reporting.ReportingHTTPTests.test_saved_report_is_immutable_authorized_and_survives_activity_reset) ... ok
+test_totals_and_live_priority_exclude_synthetic_model_and_scope_other_actors (test_reporting.ReportingHTTPTests.test_totals_and_live_priority_exclude_synthetic_model_and_scope_other_actors) ... ok
 test_all_89_pinned_registry_examples_pass_structure_length_and_mod97 (test_structured_types.StructuredDataTypeTests.test_all_89_pinned_registry_examples_pass_structure_length_and_mod97) ... ok
 test_all_expanded_positive_cases_detect_the_expected_type (test_structured_types.StructuredDataTypeTests.test_all_expanded_positive_cases_detect_the_expected_type) ... ok
 test_all_negative_controls_have_no_structured_block (test_structured_types.StructuredDataTypeTests.test_all_negative_controls_have_no_structured_block) ... ok
@@ -228,6 +238,6 @@ test_request_ledger_drives_blocks_even_if_secondary_audit_event_is_missing (test
 test_scopes_no_new_endpoint_ingestion_and_masked_evidence (test_ueba.UEBAHTTPTests.test_scopes_no_new_endpoint_ingestion_and_masked_evidence) ... ok
 
 ----------------------------------------------------------------------
-Ran 228 tests in 223.684s
+Ran 238 tests in 154.527s
 
 OK

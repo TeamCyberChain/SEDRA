@@ -3,7 +3,7 @@ import json, sqlite3, time
 from contextlib import contextmanager
 
 UI_EVENTS={'navigation','theme_light','theme_dark','control','selection','client_error','page_open'}
-CONTROLS={'overview','alerts','investigation','inventory','transfers','integrations','audit','portal','refresh','submit','review','revoke','configure','document','endpoint','filter','identity','other'}
+CONTROLS={'overview','alerts','investigation','inventory','transfers','integrations','audit','dashboards','reports','portal','refresh','submit','review','revoke','configure','document','endpoint','filter','identity','other'}
 class AuditLog:
  def __init__(self,path):
   self.path=str(path);self.write_failures=0

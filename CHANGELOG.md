@@ -1,3 +1,11 @@
+## 0.17.0 — Focused UEBA, mandatory MFA and reporting
+
+- Split UEBA into seven directly accessible sidebar subsections, with collapsed graphs and bounded timelines.
+- Require TOTP or one-use recovery verification for every local account; seal seeds using a DPAPI-protected key on Windows, rotate sessions and reject atomic replay/stale account versions. Require MFA evidence from OIDC assertions.
+- Add four operational/executive dashboards; exclude synthetic daily scores from live high-priority counts and preserve unresolved delivery states.
+- Generate retained, authorized Executive, Security and Activity report snapshots with local PDF/CSV/JSON exports, integrity digests and metadata audit events.
+- Fix a browser-observed session rotation race: late unauthorized polls cannot overwrite completed sign-in cookies.
+
 ## 0.16.0 — Scoped Users and application UEBA v3
 
 - Hide privileged navigation and omit population evaluation/alternate identities from subject-scoped User state; independently verify API denials and actor isolation.

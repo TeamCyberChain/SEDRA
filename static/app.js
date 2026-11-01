@@ -88,6 +88,7 @@ let state = null;
 const alertPageId = location.pathname === '/alert' ? new URLSearchParams(location.search).get('id') : null;
 if(alertPageId){document.body.classList.add('alert-page');document.querySelector('#view-alerts h1').textContent='Alert investigation';}
 let selectedTab = "overview";
+let selectedUebaSection="summary";
 let selectedSubject = new URLSearchParams(location.search).get('subject');
 let analysisSource = "lab";
 let selectedDocument = null;
@@ -255,7 +256,7 @@ async function loadState({silent = false} = {}) {
     showError("");
     render();
   } catch (error) {
-    if(error.status===401){state=null;if(window.SedraAudit)window.SedraAudit.sync();document.body.classList.add("session-required");$("session-signin").hidden=false;$("identity-select").disabled=true;if(window.SedraIntegrations)window.SedraIntegrations.sync();}
+    if(error.status===401){state=null;if(window.SedraAudit)window.SedraAudit.sync();document.body.classList.add("session-required");$("session-signin").hidden=false;$("identity-select").disabled=true;if(window.SedraIntegrations)window.SedraIntegrations.sync();if(window.SedraWorkspace)window.SedraWorkspace.sync();}
     $("connection-status").classList.add("offline");
     $("connection-status").innerHTML = '<span class="status-dot"></span>Connection unavailable';
     if (!silent || !state) showError(error.message);
@@ -269,10 +270,12 @@ async function loadState({silent = false} = {}) {
 }
 
 function changeTab(tab, updateHash = true) {
-  if(state&&!isAnalyst()&&['alerts','integrations','audit'].includes(tab))tab='overview';
+  if(tab.startsWith('ueba/')){const part=tab.slice(5);selectedUebaSection=['summary','cases','signals','activity','endpoint','models','coverage'].includes(part)?part:'summary';tab='investigation';}
+  if(state&&!isAnalyst()&&selectedUebaSection==='cases')selectedUebaSection='summary';
+  if(state&&!isAnalyst()&&['alerts','integrations','audit','dashboards'].includes(tab))tab='overview';
   if(tab==='audit'){window.SedraSettings?.open('audit');tab='overview';}
   if(tab==="transfers")tab="lab";
-  if (!["overview","alerts","investigation","inventory","lab","integrations","audit"].includes(tab)) tab = "overview";
+  if (!["overview","alerts","investigation","inventory","lab","integrations","audit","dashboards","reports"].includes(tab)) tab = "overview";
   if(alertPageId && updateHash){location.assign('/#'+(tab==='lab'?'transfers':tab));return;}
   selectedTab = tab;
   if (updateHash) window.scrollTo({top:0,behavior:"instant"});
@@ -282,8 +285,11 @@ function changeTab(tab, updateHash = true) {
     button.classList.toggle("active", active);
     if (active) button.setAttribute("aria-current", "page"); else button.removeAttribute("aria-current");
   });
-  $("breadcrumb-current").textContent = {overview:"Overview",investigation:"UEBA",lab:"Transfer Control",inventory:"Data Inventory",alerts:alertPageId?"Alert investigation":"Alerts",integrations:"Identity & integrations",audit:"Audit Logs"}[tab];
-  if (updateHash) history.replaceState(null, "", `/#${tab==="lab"?"transfers":tab}`);
+  $("breadcrumb-current").textContent = {overview:"Overview",investigation:"UEBA",lab:"Transfer Control",inventory:"Data Inventory",alerts:alertPageId?"Alert investigation":"Alerts",integrations:"Identity & integrations",audit:"Audit Logs",dashboards:"Dashboards",reports:"Reports"}[tab];
+  if (updateHash) history.replaceState(null, "", `/#${tab==='investigation'?'ueba/'+selectedUebaSection:tab==="lab"?"transfers":tab}`);
+  const subnav=$('ueba-subnav');if(subnav)subnav.hidden=tab!=='investigation';
+  document.querySelector('[data-tab="investigation"]')?.setAttribute('aria-expanded',String(tab==='investigation'));
+  document.querySelectorAll('[data-ueba-section]').forEach(b=>b.setAttribute('aria-current',String(b.dataset.uebaSection===selectedUebaSection)));
   if (state) {
     renderSourceContext();
     if (tab === "investigation") renderInvestigation();
@@ -292,20 +298,22 @@ function changeTab(tab, updateHash = true) {
     if (tab === "alerts" && typeof renderAlerts === "function") renderAlerts();
     if(tab==='audit' && window.SedraAudit){window.SedraAudit.sync();window.SedraAudit.load();}
     if(tab==='integrations' && window.SedraIntegrations)window.SedraIntegrations.refresh();
+    if(['dashboards','reports'].includes(tab)&&window.SedraWorkspace)window.SedraWorkspace.open(tab);
   }
 }
 
 function syncNavigationAccess() {
   const analyst=isAnalyst();
-  document.querySelectorAll('[data-tab="alerts"],[data-tab="integrations"]').forEach(n=>{n.hidden=!analyst;});
+  document.querySelectorAll('[data-tab="alerts"],[data-tab="integrations"],[data-tab="dashboards"],[data-ueba-admin]').forEach(n=>{n.hidden=!analyst;});
   const evaluationPanel=$('evaluation-content')?.closest('.panel');if(evaluationPanel)evaluationPanel.hidden=!analyst;
-  if(!analyst&&['alerts','integrations','audit'].includes(selectedTab)){
+  if(!analyst&&['alerts','integrations','audit','dashboards'].includes(selectedTab)){
     document.body.classList.remove('alert-page');changeTab('overview',false);
   }
 }
 
 function render() {
   syncNavigationAccess();
+  if(window.SedraWorkspace)window.SedraWorkspace.sync();
   const identity = isAnalyst() ? "analyst" : state.session?.subject_id || "analyst";
   $("identity-select").closest(".identity-control").hidden=Boolean(state.session?.principal);
   $("identity-select").value = identity;
@@ -427,34 +435,30 @@ function eventDetailHTML(detail) {
 }
 
 function renderInvestigation(backgroundRefresh=false) {
-  // Preserve an analyst's in-progress controls; explicit navigation still renders immediately.
-  if(backgroundRefresh && document.activeElement?.matches('.behavior-cases input,.behavior-cases select') &&
-     document.activeElement.closest('.behavior-cases').dataset.behaviorSubject===selectedSubject &&
-     typeof behaviorEpoch!=='undefined' && behaviorEpoch===state.session.csrf_token+'|'+state.session.role+'|'+state.behavior_cases?.generation){
-    const message=$('behavior-operation-message');if(message)message.textContent='Live data refreshed. Move focus outside these controls to update the case view; actions check the current revision.';
-    return;
-  }
-  const cert = usingBenchmark();
-  const subject = analysisSubjects().find(s => s.subject_id === selectedSubject);
-  if (!subject) { $("investigation-content").innerHTML = '<div class="panel no-data-panel">No subject data is available for this source.</div>'; return; }
-  const features = featureEntries(subject.features);
-  const reasons = array(subject.reasons);
-  const events = cert ? [] : array(state.events).filter(event => event.subject_id === subject.subject_id).sort(newestFirst);
-  const requests = cert ? [] : array(state.requests).filter(request => request.subject_id === subject.subject_id).sort(newestFirst);
-  const provenance = typeof subject.provenance === "object" ? JSON.stringify(subject.provenance) : subject.provenance || (cert ? currentBenchmark().provenance || "cert_synthetic" : "synthetic_lab");
-  const sourceCaption = cert ? `${currentBenchmark().dataset || "CERT r4.2"} · ${provenance} · historical completed-day evaluation` : `${provenance} · completed user-day context`;
-  const activityContent = cert ? benchmarkSourceEvidence(subject) : `<div class="event-list">${events.length ? events.slice(0,20).map(event => `<div class="event-row"><span class="event-marker"></span><div class="event-body"><h3>${esc(titleCase(event.kind || event.event_type || "Event"))}</h3>${eventDetailHTML(event.detail ?? event.details)}<time class="event-time">${esc(dateTime(event.timestamp || event.created_at))}</time></div></div>`).join("") : '<div class="empty-state inline">No application events for this subject yet.</div>'}</div>`;
-  const historyContent = cert
-    ? `<section class="panel investigation-history"><div class="panel-heading"><div><h2>Completed-day source record</h2><p>Historical benchmark evidence as supplied by the server.</p></div><span class="neutral-tag">Read-only benchmark</span></div><div class="benchmark-record"><details class="evidence-json"><summary>Inspect full historical record and available source identifiers</summary><pre>${esc(JSON.stringify(subject,null,2))}</pre></details></div></section>`
-    : `<section class="panel investigation-history"><div class="panel-heading"><div><h2>Transfer history</h2><p>Gateway decisions and delivery states for this subject.</p></div><span class="neutral-tag">${requests.length} requests</span></div>${requestList(requests)}</section>`;
+  if(backgroundRefresh&&selectedUebaSection==='cases'&&document.activeElement?.matches('.behavior-cases input,.behavior-cases select'))return;
+  const subject=analysisSubjects().find(s=>s.subject_id===selectedSubject);
+  if(!subject){$('investigation-content').innerHTML='<div class="panel workspace-empty">No subject data is available in this scope.</div>';return;}
+  if(!isAnalyst()&&selectedUebaSection==='cases')selectedUebaSection='summary';
   if(typeof rememberCaseExpansion==='function')rememberCaseExpansion();
-  $("investigation-content").innerHTML = `
-    ${!cert && typeof behaviorCasePanelHTML === "function" ? behaviorCasePanelHTML(subject) : ""}
-    <section class="panel"><div class="subject-overview"><div class="subject-identification"><span class="avatar">${esc(String(subject.subject_id).slice(-2).toUpperCase())}</span><div><h2>${esc(subject.subject_id)}</h2><p>${esc(subject.role || "Role not supplied")} · ${esc(analysisTimestamp(subject.as_of || subject.date))}</p></div></div><div class="subject-score-row"><div class="subject-score"><label>B · Effective policy priority</label><strong>${score(subject.behavior_score)}</strong><small>Priority, not probability</small></div><div class="subject-score"><label>R · Completed-day rules</label><strong>${score(number(subject.rule_score) ? subject.rule_score*100 : null)}</strong><small>Displayed on 0–100 scale</small></div><div class="subject-score"><label>A · Completed-day IF tail</label><strong>${score(number(subject.ml_score) ? subject.ml_score*100 : null)}</strong><small>Displayed on 0–100 scale</small></div></div></div><div class="provenance-detail">Source: ${esc(sourceCaption)}</div>${!cert && subject.live_context && !subject.ueba ? liveContextHTML(subject) : ""}</section>
-    ${!cert && typeof uebaInvestigationHTML === "function" ? uebaInvestigationHTML(subject) : ""}
-    <h2 class="section-label">Observed behavioral features</h2><div class="feature-grid">${features.length ? features.map(featureCard).join("") : '<div class="empty-state">No feature values supplied.</div>'}</div>
-    <div class="investigation-columns"><section class="panel"><div class="panel-heading"><div><h2>Completed-day model explanation</h2><p>Evidence returned by the behavioral scoring engine.</p></div><span class="neutral-tag">${reasons.length} signals</span></div><div class="reason-list">${reasons.length ? reasons.map(reasonCard).join("") : '<div class="empty-state inline">No explanatory signals were returned.</div>'}</div></section>
-    <section class="panel"><div class="panel-heading"><div><h2>${cert ? "Historical source evidence" : "Application activity"}</h2><p>${cert ? "Dataset provenance and available original identifiers." : "Recorded application events. Separate from the completed-day baseline."}</p></div></div>${activityContent}</section></div>${historyContent}`;
+  document.querySelectorAll('[data-ueba-section]').forEach(b=>b.setAttribute('aria-current',String(b.dataset.uebaSection===selectedUebaSection)));
+  const names={summary:'Summary',cases:'Cases',signals:'Detection logic',activity:'Activity & sources',endpoint:'Endpoint',models:'Models & baselines',coverage:'Coverage'};
+  if(selectedTab==='investigation')$('breadcrumb-current').textContent='UEBA / '+names[selectedUebaSection];
+  const header=`<div class="ueba-page-context"><span class="avatar">${esc(String(subject.subject_id).slice(-2))}</span><div><strong>${esc(subject.subject_id)} · ${esc(subject.role||'')}</strong><p>${names[selectedUebaSection]} · ${usingBenchmark()?'Historical research source':'Synthetic dated model with observed workspace activity'}</p></div></div>`;
+  let body='';
+  if(usingBenchmark()){
+    body='<div class="panel workspace-brief"><h2>Historical benchmark record</h2><p>Live sections require Workspace activity. This is a separate historical research source.</p></div>';
+    if(selectedUebaSection==='models')body+=`<section class="panel workspace-brief">${benchmarkSourceEvidence(subject)}</section><div class="feature-grid">${featureEntries(subject.features).map(featureCard).join('')}</div>`;
+  }else if(selectedUebaSection==='cases')body=behaviorCasePanelHTML(subject);
+  else{
+    body=typeof uebaPaneHTML==='function'?uebaPaneHTML(subject,selectedUebaSection):'<p>Loading UEBA section…</p>';
+    if(selectedUebaSection==='models')body+=`<h2 class="section-label">Completed-day features</h2><div class="feature-grid">${featureEntries(subject.features).map(featureCard).join('')}</div><section class="panel workspace-brief"><h2>Completed-day explanation</h2>${array(subject.reasons).map(reasonCard).join('')}</section>`;
+    if(selectedUebaSection==='activity'){
+      const events=array(state.events).filter(e=>e.subject_id===subject.subject_id).sort(newestFirst).slice(0,8);
+      const requests=array(state.requests).filter(r=>r.subject_id===subject.subject_id).sort(newestFirst);
+      body+=`<details class="panel workspace-brief"><summary>Application events · latest ${events.length}</summary>${events.map(e=>`<details class="activity-record"><summary>${esc(titleCase(e.kind))} · ${esc(dateTime(e.timestamp))}</summary>${eventDetailHTML(e.detail)}</details>`).join('')}</details><details class="panel workspace-brief"><summary>Transfer history · latest ${Math.min(10,requests.length)} / ${requests.length}</summary>${requestList(requests.slice(0,10))}<p class="scope-note">All authorized requests remain available in Transfer Control.</p></details>`;
+    }
+  }
+  $('investigation-content').innerHTML=header+'<div class="ueba-pane-content" data-current-ueba="'+selectedUebaSection+'">'+body+'</div>';
 }
 
 function renderDocumentOptions() {

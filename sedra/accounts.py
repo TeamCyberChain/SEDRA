@@ -11,6 +11,8 @@ class Accounts:
    if 'permissions' not in {r['name'] for r in c.execute('PRAGMA table_info(roles)')}:c.execute("ALTER TABLE roles ADD COLUMN permissions TEXT NOT NULL DEFAULT '[]'")
    if 'auth_version' not in {r['name'] for r in c.execute('PRAGMA table_info(users)')}:c.execute('ALTER TABLE users ADD COLUMN auth_version INTEGER NOT NULL DEFAULT 0')
    for base in BASES:c.execute('INSERT OR IGNORE INTO roles(id,name,base) VALUES(?,?,?)',(base,base.title(),base))
+  from .mfa import MFA
+  self.mfa=MFA(self)
  @contextmanager
  def db(self):
   c=sqlite3.connect(self.path,timeout=10);c.row_factory=sqlite3.Row
@@ -32,7 +34,7 @@ class Accounts:
   with self.db() as c:
    roles=[dict(r) for r in c.execute('SELECT * FROM roles ORDER BY name')]
    for r in roles:r['permissions']=sorted(ACCOUNT_PERMISSIONS|{'roles.manage'}) if r['base']=='administrator' else json.loads(r['permissions']);r['builtin']=r['id'] in BASES
-   return {'roles':roles,'permission_catalog':sorted(ACCOUNT_PERMISSIONS),'users':[dict(r) for r in c.execute('SELECT u.id,u.username,u.role_id,u.subject,u.active,r.name role_name,r.base FROM users u JOIN roles r ON u.role_id=r.id ORDER BY username')]}
+   return {'roles':roles,'permission_catalog':sorted(ACCOUNT_PERMISSIONS),'users':[dict(r) for r in c.execute('SELECT u.id,u.username,u.role_id,u.subject,u.active,r.name role_name,r.base,EXISTS(SELECT 1 FROM mfa WHERE uid=u.id) mfa_enrolled FROM users u JOIN roles r ON u.role_id=r.id ORDER BY username')]}
  def create_role(self,b):
   update=b.get('action')=='update'
   expected={'action','id','name','permissions'} if update else {'name','base'}

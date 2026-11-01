@@ -13,7 +13,7 @@ function controls(value){busy=value;document.querySelectorAll('button,input,sele
 function renderConnection(){
   if(!connection||!session)return;
   const analyst=session.role==='analyst';
-  document.querySelectorAll('.portal-nav a[href="/#alerts"],.portal-nav a[href="/integrations"]').forEach(n=>{n.hidden=!analyst;});
+  document.querySelectorAll('.portal-nav a[href="/#alerts"],.portal-nav a[href="/integrations"],.portal-nav [data-executive-nav]').forEach(n=>{n.hidden=!analyst;});
   const local=connection.provider_id==='local';
   $('connection-status').textContent=connection.configured?`${local?'Local AI ready':'OpenAI configured'} · ${connection.model}`:`${local?'Local AI':'OpenAI'} not connected`;
   $('flow-label').textContent=`Employee → SEDRA → ${local?'Local Qwen':'OpenAI'} → answer`;

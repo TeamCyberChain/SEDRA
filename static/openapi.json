@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "SEDRA scoped integration API",
-    "version": "0.16.0",
+    "version": "0.17.0",
     "description": "Loopback prototype. See docs/INTEGRATIONS.md for cursor, authorization and evidence contracts."
   },
   "servers": [
@@ -388,6 +388,104 @@
           },
           "403": {
             "description": "Analyst session required"
+          }
+        }
+      }
+    },
+    "/api/dashboards": {
+      "get": {
+        "summary": "Analyst operational aggregates; days is 1, 7 or 30",
+        "description": "Cookie session authentication; POST requires X-CSRF-Token. These UI endpoints do not accept scoped machine keys. See docs/WORKSPACE_MFA_REPORTS.md.",
+        "responses": {
+          "200": {
+            "description": "Authorized result"
+          },
+          "400": {
+            "description": "Invalid bounded schema"
+          },
+          "401": {
+            "description": "Password and MFA sign-in required"
+          },
+          "403": {
+            "description": "CSRF, role or subject denied"
+          }
+        }
+      }
+    },
+    "/api/reports": {
+      "get": {
+        "summary": "List authorized saved snapshots; id and format=json|csv|pdf retrieve one",
+        "description": "Cookie session authentication; POST requires X-CSRF-Token. These UI endpoints do not accept scoped machine keys. See docs/WORKSPACE_MFA_REPORTS.md.",
+        "responses": {
+          "200": {
+            "description": "Authorized result"
+          },
+          "400": {
+            "description": "Invalid bounded schema"
+          },
+          "401": {
+            "description": "Password and MFA sign-in required"
+          },
+          "403": {
+            "description": "CSRF, role or subject denied"
+          }
+        }
+      },
+      "post": {
+        "summary": "Save snapshot: template executive|security|activity, integer days 1|7|30, subject_id string; User activity/own subject only",
+        "description": "Cookie session authentication; POST requires X-CSRF-Token. These UI endpoints do not accept scoped machine keys. See docs/WORKSPACE_MFA_REPORTS.md.",
+        "responses": {
+          "200": {
+            "description": "Authorized result"
+          },
+          "400": {
+            "description": "Invalid bounded schema"
+          },
+          "401": {
+            "description": "Password and MFA sign-in required"
+          },
+          "403": {
+            "description": "CSRF, role or subject denied"
+          }
+        }
+      }
+    },
+    "/api/account/mfa/enroll": {
+      "post": {
+        "summary": "Pending password-verified session only; empty object; local setup QR and key",
+        "description": "Cookie session authentication; POST requires X-CSRF-Token. These UI endpoints do not accept scoped machine keys. See docs/WORKSPACE_MFA_REPORTS.md.",
+        "responses": {
+          "200": {
+            "description": "Authorized result"
+          },
+          "400": {
+            "description": "Invalid bounded schema"
+          },
+          "401": {
+            "description": "Password and MFA sign-in required"
+          },
+          "403": {
+            "description": "CSRF, role or subject denied"
+          }
+        }
+      }
+    },
+    "/api/account/mfa/verify": {
+      "post": {
+        "summary": "Pending challenge only; object code authenticator or one-use recovery; rotate to full session",
+        "description": "Cookie session authentication; POST requires X-CSRF-Token. These UI endpoints do not accept scoped machine keys. See docs/WORKSPACE_MFA_REPORTS.md.",
+        "responses": {
+          "200": {
+            "description": "Authorized result"
+          },
+          "400": {
+            "description": "Invalid bounded schema"
+          },
+          "401": {
+            "description": "Password and MFA sign-in required"
+          },
+          "403": {
+            "description": "CSRF, role or subject denied"
           }
         }
       }

@@ -39,4 +39,8 @@ The optional local AI supplement contains official llama.cpp CPU runtime build b
 
 ## Optional SSO dependencies
 
-PyJWT (MIT), cryptography (Apache-2.0/BSD), cffi and pycparser (MIT) are installed separately through requirements-sso.txt with exact pins. Their distribution license files remain authoritative. OIDC implementation follows https://openid.net/specs/openid-connect-core-1_0.html and uses https://pyjwt.readthedocs.io/en/stable/usage.html for signature/claim verification.
+PyJWT (MIT) remains an optional SSO dependency. Cryptography (Apache-2.0/BSD), cffi and pycparser (MIT) are core MFA dependencies with exact pins. Their distribution license files remain authoritative. OIDC implementation follows https://openid.net/specs/openid-connect-core-1_0.html and uses https://pyjwt.readthedocs.io/en/stable/usage.html for signature/claim verification.
+
+## MFA and reporting dependencies
+
+qrcode 8.2 (BSD), ReportLab 4.5.1 (BSD), Pillow 13.0.0 (MIT-CMU), charset-normalizer 3.5.2 (MIT) and colorama 0.4.6 (BSD) are pinned in requirements.txt. The original distribution license files remain authoritative. Sources: https://pypi.org/project/qrcode/ , https://www.reportlab.com/ , https://python-pillow.org/ . Authenticator behavior follows RFC 6238. QR codes and PDFs are generated locally. No external QR service is used.

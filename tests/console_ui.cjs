@@ -3,6 +3,24 @@ const test=require('node:test'),assert=require('node:assert/strict'),fs=require(
 const path=require('node:path'),root=path.resolve(__dirname,'..');
 const escaped=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
+test('dashboard coalesces period changes and drops privileged results after account changes',async()=>{
+ const nodes=new Map(),listeners={},pending=[];
+ const node=id=>{if(!nodes.has(id))nodes.set(id,{innerHTML:'',value:'7',hidden:false,replaceChildren(){this.innerHTML='';}});return nodes.get(id);};
+ const ctx=vm.createContext({document:{getElementById:node,querySelector:()=>node('navigation'),addEventListener:(n,f)=>listeners[n]=f},window:{},state:{session:{role:'analyst',csrf_token:'admin',subject_id:null}},selectedTab:'overview',isAnalyst:()=>ctx.state.session.role==='analyst',esc:escaped,dateTime:()=>'',setInterval(){},api:url=>new Promise(resolve=>pending.push({url,resolve}))});
+ vm.runInContext(fs.readFileSync(path.join(root,'static/workbench.js'),'utf8'),ctx);
+ const result=(days,count)=>({window:{days},metrics:{attempts:count},cases:{open:0},trend:[],recommended_actions:[],data_quality:{detail_rows:count}});
+ ctx.window.SedraWorkspace.sync();const first=ctx.window.SedraWorkspace.open('dashboards',true);
+ listeners.change({target:{id:'dashboard-period',value:'30'}});
+ assert.equal(pending.length,1);pending[0].resolve(result(7,777));await first;
+ assert.equal(pending.length,2);assert(pending[1].url.endsWith('days=30'));assert(!node('dashboards-content').innerHTML.includes('777'));
+ pending[1].resolve(result(30,30));await new Promise(setImmediate);
+ assert.equal(node('dashboard-period').value,'30');assert(node('dashboards-content').innerHTML.includes('<strong>30</strong>'));
+ const late=ctx.window.SedraWorkspace.open('dashboards',true);
+ ctx.state={session:{role:'employee',csrf_token:'user',subject_id:'lab-001'}};ctx.window.SedraWorkspace.sync();
+ pending[2].resolve(result(30,999));await late;
+ assert.equal(node('dashboards-content').innerHTML,'');assert(node('navigation').hidden);
+});
+
 test('alert queue renders safe new-tab URLs instead of inline scrolling controls',async()=>{
   const elements=new Map(),opened=[],navigated=[];
   function node(id){if(!elements.has(id))elements.set(id,{hidden:false,textContent:'',innerHTML:'',value:id==='alert-status-filter'?'active':id==='alert-severity-filter'?'all':'',checked:false,setAttribute(){},contains(){return false;},addEventListener(){}});return elements.get(id);}
