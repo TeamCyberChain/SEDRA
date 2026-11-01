@@ -1,0 +1,65 @@
+{
+  "version": "0.15.0",
+  "verified_at_utc": "2026-11-01T05:42:14.405305+00:00",
+  "retained_transfer_counts": {
+    "attempted": 30,
+    "forwarded": 1,
+    "blocked": 26,
+    "unknown": 3
+  },
+  "existing_administrator_signin": true,
+  "existing_accounts_preserved": true,
+  "real_account_passwords_changed": false,
+  "real_accounts_created": false,
+  "endpoint_sensor_restored": true,
+  "browser_observations": {
+    "sidebar_anchored_flyout": true,
+    "no_blurred_backdrop": true,
+    "nested_user_sections": [
+      "User Creation",
+      "User Management",
+      "Roles"
+    ],
+    "primary_user_management_visible": true,
+    "roles_capability_descriptions_visible": true,
+    "password_reset_form_opened_in_isolated_fixture": true,
+    "dark_graphite_shared_console_and_portal": true,
+    "portal_button_style_collision_reproduced_fixed_retested": true,
+    "mobile_390_panel_inside_viewport": true,
+    "mobile_content_horizontal_overflow": false,
+    "directory_search_empty_state": true,
+    "escape_closes_panel": true,
+    "temporary_viewport_reset": true
+  },
+  "functional_security_tests": [
+    "legacy account migration preserves credentials",
+    "password reset invalidates both existing sessions",
+    "reset/signin race refuses stale password session",
+    "disable-enable does not resurrect a cookie",
+    "delegated operations independently enforced",
+    "delegated privilege assignment and privileged targets denied",
+    "role permission revocation applies to current sessions",
+    "built-in roles and last active Administrator protected",
+    "CSRF and password audit/storage redaction"
+  ],
+  "limits": [
+    "Custom operational profiles remain fixed; per-action delegation covers account administration only",
+    "No MFA, self-service password recovery or forced first-login change",
+    "Local account and OIDC modes remain alternatives",
+    "Test passwords and account mutations are confined to disposable loopback stores"
+  ],
+  "python_summary": {
+    "executed_at_utc": "2026-11-01T05:45:10.912112+00:00",
+    "python": "3.12.10",
+    "tests_run": 223,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "runtime_seconds": 225.365,
+    "suite": "unittest discovery: behavior, acquisition, matcher, gateway, application HTTP integration",
+    "network_scope": "local loopback receiver only; no external AI request",
+    "benchmark_performance_is_separate": true
+  },
+  "node_tests": 11
+}

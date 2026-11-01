@@ -40,7 +40,7 @@ from .integrations import Integrations,OIDC,AuthError,Conflict,RateLimit
 from .browser_guard import BrowserGuard,EXTENSION_ORIGIN
 
 ROOT = Path(__file__).resolve().parent.parent
-AUDIT_ROUTES = {'/api/account/context','/api/account/bootstrap','/api/account/login','/api/accounts','/api/accounts/users','/api/accounts/roles','/settings.js','/settings.css','/login','/login.js','/alerts.js','/app.js','/audit.js','/browser-harness-transport.js','/browser-harness.html','/browser-lab.html','/browser-lab.js','/cases.js','/console.css','/endpoint.js','/index.html','/integrations.html','/integrations.js','/openapi.json','/portal.css','/portal.html','/portal.js','/presentation.js','/sedra.css','/style.css','/theme.css','/theme.js','/ueba.js','/api/audit/context','/api/reset', '/api/integrations/keys', '/api/logout', '/browser-lab', '/api/v1/ueba', '/api/state', '/api/ueba/counterfactual', '/health', '/api/audit', '/api/document', '/api/v1/cases', '/browser-harness', '/api/session', '/portal', '/api/v1/alerts/action', '/api/reconcile', '/api/endpoint/action', '/api/alerts', '/api/v1/telemetry', '/api/endpoint', '/api/transfer', '/api/ueba/cases', '/api/portal/status', '/api/portal/configure', '/auth/callback', '/api/v1/alerts', '/api/portal/chat', '/', '/api/v1/cases/changes', '/auth/login', '/api/catalog/labels', '/integrations', '/alert', '/api/v1/browser/inspect', '/api/v1/cases/action', '/api/alerts/action', '/api/ueba', '/api/audit/ui', '/api/ueba/cases/action'}
+AUDIT_ROUTES = {'/api/accounts/password','/api/account/context','/api/account/bootstrap','/api/account/login','/api/accounts','/api/accounts/users','/api/accounts/roles','/settings.js','/settings.css','/login','/login.js','/alerts.js','/app.js','/audit.js','/browser-harness-transport.js','/browser-harness.html','/browser-lab.html','/browser-lab.js','/cases.js','/console.css','/endpoint.js','/index.html','/integrations.html','/integrations.js','/openapi.json','/portal.css','/portal.html','/portal.js','/presentation.js','/sedra.css','/style.css','/theme.css','/theme.js','/ueba.js','/api/audit/context','/api/reset', '/api/integrations/keys', '/api/logout', '/browser-lab', '/api/v1/ueba', '/api/state', '/api/ueba/counterfactual', '/health', '/api/audit', '/api/document', '/api/v1/cases', '/browser-harness', '/api/session', '/portal', '/api/v1/alerts/action', '/api/reconcile', '/api/endpoint/action', '/api/alerts', '/api/v1/telemetry', '/api/endpoint', '/api/transfer', '/api/ueba/cases', '/api/portal/status', '/api/portal/configure', '/auth/callback', '/api/v1/alerts', '/api/portal/chat', '/', '/api/v1/cases/changes', '/auth/login', '/api/catalog/labels', '/integrations', '/alert', '/api/v1/browser/inspect', '/api/v1/cases/action', '/api/alerts/action', '/api/ueba', '/api/audit/ui', '/api/ueba/cases/action'}
 
 
 def utcnow():
@@ -479,8 +479,8 @@ def handler_for(app):
             if session and time.time() - session["created_at"] < 8 * 3600 and time.time()<session.get("expires_at",float("inf")):
                 if app.accounts.enabled:
                     claims=app.accounts.claims(session.get('account_id',''))
-                    if claims:session.update(claims)
-                    else:session.update(role='unauthenticated',subject_id=None,can_manage_users=False,account_id=None,username=None,account_role=None,access_profile=None,principal=None)
+                    if claims and claims['auth_version']==session.get('auth_version'):session.update(claims)
+                    else:session.update(role='unauthenticated',subject_id=None,can_manage_users=False,can_manage_roles=False,permissions=[],account_id=None,username=None,account_role=None,access_profile=None,principal=None)
                 self._audit_actor=session.get('principal') or session.get('subject_id') or session['role']
                 return session_id, session, False
             session_id, session = app.new_session()
@@ -591,9 +591,9 @@ def handler_for(app):
                     return self.respond(200,app.browser_guard.lab_receipts(),cookie=cookie)
                 if path.path=='/auth/login' and app.accounts.enabled:return self.redirect('/login',session_id)
                 if path.path=='/api/account/context':
-                    return self.respond(200,{'csrf_token':session['csrf_token'],'enabled':app.accounts.enabled,'account':{k:session.get(k) for k in ('username','account_role','access_profile','subject_id','can_manage_users')},'bootstrap_allowed':not app.accounts.enabled and not app.oidc and session['role']=='analyst'},cookie=cookie)
+                    return self.respond(200,{'csrf_token':session['csrf_token'],'enabled':app.accounts.enabled,'account':{k:session.get(k) for k in ('account_id','username','account_role','access_profile','subject_id','can_manage_users','can_manage_roles','permissions')},'bootstrap_allowed':not app.accounts.enabled and not app.oidc and session['role']=='analyst'},cookie=cookie)
                 if path.path=='/api/accounts':
-                    if not session.get('can_manage_users'):raise PermissionError('Administrator required')
+                    if 'accounts.read' not in session.get('permissions',[]):raise PermissionError('Account directory permission required')
                     return self.respond(200,app.accounts.listing()|{'subjects':sorted(app.subjects)},cookie=cookie)
                 if path.path=='/auth/login' and app.oidc:
                     with app.guard:url=app.oidc.begin(session_id)
@@ -700,7 +700,7 @@ def handler_for(app):
                 action=body.get('action')
                 self._audit_operation=action if isinstance(action,str) and action in ('revoke','start','stop','probe','ACKNOWLEDGE','READ','RESOLVE','REOPEN') else 'submit'
                 if route=='/api/account/login':
-                    uid=app.accounts.login(body);new_id,new_session=app.new_session();new_session.update(app.accounts.claims(uid));self._audit_actor=new_session['principal']
+                    claims=app.accounts.login(body,with_claims=True);new_id,new_session=app.new_session();new_session.update(claims);self._audit_actor=new_session['principal']
                     with app.guard:app.sessions.pop(session_id,None)
                     return self.respond(200,{'signed_in':True},cookie=new_id)
                 if route=='/api/account/bootstrap':
@@ -709,11 +709,15 @@ def handler_for(app):
                     with app.guard:app.sessions.clear()
                     new_id,new_session=app.new_session();new_session.update(app.accounts.claims(uid));self._audit_actor=new_session['principal']
                     return self.respond(200,{'initialized':True},cookie=new_id)
-                if route in ('/api/accounts/users','/api/accounts/roles'):
-                    if not session.get('can_manage_users'):raise PermissionError('Administrator required')
-                    if route.endswith('/roles'):uid=app.accounts.create_role(body);event='role_created'
-                    elif body.get('action')=='update':app.accounts.update_user({k:v for k,v in body.items() if k!='action'},app.subjects);uid=body['id'];event='account_updated'
-                    else:uid=app.accounts.create_user(body,app.subjects);event='account_created'
+                if route in ('/api/accounts/users','/api/accounts/roles','/api/accounts/password'):
+                    if route.endswith('/roles'):
+                        if not session.get('can_manage_roles'):raise PermissionError('Administrator required for role permissions')
+                        uid=app.accounts.create_role(body);event='role_updated' if body.get('action')=='update' else 'role_created'
+                    elif route.endswith('/password'):
+                        if 'accounts.reset_password' not in session.get('permissions',[]):raise PermissionError('Password reset permission required')
+                        app.accounts.reset_password(body,session);uid=body['id'];event='account_password_reset'
+                    elif body.get('action')=='update':app.accounts.update_user({k:v for k,v in body.items() if k!='action'},app.subjects,actor=session);uid=body['id'];event='account_updated'
+                    else:uid=app.accounts.create_user(body,app.subjects,actor=session);event='account_created'
                     app.platform_audit.append('APPLICATION',session['principal'],event,{'id':uid})
                     return self.respond(200,{'saved':True})
                 if route=='/api/audit/ui':

@@ -1,5 +1,11 @@
 test_bootstrap_closes_demo_switching_rotates_sessions_and_requires_login (test_accounts.AccountHTTPTests.test_bootstrap_closes_demo_switching_rotates_sessions_and_requires_login) ... ok
+test_delegated_account_actions_cannot_escalate_or_touch_privileged_users (test_accounts.AccountHTTPTests.test_delegated_account_actions_cannot_escalate_or_touch_privileged_users) ... ok
+test_disable_and_reenable_does_not_resurrect_old_session (test_accounts.AccountHTTPTests.test_disable_and_reenable_does_not_resurrect_old_session) ... ok
 test_last_admin_custom_role_and_login_throttle (test_accounts.AccountHTTPTests.test_last_admin_custom_role_and_login_throttle) ... ok
+test_legacy_database_migration_preserves_password_and_role (test_accounts.AccountHTTPTests.test_legacy_database_migration_preserves_password_and_role) ... ok
+test_password_reset_racing_with_login_cannot_issue_a_new_version_session (test_accounts.AccountHTTPTests.test_password_reset_racing_with_login_cannot_issue_a_new_version_session) ... ok
+test_password_reset_revokes_all_sessions_and_is_not_logged (test_accounts.AccountHTTPTests.test_password_reset_revokes_all_sessions_and_is_not_logged) ... ok
+test_role_permissions_schema_and_builtin_immutability (test_accounts.AccountHTTPTests.test_role_permissions_schema_and_builtin_immutability) ... ok
 test_user_cannot_manage_accounts_or_read_audit_and_role_changes_apply_immediately (test_accounts.AccountHTTPTests.test_user_cannot_manage_accounts_or_read_audit_and_role_changes_apply_immediately) ... ok
 test_concatenated_bzip2_streams_extract_complete_member (test_acquisition.AcquisitionTests.test_concatenated_bzip2_streams_extract_complete_member) ... ok
 test_existing_mismatched_download_is_preserved (test_acquisition.AcquisitionTests.test_existing_mismatched_download_is_preserved) ... ok
@@ -217,6 +223,6 @@ test_request_ledger_drives_blocks_even_if_secondary_audit_event_is_missing (test
 test_scopes_no_new_endpoint_ingestion_and_masked_evidence (test_ueba.UEBAHTTPTests.test_scopes_no_new_endpoint_ingestion_and_masked_evidence) ... ok
 
 ----------------------------------------------------------------------
-Ran 217 tests in 104.625s
+Ran 223 tests in 222.934s
 
 OK

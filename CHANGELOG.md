@@ -1,3 +1,11 @@
+## 0.15.0 — Sidebar settings and account operations
+
+- Extend Settings from its sidebar trigger, keep the workspace visible, and split Users into User Creation, User Management and Roles.
+- Replace blue dark-mode surfaces with shared graphite and teal styling; add directory search and clearer account status/actions.
+- Add Administrator-controlled account permission delegation on custom Analyst roles; enforce privileges and target restrictions independently on the server.
+- Add password resets with metadata-only audit records and durable revocation of all prior sessions. Disable/re-enable no longer restores old sessions.
+- Preserve existing accounts through additive migration; verify legacy passwords, CSRF, reset redaction, role immutability and delegated escalation denial with isolated HTTP tests.
+
 ## 0.14.0 — Settings and persisted account RBAC
 
 - Replace the lower-left service label with a same-page Settings modal; move Audit Logs and theme choices inside it on all web surfaces.
