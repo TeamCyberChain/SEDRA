@@ -65,7 +65,8 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install pinned dependencies
-        run: python -m pip install --only-binary=:all: -r requirements.txt -r requirements-sso.txt
+        run: |
+          python -m pip install --only-binary=:all: -r requirements.txt -r requirements-sso.txt
       - name: Build native Windows endpoint agent
         shell: pwsh
         run: ./windows-agent/Build-Agent.ps1
@@ -84,5 +85,5 @@ jobs:
             artifacts/windows_agent_service_v1.json
           if-no-files-found: error
 
-# No secrets, provider inference, physical USB, raw CERT download, OS policy
-# change, or automatic deployment is required by this verification workflow.
+# Native tests install/remove only an isolated SEDRAAgent-Test service.
+# No customer service, security-policy change, physical USB or external AI is required.
