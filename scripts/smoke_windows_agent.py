@@ -9,6 +9,7 @@ from test_app import LocalClient
 p=argparse.ArgumentParser();p.add_argument('--service',action='store_true');p.add_argument('--output',default='artifacts/windows_agent_smoke_v1.json');a=p.parse_args()
 if os.name!='nt':raise SystemExit('Real Windows execution required')
 binary=ROOT/'windows-agent/bin/Sedra.Agent.exe';assert binary.exists()
+(ROOT/'work').mkdir(exist_ok=True)
 with tempfile.TemporaryDirectory(prefix='sedra-native-agent-',dir=ROOT/'work') as temp:
  root=Path(temp);watch=root/'watched';watch.mkdir();runtime=root/'agent';runtime.mkdir();app=AppState(root/'server');Base=handler_for(app)
  stage={'value':0 if not a.service else 2,'unavailable_responses':0,'lost_ack':0}
