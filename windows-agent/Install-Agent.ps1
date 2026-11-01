@@ -18,7 +18,8 @@ if($InstallDirectory.TrimEnd('\').Equals($DataDirectory.TrimEnd('\'),[StringComp
 foreach($target in @($InstallDirectory,$DataDirectory)){
  if((Test-Path -LiteralPath $target) -and @(Get-ChildItem -LiteralPath $target -Force).Count -gt 0){$marker=Join-Path $target '.sedra-agent-directory';if(!(Test-Path -LiteralPath $marker) -or [IO.File]::ReadAllText($marker).Trim() -ne $ServiceName){throw 'Refusing to change ACLs on an existing unrelated directory'}}
  $root=[IO.Path]::GetPathRoot($target);if($target.TrimEnd('\') -eq $root.TrimEnd('\')){throw 'A dedicated non-root directory is required'}
- $part=$target;while($part -and (Test-Path -LiteralPath $part)){if((Get-Item -LiteralPath $part).Attributes -band [IO.FileAttributes]::ReparsePoint){throw 'Reparse-point installation paths are refused'};$parent=Split-Path -Parent $part;if($parent -eq $part){break};$part=$parent}
+ if($target.StartsWith('\\')){throw 'Local installation directories required'}
+ $part=$target;while($part){if((Test-Path -LiteralPath $part) -and ((Get-Item -LiteralPath $part).Attributes -band [IO.FileAttributes]::ReparsePoint)){throw 'Reparse-point installation paths are refused'};$parent=Split-Path -Parent $part;if($parent -eq $part){break};$part=$parent}
  New-Item -ItemType Directory -Force -Path $target | Out-Null
  & icacls.exe $target /inheritance:r /grant:r '*S-1-5-18:(OI)(CI)F' '*S-1-5-32-544:(OI)(CI)F' | Out-Null
  if($LASTEXITCODE -ne 0){throw 'Could not protect installation directories'}
@@ -34,7 +35,7 @@ $process=[Diagnostics.Process]::Start($psi);$pointer=[Runtime.InteropServices.Ma
 try{$plain=[Runtime.InteropServices.Marshal]::PtrToStringBSTR($pointer);$process.StandardInput.WriteLine($plain);$process.StandardInput.Close()}finally{$plain=$null;[Runtime.InteropServices.Marshal]::ZeroFreeBSTR($pointer)}
 $process.WaitForExit();if($process.ExitCode -ne 0){throw 'Enrollment failed; no service was registered'}
 $config=Get-Content -LiteralPath $ConfigPath -Raw | ConvertFrom-Json
-foreach($watch in @($config.watch_directories)){if(!(Test-Path -LiteralPath $watch -PathType Container)){throw 'Configured watch directory does not exist'};$watchFull=[IO.Path]::GetFullPath($watch);foreach($private in @($InstallDirectory,$DataDirectory)){if($watchFull.Equals($private,[StringComparison]::OrdinalIgnoreCase) -or $watchFull.StartsWith($private.TrimEnd('\')+'\',[StringComparison]::OrdinalIgnoreCase)){throw 'Agent binary/data directories cannot be watched'}}}
+foreach($watch in @($config.watch_directories)){if(!(Test-Path -LiteralPath $watch -PathType Container)){throw 'Configured watch directory does not exist'};$watchFull=[IO.Path]::GetFullPath($watch);foreach($private in @($InstallDirectory,$DataDirectory)){if($watchFull.Equals($private,[StringComparison]::OrdinalIgnoreCase) -or $watchFull.StartsWith($private.TrimEnd('\')+'\',[StringComparison]::OrdinalIgnoreCase) -or $private.StartsWith($watchFull.TrimEnd('\')+'\',[StringComparison]::OrdinalIgnoreCase)){throw 'Agent binary/data directories cannot be watched'}}}
 $command='"'+$binary+'" --service "'+$DataDirectory+'" '+$ServiceName
 New-Service -Name $ServiceName -BinaryPathName $command -DisplayName 'SEDRA Windows Endpoint Agent' -StartupType Automatic -Credential (New-Object Management.Automation.PSCredential('NT AUTHORITY\LocalService',(New-Object Security.SecureString))) -Description 'Explicitly scoped endpoint metadata to an enrolled SEDRA endpoint; no content or command-line capture' | Out-Null
 & sc.exe sidtype $ServiceName unrestricted | Out-Null;if($LASTEXITCODE -ne 0){throw 'Service SID configuration failed; service was not started'}

@@ -45,7 +45,7 @@ namespace Sedra.Agent {
    if(!Wire.Hex(c.Device,32)||String.IsNullOrWhiteSpace(c.Subject)||c.Subject.Length>80)throw new Exception("Enrolled identity required");
    c.Directories=Wire.Strings(d,"watch_directories");c.Processes=Wire.Strings(d,"process_names").Select(x=>x.ToLowerInvariant()).ToArray();
    if(c.Directories.Length>8||c.Processes.Length>16||c.Processes.Any(x=>x.Length>80||!System.Text.RegularExpressions.Regex.IsMatch(x,"^[a-z0-9._-]{1,76}\\.exe$")))throw new Exception("Bounded explicit collection scope required");
-   foreach(string folder in c.Directories){if(!Path.IsPathRooted(folder)||!Directory.Exists(folder)||Path.GetPathRoot(folder)==Path.GetFullPath(folder)||new DirectoryInfo(folder).Attributes.HasFlag(FileAttributes.ReparsePoint))throw new Exception("Existing non-root non-reparse folder required");}
+   foreach(string folder in c.Directories){if(folder.StartsWith("\\\\")||!Path.IsPathRooted(folder)||!Directory.Exists(folder)||Path.GetPathRoot(folder)==Path.GetFullPath(folder))throw new Exception("Existing local non-root folder required");for(var part=new DirectoryInfo(folder);part!=null;part=part.Parent)if(part.Attributes.HasFlag(FileAttributes.ReparsePoint))throw new Exception("Reparse ancestors refused");}
    c.Poll=Convert.ToInt32(d["poll_seconds"]);if(c.Poll<5||c.Poll>60)throw new Exception("Poll interval 5 to 60 seconds required");
    c.Usb=Wire.Flag(d,"collect_usb");c.Session=Wire.Flag(d,"collect_session");
    c.Binding=Wire.Hash(c.Server.AbsoluteUri+"|"+c.Device+"|"+c.Subject);return c;
