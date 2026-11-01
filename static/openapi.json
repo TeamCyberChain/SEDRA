@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "SEDRA scoped integration API",
-    "version": "0.17.0",
+    "version": "0.18.0",
     "description": "Loopback prototype. See docs/INTEGRATIONS.md for cursor, authorization and evidence contracts."
   },
   "servers": [
@@ -486,6 +486,66 @@
           },
           "403": {
             "description": "CSRF, role or subject denied"
+          }
+        }
+      }
+    },
+    "/api/accounts/mfa": {
+      "post": {
+        "summary": "Reauthenticated MFA operator action: id, expected_version, action=enroll|replace|remove, reason, password, code",
+        "description": "Local account cookie and X-CSRF-Token required. No registered seed is returned. See docs/MFA_MANAGEMENT.md.",
+        "responses": {
+          "200": {
+            "description": "Authorized result"
+          },
+          "400": {
+            "description": "Invalid schema or stale target version"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission, factor, CSRF or challenge denied"
+          }
+        }
+      }
+    },
+    "/api/account/mfa/replace/start": {
+      "post": {
+        "summary": "Owner replacement setup after current password and fresh MFA code",
+        "description": "Local account cookie and X-CSRF-Token required. No registered seed is returned. See docs/MFA_MANAGEMENT.md.",
+        "responses": {
+          "200": {
+            "description": "Authorized result"
+          },
+          "400": {
+            "description": "Invalid schema or stale target version"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission, factor, CSRF or challenge denied"
+          }
+        }
+      }
+    },
+    "/api/account/mfa/replace/confirm": {
+      "post": {
+        "summary": "Atomically confirm a pending owner replacement using the new authenticator code",
+        "description": "Local account cookie and X-CSRF-Token required. No registered seed is returned. See docs/MFA_MANAGEMENT.md.",
+        "responses": {
+          "200": {
+            "description": "Authorized result"
+          },
+          "400": {
+            "description": "Invalid schema or stale target version"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission, factor, CSRF or challenge denied"
           }
         }
       }

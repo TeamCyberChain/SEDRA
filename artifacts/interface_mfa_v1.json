@@ -1,0 +1,74 @@
+{
+  "version": "0.18.0",
+  "observed_at_utc": "2026-11-01T07:11:22.965635+00:00",
+  "main_service": {
+    "health": {
+      "status": "ok",
+      "product": "SEDRA",
+      "mode": "local_lab",
+      "build_version": "0.18.0",
+      "model_version": "iforest-lab-daily-v1"
+    },
+    "existing_accounts_roles_password_hashes_factor_registrations_recovery_hashes_preserved": true,
+    "gateway_counts_preserved": {
+      "attempted": 32,
+      "confirmed": 1,
+      "blocked": 28,
+      "unknown": 3
+    },
+    "scoped_sensor_resumed_after_restart": true,
+    "no_real_factor_removed_or_replaced_during_verification": true
+  },
+  "functional_tests": {
+    "executed_at_utc": "2026-11-01T07:08:51.026884+00:00",
+    "python": "3.12.10",
+    "tests_run": 244,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "runtime_seconds": 168.242,
+    "suite": "unittest discovery: behavior, acquisition, matcher, gateway, application HTTP integration",
+    "network_scope": "local loopback receiver only; no external AI request",
+    "benchmark_performance_is_separate": true
+  },
+  "node_tests_passed": 15,
+  "browser_checks": {
+    "scope": "Isolated loopback fixture on port 8766 with fictional accounts; real credential operations exercised by HTTP tests in temporary stores",
+    "signin_dark_and_light_reviewed": true,
+    "signin_viewport": {
+      "width": 1280,
+      "height": 720,
+      "page_height": 720,
+      "horizontal_overflow": false
+    },
+    "mfa_login_with_existing_test_recovery_code": true,
+    "allowed_dashboard_return_after_mfa": true,
+    "sidebar_collapse_and_expand_console": true,
+    "sidebar_collapsed_preference_survives_reload": true,
+    "portal_sidebar_hidden_and_workspace_left_zero": true,
+    "inert_and_aria_hidden_observed_on_hidden_portal_navigation": true,
+    "user_management_add_change_remove_controls": true,
+    "operator_password_factor_reason_form_visible": true,
+    "owner_replacement_form_visible": true,
+    "browser_console_errors": []
+  },
+  "security_contract": {
+    "mandatory_mfa_not_disabled_by_registration_removal": true,
+    "operator_password_and_fresh_factor_required": true,
+    "explicit_reset_mfa_permission_and_nonprivileged_delegation_only": true,
+    "target_revision_checked_inside_atomic_update": true,
+    "self_removal_denied": true,
+    "old_factor_retained_until_new_owner_factor_verified": true,
+    "replacement_expiry_seconds": 300,
+    "old_sessions_and_recovery_codes_revoked": true,
+    "factor_verification_cannot_upgrade_a_concurrently_changed_auth_version": true,
+    "secrets_excluded_from_state_audit_and_preferences": true
+  },
+  "limits": [
+    "Single active local authenticator per account; OIDC factors managed at the IdP",
+    "Last Administrator without both factor and recovery codes requires independently authorized offline recovery",
+    "Operator recovery requires organizational identity verification outside this prototype",
+    "This is functional verification, not enterprise UEBA efficacy evidence"
+  ]
+}

@@ -65,7 +65,7 @@ class MFA:
         stream=io.BytesIO();qr.save(stream)
         return {'secret':seed,'uri':uri,'qr_data_url':'data:image/svg+xml;base64,'+base64.b64encode(stream.getvalue()).decode()}
 
-    def verify(self,uid,version,code,*,enrollment_seed=None,now=None):
+    def verify(self,uid,version,code,*,enrollment_seed=None,now=None,replace=False):
         now=time.time() if now is None else now
         if not isinstance(code,str) or not 6<=len(code)<=64:raise PermissionError('Valid authenticator or recovery code required')
         code=code.strip();error=None;recovery=None
@@ -77,24 +77,30 @@ class MFA:
             if c.execute('SELECT count(*) FROM mfa_attempts WHERE uid=?',(uid,)).fetchone()[0]>=5:raise PermissionError('MFA temporarily limited; restart sign-in after five minutes')
             c.execute('INSERT INTO mfa_attempts VALUES(?,?)',(uid,now))
             row=c.execute('SELECT * FROM mfa WHERE uid=?',(uid,)).fetchone()
-            if row and enrollment_seed is not None:raise PermissionError('Authenticator already registered; restart sign-in')
-            seed=self.cipher.decrypt(bytes(row['seed'])).decode() if row else enrollment_seed
+            if replace and (not row or not enrollment_seed):raise PermissionError('Current authenticator and a replacement challenge required')
+            if row and enrollment_seed is not None and not replace:raise PermissionError('Authenticator already registered; restart sign-in')
+            seed=enrollment_seed if replace or not row else self.cipher.decrypt(bytes(row['seed'])).decode()
             if not seed:raise PermissionError('Authenticator enrollment required')
-            counter=int(now//30);last=row['last_counter'] if row else -1;matched=None
+            counter=int(now//30);last=row['last_counter'] if row and not replace else -1;matched=None
             if re.fullmatch(r'[0-9]{6}',code):
                 for candidate in (counter-1,counter,counter+1):
                     if candidate>=0 and candidate>last and hmac.compare_digest(totp(seed,candidate*30),code):matched=candidate;break
             recovered=False
-            if row and matched is None:
+            if row and matched is None and not replace:
                 hashed=hashlib.sha256(code.upper().replace('-','').encode()).hexdigest()
                 recovered=c.execute('UPDATE mfa_recovery SET used=1 WHERE uid=? AND hash=? AND used=0',(uid,hashed)).rowcount==1
             if matched is None and not recovered:error='Invalid, expired or already used MFA code'
-            elif row:
+            elif row and not replace:
                 if matched is not None:c.execute('UPDATE mfa SET last_counter=? WHERE uid=?',(matched,uid))
             else:
-                c.execute('INSERT INTO mfa VALUES(?,?,?)',(uid,self.cipher.encrypt(seed.encode()),matched))
+                if replace:
+                    c.execute('DELETE FROM mfa_recovery WHERE uid=?',(uid,))
+                    c.execute('UPDATE mfa SET seed=?,last_counter=? WHERE uid=?',(self.cipher.encrypt(seed.encode()),matched,uid))
+                else:c.execute('INSERT INTO mfa VALUES(?,?,?)',(uid,self.cipher.encrypt(seed.encode()),matched))
                 c.execute('UPDATE users SET auth_version=auth_version+1 WHERE id=?',(uid,))
                 recovery=[secrets.token_hex(8).upper() for _ in range(10)]
                 c.executemany('INSERT INTO mfa_recovery(uid,hash) VALUES(?,?)',[(uid,hashlib.sha256(x.encode()).hexdigest()) for x in recovery])
         if error:raise PermissionError(error)
-        return {'claims':self.accounts.claims(uid),'recovery_codes':recovery or [],'used_recovery':recovered}
+        claims=self.accounts.claims(uid);verified_version=version+int(not row or replace)
+        if not claims or claims['auth_version']!=verified_version:raise PermissionError('Account changed during MFA verification; restart sign-in')
+        return {'claims':claims,'recovery_codes':recovery or [],'used_recovery':recovered}

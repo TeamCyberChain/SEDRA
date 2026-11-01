@@ -2,7 +2,7 @@
 import hashlib,hmac,json,re,secrets,sqlite3,time
 from contextlib import contextmanager
 BASES={'administrator','analyst','user'}
-ACCOUNT_PERMISSIONS={'accounts.read','accounts.create','accounts.update','accounts.reset_password'}
+ACCOUNT_PERMISSIONS={'accounts.read','accounts.create','accounts.update','accounts.reset_password','accounts.reset_mfa'}
 class Accounts:
  def __init__(self,path):
   self.path=str(path)
@@ -34,7 +34,7 @@ class Accounts:
   with self.db() as c:
    roles=[dict(r) for r in c.execute('SELECT * FROM roles ORDER BY name')]
    for r in roles:r['permissions']=sorted(ACCOUNT_PERMISSIONS|{'roles.manage'}) if r['base']=='administrator' else json.loads(r['permissions']);r['builtin']=r['id'] in BASES
-   return {'roles':roles,'permission_catalog':sorted(ACCOUNT_PERMISSIONS),'users':[dict(r) for r in c.execute('SELECT u.id,u.username,u.role_id,u.subject,u.active,r.name role_name,r.base,EXISTS(SELECT 1 FROM mfa WHERE uid=u.id) mfa_enrolled FROM users u JOIN roles r ON u.role_id=r.id ORDER BY username')]}
+   return {'roles':roles,'permission_catalog':sorted(ACCOUNT_PERMISSIONS),'users':[dict(r) for r in c.execute('SELECT u.id,u.username,u.role_id,u.subject,u.active,u.auth_version,r.name role_name,r.base,EXISTS(SELECT 1 FROM mfa WHERE uid=u.id) mfa_enrolled,(SELECT count(*) FROM mfa_recovery WHERE uid=u.id AND used=0) recovery_codes_remaining FROM users u JOIN roles r ON u.role_id=r.id ORDER BY username')]}
  def create_role(self,b):
   update=b.get('action')=='update'
   expected={'action','id','name','permissions'} if update else {'name','base'}
@@ -113,3 +113,25 @@ class Accounts:
   if not claims or claims['auth_version']!=r['auth_version']:raise PermissionError('Account changed during sign-in; try again')
   # A reset after this read leaves an old-version session, rejected on its next request.
   return claims if with_claims else r['id']
+ def reauthenticate(self,actor,password,code):
+  claims=self.login({'username':actor['username'],'password':password},with_claims=True)
+  if claims['account_id']!=actor['account_id'] or claims['auth_version']!=actor['auth_version']:raise PermissionError('Account changed; sign in again')
+  return self.mfa.verify(claims['account_id'],claims['auth_version'],code)['claims']
+ def manage_mfa(self,b,actor):
+  if set(b)!={'id','expected_version','action','reason'} or not isinstance(b['id'],str) or len(b['id'])>100 or type(b['expected_version']) is not int or not 0<=b['expected_version']<2**31:raise ValueError('Account, revision and MFA action required')
+  if b['action'] not in ('enroll','replace','remove') or b['reason'] not in ('device_lost','device_replaced','access_recovery','enrollment_requested'):raise ValueError('Supported MFA action and reason required')
+  with self.db() as c:
+   c.execute('BEGIN IMMEDIATE')
+   current=c.execute('SELECT u.*,r.base,r.permissions FROM users u JOIN roles r ON u.role_id=r.id WHERE u.id=?',(actor['account_id'],)).fetchone()
+   if not current or not current['active'] or current['auth_version']!=actor['auth_version']:raise PermissionError('Operator account changed; sign in again')
+   fresh=dict(actor,access_profile=current['base'],permissions=sorted(ACCOUNT_PERMISSIONS) if current['base']=='administrator' else json.loads(current['permissions']))
+   target=c.execute('SELECT u.*,r.base,r.permissions FROM users u JOIN roles r ON u.role_id=r.id WHERE u.id=?',(b['id'],)).fetchone()
+   if not target:raise ValueError('Known account required')
+   self.authorize_target(c,fresh,'accounts.reset_mfa',target=target)
+   if target['id']==actor['account_id']:raise PermissionError('Use Profile & account to replace your own authenticator without removing it first')
+   if target['auth_version']!=b['expected_version']:raise ValueError('Account changed; refresh the directory before retrying')
+   enrolled=bool(c.execute('SELECT 1 FROM mfa WHERE uid=?',(b['id'],)).fetchone())
+   if (b['action']=='enroll')==enrolled:raise ValueError('Authenticator status changed; refresh the directory')
+   for table in ('mfa','mfa_recovery','mfa_attempts'):c.execute('DELETE FROM '+table+' WHERE uid=?',(b['id'],))
+   c.execute('UPDATE users SET auth_version=auth_version+1 WHERE id=?',(b['id'],))
+  return {'saved':True,'enrollment_required':True,'sessions_revoked':True}

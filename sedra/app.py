@@ -41,11 +41,16 @@ from .integrations import Integrations,OIDC,AuthError,Conflict,RateLimit
 from .browser_guard import BrowserGuard,EXTENSION_ORIGIN
 
 ROOT = Path(__file__).resolve().parent.parent
-AUDIT_ROUTES = {'/api/dashboards','/api/reports','/workbench.js','/workbench.css','/api/account/mfa/enroll','/api/account/mfa/verify','/api/accounts/password','/api/account/context','/api/account/bootstrap','/api/account/login','/api/accounts','/api/accounts/users','/api/accounts/roles','/settings.js','/settings.css','/login','/login.js','/alerts.js','/app.js','/audit.js','/browser-harness-transport.js','/browser-harness.html','/browser-lab.html','/browser-lab.js','/cases.js','/console.css','/endpoint.js','/index.html','/integrations.html','/integrations.js','/openapi.json','/portal.css','/portal.html','/portal.js','/presentation.js','/sedra.css','/style.css','/theme.css','/theme.js','/ueba.js','/api/audit/context','/api/reset', '/api/integrations/keys', '/api/logout', '/browser-lab', '/api/v1/ueba', '/api/state', '/api/ueba/counterfactual', '/health', '/api/audit', '/api/document', '/api/v1/cases', '/browser-harness', '/api/session', '/portal', '/api/v1/alerts/action', '/api/reconcile', '/api/endpoint/action', '/api/alerts', '/api/v1/telemetry', '/api/endpoint', '/api/transfer', '/api/ueba/cases', '/api/portal/status', '/api/portal/configure', '/auth/callback', '/api/v1/alerts', '/api/portal/chat', '/', '/api/v1/cases/changes', '/auth/login', '/api/catalog/labels', '/integrations', '/alert', '/api/v1/browser/inspect', '/api/v1/cases/action', '/api/alerts/action', '/api/ueba', '/api/audit/ui', '/api/ueba/cases/action'}
+AUDIT_ROUTES = {'/api/accounts/mfa','/api/account/mfa/replace/start','/api/account/mfa/replace/confirm','/shell.js','/shell.css','/login.css','/api/dashboards','/api/reports','/workbench.js','/workbench.css','/api/account/mfa/enroll','/api/account/mfa/verify','/api/accounts/password','/api/account/context','/api/account/bootstrap','/api/account/login','/api/accounts','/api/accounts/users','/api/accounts/roles','/settings.js','/settings.css','/login','/login.js','/alerts.js','/app.js','/audit.js','/browser-harness-transport.js','/browser-harness.html','/browser-lab.html','/browser-lab.js','/cases.js','/console.css','/endpoint.js','/index.html','/integrations.html','/integrations.js','/openapi.json','/portal.css','/portal.html','/portal.js','/presentation.js','/sedra.css','/style.css','/theme.css','/theme.js','/ueba.js','/api/audit/context','/api/reset', '/api/integrations/keys', '/api/logout', '/browser-lab', '/api/v1/ueba', '/api/state', '/api/ueba/counterfactual', '/health', '/api/audit', '/api/document', '/api/v1/cases', '/browser-harness', '/api/session', '/portal', '/api/v1/alerts/action', '/api/reconcile', '/api/endpoint/action', '/api/alerts', '/api/v1/telemetry', '/api/endpoint', '/api/transfer', '/api/ueba/cases', '/api/portal/status', '/api/portal/configure', '/auth/callback', '/api/v1/alerts', '/api/portal/chat', '/', '/api/v1/cases/changes', '/auth/login', '/api/catalog/labels', '/integrations', '/alert', '/api/v1/browser/inspect', '/api/v1/cases/action', '/api/alerts/action', '/api/ueba', '/api/audit/ui', '/api/ueba/cases/action'}
 
 
 def utcnow():
     return datetime.now(timezone.utc).isoformat()
+
+
+def public_session(session):
+    fields={'role','subject_id','csrf_token','account_id','auth_version','username','account_role','access_profile','principal','permissions','can_manage_users','can_manage_roles','expires_at'}
+    return {k:v for k,v in session.items() if k in fields}
 
 
 class AppState:
@@ -302,7 +307,7 @@ class AppState:
             if session["role"] == "analyst":
                 receipt["preview"] = "[Content masked for analyst; SHA-256 and byte count retained]"
         return {
-            "session": {k: v for k, v in session.items() if k != "created_at"},
+            "session": public_session(session),
             "demo_identities": [session['subject_id']] if actor is not None else ["analyst", "lab-001", "lab-002"],
             "subjects": self.live_subjects([s for s in self.snapshot["subjects"] if actor is None or s["subject_id"] == actor]),
             "evaluation": self.snapshot["evaluation"] if session['role']=='analyst' else {},
@@ -489,6 +494,8 @@ def handler_for(app):
                         pending=app.accounts.claims(session['mfa_uid'])
                         if not pending or pending['auth_version']!=session.get('mfa_version') or not 0<=time.time()-session.get('mfa_started',0)<300:
                             for key in ('mfa_uid','mfa_version','mfa_started','mfa_enrollment'):session.pop(key,None)
+                    change=session.get('mfa_replacement')
+                    if change and (change['version']!=session.get('auth_version') or not 0<=time.time()-change['started']<300):session.pop('mfa_replacement',None)
                 self._audit_actor=session.get('principal') or session.get('subject_id') or session['role']
                 return session_id, session, False
             session_id, session = app.new_session()
@@ -657,7 +664,7 @@ def handler_for(app):
                     params=urllib.parse.parse_qs(path.query)
                     return self.respond(200,app.case_view(session,params.get('id',[None])[0],params.get('packet',['0'])[0]=='1'),cookie=cookie)
                 if path.path == '/api/portal/status':
-                    return self.respond(200, {'session': {k:v for k,v in session.items() if k != 'created_at'},
+                    return self.respond(200, {'session': public_session(session),
                         'data_types':detector_catalog(),
                         'connection': app.portal.status(), 'subjects': app.live_subjects([s for s in app.snapshot['subjects']
                         if session['role'] == 'analyst' or s['subject_id'] == session['subject_id']])}, cookie=cookie)
@@ -670,7 +677,7 @@ def handler_for(app):
                     return self.respond(200, doc | {'metadata': app.gateway.catalog_labels()[doc_id]}, cookie=cookie)
                 if path.path == "/health":
                     return self.respond(200, {"status": "ok", "product":"SEDRA", "mode": "local_lab", "build_version":__version__, "model_version": app.snapshot.get("model_version")})
-                allowed = {"/": "index.html", "/index.html": "index.html", "/app.js": "app.js", "/workbench.js":"workbench.js", "/workbench.css":"workbench.css", "/alerts.js":"alerts.js", "/ueba.js":"ueba.js", "/endpoint.js":"endpoint.js", "/cases.js":"cases.js", "/openapi.json":"openapi.json", "/integrations":"index.html", "/alert":"index.html", "/console.css":"console.css", "/theme.js":"theme.js", "/settings.js":"settings.js", "/settings.css":"settings.css", "/login":"login.html", "/login.js":"login.js", "/theme.css":"theme.css", "/audit.js":"audit.js", "/presentation.js":"presentation.js", "/integrations.js":"integrations.js", "/style.css": "style.css", "/sedra.css": "sedra.css",
+                allowed = {"/": "index.html", "/index.html": "index.html", "/app.js": "app.js", "/workbench.js":"workbench.js", "/shell.js":"shell.js", "/shell.css":"shell.css", "/login.css":"login.css", "/workbench.css":"workbench.css", "/alerts.js":"alerts.js", "/ueba.js":"ueba.js", "/endpoint.js":"endpoint.js", "/cases.js":"cases.js", "/openapi.json":"openapi.json", "/integrations":"index.html", "/alert":"index.html", "/console.css":"console.css", "/theme.js":"theme.js", "/settings.js":"settings.js", "/settings.css":"settings.css", "/login":"login.html", "/login.js":"login.js", "/theme.css":"theme.css", "/audit.js":"audit.js", "/presentation.js":"presentation.js", "/integrations.js":"integrations.js", "/style.css": "style.css", "/sedra.css": "sedra.css",
                            '/portal':'portal.html', '/portal/':'portal.html', '/portal.js':'portal.js', '/portal.css':'portal.css',
                            '/browser-lab':'browser-lab.html','/browser-lab.js':'browser-lab.js',
                            '/browser-harness':'browser-harness.html','/browser-harness-transport.js':'browser-harness-transport.js',
@@ -728,6 +735,29 @@ def handler_for(app):
                     report=app.reports.create(app,session,body)
                     app.platform_audit.append('APPLICATION',session.get('principal') or session.get('subject_id') or 'analyst','report_generated',{'id':report['id'],'template':report['template']})
                     return self.respond(200,report)
+                if route=='/api/accounts/mfa':
+                    if 'accounts.reset_mfa' not in session.get('permissions',[]):raise PermissionError('MFA management permission required')
+                    if set(body)!={'id','expected_version','action','reason','password','code'}:raise ValueError('Closed MFA management schema required')
+                    actor=app.accounts.reauthenticate(session,body['password'],body['code'])
+                    result=app.accounts.manage_mfa({k:v for k,v in body.items() if k not in ('password','code')},actor)
+                    app.platform_audit.append('APPLICATION',session['principal'],'account_mfa_'+body['action'],{'id':body['id'],'reason':body['reason'],'enrollment_required':True})
+                    return self.respond(200,result)
+                if route=='/api/account/mfa/replace/start':
+                    if not session.get('account_id'):raise PermissionError('Local account required')
+                    if set(body)!={'password','code'}:raise ValueError('Current password and fresh MFA code required')
+                    actor=app.accounts.reauthenticate(session,body['password'],body['code'])
+                    change=app.accounts.mfa.enrollment(actor['username']);session['mfa_replacement']=change|{'version':actor['auth_version'],'started':time.time()}
+                    app.platform_audit.append('APPLICATION',actor['principal'],'mfa_replacement_started',{})
+                    return self.respond(200,change)
+                if route=='/api/account/mfa/replace/confirm':
+                    change=session.get('mfa_replacement')
+                    if not session.get('account_id') or not change:raise PermissionError('Current replacement challenge required')
+                    if set(body)!={'code'}:raise ValueError('New authenticator code required')
+                    result=app.accounts.mfa.verify(session['account_id'],change['version'],body['code'],enrollment_seed=change['secret'],replace=True)
+                    new_id,new_session=app.new_session();new_session.update(result['claims'],mfa_verified=True)
+                    with app.guard:app.sessions.pop(session_id,None)
+                    app.platform_audit.append('APPLICATION',new_session['principal'],'mfa_replaced',{})
+                    return self.respond(200,{'saved':True,'recovery_codes':result['recovery_codes']},cookie=new_id)
                 if route=='/api/account/login':
                     claims=app.accounts.login(body,with_claims=True);new_id,new_session=app.new_session();new_session.update(mfa_uid=claims['account_id'],mfa_version=claims['auth_version'],mfa_started=time.time());self._audit_actor=claims['principal']
                     with app.guard:app.sessions.pop(session_id,None)
@@ -786,7 +816,7 @@ def handler_for(app):
                     new_id, new_session = app.new_session(identity)
                     with app.guard:
                         app.sessions.pop(session_id, None)
-                    return self.respond(200, {"session": {k: v for k, v in new_session.items() if k != "created_at"}}, cookie=new_id)
+                    return self.respond(200, {"session": public_session(new_session)}, cookie=new_id)
                 if route == "/api/transfer":
                     return self.respond(200, app.transfer(session, body))
                 if route == '/api/alerts/action':

@@ -2,9 +2,13 @@
 
 **Team CyberChain · Digital Challenge Azerbaijan 2026 · Topic 6 · private development review.**
 
-Start with the [reviewer guide](docs/REVIEWER_GUIDE.md), [requirements mapping](docs/REQUIREMENTS_TRACEABILITY.md), [technical report](docs/TECHNICAL_REPORT.md) and [actual 238-test result](artifacts/test_summary.json). [AI assistance](AI_ASSISTANCE.md) and [external components](THIRD_PARTY_NOTICES.md) are disclosed. Source/test evidence describes the current 0.17.0 build; presentation/Q&A files are excluded from this repository at the team request. This review checkpoint does not assert final organizer acceptance.
+Start with the [reviewer guide](docs/REVIEWER_GUIDE.md), [requirements mapping](docs/REQUIREMENTS_TRACEABILITY.md), [technical report](docs/TECHNICAL_REPORT.md) and [actual 244-test result](artifacts/test_summary.json). [AI assistance](AI_ASSISTANCE.md) and [external components](THIRD_PARTY_NOTICES.md) are disclosed. Source/test evidence describes the current 0.18.0 build; presentation/Q&A files are excluded from this repository at the team request. This review checkpoint does not assert final organizer acceptance.
 
 SEDRA connects past-only user-day UEBA and observed live application signals to a real transfer decision, then verifies what an independent local receiver obtained. The offline hackathon lab uses fictional identities/documents. The AI portal sends only allowed requests to a real local Qwen CPU model or, when selected and available, the OpenAI Responses API. Local model inference has executed successfully; the OpenAI account returned 429 and has no successful reply claim.
+
+## SEDRA 0.18: collapsible navigation and authenticator lifecycle
+
+The console and AI Workspace sidebar can be collapsed or reopened from the header; the preference persists across reloads. Sign-in now uses a responsive branded layout with clear account/MFA/recovery stages and dark/light appearance. User Management exposes Add, Change and Remove MFA registrations behind an explicit delegated permission and current password/MFA verification. Removing a registration revokes old sessions and requires owner re-enrollment; it does not disable mandatory MFA. Own authenticator changes preserve the current factor until the new one is confirmed. See [authenticator lifecycle](docs/MFA_MANAGEMENT.md).
 
 ## SEDRA 0.17: focused UEBA, MFA, Dashboards and Reports
 

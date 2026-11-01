@@ -3,6 +3,28 @@ const test=require('node:test'),assert=require('node:assert/strict'),fs=require(
 const path=require('node:path'),root=path.resolve(__dirname,'..');
 const escaped=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
+test('sidebar toggle persists appearance and makes closed navigation inert across tabs',()=>{
+ const created=[],listeners={},saved=new Map(),signals=[];
+ const el=()=>({attrs:{},setAttribute(k,v){this.attrs[k]=v;},removeAttribute(k){delete this.attrs[k];},addEventListener(k,v){this[k]=v;},append(){},prepend(){},before(){}});
+ const sidebar=el(),crumb=el(),header={querySelector:()=>crumb},html={dataset:{}};
+ const c=vm.createContext({document:{documentElement:html,querySelector:s=>s==='.sidebar,.portal-nav'?sidebar:header,createElement(){const v=el();created.push(v);return v;}},localStorage:{getItem:k=>saved.get(k),setItem:(k,v)=>saved.set(k,v)},addEventListener:(k,v)=>listeners[k]=v,dispatchEvent:e=>signals.push(e.type),Event:class{constructor(type){this.type=type;}}});
+ vm.runInContext(fs.readFileSync(path.join(root,'static/shell.js'),'utf8'),c);
+ const toggle=created.find(e=>e.className==='shell-toggle');assert.equal(toggle.attrs['aria-expanded'],'true');assert.equal(sidebar.inert,false);
+ toggle.click();assert.equal(saved.get('sedra-nav-collapsed'),'true');assert.equal(sidebar.attrs['aria-hidden'],'true');assert('inert' in sidebar.attrs);assert.equal(toggle.attrs['aria-label'],'Expand sidebar');
+ listeners.storage({key:'sedra-nav-collapsed',newValue:'false'});assert.equal(sidebar.inert,false);assert(!('inert' in sidebar.attrs));assert.equal(toggle.attrs['aria-expanded'],'true');assert.equal(saved.size,1);assert(signals.length>=3);
+});
+
+test('sign-in preserves only allowed sections after completing the MFA stage',async()=>{
+ for(const [hash,destination] of [['#dashboards','/#dashboards'],['#ueba/cases','/#ueba/cases'],['#//untrusted.example','/']]){
+  const nodes=new Map(),assigned=[];let pending=false;
+  const node=id=>{if(!nodes.has(id))nodes.set(id,{hidden:false,type:'password',textContent:'',setAttribute(){},removeAttribute(){}});return nodes.get(id);};
+  const c=vm.createContext({document:{getElementById:node,documentElement:{dataset:{theme:'dark'}}},window:{},location:{hash,assign:s=>assigned.push(s)},FormData:class{constructor(f){this.fields=f.fields;}get(k){return this.fields[k];}},fetch:async(url)=>({ok:true,json:async()=>{if(url==='/api/account/login'){pending=true;return {};}if(url==='/api/account/mfa/verify')return {recovery_codes:[]};return {csrf_token:'fictional',account:{username:null},mfa:{pending,enrolled:true}};}})});
+  vm.runInContext(fs.readFileSync(path.join(root,'static/login.js'),'utf8'),c);await new Promise(setImmediate);
+  await node('account-login').onsubmit({preventDefault(){},submitter:{},target:{fields:{username:'fictional',password:'fictional'},reset(){}}});assert.equal(node('signin-step-number').textContent,'02');assert.equal(node('password-stage').hidden,true);
+  await node('mfa-login').onsubmit({preventDefault(){},submitter:{},target:{fields:{code:'123456'},reset(){}}});assert.deepEqual(assigned,[destination]);
+ }
+});
+
 test('dashboard coalesces period changes and drops privileged results after account changes',async()=>{
  const nodes=new Map(),listeners={},pending=[];
  const node=id=>{if(!nodes.has(id))nodes.set(id,{innerHTML:'',value:'7',hidden:false,replaceChildren(){this.innerHTML='';}});return nodes.get(id);};

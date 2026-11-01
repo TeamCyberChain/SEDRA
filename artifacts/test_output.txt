@@ -184,6 +184,12 @@ test_seed_sealed_recovery_hashed_and_codes_one_use (test_mfa.MFACryptoTests.test
 test_late_revoked_cookie_cannot_overwrite_completed_mfa_session (test_mfa.MFAHTTPTests.test_late_revoked_cookie_cannot_overwrite_completed_mfa_session) ... ok
 test_no_password_verified_session_cannot_enroll_or_use_mfa_routes (test_mfa.MFAHTTPTests.test_no_password_verified_session_cannot_enroll_or_use_mfa_routes) ... ok
 test_password_stage_cannot_read_application_and_enrollment_requires_valid_csrf_code (test_mfa.MFAHTTPTests.test_password_stage_cannot_read_application_and_enrollment_requires_valid_csrf_code) ... ok
+test_csrf_schema_self_reset_and_stale_directory_revision_are_denied (test_mfa_management.MFAManagementHTTPTests.test_csrf_schema_self_reset_and_stale_directory_revision_are_denied) ... ok
+test_expired_replacement_preserves_current_authenticator (test_mfa_management.MFAManagementHTTPTests.test_expired_replacement_preserves_current_authenticator) ... ok
+test_explicit_delegation_cannot_reset_privileged_accounts_and_revocation_applies (test_mfa_management.MFAManagementHTTPTests.test_explicit_delegation_cannot_reset_privileged_accounts_and_revocation_applies) ... ok
+test_factor_reset_racing_with_verified_claims_cannot_upgrade_authentication_version (test_mfa_management.MFAManagementHTTPTests.test_factor_reset_racing_with_verified_claims_cannot_upgrade_authentication_version) ... ok
+test_remove_revokes_factor_recovery_full_and_pending_sessions_without_disabling_mfa (test_mfa_management.MFAManagementHTTPTests.test_remove_revokes_factor_recovery_full_and_pending_sessions_without_disabling_mfa) ... ok
+test_self_replacement_keeps_old_factor_until_verified_then_revokes_old_sessions (test_mfa_management.MFAManagementHTTPTests.test_self_replacement_keeps_old_factor_until_verified_then_revokes_old_sessions) ... ok
 test_calendar_ingest_retains_zero_days_and_exact_source_evidence (test_multichannel.MultichannelContractTests.test_calendar_ingest_retains_zero_days_and_exact_source_evidence) ... ok
 test_channel_qualified_labels_exclude_other_actor_context (test_multichannel.MultichannelContractTests.test_channel_qualified_labels_exclude_other_actor_context) ... ok
 test_first_device_use_after_zero_calendar_days_is_scoreable (test_multichannel.MultichannelContractTests.test_first_device_use_after_zero_calendar_days_is_scoreable) ... ok
@@ -238,6 +244,6 @@ test_request_ledger_drives_blocks_even_if_secondary_audit_event_is_missing (test
 test_scopes_no_new_endpoint_ingestion_and_masked_evidence (test_ueba.UEBAHTTPTests.test_scopes_no_new_endpoint_ingestion_and_masked_evidence) ... ok
 
 ----------------------------------------------------------------------
-Ran 238 tests in 154.527s
+Ran 244 tests in 166.646s
 
 OK

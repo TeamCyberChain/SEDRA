@@ -1,6 +1,7 @@
 /* Preference only; never store identity, tokens or submitted content. */
 (()=>{'use strict';const root=document.documentElement;let preference;
 try{preference=localStorage.getItem('sedra-theme');}catch{}
+try{root.dataset.nav=localStorage.getItem('sedra-nav-collapsed')==='true'?'collapsed':'expanded';}catch{}
 const media=matchMedia('(prefers-color-scheme: dark)');
 function apply(value){root.dataset.theme=value==='dark'?'dark':'light';document.querySelectorAll('.theme-toggle').forEach(b=>{b.textContent=root.dataset.theme==='dark'?'Light mode':'Dark mode';b.setAttribute('aria-pressed',String(root.dataset.theme==='dark'));});}
 apply(preference|| (media.matches?'dark':'light'));

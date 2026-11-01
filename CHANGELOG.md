@@ -1,3 +1,11 @@
+## 0.18.0 — Navigation and authenticator lifecycle
+
+- Add a persistent, accessible sidebar toggle to both the console and AI Workspace, including hidden-sidebar keyboard isolation and mobile layout.
+- Redesign account/MFA/recovery sign-in with branded split panels, theme control, password visibility and safe return-to-section behavior.
+- Add delegated MFA management with current password/factor reauthentication, version-checked target updates, session/recovery revocation and metadata audit events.
+- Add atomic owner-driven authenticator replacement; keep the old factor until a new code is verified and reject stale/expired changes.
+- Prevent a concurrent account reset from upgrading an already verified old MFA code into a new authentication version.
+
 ## 0.17.0 — Focused UEBA, mandatory MFA and reporting
 
 - Split UEBA into seven directly accessible sidebar subsections, with collapsed graphs and bounded timelines.
