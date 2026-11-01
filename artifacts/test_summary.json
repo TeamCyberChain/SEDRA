@@ -1,12 +1,12 @@
 {
-  "executed_at_utc": "2026-11-01T07:08:51.026884+00:00",
+  "executed_at_utc": "2026-11-01T07:58:52.853304+00:00",
   "python": "3.12.10",
-  "tests_run": 244,
+  "tests_run": 250,
   "failures": 0,
   "errors": 0,
   "skipped": 0,
   "successful": true,
-  "runtime_seconds": 168.242,
+  "runtime_seconds": 180.603,
   "suite": "unittest discovery: behavior, acquisition, matcher, gateway, application HTTP integration",
   "network_scope": "local loopback receiver only; no external AI request",
   "benchmark_performance_is_separate": true

@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "SEDRA scoped integration API",
-    "version": "0.18.1",
+    "version": "0.19.0",
     "description": "Loopback prototype. See docs/INTEGRATIONS.md for cursor, authorization and evidence contracts."
   },
   "servers": [
@@ -394,7 +394,7 @@
     },
     "/api/dashboards": {
       "get": {
-        "summary": "Analyst operational aggregates; days is 1, 7 or 30",
+        "summary": "Analyst observed aggregates, own saved dashboards and widget/metric catalogs; days 1|7|30",
         "description": "Cookie session authentication; POST requires X-CSRF-Token. These UI endpoints do not accept scoped machine keys. See docs/WORKSPACE_MFA_REPORTS.md.",
         "responses": {
           "200": {
@@ -546,6 +546,50 @@
           },
           "403": {
             "description": "Permission, factor, CSRF or challenge denied"
+          }
+        }
+      }
+    },
+    "/api/dashboards/saved": {
+      "get": {
+        "summary": "List own active dashboards; archived=1 lists own archived layouts",
+        "description": "MFA-verified Analyst cookie session. Owner-scoped configuration only; no API key authentication. POST requires X-CSRF-Token. See docs/DASHBOARD_BUILDER.md for exact closed schemas and widget fields.",
+        "responses": {
+          "200": {
+            "description": "Owner-scoped result"
+          },
+          "400": {
+            "description": "Invalid bounded schema or unavailable owner resource"
+          },
+          "401": {
+            "description": "Password and MFA required"
+          },
+          "403": {
+            "description": "Analyst role or CSRF denied"
+          },
+          "409": {
+            "description": "Stale revision or status conflict"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create, update, archive or restore an owner-scoped layout; writes use expected_revision",
+        "description": "MFA-verified Analyst cookie session. Owner-scoped configuration only; no API key authentication. POST requires X-CSRF-Token. See docs/DASHBOARD_BUILDER.md for exact closed schemas and widget fields.",
+        "responses": {
+          "200": {
+            "description": "Owner-scoped result"
+          },
+          "400": {
+            "description": "Invalid bounded schema or unavailable owner resource"
+          },
+          "401": {
+            "description": "Password and MFA required"
+          },
+          "403": {
+            "description": "Analyst role or CSRF denied"
+          },
+          "409": {
+            "description": "Stale revision or status conflict"
           }
         }
       }

@@ -3,6 +3,19 @@ const test=require('node:test'),assert=require('node:assert/strict'),fs=require(
 const path=require('node:path'),root=path.resolve(__dirname,'..');
 const escaped=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
+test('saved dashboard renders owner labels as text and preserves stored widget order',async()=>{
+ const nodes=new Map(),listeners={};
+ const node=id=>{if(!nodes.has(id))nodes.set(id,{innerHTML:'',value:'7',hidden:false,replaceChildren(){this.innerHTML='';}});return nodes.get(id);};
+ const saved={id:'a'.repeat(32),revision:2,name:'<img src=x onerror=attack()>',description:'<script>attack()</script>',days:7,widgets:[{id:'111111111111',type:'trend',title:'Daily <b>activity</b>',width:'full'},{id:'222222222222',type:'kpi',title:'Stopped by policy',width:'half',metric:'blocked'}]};
+ const result={window:{days:7},metrics:{attempts:4,blocked:3},cases:{open:0},trend:[],recommended_actions:[],data_quality:{detail_rows:4},saved_dashboards:[saved]};
+ const c=vm.createContext({document:{getElementById:node,querySelector:()=>node('nav'),addEventListener:(n,f)=>listeners[n]=f},window:{},state:{session:{role:'analyst',csrf_token:'test',subject_id:null}},selectedTab:'dashboards',isAnalyst:()=>true,esc:escaped,dateTime:()=>'',setInterval(){},api:async()=>result});
+ vm.runInContext(fs.readFileSync(path.join(root,'static/workbench.js'),'utf8'),c);c.window.SedraWorkspace.sync();await new Promise(setImmediate);
+ listeners.change({target:{id:'saved-dashboard-select',value:saved.id}});await new Promise(setImmediate);
+ const html=node('dashboards-content').innerHTML;
+ assert(html.includes('&lt;img'));assert(html.includes('&lt;script&gt;'));assert(html.includes('Daily &lt;b&gt;activity&lt;/b&gt;'));assert(!html.includes('<img src=x'));assert(!html.includes('<script>attack'));
+ assert(html.indexOf('data-widget="111111111111"')<html.indexOf('data-widget="222222222222"'));assert(html.includes('<strong>3</strong>'));assert(html.includes('REVISION 2'));
+});
+
 test('sidebar toggle persists appearance and makes closed navigation inert across tabs',()=>{
  const created=[],listeners={},saved=new Map(),signals=[];
  const el=()=>({attrs:{},setAttribute(k,v){this.attrs[k]=v;},removeAttribute(k){delete this.attrs[k];},addEventListener(k,v){this[k]=v;},append(){},prepend(){},before(){}});

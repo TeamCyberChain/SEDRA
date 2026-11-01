@@ -2,7 +2,7 @@
 'use strict';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const permissionNames={'accounts.read':'View the user directory','accounts.create':'Create standard accounts','accounts.update':'Enable, disable and change standard account roles','accounts.reset_password':'Reset standard account passwords','accounts.reset_mfa':'Manage standard account authenticators'};
-let context=null,admin=null,section='profile',userTab='creation',auditPage=null,auditRows=[],busy=false,opener=null,revision=0;
+let context=null,admin=null,section='profile',userTab='creation',usersExpanded=true,auditPage=null,auditRows=[],busy=false,opener=null,revision=0;
 const d=document.createElement('dialog');
 d.className='settings-dialog';d.setAttribute('aria-label','Settings');
 d.innerHTML=`<header class="settings-head"><div><span class="settings-overline">WORKSPACE</span><h2>Settings</h2></div><button type="button" id="settings-close" aria-label="Close settings">×</button></header><div class="settings-layout"><nav class="settings-nav" aria-label="Settings sections"><button data-setting="profile">Profile & account</button><button data-setting="appearance">Appearance</button><button data-setting="audit">Audit Logs</button><button data-setting="manage" aria-expanded="false" hidden>Users <span aria-hidden="true">⌄</span></button><div class="settings-subnav" id="settings-users-nav" hidden><button data-manage="creation">User Creation</button><button data-manage="management">User Management</button><button data-manage="roles">Roles</button></div></nav><section class="settings-content" id="settings-content" aria-live="polite"></section></div><p class="settings-status" id="settings-status" role="status"></p>`;
@@ -76,12 +76,12 @@ async function manage(tab=userTab){
  if(tab==='management')for(const u of admin.users){const select=content.querySelector(`[data-account="${u.id}"] [data-user-subject]`);if(select)select.value=u.subject||'';}
 }
 async function show(value){
- wipePasswords();revision++;section=value;notify();
+ wipePasswords();revision++;if(value==='manage'&&section!=='manage')usersExpanded=true;section=value;notify();
  if(section==='manage'&&!context.account.can_manage_users)section='profile';
  if(section==='audit'&&context.enabled&&!['administrator','analyst'].includes(context.account.access_profile))section='profile';
  d.querySelectorAll('[data-setting]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.setting===section)));
- d.querySelector('[data-setting=manage]').setAttribute('aria-expanded',String(section==='manage'));
- d.querySelector('#settings-users-nav').hidden=section!=='manage';
+ d.querySelector('[data-setting=manage]').setAttribute('aria-expanded',String(section==='manage'&&usersExpanded));
+ d.querySelector('#settings-users-nav').hidden=section!=='manage'||!usersExpanded;
  if(section==='profile')profile();
  if(section==='appearance')content.innerHTML=heading('Appearance','A consistent color scheme across every SEDRA workspace.')+`<div class="settings-theme-options"><button data-theme-choice="light" aria-pressed="${document.documentElement.dataset.theme!=='dark'}"><span class="settings-theme-preview light"><i></i><i></i></span><b>Light</b><small>Clear, neutral surfaces</small></button><button data-theme-choice="dark" aria-pressed="${document.documentElement.dataset.theme==='dark'}"><span class="settings-theme-preview dark"><i></i><i></i></span><b>Dark</b><small>Graphite surfaces, teal accents</small></button></div>`;
  if(section==='audit')await audit();
@@ -110,7 +110,7 @@ d.addEventListener('click',async e=>{
  const b=e.target.closest('button');if(!b||busy)return;
  try{
   if(b.id==='settings-close'){close();return;}
-  if(b.dataset.setting){await show(b.dataset.setting);return;}
+  if(b.dataset.setting){if(b.dataset.setting==='manage'&&section==='manage'){usersExpanded=!usersExpanded;d.querySelector('#settings-users-nav').hidden=!usersExpanded;b.setAttribute('aria-expanded',String(usersExpanded));return;}await show(b.dataset.setting);return;}
   if(b.dataset.manage){wipePasswords();revision++;notify();await manage(b.dataset.manage);return;}
   if(b.dataset.themeChoice){window.SedraTheme?.set(b.dataset.themeChoice);d.querySelectorAll('[data-theme-choice]').forEach(n=>n.setAttribute('aria-pressed',String(n===b)));notify('Appearance saved.');return;}
   if(b.hasAttribute('data-mfa-own')){ownMfa();return;}

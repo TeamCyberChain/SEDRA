@@ -115,6 +115,12 @@ test_sensitive_prompt_and_text_attachment_block_create_masked_alerts (test_brows
 test_unknown_oversized_and_mislabeled_files_fail_closed_with_alert (test_browser_guard.BrowserPolicyHTTPTests.test_unknown_oversized_and_mislabeled_files_fail_closed_with_alert) ... ok
 test_console_deep_links_and_assets (test_console_routes.ConsoleRoutesTests.test_console_deep_links_and_assets) ... ok
 test_deep_link_does_not_expand_employee_access (test_console_routes.ConsoleRoutesTests.test_deep_link_does_not_expand_employee_access) ... ok
+test_archive_restore_is_recoverable_revisioned_and_survives_reset (test_dashboards.DashboardHTTPTests.test_archive_restore_is_recoverable_revisioned_and_survives_reset) ... ok
+test_closed_schema_invalid_types_bounded_layout_and_csrf (test_dashboards.DashboardHTTPTests.test_closed_schema_invalid_types_bounded_layout_and_csrf) ... ok
+test_conflicting_writers_have_one_winner_and_no_silent_overwrite (test_dashboards.DashboardHTTPTests.test_conflicting_writers_have_one_winner_and_no_silent_overwrite) ... ok
+test_create_update_aggregate_catalog_and_restart_retention (test_dashboards.DashboardHTTPTests.test_create_update_aggregate_catalog_and_restart_retention) ... ok
+test_employee_is_denied_and_account_ownership_applies_to_mutations (test_dashboards.DashboardHTTPTests.test_employee_is_denied_and_account_ownership_applies_to_mutations) ... ok
+test_capacity_and_plain_text_are_preserved_without_execution_fields (test_dashboards.DashboardLimitsTests.test_capacity_and_plain_text_are_preserved_without_execution_fields) ... ok
 test_employee_cannot_start_sensor_or_submit_arbitrary_event_fields (test_endpoint.EndpointScopeTests.test_employee_cannot_start_sensor_or_submit_arbitrary_event_fields) ... ok
 test_actual_file_metadata_poll_is_scoped_and_does_not_read_contents (test_endpoint.EndpointTests.test_actual_file_metadata_poll_is_scoped_and_does_not_read_contents) ... ok
 test_augment_changes_policy_without_training_daily_model (test_endpoint.EndpointTests.test_augment_changes_policy_without_training_daily_model) ... ok
@@ -244,6 +250,6 @@ test_request_ledger_drives_blocks_even_if_secondary_audit_event_is_missing (test
 test_scopes_no_new_endpoint_ingestion_and_masked_evidence (test_ueba.UEBAHTTPTests.test_scopes_no_new_endpoint_ingestion_and_masked_evidence) ... ok
 
 ----------------------------------------------------------------------
-Ran 244 tests in 166.646s
+Ran 250 tests in 178.987s
 
 OK

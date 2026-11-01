@@ -1,0 +1,129 @@
+{
+  "version": "0.19.0",
+  "observed_at_utc": "2026-11-01T08:00:21.585255+00:00",
+  "main_health": {
+    "status": "ok",
+    "product": "SEDRA",
+    "mode": "local_lab",
+    "build_version": "0.19.0",
+    "model_version": "iforest-lab-daily-v1"
+  },
+  "retained_transfer_counts": {
+    "attempted": 32,
+    "confirmed": 1,
+    "blocked": 28,
+    "unknown": 3
+  },
+  "accounts_passwords_roles_factors_recovery_registrations_preserved": true,
+  "unauthenticated_saved_dashboard_http_status": 401,
+  "main_asset_http_checks": {
+    "/boards.css": {
+      "status": 200,
+      "content_type": "text/css; charset=utf-8"
+    },
+    "/brand.css": {
+      "status": 200,
+      "content_type": "text/css; charset=utf-8"
+    },
+    "/workbench.js": {
+      "status": 200,
+      "content_type": "text/javascript; charset=utf-8"
+    },
+    "/sedra-logo.svg": {
+      "status": 200,
+      "content_type": "image/svg+xml; charset=utf-8"
+    },
+    "/sedra-wordmark.svg": {
+      "status": 200,
+      "content_type": "image/svg+xml; charset=utf-8"
+    },
+    "/login": {
+      "status": 200,
+      "content_type": "text/html; charset=utf-8"
+    },
+    "/portal": {
+      "status": 200,
+      "content_type": "text/html; charset=utf-8"
+    }
+  },
+  "python_regression": {
+    "executed_at_utc": "2026-11-01T07:58:52.853304+00:00",
+    "python": "3.12.10",
+    "tests_run": 250,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "runtime_seconds": 180.603,
+    "suite": "unittest discovery: behavior, acquisition, matcher, gateway, application HTTP integration",
+    "network_scope": "local loopback receiver only; no external AI request",
+    "benchmark_performance_is_separate": true
+  },
+  "node_tests": {
+    "passed": 16,
+    "failed": 0,
+    "scope": "console and extension worker tests"
+  },
+  "browser_functional_checks": {
+    "isolated_fixture": true,
+    "fictional_existing_account_mfa_signin": true,
+    "create_blank_dashboard": true,
+    "add_metric_and_daily_activity_widgets": true,
+    "reorder_and_save_revision_2": true,
+    "reload_and_select_preserves_order_and_width": true,
+    "archive_and_restore_revision_4": true,
+    "ueba_parent_repeat_click": [
+      "true",
+      "false"
+    ],
+    "users_parent_repeat_click": [
+      "true",
+      "false"
+    ],
+    "signin_full_name_horizontal_desktop": {
+      "text": "Sensitive Enterprise Data Risk Assurance",
+      "white_space": "nowrap",
+      "height_px": 20.896,
+      "width_px": 420
+    },
+    "console_portal_appearance_styles": [
+      {
+        "gap": 12,
+        "header": "rgb(23, 27, 30)",
+        "logo": "rgb(49, 138, 117)",
+        "page": "console",
+        "theme": "dark",
+        "toggle": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "header": "rgb(255, 255, 255)",
+        "logo": "rgb(49, 138, 117)",
+        "page": "console",
+        "theme": "light",
+        "toggle": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "gap": 12,
+        "header": "rgb(255, 255, 255)",
+        "logo": "rgb(49, 138, 117)",
+        "page": "portal",
+        "theme": "light",
+        "toggle": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "header": "rgb(23, 27, 30)",
+        "logo": "rgb(49, 138, 117)",
+        "page": "portal",
+        "theme": "dark",
+        "toggle": "rgba(0, 0, 0, 0)"
+      }
+    ],
+    "real_account_factor_was_not_modified": true
+  },
+  "limitations": [
+    "Browser functional tests used fictional accounts and synthetic records in an isolated loopback fixture.",
+    "Saved dashboards are account-private Analyst layouts; no cross-account sharing or arbitrary data connector.",
+    "Operational metrics are not detector efficacy or maliciousness probabilities.",
+    "GitHub CI is verified separately against the committed head."
+  ]
+}

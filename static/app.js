@@ -89,6 +89,7 @@ const alertPageId = location.pathname === '/alert' ? new URLSearchParams(locatio
 if(alertPageId){document.body.classList.add('alert-page');document.querySelector('#view-alerts h1').textContent='Alert investigation';}
 let selectedTab = "overview";
 let selectedUebaSection="summary";
+let uebaMenuOpen=false;
 let selectedSubject = new URLSearchParams(location.search).get('subject');
 let analysisSource = "lab";
 let selectedDocument = null;
@@ -270,13 +271,14 @@ async function loadState({silent = false} = {}) {
 }
 
 function changeTab(tab, updateHash = true) {
-  if(tab.startsWith('ueba/')){const part=tab.slice(5);selectedUebaSection=['summary','cases','signals','activity','endpoint','models','coverage'].includes(part)?part:'summary';tab='investigation';}
+  if(tab.startsWith('ueba/')){uebaMenuOpen=true;const part=tab.slice(5);selectedUebaSection=['summary','cases','signals','activity','endpoint','models','coverage'].includes(part)?part:'summary';tab='investigation';}
   if(state&&!isAnalyst()&&selectedUebaSection==='cases')selectedUebaSection='summary';
   if(state&&!isAnalyst()&&['alerts','integrations','audit','dashboards'].includes(tab))tab='overview';
   if(tab==='audit'){window.SedraSettings?.open('audit');tab='overview';}
   if(tab==="transfers")tab="lab";
   if (!["overview","alerts","investigation","inventory","lab","integrations","audit","dashboards","reports"].includes(tab)) tab = "overview";
   if(alertPageId && updateHash){location.assign('/#'+(tab==='lab'?'transfers':tab));return;}
+  if(tab==='investigation'&&selectedTab!=='investigation')uebaMenuOpen=true;
   selectedTab = tab;
   if (updateHash) window.scrollTo({top:0,behavior:"instant"});
   document.querySelectorAll(".view").forEach(view => { view.hidden = view.id !== `view-${tab}`; });
@@ -287,8 +289,8 @@ function changeTab(tab, updateHash = true) {
   });
   $("breadcrumb-current").textContent = {overview:"Overview",investigation:"UEBA",lab:"Transfer Control",inventory:"Data Inventory",alerts:alertPageId?"Alert investigation":"Alerts",integrations:"Identity & integrations",audit:"Audit Logs",dashboards:"Dashboards",reports:"Reports"}[tab];
   if (updateHash) history.replaceState(null, "", `/#${tab==='investigation'?'ueba/'+selectedUebaSection:tab==="lab"?"transfers":tab}`);
-  const subnav=$('ueba-subnav');if(subnav)subnav.hidden=tab!=='investigation';
-  document.querySelector('[data-tab="investigation"]')?.setAttribute('aria-expanded',String(tab==='investigation'));
+  const subnav=$('ueba-subnav');if(subnav)subnav.hidden=tab!=='investigation'||!uebaMenuOpen;
+  document.querySelector('[data-tab="investigation"]')?.setAttribute('aria-expanded',String(tab==='investigation'&&uebaMenuOpen));
   document.querySelectorAll('[data-ueba-section]').forEach(b=>b.setAttribute('aria-current',String(b.dataset.uebaSection===selectedUebaSection)));
   if (state) {
     renderSourceContext();
@@ -663,7 +665,11 @@ async function reconcile(requestId) {
 
 document.addEventListener("click", event => {
   const tab = event.target.closest("[data-tab]");
-  if (tab) changeTab(tab.dataset.tab);
+  if(tab){
+    if(tab.dataset.tab==='investigation'&&selectedTab==='investigation'){
+      uebaMenuOpen=!uebaMenuOpen;$('ueba-subnav').hidden=!uebaMenuOpen;tab.setAttribute('aria-expanded',String(uebaMenuOpen));
+    }else changeTab(tab.dataset.tab);
+  }
   const go = event.target.closest("[data-go]");
   if (go) changeTab(go.dataset.go);
   const subject = event.target.closest("[data-investigate]");

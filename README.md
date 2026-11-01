@@ -1,10 +1,14 @@
-# SEDRA — data security and governed AI access
+# SEDRA â€” data security and governed AI access
 
-**Team CyberChain · Digital Challenge Azerbaijan 2026 · Topic 6 · private development review.**
+**Team CyberChain Â· Digital Challenge Azerbaijan 2026 Â· Topic 6 Â· private development review.**
 
-Start with the [reviewer guide](docs/REVIEWER_GUIDE.md), [requirements mapping](docs/REQUIREMENTS_TRACEABILITY.md), [technical report](docs/TECHNICAL_REPORT.md) and [actual 244-test result](artifacts/test_summary.json). [AI assistance](AI_ASSISTANCE.md) and [external components](THIRD_PARTY_NOTICES.md) are disclosed. Source/test evidence describes the current 0.18.1 build; presentation/Q&A files are excluded from this repository at the team request. This review checkpoint does not assert final organizer acceptance.
+Start with the [reviewer guide](docs/REVIEWER_GUIDE.md), [requirements mapping](docs/REQUIREMENTS_TRACEABILITY.md), [technical report](docs/TECHNICAL_REPORT.md) and [actual 250-test result](artifacts/test_summary.json). [AI assistance](AI_ASSISTANCE.md) and [external components](THIRD_PARTY_NOTICES.md) are disclosed. Source/test evidence describes the current 0.19.0 build; presentation/Q&A files are excluded from this repository at the team request. This review checkpoint does not assert final organizer acceptance.
 
 SEDRA connects past-only user-day UEBA and observed live application signals to a real transfer decision, then verifies what an independent local receiver obtained. The offline hackathon lab uses fictional identities/documents. The AI portal sends only allowed requests to a real local Qwen CPU model or, when selected and available, the OpenAI Responses API. Local model inference has executed successfully; the OpenAI account returned 429 and has no successful reply claim.
+
+## SEDRA 0.19: saved dashboards and consistent workspaces
+
+Create account-private dashboards from eight observed-data widget types, edit titles/widths/order and save revision-checked layouts. Archive/restore is recoverable; layouts survive activity resets. Users remain denied population dashboards. See [dashboard builder and bounds](docs/DASHBOARD_BUILDER.md). Shared headers and the invariant logo color now match across the console and AI Workspace in both themes. The full SEDRA name sits on one horizontal footer line at desktop widths. UEBA and Settings Users menus toggle closed on repeat clicks. Content entrances and subtle hover feedback respect reduced-motion settings.
 
 ## SEDRA 0.18.1: identity and motion
 
@@ -38,11 +42,11 @@ All web surfaces share a light/dark preference, persisted locally and synchroniz
 
 ## SEDRA 0.12: unified security console
 
-Identity & integrations is a first-class console section. Alert titles and Investigate links open dedicated `/alert?id=…` pages in a new tab, with API authorization and revisioned review intact. The console and AI Workspace share neutral surfaces, consistent blue controls, responsive layouts and balanced SVG icons. User-facing identities use display aliases; original payloads, source content, API bindings and exported evidence remain unchanged. Data provenance and failed benchmark gates remain available under Data & methodology and the evaluation evidence. See [executed console checks](artifacts/console_ui_smoke_v1.json).
+Identity & integrations is a first-class console section. Alert titles and Investigate links open dedicated `/alert?id=â€¦` pages in a new tab, with API authorization and revisioned review intact. The console and AI Workspace share neutral surfaces, consistent blue controls, responsive layouts and balanced SVG icons. User-facing identities use display aliases; original payloads, source content, API bindings and exported evidence remain unchanged. Data provenance and failed benchmark gates remain available under Data & methodology and the evaluation evidence. See [executed console checks](artifacts/console_ui_smoke_v1.json).
 
 ## SEDRA 0.11: Browser Guard pilot
 
-A reviewed Chrome/Edge MV3 extension checks supported paste, typed-draft, send and file events on explicit Gemini/ChatGPT/Claude origins. It calls the bound `browser:inspect` API and creates masked security alerts. Bounded text/DOCX/XLSX inspection fails closed on unknown formats; allowed browser releases remain conservatively delivery-unknown. An isolated local lab provides independent receipts. See [setup, signed managed deployment and coverage limits](docs/BROWSER_GUARD.md). Chrome Gemini and ChatGPT composers have been tested with synthetic FİN via paste, typed Send and TXT upload. Edge testing was deferred by the user after an organization installation-policy block. Claude requires login; neither is claimed live-validated. The observed Gemini upload-control false positive was fixed in 0.11.1 and regression-tested.
+A reviewed Chrome/Edge MV3 extension checks supported paste, typed-draft, send and file events on explicit Gemini/ChatGPT/Claude origins. It calls the bound `browser:inspect` API and creates masked security alerts. Bounded text/DOCX/XLSX inspection fails closed on unknown formats; allowed browser releases remain conservatively delivery-unknown. An isolated local lab provides independent receipts. See [setup, signed managed deployment and coverage limits](docs/BROWSER_GUARD.md). Chrome Gemini and ChatGPT composers have been tested with synthetic FÄ°N via paste, typed Send and TXT upload. Edge testing was deferred by the user after an organization installation-policy block. Claude requires login; neither is claimed live-validated. The observed Gemini upload-control false positive was fixed in 0.11.1 and regression-tested.
 
 ## SEDRA 0.10: SSO and scoped SOAR integration
 
@@ -54,31 +58,31 @@ The Python package is `sedra`, all launchers use SEDRA and presentation material
 
 ## Evidence-bound behavior casework (introduced in 0.8)
 
-Open **Analyst → UEBA → Behavior casework** for durable observed-sequence findings, a typed source graph, peak/current priority and revisioned analyst review. Cases open independently of DLP blocks and retain evidence after live windows cool. **Why this decision?** compares the original admission with selected recorded behavioral components excluded, using the original labels, destination and cumulative exposure. It never resends, unblocks or changes policy; hard FİN/restricted-content rules remain. Process/file correlation now requires eight distinct files in the same owned test run, preventing repeated-write and unrelated-process inflation. Full regression: **184 tests passed**. See [contracts, live proof and limits](docs/BEHAVIOR_CASES.md).
+Open **Analyst â†’ UEBA â†’ Behavior casework** for durable observed-sequence findings, a typed source graph, peak/current priority and revisioned analyst review. Cases open independently of DLP blocks and retain evidence after live windows cool. **Why this decision?** compares the original admission with selected recorded behavioral components excluded, using the original labels, destination and cumulative exposure. It never resends, unblocks or changes policy; hard FÄ°N/restricted-content rules remain. Process/file correlation now requires eight distinct files in the same owned test run, preventing repeated-write and unrelated-process inflation. Full regression: **184 tests passed**. See [contracts, live proof and limits](docs/BEHAVIOR_CASES.md).
 
 ## Opt-in local Windows telemetry (introduced in 0.7)
 
-Choose **Analyst → UEBA → Local endpoint evidence → Run real process / file test**. The sensor reads the current identity's available Windows session logs, polls attached USB/removable metadata and observes one owned test process plus named lab-file metadata. Its actual process/file test has changed endpoint priority 0 → 90; a separate real Windows HTTP smoke changed the same quote ALLOW → BLOCK at 20% → 10%, with a frozen context and alert. No USB device was available for physical testing, and Security log access remains unavailable; accessible session records are shown with their original timestamps. See [local scope, privacy, controls and reproducible proof](docs/LOCAL_ENDPOINT.md).
+Choose **Analyst â†’ UEBA â†’ Local endpoint evidence â†’ Run real process / file test**. The sensor reads the current identity's available Windows session logs, polls attached USB/removable metadata and observes one owned test process plus named lab-file metadata. Its actual process/file test has changed endpoint priority 0 â†’ 90; a separate real Windows HTTP smoke changed the same quote ALLOW â†’ BLOCK at 20% â†’ 10%, with a frozen context and alert. No USB device was available for physical testing, and Security log access remains unavailable; accessible session records are shown with their original timestamps. See [local scope, privacy, controls and reproducible proof](docs/LOCAL_ENDPOINT.md).
 
 ## Explained UEBA (introduced in 0.6)
 
 Open **UEBA** for personal/role baseline comparisons, 21 completed-day values, model freshness, six live rules, a correlated source timeline, telemetry coverage, masked export and a safe observed-sequence control. The live engine uses real app reads and durable gateway request metadata, with 2-minute and 30-minute windows. Repeated request/audit copies cannot inflate blocked attempts; future observations are excluded. Live personal baselines require sufficient actual earlier app history. The dated synthetic IF remains separate and expires from policy use after 72 hours. See [UEBA contract, demo and limits](docs/UEBA.md).
 
-An isolated actual HTTP check observes the same quote change ALLOW → BLOCK at 20% → 10% after 3 protected reads followed by 2 sensitive blocked attempts, while public text still passes. These are functional controls, not enterprise detection efficacy. Scoped local Windows session/USB-presence/test-file telemetry is opt-in; general endpoint HTTP is not connected. CERT multichannel v2 remains unmeasured.
+An isolated actual HTTP check observes the same quote change ALLOW â†’ BLOCK at 20% â†’ 10% after 3 protected reads followed by 2 sensitive blocked attempts, while public text still passes. These are functional controls, not enterprise detection efficacy. Scoped local Windows session/USB-presence/test-file telemetry is opt-in; general endpoint HTTP is not connected. CERT multichannel v2 remains unmeasured.
 
 ## Security alert operations (introduced in 0.5)
 
-Choose **Analyst → Alerts** for a durable queue of prevented disclosures and delivery-acknowledgement uncertainty. New policy blocks show an in-app banner and unread bell count within the next successful two-second visible-console poll. Each alert has masked evidence, deterministic review priority, subject/route, frozen policy tags and an audited Open → In review → Resolved lifecycle. Retries do not duplicate alerts; resolution does not unblock or resend the request. Retained old events are explicitly marked as imported. See [alert behavior, scope and verification](docs/ALERTS.md). External email, Teams, OS push and SIEM notifications are not configured.
+Choose **Analyst â†’ Alerts** for a durable queue of prevented disclosures and delivery-acknowledgement uncertainty. New policy blocks show an in-app banner and unread bell count within the next successful two-second visible-console poll. Each alert has masked evidence, deterministic review priority, subject/route, frozen policy tags and an audited Open â†’ In review â†’ Resolved lifecycle. Retries do not duplicate alerts; resolution does not unblock or resend the request. Retained old events are explicitly marked as imported. See [alert behavior, scope and verification](docs/ALERTS.md). External email, Teams, OS push and SIEM notifications are not configured.
 
 ## Structured sensitive-data controls (introduced in 0.4)
 
-Outgoing text is inspected independently of the registered document corpus. Supported FİN fields/labels, checksum-valid IBANs from 89 pinned SWIFT country formats, contextual Luhn cards, credential assignments, AWS access IDs, private PEM envelopes and bearer tokens block before delivery. JSON/CSV, selected Unicode look-alikes, supported separators and bounded Base64 are inspected without changing the outbound payload. These are format/context checks, not identity or account-existence validation.
+Outgoing text is inspected independently of the registered document corpus. Supported FÄ°N fields/labels, checksum-valid IBANs from 89 pinned SWIFT country formats, contextual Luhn cards, credential assignments, AWS access IDs, private PEM envelopes and bearer tokens block before delivery. JSON/CSV, selected Unicode look-alikes, supported separators and bounded Base64 are inspected without changing the outbound payload. These are format/context checks, not identity or account-existence validation.
 
-Open **Data Inventory → Sensitive data controls** for the actual rule catalog and live synthetic examples. The AI Workspace includes **FİN · JSON** and **IBAN · grouped** controls. See [structured-data scope and reproducible verification](docs/STRUCTURED_DATA_CONTROLS.md).
+Open **Data Inventory â†’ Sensitive data controls** for the actual rule catalog and live synthetic examples. The AI Workspace includes **FÄ°N Â· JSON** and **IBAN Â· grouped** controls. See [structured-data scope and reproducible verification](docs/STRUCTURED_DATA_CONTROLS.md).
 
 ## Operations and governed labels
 
-Open **http://127.0.0.1:8765/#inventory** for the new asset inventory and **/portal** for the AI Workspace. Select **Analyst → Data Inventory → an asset** to manage its data owner, business tags and governed sensitivity. A controlled document can be raised to Restricted; recognized protected matches then block on new admissions, on both the receiver and AI routes. Existing requests retain the label revision used at admission.
+Open **http://127.0.0.1:8765/#inventory** for the new asset inventory and **/portal** for the AI Workspace. Select **Analyst â†’ Data Inventory â†’ an asset** to manage its data owner, business tags and governed sensitivity. A controlled document can be raised to Restricted; recognized protected matches then block on new admissions, on both the receiver and AI routes. Existing requests retain the label revision used at admission.
 
 Metadata includes original SHA-256, UTF-8 size, media type, content version, label revision/source, structured detector types and handling. Labels and their audit history survive activity reset. Sensitivity floors cannot be weakened; public exclusions cannot be reclassified through this interface. Business tags describe context and do not independently change policy. See [SEDRA governance](docs/SEDRA_GOVERNANCE.md).
 
@@ -104,7 +108,7 @@ On Linux/macOS create a Python 3.12 venv and use `.venv/bin/python` instead. Cho
 
 ## Real local AI portal
 
-Run **Start-SEDRA.cmd** and open **http://127.0.0.1:8765/portal**. When the model supplement is installed the launcher starts the verified CPU model and selects it for a new server. Choose **lab-001 → Public workshop question → Check with SEDRA & ask AI** to receive a newly generated answer. Then send **Restricted synthetic example** to show a block before inference. If needed select **Analyst → AI provider: Local AI → Connect for this session** first.
+Run **Start-SEDRA.cmd** and open **http://127.0.0.1:8765/portal**. When the model supplement is installed the launcher starts the verified CPU model and selects it for a new server. Choose **lab-001 â†’ Public workshop question â†’ Check with SEDRA & ask AI** to receive a newly generated answer. Then send **Restricted synthetic example** to show a block before inference. If needed select **Analyst â†’ AI provider: Local AI â†’ Connect for this session** first.
 
 On another Windows PC, extract the **SEDRA-Local-AI-Model.zip** supplement over the base package, or use **Setup-Local-AI.cmd** with internet once. See [LOCAL_AI.md](docs/LOCAL_AI.md). The original offline receiver and its independent receipts remain separate.
 
@@ -116,7 +120,7 @@ Open **http://127.0.0.1:8765/portal**. Select Analyst, choose **OpenAI API**, pr
 
 **Overview** shows actual transfer counters and separate lab/CERT v1/CERT v2 sources. **Investigation** shows dated model context, the separate live rule, features and source events. **AI Transfer Lab** contains editable judge examples, policy evidence, exposure ratios, transitions and receiver receipts.
 
-Choose **Analyst → Reset demo → lab-001 → AI Transfer Lab → Run fragment sequence**. Two excerpts reach the receiver; the third blocks. Two independent receipts retain the original SHA-256 and UTF-8 byte counts.
+Choose **Analyst â†’ Reset demo â†’ lab-001 â†’ AI Transfer Lab â†’ Run fragment sequence**. Two excerpts reach the receiver; the third blocks. Two independent receipts retain the original SHA-256 and UTF-8 byte counts.
 
 Load **Same-text context comparison** and send: ALLOW. Click **Replay 6 document accesses**, then send the same text: BLOCK. That button executes actual document endpoint requests. The resulting two-minute live rule is separate from the dated completed-day Isolation Forest. Load the **Two-word restricted excerpt** to demonstrate a hard block.
 
@@ -136,7 +140,7 @@ V2 uses device/logon/HTTP/file **calendar days**, exact actor/channel/ID/time-qu
 
 ## Content and reliability
 
-V2 keeps exact source 4-gram coverage and adds separately counted anchored short sequences/distinctive tokens. It handles supported Unicode TR39 confusables, mixed-script flags, ignorables and AZ I/İ casing. Structured rules cover synthetic markers, AWS access IDs, private PEM envelopes, contextual Luhn-valid cards, checksum-valid AZ IBANs, labeled FIN values and conservative credential assignments. Canonical UTF-8 Base64 is decoded once within strict bounds; benign encoded text is not automatically blocked.
+V2 keeps exact source 4-gram coverage and adds separately counted anchored short sequences/distinctive tokens. It handles supported Unicode TR39 confusables, mixed-script flags, ignorables and AZ I/Ä° casing. Structured rules cover synthetic markers, AWS access IDs, private PEM envelopes, contextual Luhn-valid cards, checksum-valid AZ IBANs, labeled FIN values and conservative credential assignments. Canonical UTF-8 Base64 is decoded once within strict bounds; benign encoded text is not automatically blocked.
 
 Restricted content and structured findings are hard blocks. Controlled excerpts use separate **24-hour and 30-day** cumulative limits. SQLite reserves exposure atomically before the send claim. Idempotency binds subject, request ID, original hash and destination. Unused reservations have a 30-second TTL. Uncertain sends remain conservatively counted until trusted reconciliation.
 

@@ -14,3 +14,14 @@
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}.sedra-intro{display:none}.motion-ripple-wrap{display:none}:where(button,.button,.nav-item):hover,:where(button,.button):active{transform:none!important}}
 
 .signin-brand{align-items:flex-start}.signin-brand .sedra-logo{margin-top:2px}.signin-brand small{font-size:10px;letter-spacing:.3px;line-height:1.6;font-weight:400}.signin-page .signin-brand small{font-size:10px}
+
+/* The mark is one invariant brand colour in every workspace and appearance. */
+html body .sedra-logo,html body .portal-nav .portal-brand svg.sedra-logo{color:#318a75!important}
+.signin-brand small,.signin-page .signin-brand small{font-size:8px;letter-spacing:1.8px;line-height:1.5}.signin-fullname{font-size:11px;font-weight:500;letter-spacing:.15px;color:var(--body);margin:0 0 12px;white-space:nowrap}.signin-footer{max-width:420px}.signin-brand{align-items:center}
+html body .topbar,html body.portal-body .portal-workspace>header{background:var(--header-surface,#fff)!important;color:var(--body)!important;border-bottom:1px solid var(--line)!important;min-height:68px;height:68px;padding:0 24px 0 12px!important;gap:14px}
+:root[data-theme=dark]{--header-surface:#171b1e}
+html body.portal-body .portal-workspace>header .shell-heading>button.shell-toggle{background:transparent!important;color:var(--muted)!important;border:1px solid var(--line)!important;width:34px;height:34px;padding:6px!important;box-shadow:none}.shell-heading{gap:12px}
+.view:not([hidden]),.portal-workspace>main{animation:workspace-arrive .25s ease both}.workspace-brief,.metric-card,.dashboard-card{transition:border-color .2s ease,box-shadow .2s ease}.workspace-brief:hover,.dashboard-card:hover{border-color:color-mix(in srgb,var(--teal) 35%,var(--line));box-shadow:0 4px 15px #00000008}
+@keyframes workspace-arrive{from{opacity:.2;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media(max-width:760px){html body .topbar,html body.portal-body .portal-workspace>header{height:auto;padding:12px!important}.signin-fullname{font-size:10px;white-space:normal}.shell-heading{gap:10px}}
+@media(prefers-reduced-motion:reduce){.view:not([hidden]),.portal-workspace>main{animation:none}}

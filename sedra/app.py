@@ -25,6 +25,7 @@ from . import __version__
 from .audit_log import AuditLog
 from .accounts import Accounts
 from .analytics import Reports,aggregate,export_csv,export_pdf
+from .dashboards import Dashboards,DashboardConflict,METRICS,WIDGETS
 from .behavior import build_demo_snapshot
 from .corpus import DOCUMENTS, catalog
 from .gateway import Gateway
@@ -41,7 +42,7 @@ from .integrations import Integrations,OIDC,AuthError,Conflict,RateLimit
 from .browser_guard import BrowserGuard,EXTENSION_ORIGIN
 
 ROOT = Path(__file__).resolve().parent.parent
-AUDIT_ROUTES = {'/brand.css','/motion.js','/sedra-logo.svg','/sedra-logo-mono.svg','/sedra-wordmark.svg','/api/accounts/mfa','/api/account/mfa/replace/start','/api/account/mfa/replace/confirm','/shell.js','/shell.css','/login.css','/api/dashboards','/api/reports','/workbench.js','/workbench.css','/api/account/mfa/enroll','/api/account/mfa/verify','/api/accounts/password','/api/account/context','/api/account/bootstrap','/api/account/login','/api/accounts','/api/accounts/users','/api/accounts/roles','/settings.js','/settings.css','/login','/login.js','/alerts.js','/app.js','/audit.js','/browser-harness-transport.js','/browser-harness.html','/browser-lab.html','/browser-lab.js','/cases.js','/console.css','/endpoint.js','/index.html','/integrations.html','/integrations.js','/openapi.json','/portal.css','/portal.html','/portal.js','/presentation.js','/sedra.css','/style.css','/theme.css','/theme.js','/ueba.js','/api/audit/context','/api/reset', '/api/integrations/keys', '/api/logout', '/browser-lab', '/api/v1/ueba', '/api/state', '/api/ueba/counterfactual', '/health', '/api/audit', '/api/document', '/api/v1/cases', '/browser-harness', '/api/session', '/portal', '/api/v1/alerts/action', '/api/reconcile', '/api/endpoint/action', '/api/alerts', '/api/v1/telemetry', '/api/endpoint', '/api/transfer', '/api/ueba/cases', '/api/portal/status', '/api/portal/configure', '/auth/callback', '/api/v1/alerts', '/api/portal/chat', '/', '/api/v1/cases/changes', '/auth/login', '/api/catalog/labels', '/integrations', '/alert', '/api/v1/browser/inspect', '/api/v1/cases/action', '/api/alerts/action', '/api/ueba', '/api/audit/ui', '/api/ueba/cases/action'}
+AUDIT_ROUTES = {'/boards.css','/api/dashboards/saved','/brand.css','/motion.js','/sedra-logo.svg','/sedra-logo-mono.svg','/sedra-wordmark.svg','/api/accounts/mfa','/api/account/mfa/replace/start','/api/account/mfa/replace/confirm','/shell.js','/shell.css','/login.css','/api/dashboards','/api/reports','/workbench.js','/workbench.css','/api/account/mfa/enroll','/api/account/mfa/verify','/api/accounts/password','/api/account/context','/api/account/bootstrap','/api/account/login','/api/accounts','/api/accounts/users','/api/accounts/roles','/settings.js','/settings.css','/login','/login.js','/alerts.js','/app.js','/audit.js','/browser-harness-transport.js','/browser-harness.html','/browser-lab.html','/browser-lab.js','/cases.js','/console.css','/endpoint.js','/index.html','/integrations.html','/integrations.js','/openapi.json','/portal.css','/portal.html','/portal.js','/presentation.js','/sedra.css','/style.css','/theme.css','/theme.js','/ueba.js','/api/audit/context','/api/reset', '/api/integrations/keys', '/api/logout', '/browser-lab', '/api/v1/ueba', '/api/state', '/api/ueba/counterfactual', '/health', '/api/audit', '/api/document', '/api/v1/cases', '/browser-harness', '/api/session', '/portal', '/api/v1/alerts/action', '/api/reconcile', '/api/endpoint/action', '/api/alerts', '/api/v1/telemetry', '/api/endpoint', '/api/transfer', '/api/ueba/cases', '/api/portal/status', '/api/portal/configure', '/auth/callback', '/api/v1/alerts', '/api/portal/chat', '/', '/api/v1/cases/changes', '/auth/login', '/api/catalog/labels', '/integrations', '/alert', '/api/v1/browser/inspect', '/api/v1/cases/action', '/api/alerts/action', '/api/ueba', '/api/audit/ui', '/api/ueba/cases/action'}
 
 
 def utcnow():
@@ -61,6 +62,7 @@ class AppState:
         if os.getenv('SEDRA_OIDC_CONFIG') and self.accounts.enabled:raise ValueError('Select local accounts or OIDC; do not enable both identity stores together')
         self.platform_audit = AuditLog(self.data_dir / 'platform_audit.sqlite')
         self.reports=Reports(self.data_dir/'reports.sqlite')
+        self.dashboards=Dashboards(self.data_dir/'dashboards.sqlite')
         self.snapshot = build_demo_snapshot(seed=42)
         (self.data_dir / "lab_evaluation.json").write_text(json.dumps(self.snapshot, indent=2, ensure_ascii=False), encoding="utf-8")
         self.subjects = {s["subject_id"]: s for s in self.snapshot["subjects"]}
@@ -582,7 +584,7 @@ def handler_for(app):
             except AuthError:return self.respond(401,{'error':'Valid scoped bearer key required'})
             except PermissionError as e:return self.respond(403,{'error':str(e)})
             except RateLimit as e:return self.respond(429,{'error':str(e)})
-            except (Conflict,CaseConflict,AlertConflict) as e:return self.respond(409,{'error':str(e)})
+            except (Conflict,CaseConflict,AlertConflict,DashboardConflict) as e:return self.respond(409,{'error':str(e)})
             except (ValueError,KeyError,TypeError) as e:return self.respond(400,{'error':str(e)})
 
         def do_GET(self):
@@ -640,7 +642,11 @@ def handler_for(app):
                 if path.path=='/api/dashboards':
                     if session['role']!='analyst':raise PermissionError('Analyst access required for executive dashboards')
                     days=int(urllib.parse.parse_qs(path.query).get('days',['7'])[0])
-                    return self.respond(200,aggregate(app,session,days),cookie=cookie)
+                    summary=aggregate(app,session,days);summary.update(saved_dashboards=app.dashboards.listing(session),widget_catalog=WIDGETS,metric_catalog=METRICS)
+                    return self.respond(200,summary,cookie=cookie)
+                if path.path=='/api/dashboards/saved':
+                    params=urllib.parse.parse_qs(path.query)
+                    return self.respond(200,{'items':app.dashboards.listing(session,params.get('archived',['0'])[0]=='1')},cookie=cookie)
                 if path.path=='/api/reports':
                     query=urllib.parse.parse_qs(path.query);uid=query.get('id',[None])[0]
                     if not uid:return self.respond(200,{'items':app.reports.listing(session)},cookie=cookie)
@@ -677,7 +683,7 @@ def handler_for(app):
                     return self.respond(200, doc | {'metadata': app.gateway.catalog_labels()[doc_id]}, cookie=cookie)
                 if path.path == "/health":
                     return self.respond(200, {"status": "ok", "product":"SEDRA", "mode": "local_lab", "build_version":__version__, "model_version": app.snapshot.get("model_version")})
-                allowed = {"/brand.css":"brand.css", "/motion.js":"motion.js", "/sedra-logo.svg":"sedra-logo.svg", "/sedra-logo-mono.svg":"sedra-logo-mono.svg", "/sedra-wordmark.svg":"sedra-wordmark.svg","/": "index.html", "/index.html": "index.html", "/app.js": "app.js", "/workbench.js":"workbench.js", "/shell.js":"shell.js", "/shell.css":"shell.css", "/login.css":"login.css", "/workbench.css":"workbench.css", "/alerts.js":"alerts.js", "/ueba.js":"ueba.js", "/endpoint.js":"endpoint.js", "/cases.js":"cases.js", "/openapi.json":"openapi.json", "/integrations":"index.html", "/alert":"index.html", "/console.css":"console.css", "/theme.js":"theme.js", "/settings.js":"settings.js", "/settings.css":"settings.css", "/login":"login.html", "/login.js":"login.js", "/theme.css":"theme.css", "/audit.js":"audit.js", "/presentation.js":"presentation.js", "/integrations.js":"integrations.js", "/style.css": "style.css", "/sedra.css": "sedra.css",
+                allowed = {"/boards.css":"boards.css","/brand.css":"brand.css", "/motion.js":"motion.js", "/sedra-logo.svg":"sedra-logo.svg", "/sedra-logo-mono.svg":"sedra-logo-mono.svg", "/sedra-wordmark.svg":"sedra-wordmark.svg","/": "index.html", "/index.html": "index.html", "/app.js": "app.js", "/workbench.js":"workbench.js", "/shell.js":"shell.js", "/shell.css":"shell.css", "/login.css":"login.css", "/workbench.css":"workbench.css", "/alerts.js":"alerts.js", "/ueba.js":"ueba.js", "/endpoint.js":"endpoint.js", "/cases.js":"cases.js", "/openapi.json":"openapi.json", "/integrations":"index.html", "/alert":"index.html", "/console.css":"console.css", "/theme.js":"theme.js", "/settings.js":"settings.js", "/settings.css":"settings.css", "/login":"login.html", "/login.js":"login.js", "/theme.css":"theme.css", "/audit.js":"audit.js", "/presentation.js":"presentation.js", "/integrations.js":"integrations.js", "/style.css": "style.css", "/sedra.css": "sedra.css",
                            '/portal':'portal.html', '/portal/':'portal.html', '/portal.js':'portal.js', '/portal.css':'portal.css',
                            '/browser-lab':'browser-lab.html','/browser-lab.js':'browser-lab.js',
                            '/browser-harness':'browser-harness.html','/browser-harness-transport.js':'browser-harness-transport.js',
@@ -731,6 +737,10 @@ def handler_for(app):
                 route = urllib.parse.urlparse(self.path).path
                 action=body.get('action')
                 self._audit_operation=action if isinstance(action,str) and action in ('revoke','start','stop','probe','ACKNOWLEDGE','READ','RESOLVE','REOPEN') else 'submit'
+                if route=='/api/dashboards/saved':
+                    board=app.dashboards.save(session,body)
+                    app.platform_audit.append('APPLICATION',session.get('principal') or 'analyst','dashboard_'+body['action'],{'id':board['id'],'revision':board['revision']})
+                    return self.respond(200,board)
                 if route=='/api/reports':
                     report=app.reports.create(app,session,body)
                     app.platform_audit.append('APPLICATION',session.get('principal') or session.get('subject_id') or 'analyst','report_generated',{'id':report['id'],'template':report['template']})
@@ -841,7 +851,7 @@ def handler_for(app):
                     app.reset()
                     return self.respond(200, {"reset": True})
                 return self.respond(404, {"error": "Not found"})
-            except (AlertConflict,CaseConflict) as exc:
+            except (AlertConflict,CaseConflict,DashboardConflict) as exc:
                 return self.respond(409,{'error':str(exc)})
             except PermissionError as exc:
                 return self.respond(403, {"error": str(exc)})
