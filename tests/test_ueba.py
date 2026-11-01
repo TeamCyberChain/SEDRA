@@ -35,6 +35,38 @@ def request(i,at,kind='AZ_FIN_CONTEXTUAL',uid='lab-001'):
 
 
 class StreamingUEBATests(unittest.TestCase):
+    def test_duplicate_read_source_id_is_not_six_independent_observations(self):
+        row=read(1,NOW-1)
+        r=assess(subject(),[copy.deepcopy(row) for _ in range(6)],[],[],NOW)
+        self.assertEqual(r['live_context']['protected_document_reads'],1)
+        self.assertEqual(r['live_context']['score'],0)
+        self.assertEqual(r['ueba']['timeline_total_30m'],1)
+
+    def test_distributed_sensitive_attempts_keep_24h_evidence_separate_from_display(self):
+        rows=[request(i,NOW-60-i*7200) for i in range(12)]
+        r=assess(subject(),[],rows,[],NOW)
+        self.assertEqual(r['live_context']['score'],75)
+        self.assertEqual(r['live_context']['sensitive_attempts_24h'],12)
+        self.assertEqual(r['policy_context']['mode'],'tightened')
+        self.assertIn('distributed_sensitive_attempts_24h',r['live_context']['active_rule_ids'])
+        self.assertEqual(r['ueba']['timeline_total_30m'],1)
+        self.assertEqual(len(r['ueba']['rule_evidence']),12)
+        self.assertTrue(any(e['timestamp']<NOW-LONG for e in r['ueba']['rule_evidence']))
+        self.assertEqual(assess(subject(),[],rows,[],NOW+DAY)['live_context']['score'],0)
+
+    def test_distributed_rule_has_count_span_source_and_window_gates(self):
+        def active(rows):
+            r=assess(subject(),[],rows,[],NOW)
+            return next(x for x in r['live_context']['rules'] if x['rule_id']=='distributed_sensitive_attempts_24h')['active']
+        rows=[request(i,NOW-60-i*7200) for i in range(12)]
+        self.assertFalse(active(rows[:11]))
+        self.assertFalse(active([request(i,NOW-30-i) for i in range(12)]))
+        self.assertFalse(active([request(i,NOW-60-i*7200,None) for i in range(12)]))
+        self.assertFalse(active([request(i,NOW-60-i*7200,'STRUCTURED_INSPECTION_LIMIT') for i in range(12)]))
+        self.assertFalse(active([request(i,NOW-60-i*7200,uid='lab-002') for i in range(12)]))
+        self.assertFalse(active(rows[:11]+[request(50,NOW-DAY)]))
+        self.assertFalse(active([rows[0]]*12))
+
     def test_rule_evidence_is_independent_of_recent_display_and_has_no_content(self):
         protected=[read(i,NOW-20) for i in range(6)]
         public=[read(i+100,NOW-1,protected=False) for i in range(200)]
@@ -172,6 +204,29 @@ class UEBAHTTPTests(unittest.TestCase):
         cls.server.shutdown();cls.server.server_close();cls.thread.join(3);cls.app.close();cls.tmp.cleanup()
     def setUp(self):
         self.app.reset();self.employee=LocalClient(self.base).login('lab-001');self.admin=LocalClient(self.base).login('analyst')
+    def test_distributed_rule_uses_durable_ledger_and_preserves_older_case_evidence(self):
+        now=time.time()
+        for i in range(12):
+            self.app.gateway.evaluate('lab-001',f'distributed-{i}','FİN: A1B2C3D',0)
+            with self.app.gateway._connection() as db:db.execute('UPDATE gateway_requests SET created_at=? WHERE request_id=?',(now-60-i*7200,f'distributed-{i}'))
+        for i in range(25):self.app.gateway.evaluate('lab-001',f'newer-public-{i}','Public meeting agenda',0)
+        status,r=self.employee.request('/api/ueba?subject=lab-001');self.assertEqual(status,200)
+        self.assertEqual(r['live_context']['score'],75)
+        refs=set(next(x for x in r['live_context']['rules'] if x['rule_id']=='distributed_sensitive_attempts_24h')['evidence_ids'])
+        projected={'gateway:'+str(x['row_id']) for x in r['ueba']['request_evidence']}
+        self.assertTrue(refs<=projected)
+        case=self.admin.request('/api/ueba/cases')[1]['items'][0]
+        detail=self.admin.request('/api/ueba/cases?id='+case['case_id'])[1]
+        nodes={n['id']:n for n in detail['snapshot']['nodes']}
+        self.assertTrue(refs<=set(nodes));self.assertTrue(all(nodes[k].get('payload_sha256') for k in refs))
+        self.assertEqual(detail['snapshot']['episode_window_seconds'],DAY)
+        self.app.gateway.evaluate('lab-001','distributed-later','FİN: A1B2C3D',0)
+        with self.app.gateway._connection() as db:db.execute('UPDATE gateway_requests SET created_at=? WHERE request_id=?',(now+7200,'distributed-later'))
+        with patch('sedra.app.time.time',return_value=now+7201):
+            current=self.app.live_subject(self.app.subjects['lab-001'])
+        self.assertEqual(current['live_context']['score'],75)
+        self.assertEqual(self.app.cases.feed()['counts']['total'],1)
+        self.assertEqual(self.app.cases.feed()['items'][0]['case_id'],case['case_id'])
     def test_fake_duplicate_audit_and_future_document_rows_do_not_change_effective_context(self):
         for _ in range(3):self.app.audit('lab-001','transfer_blocked',{'request_id':'unbacked-audit-id'})
         future=datetime.fromtimestamp(time.time()+60,timezone.utc).isoformat()

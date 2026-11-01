@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 import math
 from statistics import median
 
-PROFILE='sedra-app-ueba-v2'
+PROFILE='sedra-app-ueba-v3'
 SHORT=120
 LONG=1800
 DAY=86400
@@ -50,13 +50,16 @@ def active_baseline(events,cutoff,now):
 
 def assess(subject,reads,requests,history,now,*,truncated=False):
     if not math.isfinite(now):raise ValueError('UEBA clock must be finite')
-    uid=subject['subject_id'];events=[]
+    uid=subject['subject_id'];events=[];read_ids=set()
     for row in reads:
         at=epoch(row.get('timestamp'))
         if row.get('subject_id')!=uid or at is None or not now-HISTORY_DAYS*DAY<=at<=now:continue
         d=row.get('detail',{})
         if row.get('kind')!='document_read':continue
-        events.append({'id':'audit:'+str(row['id']),'at':at,'channel':'document','kind':'document_read',
+        key='audit:'+str(row['id'])
+        if key in read_ids:continue
+        read_ids.add(key)
+        events.append({'id':key,'at':at,'channel':'document','kind':'document_read',
             'origin':d.get('source','OBSERVED_APPLICATION'),'protected':d.get('classification') in ('controlled_excerpt','restricted'),
             'doc_id':d.get('doc_id'),'request_id':None,'types':[],'route':None,'bytes':0})
     seen=set()
@@ -78,6 +81,9 @@ def assess(subject,reads,requests,history,now,*,truncated=False):
     short_blocks=[e for e in short if e['kind']=='policy_block']
     sensitive=[e for e in blocked if any(t!='STRUCTURED_INSPECTION_LIMIT' for t in e['types'])]
     families=sorted({t for e in sensitive for t in e['types'] if t!='STRUCTURED_INSPECTION_LIMIT'})
+    sensitive_day=[e for e in events if e['at']>now-DAY and e['kind']=='policy_block' and any(t!='STRUCTURED_INSPECTION_LIMIT' for t in e['types'])]
+    day_bins=len({int(e['at']//LONG) for e in sensitive_day})
+    day_span=sensitive_day[-1]['at']-sensitive_day[0]['at'] if sensitive_day else 0
     third_access=protected[2]['at'] if len(protected)>=3 else None
     chain=[e for e in sensitive if third_access is not None and third_access<e['at']]
     baseline=active_baseline(events,now-LONG,now)
@@ -105,6 +111,11 @@ def assess(subject,reads,requests,history,now,*,truncated=False):
          {'actions':len(recent),'robust_deviation':round(deviation,2) if deviation is not None else None},
          {'minimum_actions':10,'robust_deviation':6},LONG,recent,
          'Advisory alone (60). Requires at least 14 earlier active bins over 7 days. No synthetic history is substituted.')
+    rule('distributed_sensitive_attempts_24h','Distributed sensitive attempts over 24 hours',75,
+         len(sensitive_day)>=12 and day_bins>=4 and day_span>=7200,
+         {'attempts':len(sensitive_day),'active_30m_bins':day_bins,'span_seconds':day_span},
+         {'attempts':12,'active_30m_bins':4,'minimum_span_seconds':7200},DAY,sensitive_day,
+         'Unique blocked sensitive requests spread across at least four active bins and two hours. Declared engineering threshold, not proof of malicious intent. Public requests and inspection-limit errors do not qualify.')
     live_score=max(r['score'] for r in rules)
     age_at=epoch(subject.get('as_of'));age=now-age_at if age_at is not None else None
     sufficient=subject.get('baseline',{}).get('history_days',0)>=14
@@ -123,7 +134,7 @@ def assess(subject,reads,requests,history,now,*,truncated=False):
     # A display window must not erase the source metadata needed by a live rule.
     # References are already bounded per rule; retain a separate capped projection.
     rule_refs={key for r in rules if r['active'] for key in r['evidence_ids']}
-    rule_events=[e for e in recent if e['id'] in rule_refs]
+    rule_events=[e for e in events if e['id'] in rule_refs]
     rule_evidence=[evidence_view(e) for e in rule_events[-RULE_EVIDENCE_LIMIT:]]
     buckets=[]
     for i in range(12):
@@ -138,11 +149,12 @@ def assess(subject,reads,requests,history,now,*,truncated=False):
         'provenance':subject.get('provenance'),'history_days':subject.get('baseline',{}).get('history_days',0),
         'note':'Dated completed-day synthetic Isolation Forest + rules. Never fitted on partial live activity.'}
     live={'as_of':datetime.fromtimestamp(now,timezone.utc).isoformat(),'profile':PROFILE,'window_seconds':SHORT,
-        'long_window_seconds':LONG,'protected_document_reads':len(short_reads),'blocked_attempts':len(short_blocks),
+        'long_window_seconds':LONG,'extended_window_seconds':DAY,'protected_document_reads':len(short_reads),'blocked_attempts':len(short_blocks),
         'score':live_score,'source':'observed_application_events','rule':'maximum of declared app UEBA rules',
         'rules':rules,'active_rule_ids':[r['rule_id'] for r in rules if r['active']],
         'personal_baseline':baseline,'unique_protected_documents_30m':len({e['doc_id'] for e in protected}),
         'sensitive_attempts_30m':len(sensitive),'detector_types_30m':families,
+        'sensitive_attempts_24h':len(sensitive_day),'sensitive_active_bins_24h':day_bins,'sensitive_span_seconds_24h':day_span,
         'input_bound_reached':truncated,'limitation':'Application-only correlation; not live IF or probability of malicious intent'}
     policy={'effective_score':effective,'daily_component':daily,'live_component':live_score,'quality_guard':guard,
         'combination':'max; no summation of correlated signals','boundary':70,
@@ -154,6 +166,7 @@ def assess(subject,reads,requests,history,now,*,truncated=False):
         'ueba':{'profile':PROFILE,'timeline':timeline,'timeline_total_30m':len(recent),'timeline_limit':60,
             'rule_evidence':rule_evidence,'rule_evidence_total':len(rule_events),'rule_evidence_limit':RULE_EVIDENCE_LIMIT,
             'rule_evidence_truncated':len(rule_events)>RULE_EVIDENCE_LIMIT,
+            'rule_evidence_scope':'Active rule references within their declared windows; display timeline remains 30 minutes',
             'activity_buckets':buckets,'daily_trend':trend,
             'daily_contributions':{'rules':round(60*subject.get('rule_score',0),2),'anomaly':round(40*subject.get('ml_score',0),2)},
             'coverage':[{'channel':'Registered document access','status':'observed_app_only'},

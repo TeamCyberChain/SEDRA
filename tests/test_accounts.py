@@ -44,6 +44,21 @@ class AccountHTTPTests(unittest.TestCase):
  def create(self,name,role='user',subject='lab-001'):
   self.assertEqual(self.admin.request('/api/accounts/users',{'username':name,'password':'Synthetic-Test-Password-42','role_id':role,'subject':subject})[0],200)
   return next(u for u in self.admin.request('/api/accounts')[1]['users'] if u['username']==name)
+ def test_user_state_and_exports_exclude_other_actors_and_population_evaluation(self):
+  self.bootstrap();self.create('scopeduser');c=self.login('scopeduser')
+  self.app.gateway.evaluate('lab-002','other-private-request','FİN: A1B2C3D',0)
+  self.app.audit('lab-002','document_read',{'doc_id':'araz-plan','classification':'controlled_excerpt'})
+  status,state=c.request('/api/state');self.assertEqual(status,200)
+  self.assertEqual([s['subject_id'] for s in state['subjects']],['lab-001'])
+  self.assertEqual(state['demo_identities'],['lab-001']);self.assertEqual(state['evaluation'],{})
+  self.assertFalse(state['alerts']['available']);self.assertFalse(state['behavior_cases']['available'])
+  for key in ('requests','events','receiver'):self.assertTrue(all(x['subject_id']=='lab-001' for x in state[key]))
+  self.assertNotIn('other-private-request',json.dumps(state))
+  for path in ('/api/accounts','/api/audit','/api/integrations/keys','/api/alerts','/api/ueba/cases','/api/ueba?subject=lab-002'):
+   self.assertEqual(c.request(path)[0],403,path)
+  for path,body in (('/api/endpoint/action',{'action':'start'}),('/api/catalog/labels',{}),('/api/accounts/password',{'id':'other','password':'Synthetic-Test-Password-42'}),('/api/ueba/cases/action',{})):
+   self.assertEqual(c.request(path,body)[0],403,path)
+  self.assertEqual(c.request('/api/ueba?subject=lab-001')[0],200)
  def test_password_reset_revokes_all_sessions_and_is_not_logged(self):
   self.bootstrap();target=self.create('resetuser');first=self.login('resetuser');second=self.login('resetuser')
   body={'id':target['id'],'password':'New-Synthetic-Password-65'}

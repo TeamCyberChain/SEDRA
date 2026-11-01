@@ -1,3 +1,11 @@
+## 0.16.0 — Scoped Users and application UEBA v3
+
+- Hide privileged navigation and omit population evaluation/alternate identities from subject-scoped User state; independently verify API denials and actor isolation.
+- Deduplicate repeated document source IDs and add a conservative rolling 24-hour distributed sensitive-attempt rule with count, time-span and active-bin gates.
+- Preserve older active rule references and detailed gateway hashes independently of recent public activity; aggregate case episodes using the active rule window.
+- Correct nested dark-mode surfaces in casework, UEBA, inventory and transfer panels; label frozen capture narrative separately from live priority.
+- Preserve original CERT measurements and state the new rule's engineering thresholds and independent evaluation limits.
+
 ## 0.15.0 — Sidebar settings and account operations
 
 - Extend Settings from its sidebar trigger, keep the workspace visible, and split Users into User Creation, User Management and Roles.

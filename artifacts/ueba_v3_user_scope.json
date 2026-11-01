@@ -1,0 +1,108 @@
+{
+  "version": "0.16.0",
+  "observed_at_utc": "2026-11-01T06:05:35.631380+00:00",
+  "account": {
+    "username": "ilham.mammadli",
+    "role": "User",
+    "binding": "lab-001",
+    "binding_scope": "User 001 synthetic demonstration identity, not real personal history",
+    "credential_saved_outside_git_and_chat": true
+  },
+  "live_access_checks": {
+    "/api/accounts": 403,
+    "/api/audit": 403,
+    "/api/integrations/keys": 403,
+    "/api/alerts": 403,
+    "/api/ueba/cases": 403,
+    "/api/ueba?subject=lab-002": 403
+  },
+  "own_subject_count": 1,
+  "own_subject": "lab-001",
+  "population_evaluation_excluded": true,
+  "alternate_identities_excluded": true,
+  "shared_registered_corpus_is_not_personal_data": true,
+  "live_validation": {
+    "before_live_priority_observed_in_browser": 75,
+    "after_live_priority": 85,
+    "trigger": "3 actual document endpoint reads and 2 synthetic FIN hard-block attempts through the User UI",
+    "new_blocked_requests": 2,
+    "new_admin_alerts": 2,
+    "sensitive_attempts_24h_before": 26,
+    "sensitive_attempts_24h_after": 28,
+    "retained_counts": {
+      "attempted": 32,
+      "forwarded": 1,
+      "blocked": 28,
+      "unknown": 3
+    },
+    "external_model_or_receiver_delivery_during_sequence": false,
+    "note": "Initial 75 derives from retained synthetic test attempts in the rolling 24-hour rule. No invented zero starting point."
+  },
+  "focused_reproducers": {
+    "duplicate_single_source": {
+      "before_priority": 80,
+      "after_priority": 0
+    },
+    "12_attempts_spread_over_22_hours": {
+      "before_priority": 0,
+      "after_priority": 75
+    },
+    "scope": "Controlled test inputs, not efficacy metrics or a real 22-hour enterprise trial"
+  },
+  "browser_checks": {
+    "user_settings_only_profile_and_appearance": true,
+    "user_privileged_navigation_hidden": true,
+    "user_subject_selector_has_one_identity": true,
+    "user_ueba_no_large_bright_backgrounds": true,
+    "admin_case_scope_queue_policy_dark": true,
+    "frozen_capture_priority_labeled_separately_from_current": true,
+    "six_console_sections_no_large_bright_surfaces": true
+  },
+  "endpoint_sensor_restored": true,
+  "limits": [
+    "No independent threat-detection efficacy claim; original CERT v1 0 TP preserved",
+    "Operational thresholds require prospective shadow-pilot calibration",
+    "One explicit synthetic subject binding; shared bindings share behavior context",
+    "Observed correlations are not proof of employee intent or exfiltration"
+  ],
+  "python_summary": {
+    "executed_at_utc": "2026-11-01T06:05:34.434975+00:00",
+    "python": "3.12.10",
+    "tests_run": 228,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "runtime_seconds": 225.957,
+    "suite": "unittest discovery: behavior, acquisition, matcher, gateway, application HTTP integration",
+    "network_scope": "local loopback receiver only; no external AI request",
+    "benchmark_performance_is_separate": true
+  },
+  "node_tests": 12,
+  "dark_surface_audit": [
+    {
+      "section": "overview",
+      "largeBrightSurfaces": 0
+    },
+    {
+      "section": "inventory",
+      "largeBrightSurfaces": 0
+    },
+    {
+      "section": "lab",
+      "largeBrightSurfaces": 0
+    },
+    {
+      "section": "integrations",
+      "largeBrightSurfaces": 0
+    },
+    {
+      "section": "alerts",
+      "largeBrightSurfaces": 0
+    },
+    {
+      "section": "investigation",
+      "largeBrightSurfaces": 0
+    }
+  ]
+}

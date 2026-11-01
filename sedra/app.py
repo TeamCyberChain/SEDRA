@@ -32,7 +32,7 @@ from .ai_portal import AIPortal
 from .labels import BUSINESS_TAGS, OWNERS, PROFILE as LABEL_PROFILE
 from .data_types import detector_catalog
 from .alerts import AlertConflict
-from .ueba import assess, INPUT_LIMIT, HISTORY_DAYS
+from .ueba import assess, INPUT_LIMIT, HISTORY_DAYS, RULE_EVIDENCE_LIMIT
 from .endpoint import EndpointSensor, augment
 from .behavior_cases import CaseStore, CaseConflict
 from .policy_explain import counterfactual
@@ -164,7 +164,9 @@ class AppState:
                 assessed=assess(subject,reads,metadata,self.snapshot['history'],now,
                     truncated=input_truncated or len(raw)>INPUT_LIMIT or len(requests)>INPUT_LIMIT)
                 assessed=augment(assessed,self.endpoint.view(uid,now=now))
-                assessed['ueba']['request_evidence']=metadata[:20]
+                refs={key for rule in assessed['live_context']['rules'] if rule['active'] for key in rule['evidence_ids']}
+                referenced=[r for r in metadata if 'gateway:'+str(r['row_id']) in refs][:RULE_EVIDENCE_LIMIT]
+                assessed['ueba']['request_evidence']=referenced+[r for r in metadata if 'gateway:'+str(r['row_id']) not in refs][:max(0,RULE_EVIDENCE_LIMIT-len(referenced))]
                 try:
                     assessed['behavior_case']=self.cases.observe(assessed,now=now);self.case_capture_error=None
                 except sqlite3.Error:
@@ -299,9 +301,9 @@ class AppState:
                 receipt["preview"] = "[Content masked for analyst; SHA-256 and byte count retained]"
         return {
             "session": {k: v for k, v in session.items() if k != "created_at"},
-            "demo_identities": ["analyst", "lab-001", "lab-002"],
+            "demo_identities": [session['subject_id']] if actor is not None else ["analyst", "lab-001", "lab-002"],
             "subjects": self.live_subjects([s for s in self.snapshot["subjects"] if actor is None or s["subject_id"] == actor]),
-            "evaluation": self.snapshot["evaluation"],
+            "evaluation": self.snapshot["evaluation"] if session['role']=='analyst' else {},
             "documents": self.catalog_view(), "requests": requests, "events": self.events(actor), "receiver": receipts,
             "label_schema": {'profile':LABEL_PROFILE, 'business_tags': BUSINESS_TAGS, 'owners': OWNERS},
             "data_types": detector_catalog(),

@@ -269,6 +269,7 @@ async function loadState({silent = false} = {}) {
 }
 
 function changeTab(tab, updateHash = true) {
+  if(state&&!isAnalyst()&&['alerts','integrations','audit'].includes(tab))tab='overview';
   if(tab==='audit'){window.SedraSettings?.open('audit');tab='overview';}
   if(tab==="transfers")tab="lab";
   if (!["overview","alerts","investigation","inventory","lab","integrations","audit"].includes(tab)) tab = "overview";
@@ -294,7 +295,17 @@ function changeTab(tab, updateHash = true) {
   }
 }
 
+function syncNavigationAccess() {
+  const analyst=isAnalyst();
+  document.querySelectorAll('[data-tab="alerts"],[data-tab="integrations"]').forEach(n=>{n.hidden=!analyst;});
+  const evaluationPanel=$('evaluation-content')?.closest('.panel');if(evaluationPanel)evaluationPanel.hidden=!analyst;
+  if(!analyst&&['alerts','integrations','audit'].includes(selectedTab)){
+    document.body.classList.remove('alert-page');changeTab('overview',false);
+  }
+}
+
 function render() {
+  syncNavigationAccess();
   const identity = isAnalyst() ? "analyst" : state.session?.subject_id || "analyst";
   $("identity-select").closest(".identity-control").hidden=Boolean(state.session?.principal);
   $("identity-select").value = identity;

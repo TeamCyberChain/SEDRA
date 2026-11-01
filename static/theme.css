@@ -36,3 +36,21 @@
 [data-theme=dark] .settings-open[aria-expanded=true]{color:#6ed5c5!important;background:#21332f!important}
 [data-theme=dark] .toast{background:#26352f;color:#e7e9eb;border-color:#3a594f}
 [data-theme=dark] .portal-body .portal-workspace button:not(.secondary):not(.theme-toggle):not(.settings-open){color:#f3fffc!important}
+
+/* Full dark surfaces for nested UEBA, casework, inventory and transfer components. */
+[data-theme=dark] .case-scope,[data-theme=dark] .case-queue,[data-theme=dark] .case-policy,[data-theme=dark] .case-exclusions .checkbox-label,[data-theme=dark] .case-compare,[data-theme=dark] .endpoint-coverage,[data-theme=dark] .ueba-impact,[data-theme=dark] .ueba-rule,[data-theme=dark] .feature-card,[data-theme=dark] .reason-card,[data-theme=dark] .evaluation-note,[data-theme=dark] .request-classification,[data-theme=dark] .inventory-toolbar,[data-theme=dark] .source-hash,[data-theme=dark] .match-card,[data-theme=dark] .receiver-preview,[data-theme=dark] .finding-card,[data-theme=dark] .reason-code,[data-theme=dark] .benchmark-history-note,[data-theme=dark] .portal-body .examples button,[data-theme=dark] .portal-body .connection,[data-theme=dark] .portal-body .answer:has(#answer:empty){background:#171c20!important;background-image:none!important;border-color:#343e46!important;color:#bfc7cd!important}
+[data-theme=dark] .ueba-rule.active,[data-theme=dark] .ueba-impact.tightened,[data-theme=dark] .case-captured-summary{background:#20312e!important;border-color:#3c655e!important}
+[data-theme=dark] .ueba-rule-score,[data-theme=dark] .ueba-rule.active .ueba-rule-score{background:#283b36!important;color:#85ded0!important;border-color:#3c655e!important}
+[data-theme=dark] .case-proof-heading h4,[data-theme=dark] .case-policy summary b,[data-theme=dark] .case-evidence summary,[data-theme=dark] .feature-card h3,[data-theme=dark] .reason-card h3,[data-theme=dark] .detector-library summary b,[data-theme=dark] .subject-score strong{color:#d9e5e1!important}
+[data-theme=dark] .case-node-name{fill:#d5e2df!important}[data-theme=dark] .case-node-meta{fill:#a6b4bb!important}
+[data-theme=dark] .case-priority-strip,[data-theme=dark] .case-proof-heading,[data-theme=dark] .case-evidence,[data-theme=dark] .case-history p,[data-theme=dark] .case-edge-list p{border-color:#343e46!important}
+[data-theme=dark] .asset-table tbody tr:hover,[data-theme=dark] .asset-table tr.selected,[data-theme=dark] .risk-table tbody tr:hover{background:#24332e!important}
+[data-theme=dark] .alert-workflow{background:#283541!important;color:#c5d8ec!important;border-color:#465768!important}[data-theme=dark] .alert-workflow.in_review{background:#332e42!important;color:#d6c7ee!important}[data-theme=dark] .alert-workflow.resolved{background:#233b30!important;color:#bae4cb!important}
+[data-theme=dark] .state-badge,[data-theme=dark] .fragment-button{background:#252c31!important;color:#c7cfd5!important;border-color:#3b454d!important}
+[data-theme=dark] .state-badge.red,[data-theme=dark] .decision-verdict.red,[data-theme=dark] .finding-card{background:#39252d!important;border-color:#68434f!important;color:#f2b4bf!important}
+[data-theme=dark] .state-badge.amber,[data-theme=dark] .decision-verdict.amber{background:#382f21!important;color:#e0bb79!important;border-color:#63543d!important}
+[data-theme=dark] .portal-body .answer-text p{color:#bdc3c9!important}[data-theme=dark] .portal-body .answer-text code{background:#29333c!important;color:#d9e5e1!important}
+.case-captured-summary{border:1px solid var(--line);border-radius:4px;padding:14px 16px;margin:20px 0 10px;background:var(--canvas)}.case-captured-summary h4{margin:0;font-size:11px;color:var(--muted)}.case-captured-summary .case-narrative{margin:9px 0 0}
+.ueba-summary-grid{grid-template-columns:repeat(auto-fit,minmax(155px,1fr))}
+[data-theme=dark] thead{background:#161a1d!important}
+[data-theme=dark] .provenance-badge{background:#252c31!important;color:#c7cfd5!important;border-color:#3b454d!important}

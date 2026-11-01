@@ -75,3 +75,13 @@ test('authentication expiry clears privileged presentation and recovery restores
  const c=vm.createContext({document:doc,localStorage:{getItem:()=>stored},matchMedia:()=>({matches:true,addEventListener:(n,f)=>mediaChange=f}),addEventListener:(n,f)=>listeners[n]=f});vm.runInContext(source,c);return {doc,listeners,change:()=>mediaChange({matches:false})};}
  const a=boot('light');assert.equal(a.doc.documentElement.dataset.theme,'light');a.listeners.storage({key:'sedra-theme',newValue:'dark'});a.change();assert.equal(a.doc.documentElement.dataset.theme,'dark');assert.equal(boot('dark').doc.documentElement.dataset.theme,'dark');assert.equal(boot(null).doc.documentElement.dataset.theme,'dark');
  });
+
+test('User presentation hides privileged navigation and population evaluation',()=>{
+ const app=fs.readFileSync(path.join(root,'static/app.js'),'utf8');
+ const code=app.slice(app.indexOf('function syncNavigationAccess()'),app.indexOf('function render()'));
+ const nodes=[{hidden:false},{hidden:false}],panel={hidden:false},changes=[];
+ const c=vm.createContext({selectedTab:'integrations',isAnalyst:()=>false,document:{querySelectorAll:()=>nodes,body:{classList:{remove(){}}}},$:()=>({closest:()=>panel}),changeTab:(tab,update)=>{changes.push([tab,update]);}});
+ vm.runInContext(code,c);vm.runInContext('syncNavigationAccess()',c);
+ assert(nodes.every(n=>n.hidden));assert(panel.hidden);assert.deepEqual(changes,[['overview',false]]);
+ c.isAnalyst=()=>true;vm.runInContext('syncNavigationAccess()',c);assert(nodes.every(n=>!n.hidden));assert(!panel.hidden);
+});

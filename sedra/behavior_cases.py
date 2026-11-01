@@ -36,7 +36,9 @@ def evidence_snapshot(s,now):
                 'origin':e['origin'],'detail':e['detail']}
     primary=sorted(nodes)
     if not primary:return None
-    requests=[r for r in s.get('ueba',{}).get('request_evidence',[]) if now-1800<r['created_at']<=now][:3]
+    candidates=s.get('ueba',{}).get('request_evidence',[])
+    requests=[r for r in candidates if 'gateway:'+str(r['row_id']) in refs]
+    requests+=[r for r in candidates if 'gateway:'+str(r['row_id']) not in refs and now-1800<r['created_at']<=now][:3]
     for r in requests:
         key='gateway:'+str(r['row_id'])
         nodes[key]={'id':key,'channel':'gateway','kind':'policy_block' if r['decision']=='BLOCK' else 'outbound_attempt',
@@ -59,6 +61,7 @@ def evidence_snapshot(s,now):
     channels=sorted({n['channel'] for n in items if n['id'] in refs})
     snapshot={'profile':PROFILE,'subject_id':s['subject_id'],'captured_at':now,'title':active[0].get('title',active[0]['rule_id']),
         'priority':max(r['score'] for r in active),'active_rules':active,'trigger_source_ids':primary,
+        'episode_window_seconds':max(1800,max(r.get('window_seconds',1800) for r in active)),
         'signal_last_at':max(nodes[k]['at'] for k in primary),'nodes':items,'edges':edges[:60],
         'edge_total':len(edges),'node_limit':40,'edge_limit':60,
         'policy_context':s['policy_context'],'model_context':s['model_context'],
@@ -66,7 +69,7 @@ def evidence_snapshot(s,now):
         'sensor_health':s.get('endpoint_context',{}).get('status',{}).get('health'),
         'source_support':'multi-channel observed context' if len(channels)>1 else 'single-channel observed context',
         'channels':channels,'environment':'local_test','identity_binding':'Fictional lab identity; Windows mapping is explicit local test mapping',
-        'narrative':f"{len(primary)} referenced source records across {', '.join(channels)}. Highest active rule: {active[0].get('title',active[0]['rule_id'])}. Live review priority {max(r['score'] for r in active)}; effective controlled-excerpt budget {s['policy_context']['active_24h_4gram_limit']*100:g}%.",
+        'narrative':f"{len(primary)} referenced source records across {', '.join(channels)}. Highest rule at capture: {active[0].get('title',active[0]['rule_id'])}. Captured review priority {max(r['score'] for r in active)}; captured controlled-excerpt budget {s['policy_context']['active_24h_4gram_limit']*100:g}%.",
         'limits':['Priority is not maliciousness probability.','Temporal edges do not establish causation or exfiltration.',
             'Sources and rule references are bounded; source counts and displayed records can differ.',
             'Daily model is generated lab data; endpoint observations are labeled separately.']}
@@ -127,7 +130,7 @@ class CaseStore:
                 return self._summary(db.execute('SELECT * FROM behavior_cases WHERE case_id=?',(row['case_id'],)).fetchone()) if row else None
             snapshot,semantic=built
             unseen=[key for key in snapshot['trigger_source_ids'] if not db.execute('SELECT 1 FROM behavior_case_seen WHERE subject_id=? AND source_id=?',(uid,key)).fetchone()]
-            new_episode=not row or row['status']=='RESOLVED' or snapshot['signal_last_at']-row['last_signal_at']>1800
+            new_episode=not row or row['status']=='RESOLVED' or snapshot['signal_last_at']-row['last_signal_at']>snapshot['episode_window_seconds']
             if new_episode:
                 if not unseen:return self._summary(row) if row else None
                 key='UC-'+uuid.uuid4().hex

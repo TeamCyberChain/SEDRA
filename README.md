@@ -2,9 +2,13 @@
 
 **Team CyberChain · Digital Challenge Azerbaijan 2026 · Topic 6 · private development review.**
 
-Start with the [reviewer guide](docs/REVIEWER_GUIDE.md), [requirements mapping](docs/REQUIREMENTS_TRACEABILITY.md), [technical report](docs/TECHNICAL_REPORT.md) and [actual 223-test result](artifacts/test_summary.json). [AI assistance](AI_ASSISTANCE.md) and [external components](THIRD_PARTY_NOTICES.md) are disclosed. Source/test evidence describes the current 0.15.0 build; presentation/Q&A files are excluded from this repository at the team request. This review checkpoint does not assert final organizer acceptance.
+Start with the [reviewer guide](docs/REVIEWER_GUIDE.md), [requirements mapping](docs/REQUIREMENTS_TRACEABILITY.md), [technical report](docs/TECHNICAL_REPORT.md) and [actual 228-test result](artifacts/test_summary.json). [AI assistance](AI_ASSISTANCE.md) and [external components](THIRD_PARTY_NOTICES.md) are disclosed. Source/test evidence describes the current 0.16.0 build; presentation/Q&A files are excluded from this repository at the team request. This review checkpoint does not assert final organizer acceptance.
 
 SEDRA connects past-only user-day UEBA and observed live application signals to a real transfer decision, then verifies what an independent local receiver obtained. The offline hackathon lab uses fictional identities/documents. The AI portal sends only allowed requests to a real local Qwen CPU model or, when selected and available, the OpenAI Responses API. Local model inference has executed successfully; the OpenAI account returned 429 and has no successful reply claim.
+
+## SEDRA 0.16: scoped Users and evidence-bound UEBA
+
+User views omit population evaluation and privileged navigation while APIs enforce subject and operation boundaries. UEBA deduplicates document sources, adds conservative distributed 24-hour sensitive-attempt correlation and retains older rule-linked evidence independently of the recent display. Dark mode now covers nested casework, UEBA and inventory surfaces. Frozen capture evidence is labeled separately from live priority. See [scope, thresholds, tests and remaining validation gates](docs/UEBA_V3.md).
 
 ## SEDRA 0.15: sidebar settings and account operations
 
