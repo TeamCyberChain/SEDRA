@@ -23,6 +23,7 @@ from pathlib import Path
 
 from . import __version__
 from .audit_log import AuditLog
+from .accounts import Accounts
 from .behavior import build_demo_snapshot
 from .corpus import DOCUMENTS, catalog
 from .gateway import Gateway
@@ -39,7 +40,7 @@ from .integrations import Integrations,OIDC,AuthError,Conflict,RateLimit
 from .browser_guard import BrowserGuard,EXTENSION_ORIGIN
 
 ROOT = Path(__file__).resolve().parent.parent
-AUDIT_ROUTES = {'/alerts.js','/app.js','/audit.js','/browser-harness-transport.js','/browser-harness.html','/browser-lab.html','/browser-lab.js','/cases.js','/console.css','/endpoint.js','/index.html','/integrations.html','/integrations.js','/openapi.json','/portal.css','/portal.html','/portal.js','/presentation.js','/sedra.css','/style.css','/theme.css','/theme.js','/ueba.js','/api/audit/context','/api/reset', '/api/integrations/keys', '/api/logout', '/browser-lab', '/api/v1/ueba', '/api/state', '/api/ueba/counterfactual', '/health', '/api/audit', '/api/document', '/api/v1/cases', '/browser-harness', '/api/session', '/portal', '/api/v1/alerts/action', '/api/reconcile', '/api/endpoint/action', '/api/alerts', '/api/v1/telemetry', '/api/endpoint', '/api/transfer', '/api/ueba/cases', '/api/portal/status', '/api/portal/configure', '/auth/callback', '/api/v1/alerts', '/api/portal/chat', '/', '/api/v1/cases/changes', '/auth/login', '/api/catalog/labels', '/integrations', '/alert', '/api/v1/browser/inspect', '/api/v1/cases/action', '/api/alerts/action', '/api/ueba', '/api/audit/ui', '/api/ueba/cases/action'}
+AUDIT_ROUTES = {'/api/account/context','/api/account/bootstrap','/api/account/login','/api/accounts','/api/accounts/users','/api/accounts/roles','/settings.js','/settings.css','/login','/login.js','/alerts.js','/app.js','/audit.js','/browser-harness-transport.js','/browser-harness.html','/browser-lab.html','/browser-lab.js','/cases.js','/console.css','/endpoint.js','/index.html','/integrations.html','/integrations.js','/openapi.json','/portal.css','/portal.html','/portal.js','/presentation.js','/sedra.css','/style.css','/theme.css','/theme.js','/ueba.js','/api/audit/context','/api/reset', '/api/integrations/keys', '/api/logout', '/browser-lab', '/api/v1/ueba', '/api/state', '/api/ueba/counterfactual', '/health', '/api/audit', '/api/document', '/api/v1/cases', '/browser-harness', '/api/session', '/portal', '/api/v1/alerts/action', '/api/reconcile', '/api/endpoint/action', '/api/alerts', '/api/v1/telemetry', '/api/endpoint', '/api/transfer', '/api/ueba/cases', '/api/portal/status', '/api/portal/configure', '/auth/callback', '/api/v1/alerts', '/api/portal/chat', '/', '/api/v1/cases/changes', '/auth/login', '/api/catalog/labels', '/integrations', '/alert', '/api/v1/browser/inspect', '/api/v1/cases/action', '/api/alerts/action', '/api/ueba', '/api/audit/ui', '/api/ueba/cases/action'}
 
 
 def utcnow():
@@ -50,6 +51,8 @@ class AppState:
     def __init__(self, data_dir=None):
         self.data_dir = Path(data_dir or ROOT / "data" / "runtime")
         self.data_dir.mkdir(parents=True, exist_ok=True)
+        self.accounts = Accounts(self.data_dir / 'accounts.sqlite')
+        if os.getenv('SEDRA_OIDC_CONFIG') and self.accounts.enabled:raise ValueError('Select local accounts or OIDC; do not enable both identity stores together')
         self.platform_audit = AuditLog(self.data_dir / 'platform_audit.sqlite')
         self.snapshot = build_demo_snapshot(seed=42)
         (self.data_dir / "lab_evaluation.json").write_text(json.dumps(self.snapshot, indent=2, ensure_ascii=False), encoding="utf-8")
@@ -107,6 +110,7 @@ class AppState:
     def new_session(self, identity="analyst"):
         session_id = secrets.token_urlsafe(32)
         session = {"role": "analyst" if identity == "analyst" else "employee", "subject_id": None if identity == "analyst" else identity, "csrf_token": secrets.token_urlsafe(32), "created_at": time.time()}
+        if self.accounts.enabled:session.update(role='unauthenticated',subject_id=None)
         with self.guard:
             self.sessions[session_id] = session
         return session_id, session
@@ -309,7 +313,7 @@ class AppState:
             "provenance": "synthetic_lab", "profile": self.snapshot.get("profile"),
             "benchmark": self.benchmark_view(session),
             "benchmark_v2": self.multichannel_view(session),
-            "capabilities": {"minimum_candidate_tokens": 2, "coverage_unit": "separate 4-gram and anchored distinctive-token coverage", "normal_threshold": 0.20, "high_behavior_threshold": 0.10, "high_behavior_boundary": 70, "reservation_ttl_seconds": 30, "window_hours": 24, "long_window_days":30, "auth_mode": "local_demo_identities", "receiver_mode": "independent_local_http_receiver"},
+            "capabilities": {"minimum_candidate_tokens": 2, "coverage_unit": "separate 4-gram and anchored distinctive-token coverage", "normal_threshold": 0.20, "high_behavior_threshold": 0.10, "high_behavior_boundary": 70, "reservation_ttl_seconds": 30, "window_hours": 24, "long_window_days":30, "auth_mode": "accounts" if self.accounts.enabled else "local_demo_identities", "receiver_mode": "independent_local_http_receiver"},
         }
 
     def catalog_view(self):
@@ -473,7 +477,11 @@ def handler_for(app):
             with app.guard:
                 session = app.sessions.get(session_id)
             if session and time.time() - session["created_at"] < 8 * 3600 and time.time()<session.get("expires_at",float("inf")):
-                self._audit_actor=session.get('subject_id') or session['role']
+                if app.accounts.enabled:
+                    claims=app.accounts.claims(session.get('account_id',''))
+                    if claims:session.update(claims)
+                    else:session.update(role='unauthenticated',subject_id=None,can_manage_users=False,account_id=None,username=None,account_role=None,access_profile=None,principal=None)
+                self._audit_actor=session.get('principal') or session.get('subject_id') or session['role']
                 return session_id, session, False
             session_id, session = app.new_session()
             if app.oidc:session['role']='unauthenticated'
@@ -581,6 +589,12 @@ def handler_for(app):
                 if path.path=='/api/browser-lab/receipts':
                     if session['role']!='analyst':raise PermissionError('Analyst required')
                     return self.respond(200,app.browser_guard.lab_receipts(),cookie=cookie)
+                if path.path=='/auth/login' and app.accounts.enabled:return self.redirect('/login',session_id)
+                if path.path=='/api/account/context':
+                    return self.respond(200,{'csrf_token':session['csrf_token'],'enabled':app.accounts.enabled,'account':{k:session.get(k) for k in ('username','account_role','access_profile','subject_id','can_manage_users')},'bootstrap_allowed':not app.accounts.enabled and not app.oidc and session['role']=='analyst'},cookie=cookie)
+                if path.path=='/api/accounts':
+                    if not session.get('can_manage_users'):raise PermissionError('Administrator required')
+                    return self.respond(200,app.accounts.listing()|{'subjects':sorted(app.subjects)},cookie=cookie)
                 if path.path=='/auth/login' and app.oidc:
                     with app.guard:url=app.oidc.begin(session_id)
                     return self.redirect(url,session_id)
@@ -590,7 +604,9 @@ def handler_for(app):
                         new_id,new_session=app.new_session(identity);new_session.update(principal=claims['iss']+'|'+claims['sub'],expires_at=claims['exp'])
                         app.sessions.pop(session_id,None)
                     return self.redirect('/',new_id)
-                if app.oidc and path.path.startswith('/api/') and session['role']=='unauthenticated':return self.respond(401,{'error':'SSO login required','login_url':'/auth/login'},cookie=cookie)
+                if (app.oidc or app.accounts.enabled) and path.path.startswith('/api/') and session['role']=='unauthenticated':return self.respond(401,{'error':'SSO login required','login_url':'/auth/login'},cookie=cookie)
+                if app.accounts.enabled and session['role']=='unauthenticated' and path.path in ('/','/index.html','/portal','/portal/','/integrations','/alert'):
+                    return self.redirect('/login',session_id)
                 if path.path=='/api/audit/context':
                     return self.respond(200,{'csrf_token':session['csrf_token']},cookie=cookie)
                 if path.path=='/api/audit':
@@ -599,7 +615,7 @@ def handler_for(app):
                     return self.respond(200,app.platform_audit.page(int(params['before'][0]) if params.get('before') else None,params.get('source',[''])[0],params.get('event',[''])[0],int(params.get('limit',['100'])[0])),cookie=cookie)
                 if path.path=='/api/integrations/keys':
                     if session['role']!='analyst':raise PermissionError('Analyst required')
-                    return self.respond(200,{'keys':app.integrations.listing(),'sso_enabled':bool(app.oidc)},cookie=cookie)
+                    return self.respond(200,{'keys':app.integrations.listing(),'sso_enabled':bool(app.oidc),'accounts_enabled':app.accounts.enabled},cookie=cookie)
                 if path.path == "/api/state":
                     return self.respond(200, app.view(session), cookie=cookie)
                 if path.path == '/api/alerts':
@@ -629,7 +645,7 @@ def handler_for(app):
                     return self.respond(200, doc | {'metadata': app.gateway.catalog_labels()[doc_id]}, cookie=cookie)
                 if path.path == "/health":
                     return self.respond(200, {"status": "ok", "product":"SEDRA", "mode": "local_lab", "build_version":__version__, "model_version": app.snapshot.get("model_version")})
-                allowed = {"/": "index.html", "/index.html": "index.html", "/app.js": "app.js", "/alerts.js":"alerts.js", "/ueba.js":"ueba.js", "/endpoint.js":"endpoint.js", "/cases.js":"cases.js", "/openapi.json":"openapi.json", "/integrations":"index.html", "/alert":"index.html", "/console.css":"console.css", "/theme.js":"theme.js", "/theme.css":"theme.css", "/audit.js":"audit.js", "/presentation.js":"presentation.js", "/integrations.js":"integrations.js", "/style.css": "style.css", "/sedra.css": "sedra.css",
+                allowed = {"/": "index.html", "/index.html": "index.html", "/app.js": "app.js", "/alerts.js":"alerts.js", "/ueba.js":"ueba.js", "/endpoint.js":"endpoint.js", "/cases.js":"cases.js", "/openapi.json":"openapi.json", "/integrations":"index.html", "/alert":"index.html", "/console.css":"console.css", "/theme.js":"theme.js", "/settings.js":"settings.js", "/settings.css":"settings.css", "/login":"login.html", "/login.js":"login.js", "/theme.css":"theme.css", "/audit.js":"audit.js", "/presentation.js":"presentation.js", "/integrations.js":"integrations.js", "/style.css": "style.css", "/sedra.css": "sedra.css",
                            '/portal':'portal.html', '/portal/':'portal.html', '/portal.js':'portal.js', '/portal.css':'portal.css',
                            '/browser-lab':'browser-lab.html','/browser-lab.js':'browser-lab.js',
                            '/browser-harness':'browser-harness.html','/browser-harness-transport.js':'browser-harness-transport.js',
@@ -671,7 +687,7 @@ def handler_for(app):
                 except (ValueError,TypeError):return self.respond(400,{'error':'Valid JSON object required'})
                 return self.machine(route_check,body)
             session_id, session, fresh = self.session()
-            if app.oidc and session['role']=='unauthenticated':return self.respond(401,{'error':'SSO login required'})
+            if (app.oidc or app.accounts.enabled) and session['role']=='unauthenticated' and route_check.path!='/api/account/login':return self.respond(401,{'error':'SSO login required'})
             if fresh or not hmac.compare_digest(self.headers.get("X-CSRF-Token", "").encode(), session["csrf_token"].encode()):
                 return self.respond(403, {"error": "Valid session and CSRF token required; refresh the workbench"})
             if self.headers.get("Content-Type", "").split(";")[0].strip() != "application/json":
@@ -683,6 +699,23 @@ def handler_for(app):
                 route = urllib.parse.urlparse(self.path).path
                 action=body.get('action')
                 self._audit_operation=action if isinstance(action,str) and action in ('revoke','start','stop','probe','ACKNOWLEDGE','READ','RESOLVE','REOPEN') else 'submit'
+                if route=='/api/account/login':
+                    uid=app.accounts.login(body);new_id,new_session=app.new_session();new_session.update(app.accounts.claims(uid));self._audit_actor=new_session['principal']
+                    with app.guard:app.sessions.pop(session_id,None)
+                    return self.respond(200,{'signed_in':True},cookie=new_id)
+                if route=='/api/account/bootstrap':
+                    if app.accounts.enabled or app.oidc or session['role']!='analyst':raise PermissionError('First Administrator setup unavailable')
+                    uid=app.accounts.create_user(body,app.subjects,bootstrap=True)
+                    with app.guard:app.sessions.clear()
+                    new_id,new_session=app.new_session();new_session.update(app.accounts.claims(uid));self._audit_actor=new_session['principal']
+                    return self.respond(200,{'initialized':True},cookie=new_id)
+                if route in ('/api/accounts/users','/api/accounts/roles'):
+                    if not session.get('can_manage_users'):raise PermissionError('Administrator required')
+                    if route.endswith('/roles'):uid=app.accounts.create_role(body);event='role_created'
+                    elif body.get('action')=='update':app.accounts.update_user({k:v for k,v in body.items() if k!='action'},app.subjects);uid=body['id'];event='account_updated'
+                    else:uid=app.accounts.create_user(body,app.subjects);event='account_created'
+                    app.platform_audit.append('APPLICATION',session['principal'],event,{'id':uid})
+                    return self.respond(200,{'saved':True})
                 if route=='/api/audit/ui':
                     app.platform_audit.ui(session.get('subject_id') or session['role'],body)
                     return self.respond(200,{'recorded':True})
@@ -699,7 +732,7 @@ def handler_for(app):
                     with app.guard:app.sessions.pop(session_id,None)
                     return self.respond(200,{'logged_out':True})
                 if route == "/api/session":
-                    if app.oidc:raise PermissionError('Demo identity switching is disabled in SSO mode')
+                    if app.oidc or app.accounts.enabled:raise PermissionError('Identity switching is disabled with authenticated accounts')
                     identity = body.get("identity")
                     if identity not in ("analyst", "lab-001", "lab-002"):
                         raise ValueError("Choose a declared laboratory identity")

@@ -1,3 +1,11 @@
+## 0.14.0 — Settings and persisted account RBAC
+
+- Replace the lower-left service label with a same-page Settings modal; move Audit Logs and theme choices inside it on all web surfaces.
+- Add Profile/account and Administrator-only Manage users with separate account and role creation tabs.
+- Add local password-hashed accounts, atomic first-admin setup, login throttling, session rotation/revalidation and persistent fixed-profile custom roles.
+- Enforce subject-scoped Users, administrative account management, immediate session revocation and last-active-administrator protection on the server.
+- Preserve existing optional OIDC as a separate mode; no embedded default credential, MFA or per-action role editor claim.
+
 ## 0.13.0 — Dark mode and persistent platform audit
 
 - Add shared light/dark preferences across console, AI Workspace and browser validation surfaces, including cross-tab updates.

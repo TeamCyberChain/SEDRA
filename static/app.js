@@ -269,6 +269,7 @@ async function loadState({silent = false} = {}) {
 }
 
 function changeTab(tab, updateHash = true) {
+  if(tab==='audit'){window.SedraSettings?.open('audit');tab='overview';}
   if(tab==="transfers")tab="lab";
   if (!["overview","alerts","investigation","inventory","lab","integrations","audit"].includes(tab)) tab = "overview";
   if(alertPageId && updateHash){location.assign('/#'+(tab==='lab'?'transfers':tab));return;}
@@ -295,6 +296,7 @@ function changeTab(tab, updateHash = true) {
 
 function render() {
   const identity = isAnalyst() ? "analyst" : state.session?.subject_id || "analyst";
+  $("identity-select").closest(".identity-control").hidden=Boolean(state.session?.principal);
   $("identity-select").value = identity;
   $("identity-select").disabled = Boolean(state.session?.principal);
   document.querySelector('label[for="identity-select"]').textContent=state.session?.principal?"SSO identity":"Active identity";
@@ -495,7 +497,7 @@ function badge(value,isState = false) {
 
 function renderLab() {
   $("lab-identity-note").classList.toggle("warning", !canTransfer());
-  $("lab-identity-note").innerHTML = `${icon(canTransfer() ? "user" : "info")}<span>${canTransfer() ? `Acting as <strong>${esc(state.session.subject_id)}</strong>. The server session determines the subject of each transfer. This identity belongs to the sample workspace.` : 'Analyst view. Select <strong>lab-001</strong> or <strong>lab-002</strong> in the identity selector to submit a transfer.'}</span>`;
+  $("lab-identity-note").innerHTML = `${icon(canTransfer() ? "user" : "info")}<span>${canTransfer() ? `Acting as <strong>${esc(state.session.subject_id)}</strong>. The server session determines the subject of each transfer. This identity belongs to the sample workspace.` : state.session.principal?'Administrative review. Sign in with a User account to submit governed transfers.':'Analyst view. Select <strong>lab-001</strong> or <strong>lab-002</strong> in the identity selector to submit a transfer.'}</span>`;
   renderDocument();
   renderDecision();
   renderReceiver();

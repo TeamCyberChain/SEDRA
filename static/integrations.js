@@ -17,7 +17,7 @@
     try{
       const result=await api('/api/integrations/keys');if(epoch!==sessionEpoch)return;
       document.querySelector('[data-sso-login]').hidden=!result.sso_enabled;
-      status(result.sso_enabled?'Single sign-on enforced. Identity is supplied by the configured provider.':'Workspace identities enabled. Configure OIDC before deploying to an organization.');
+      status(result.accounts_enabled?'Account sign-in enforced. Manage users and roles in Settings.':result.sso_enabled?'Single sign-on enforced. Identity is supplied by the configured provider.':'Workspace identities enabled. Configure OIDC before deploying to an organization.');
       el('key-list').innerHTML=result.keys.length?result.keys.map(key=>`<article class="credential"><div><strong>${esc(key.name)}</strong><span class="credential-state ${key.revoked?'revoked':''}">${key.revoked?'Revoked':key.expires*1000<Date.now()?'Expired':'Active'}</span></div><p>${esc(key.scopes.join(' · '))}</p><small>${key.subjects.length?'Users: '+esc(key.subjects.join(', '))+' · ':''}Expires ${esc(dateTime(key.expires))}</small><button class="text-button" data-revoke="${esc(key.id)}" ${key.revoked?'disabled':''}>Revoke</button></article>`).join(''):'<div class="empty-state">No API credentials have been issued.</div>';
     }catch(error){status(error.message);}finally{running=false;}
   }

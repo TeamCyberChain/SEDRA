@@ -1,3 +1,6 @@
+test_bootstrap_closes_demo_switching_rotates_sessions_and_requires_login (test_accounts.AccountHTTPTests.test_bootstrap_closes_demo_switching_rotates_sessions_and_requires_login) ... ok
+test_last_admin_custom_role_and_login_throttle (test_accounts.AccountHTTPTests.test_last_admin_custom_role_and_login_throttle) ... ok
+test_user_cannot_manage_accounts_or_read_audit_and_role_changes_apply_immediately (test_accounts.AccountHTTPTests.test_user_cannot_manage_accounts_or_read_audit_and_role_changes_apply_immediately) ... ok
 test_concatenated_bzip2_streams_extract_complete_member (test_acquisition.AcquisitionTests.test_concatenated_bzip2_streams_extract_complete_member) ... ok
 test_existing_mismatched_download_is_preserved (test_acquisition.AcquisitionTests.test_existing_mismatched_download_is_preserved) ... ok
 test_all_review_bypasses_block_and_public_control_allows (test_adversarial.ReviewRegressionTests.test_all_review_bypasses_block_and_public_control_allows) ... ok
@@ -214,6 +217,6 @@ test_request_ledger_drives_blocks_even_if_secondary_audit_event_is_missing (test
 test_scopes_no_new_endpoint_ingestion_and_masked_evidence (test_ueba.UEBAHTTPTests.test_scopes_no_new_endpoint_ingestion_and_masked_evidence) ... ok
 
 ----------------------------------------------------------------------
-Ran 214 tests in 112.198s
+Ran 217 tests in 104.625s
 
 OK

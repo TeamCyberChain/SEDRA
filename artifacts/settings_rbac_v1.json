@@ -1,0 +1,52 @@
+{
+  "version": "0.14.0",
+  "observed_at_utc": "2026-11-01T05:17:28.430476+00:00",
+  "primary_runtime": {
+    "administrator_initialized": true,
+    "administrator_signin_successful": true,
+    "credentials_not_in_source_or_chat": true,
+    "settings_same_page_modal": true,
+    "service_label_and_main_audit_navigation_removed": true,
+    "audit_inside_settings_loaded": true
+  },
+  "isolated_browser_fixture": {
+    "custom_role_created": true,
+    "user_created": true,
+    "user_signin_successful": true,
+    "user_manage_and_audit_controls_hidden": true,
+    "appearance_changes_without_navigation": true,
+    "mobile_390_no_document_overflow": true
+  },
+  "http_security_tests": [
+    "bootstrap rotates and invalidates sessions",
+    "authenticated identity switching denied",
+    "user administration and audit reads rejected for User",
+    "cross-subject UEBA reads rejected",
+    "role changes apply to existing sessions",
+    "disabled sessions rejected",
+    "last Administrator protected",
+    "duplicate role rejected",
+    "CSRF and login throttling enforced",
+    "password absent from account database and audit response"
+  ],
+  "limitations": [
+    "Custom roles inherit fixed Administrator/Analyst/User profiles, not per-action permissions",
+    "Local accounts and OIDC are alternative modes",
+    "No MFA, password recovery or self-service password change claim",
+    "UEBA subject bindings may be shared; machine keys are separate identities"
+  ],
+  "python_summary": {
+    "executed_at_utc": "2026-11-01T05:14:14.519693+00:00",
+    "python": "3.12.10",
+    "tests_run": 217,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "runtime_seconds": 106.099,
+    "suite": "unittest discovery: behavior, acquisition, matcher, gateway, application HTTP integration",
+    "network_scope": "local loopback receiver only; no external AI request",
+    "benchmark_performance_is_separate": true
+  },
+  "node_tests": 11
+}

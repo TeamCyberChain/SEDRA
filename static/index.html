@@ -7,7 +7,7 @@
   <title>SEDRA — Security Operations</title>
   <link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/sedra.css"><link rel="stylesheet" href="/console.css"><script src="/presentation.js" defer></script>
   <script src="/app.js" defer></script><script src="/alerts.js" defer></script><script src="/ueba.js" defer></script><script src="/endpoint.js" defer></script><script src="/cases.js" defer></script><script src="/integrations.js" defer></script><script src="/audit.js" defer></script>
-<link rel="stylesheet" href="/theme.css"></head>
+<link rel="stylesheet" href="/theme.css"><link rel="stylesheet" href="/settings.css"><script src="/settings.js" defer></script></head>
 <body>
   <a class="skip-link" href="#main">Skip to workspace</a>
   <div class="app-shell">
@@ -21,9 +21,9 @@
         <button class="nav-item" data-tab="inventory"><span data-icon="document"></span>Data Inventory</button>
         <button class="nav-item" data-tab="lab"><span data-icon="boundary"></span>Transfer Control<span class="nav-dot" aria-hidden="true"></span></button>
         <button class="nav-item" data-tab="integrations"><span data-icon="lock"></span>Identity &amp; Integrations</button>
-        <button class="nav-item" data-tab="audit"><span data-icon="document"></span>Audit Logs</button><a class="nav-item" href="/portal" style="text-decoration:none"><span data-icon="send"></span>AI Workspace ↗</a>
+        <a class="nav-item" href="/portal" style="text-decoration:none"><span data-icon="send"></span>AI Workspace ↗</a>
       </nav>
-      <div class="sidebar-bottom"><div class="local-pill"><span class="status-dot"></span>LOCAL SERVICE</div><p>Policy service on this device</p><button id="reset-demo" class="reset-button"><span data-icon="reset"></span>Reset activity</button></div>
+      <div class="sidebar-bottom"><button class="settings-open" type="button">⚙ Settings</button><button id="reset-demo" hidden>Reset activity</button></div>
     </aside>
     <div class="workspace">
       <header class="topbar">

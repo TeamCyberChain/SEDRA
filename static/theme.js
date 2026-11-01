@@ -15,14 +15,11 @@ async function report(event,control){
  }catch{csrf=null;}}}finally{sending=false;}
 }
 document.addEventListener('DOMContentLoaded',()=>{
- const b=document.createElement('button');b.type='button';b.className='theme-toggle';b.setAttribute('aria-label','Toggle dark mode');
- const host=document.querySelector('.topbar-actions')||document.querySelector('.portal-workspace>header');
- if(host)host.prepend(b);else{b.classList.add('theme-floating');document.body.append(b);}apply(root.dataset.theme);
- b.onclick=()=>{preference=root.dataset.theme==='dark'?'light':'dark';try{localStorage.setItem('sedra-theme',preference);}catch{}apply(preference);report('theme_'+preference,'other');};
+ window.SedraTheme={set(value){preference=value==='dark'?'dark':'light';try{localStorage.setItem('sedra-theme',preference);}catch{}apply(preference);report('theme_'+preference,'other');}};
  document.addEventListener('change',e=>{if(e.target.matches('select,input[type=checkbox],input[type=radio]'))report('selection',/identity/.test(e.target.id)?'identity':/filter|source|audit-event/.test(e.target.id)?'filter':'other');},true);
  document.addEventListener('submit',()=>report('control','submit'),true);
  report('page_open',location.pathname==='/portal'?'portal':'other');
- document.addEventListener('click',e=>{const node=e.target.closest('button,a');if(!node||node===b)return;
+ document.addEventListener('click',e=>{const node=e.target.closest('button,a');if(!node)return;
  const href=node.getAttribute('href')||'';const tab=node.dataset.tab||node.dataset.go||(href==='/portal'?'portal':href==='/integrations'?'integrations':/^\/#(overview|alerts|investigation|inventory|transfers|integrations|audit)$/.test(href)?href.slice(2):null);if(tab){report('navigation',tab==='lab'?'transfers':tab);return;}
  const id=node.id||'';let control=/refresh/.test(id)?'refresh':/revoke/.test(id)||node.dataset.revoke?'revoke':/send/.test(id)?'submit':/document/.test(id)?'document':/endpoint/.test(id)?'endpoint':node.hasAttribute('data-alert-action')?'review':/configure/.test(id)?'configure':'other';
  report('control',control);

@@ -22,13 +22,13 @@ function renderConnection(){
   $('send').textContent=busy?'Checking policy / waiting for provider…':pending?.unresolved?'Check existing request status':'Inspect & send to AI';
   $('new-request').hidden=!pending?.unresolved;$('uncertain-note').hidden=!pending?.unresolved;
   $('identity').value=analyst?'analyst':session.subject_id;
-  $('identity').disabled=busy;
+  $('identity').disabled=busy||Boolean(session?.principal);
 }
 async function refresh(){
   const data=await api('/api/portal/status');session=data.session;connection=data.connection;detectorExamples=data.data_types?.examples||{};error();
   $('provider').value=connection.provider_id||'openai';cloudFields();
   const subject=data.subjects.find(s=>s.subject_id===session.subject_id);
-  $('context').textContent=subject?`Current policy context: ${subject.behavior_score}/100 · daily model applied: ${subject.model_context?.applied_score ?? subject.completed_day_score} (${subject.model_context?.status || "dated"}) · live UEBA: ${subject.live_context.score} / ${subject.live_context.active_rule_ids?.length || 0} active rules. Restricted content always blocks.`:'Select an employee identity to send a governed request.';
+  $('context').textContent=subject?`Current policy context: ${subject.behavior_score}/100 · daily model applied: ${subject.model_context?.applied_score ?? subject.completed_day_score} (${subject.model_context?.status || "dated"}) · live UEBA: ${subject.live_context.score} / ${subject.live_context.active_rule_ids?.length || 0} active rules. Restricted content always blocks.`:session?.principal?'Sign in with a User account to send a governed request.':'Select an employee identity to send a governed request.';
   renderConnection();
 }
 function stat(label,value,blocked=false){const el=document.createElement('div');el.className='stat'+(blocked?' blocked':'');const title=document.createElement('span');title.textContent=label;const text=document.createElement('strong');text.textContent=String(value);el.append(title,text);return el;}
