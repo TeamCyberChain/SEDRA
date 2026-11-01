@@ -1,0 +1,42 @@
+{
+  "version": "0.13.0",
+  "observed_at_utc": "2026-11-01T04:48:12.462129+00:00",
+  "live_checks": {
+    "audit_tab_in_console_and_portal": true,
+    "ui_events_visible_with_UI_source_filter": true,
+    "dark_theme_shared_with_portal": true,
+    "theme_persists_reload": true,
+    "audit_retained_after_server_restart": true,
+    "employee_audit_hidden_and_rows_cleared": true,
+    "analyst_access_restored": true,
+    "local_AI_ready_without_inference": true
+  },
+  "isolated_http_and_storage_tests": [
+    "CSRF and employee read denials",
+    "metadata redaction of query body credentials and unknown paths",
+    "server-derived machine-key attribution",
+    "reset preserves audit store",
+    "concurrent append and exclusive cursor pagination",
+    "closed UI schema and 120/minute bound"
+  ],
+  "limitations": [
+    "Collection starts with this version; no historical backfill",
+    "UI reports are client-reported and best effort, not independent attestation",
+    "SQLite append-only through API, not immutable against host administrators",
+    "No automatic pruning; monitor and back up storage"
+  ],
+  "python_summary": {
+    "executed_at_utc": "2026-11-01T04:45:36.716545+00:00",
+    "python": "3.12.10",
+    "tests_run": 214,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "runtime_seconds": 113.731,
+    "suite": "unittest discovery: behavior, acquisition, matcher, gateway, application HTTP integration",
+    "network_scope": "local loopback receiver only; no external AI request",
+    "benchmark_performance_is_separate": true
+  },
+  "node_tests": 11
+}

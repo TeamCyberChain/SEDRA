@@ -2,9 +2,13 @@
 
 **Team CyberChain · Digital Challenge Azerbaijan 2026 · Topic 6 · private development review.**
 
-Start with the [reviewer guide](docs/REVIEWER_GUIDE.md), [requirements mapping](docs/REQUIREMENTS_TRACEABILITY.md), [technical report](docs/TECHNICAL_REPORT.md) and [actual 210-test result](artifacts/test_summary.json). [AI assistance](AI_ASSISTANCE.md) and [external components](THIRD_PARTY_NOTICES.md) are disclosed. Source/test evidence describes the current 0.12.0 build; presentation/Q&A files are excluded from this repository at the team request. This review checkpoint does not assert final organizer acceptance.
+Start with the [reviewer guide](docs/REVIEWER_GUIDE.md), [requirements mapping](docs/REQUIREMENTS_TRACEABILITY.md), [technical report](docs/TECHNICAL_REPORT.md) and [actual 214-test result](artifacts/test_summary.json). [AI assistance](AI_ASSISTANCE.md) and [external components](THIRD_PARTY_NOTICES.md) are disclosed. Source/test evidence describes the current 0.13.0 build; presentation/Q&A files are excluded from this repository at the team request. This review checkpoint does not assert final organizer acceptance.
 
 SEDRA connects past-only user-day UEBA and observed live application signals to a real transfer decision, then verifies what an independent local receiver obtained. The offline hackathon lab uses fictional identities/documents. The AI portal sends only allowed requests to a real local Qwen CPU model or, when selected and available, the OpenAI Responses API. Local model inference has executed successfully; the OpenAI account returned 429 and has no successful reply claim.
+
+## SEDRA 0.13: dark mode and persistent Audit Logs
+
+All web surfaces share a light/dark preference, persisted locally and synchronized across tabs. Audit Logs provides Analyst-only, paginated/filterable metadata from HTTP/API response statuses, existing application audit events and bounded client-reported UI controls/navigation/errors. The separate `platform_audit.sqlite` survives activity reset and restart; no clear/delete API exists. Headers, query strings, request bodies, prompt/file contents and key values are excluded. Unknown paths are collapsed to `/unmatched`. A response request ID supports correlation; response status is not proof of delivery. Collection begins at this version, without historical backfill. UI telemetry is best effort and client reported; local SQLite is not tamper-proof against a host administrator. Disk-write failures are counted and surfaced, not claimed successfully retained. No automatic pruning is configured; back up and monitor storage for sustained use. See [audit contract](docs/AUDIT_LOGS.md).
 
 ## SEDRA 0.12: unified security console
 

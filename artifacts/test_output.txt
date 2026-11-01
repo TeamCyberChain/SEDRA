@@ -173,6 +173,10 @@ test_first_device_use_after_zero_calendar_days_is_scoreable (test_multichannel.M
 test_labels_and_future_do_not_enter_features (test_multichannel.MultichannelContractTests.test_labels_and_future_do_not_enter_features) ... ok
 test_official_id_actor_mismatch_is_rejected_before_publication (test_multichannel.MultichannelContractTests.test_official_id_actor_mismatch_is_rejected_before_publication) ... ok
 test_same_day_peer_changes_do_not_change_other_users_reference (test_multichannel.MultichannelContractTests.test_same_day_peer_changes_do_not_change_other_users_reference) ... ok
+test_real_api_redacts_and_attributes_denials (test_platform_audit.HTTPTests.test_real_api_redacts_and_attributes_denials) ... ok
+test_reset_preserves_audit_and_employee_cannot_read (test_platform_audit.HTTPTests.test_reset_preserves_audit_and_employee_cannot_read) ... ok
+test_concurrent_persistence_and_keyset_pagination (test_platform_audit.StoreTests.test_concurrent_persistence_and_keyset_pagination) ... ok
+test_ui_closed_schema_and_bounded_rate (test_platform_audit.StoreTests.test_ui_closed_schema_and_bounded_rate) ... ok
 test_all_89_pinned_registry_examples_pass_structure_length_and_mod97 (test_structured_types.StructuredDataTypeTests.test_all_89_pinned_registry_examples_pass_structure_length_and_mod97) ... ok
 test_all_expanded_positive_cases_detect_the_expected_type (test_structured_types.StructuredDataTypeTests.test_all_expanded_positive_cases_detect_the_expected_type) ... ok
 test_all_negative_controls_have_no_structured_block (test_structured_types.StructuredDataTypeTests.test_all_negative_controls_have_no_structured_block) ... ok
@@ -210,6 +214,6 @@ test_request_ledger_drives_blocks_even_if_secondary_audit_event_is_missing (test
 test_scopes_no_new_endpoint_ingestion_and_masked_evidence (test_ueba.UEBAHTTPTests.test_scopes_no_new_endpoint_ingestion_and_masked_evidence) ... ok
 
 ----------------------------------------------------------------------
-Ran 210 tests in 107.560s
+Ran 214 tests in 112.198s
 
 OK

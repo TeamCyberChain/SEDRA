@@ -255,7 +255,7 @@ async function loadState({silent = false} = {}) {
     showError("");
     render();
   } catch (error) {
-    if(error.status===401){state=null;document.body.classList.add("session-required");$("session-signin").hidden=false;$("identity-select").disabled=true;if(window.SedraIntegrations)window.SedraIntegrations.sync();}
+    if(error.status===401){state=null;if(window.SedraAudit)window.SedraAudit.sync();document.body.classList.add("session-required");$("session-signin").hidden=false;$("identity-select").disabled=true;if(window.SedraIntegrations)window.SedraIntegrations.sync();}
     $("connection-status").classList.add("offline");
     $("connection-status").innerHTML = '<span class="status-dot"></span>Connection unavailable';
     if (!silent || !state) showError(error.message);
@@ -270,7 +270,7 @@ async function loadState({silent = false} = {}) {
 
 function changeTab(tab, updateHash = true) {
   if(tab==="transfers")tab="lab";
-  if (!["overview","alerts","investigation","inventory","lab","integrations"].includes(tab)) tab = "overview";
+  if (!["overview","alerts","investigation","inventory","lab","integrations","audit"].includes(tab)) tab = "overview";
   if(alertPageId && updateHash){location.assign('/#'+(tab==='lab'?'transfers':tab));return;}
   selectedTab = tab;
   if (updateHash) window.scrollTo({top:0,behavior:"instant"});
@@ -280,7 +280,7 @@ function changeTab(tab, updateHash = true) {
     button.classList.toggle("active", active);
     if (active) button.setAttribute("aria-current", "page"); else button.removeAttribute("aria-current");
   });
-  $("breadcrumb-current").textContent = {overview:"Overview",investigation:"UEBA",lab:"Transfer Control",inventory:"Data Inventory",alerts:alertPageId?"Alert investigation":"Alerts",integrations:"Identity & integrations"}[tab];
+  $("breadcrumb-current").textContent = {overview:"Overview",investigation:"UEBA",lab:"Transfer Control",inventory:"Data Inventory",alerts:alertPageId?"Alert investigation":"Alerts",integrations:"Identity & integrations",audit:"Audit Logs"}[tab];
   if (updateHash) history.replaceState(null, "", `/#${tab==="lab"?"transfers":tab}`);
   if (state) {
     renderSourceContext();
@@ -288,6 +288,7 @@ function changeTab(tab, updateHash = true) {
     if (tab === "lab") renderLab();
     if (tab === "inventory") renderInventory();
     if (tab === "alerts" && typeof renderAlerts === "function") renderAlerts();
+    if(tab==='audit' && window.SedraAudit){window.SedraAudit.sync();window.SedraAudit.load();}
     if(tab==='integrations' && window.SedraIntegrations)window.SedraIntegrations.refresh();
   }
 }
@@ -308,6 +309,7 @@ function render() {
   renderInventory();
   renderDataTypes();
   if(typeof syncAlertSession === "function") syncAlertSession();
+  if(window.SedraAudit)window.SedraAudit.sync();
   if(window.SedraIntegrations){window.SedraIntegrations.sync();if(selectedTab==='integrations')window.SedraIntegrations.refresh();}
   $("send-transfer").disabled = mutating || !canTransfer() || !$("transfer-text").value.trim();
   $("reset-demo").disabled = mutating || !isAnalyst();

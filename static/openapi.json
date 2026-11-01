@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "SEDRA scoped integration API",
-    "version": "0.12.0",
+    "version": "0.13.0",
     "description": "Loopback prototype. See docs/INTEGRATIONS.md for cursor, authorization and evidence contracts."
   },
   "servers": [
@@ -342,6 +342,52 @@
           },
           "429": {
             "description": "Per-key quota exceeded"
+          }
+        }
+      }
+    },
+    "/api/audit": {
+      "get": {
+        "summary": "Analyst session audit metadata; not bearer-key accessible",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "source",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "",
+                "API",
+                "HTTP",
+                "UI",
+                "APPLICATION"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "before",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bounded persistent metadata page; scope and write-failure count included"
+          },
+          "403": {
+            "description": "Analyst session required"
           }
         }
       }

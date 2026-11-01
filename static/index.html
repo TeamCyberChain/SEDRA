@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8"><script src="/theme.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#132739">
   <title>SEDRA — Security Operations</title>
   <link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/sedra.css"><link rel="stylesheet" href="/console.css"><script src="/presentation.js" defer></script>
-  <script src="/app.js" defer></script><script src="/alerts.js" defer></script><script src="/ueba.js" defer></script><script src="/endpoint.js" defer></script><script src="/cases.js" defer></script><script src="/integrations.js" defer></script>
-</head>
+  <script src="/app.js" defer></script><script src="/alerts.js" defer></script><script src="/ueba.js" defer></script><script src="/endpoint.js" defer></script><script src="/cases.js" defer></script><script src="/integrations.js" defer></script><script src="/audit.js" defer></script>
+<link rel="stylesheet" href="/theme.css"></head>
 <body>
   <a class="skip-link" href="#main">Skip to workspace</a>
   <div class="app-shell">
@@ -21,7 +21,7 @@
         <button class="nav-item" data-tab="inventory"><span data-icon="document"></span>Data Inventory</button>
         <button class="nav-item" data-tab="lab"><span data-icon="boundary"></span>Transfer Control<span class="nav-dot" aria-hidden="true"></span></button>
         <button class="nav-item" data-tab="integrations"><span data-icon="lock"></span>Identity &amp; Integrations</button>
-        <a class="nav-item" href="/portal" style="text-decoration:none"><span data-icon="send"></span>AI Workspace ↗</a>
+        <button class="nav-item" data-tab="audit"><span data-icon="document"></span>Audit Logs</button><a class="nav-item" href="/portal" style="text-decoration:none"><span data-icon="send"></span>AI Workspace ↗</a>
       </nav>
       <div class="sidebar-bottom"><div class="local-pill"><span class="status-dot"></span>LOCAL SERVICE</div><p>Policy service on this device</p><button id="reset-demo" class="reset-button"><span data-icon="reset"></span>Reset activity</button></div>
     </aside>
@@ -89,7 +89,7 @@
           <section class="panel integration-card"><div class="panel-heading"><div><h2>Issued credentials</h2><p>Server-enforced expiry, scope and revocation.</p></div><button id="refresh-integrations" class="text-button" type="button">Refresh</button></div><div id="key-list" class="credential-list"></div></section></div>
           <section class="panel integration-card integration-contract"><div><h2>Browser protection</h2><p>Pair Browser Guard with a short-lived, single-user inspection credential. Checks use the policy service on this computer.</p><a class="text-button" href="/browser-lab" target="_blank" rel="noopener">Open browser validation ↗</a></div><div><h2>Security orchestration</h2><p>Versioned bearer APIs provide alerts, UEBA evidence, case changes and revision-checked actions. Polling checkpoints retain generation and cursor.</p><a class="text-button" href="/openapi.json" target="_blank" rel="noopener">View integration contract ↗</a></div></section>
         </section>
-        <footer class="workspace-footer"><span>SEDRA · Explainable behavior-aware transfer control</span><span id="snapshot-time">Waiting for workspace data</span></footer>
+        <section id="view-audit" class="view" aria-label="Audit logs" hidden><div class="page-heading"><div><div class="eyebrow">ACCOUNTABILITY</div><h1>Audit Logs</h1><p class="lead">Persistent API, interface and application activity. Metadata only.</p></div></div><p id="audit-access" class="scope-note" hidden>Analyst access is required to read audit logs.</p><section id="audit-authorized" class="panel"><div class="audit-toolbar"><label>Source<select id="audit-source"><option value="">All sources</option><option>API</option><option>HTTP</option><option>UI</option><option>APPLICATION</option></select></label><label>Event<select id="audit-event"><option value="">All events</option><option>http_response</option><option>page_open</option><option>navigation</option><option>control</option><option>selection</option><option>theme_dark</option><option>theme_light</option><option>client_error</option><option>document_read</option><option>transfer_blocked</option><option>receiver_confirmed</option><option>delivery_unknown</option><option>delivery_reconciled</option></select></label><button class="button secondary" id="audit-refresh">Refresh logs</button><button class="button secondary" id="audit-export">Export loaded records</button><span id="audit-status" role="status">Select Refresh logs to load.</span></div><p id="audit-scope" class="scope-note audit-scope">Records are retained across restarts and activity resets. UI events are client reports; prompts, credentials and input values are excluded.</p><div class="table-scroll"><table class="audit-table"><thead><tr><th>Time</th><th>Source</th><th>Actor</th><th>Event</th><th>Metadata</th></tr></thead><tbody id="audit-rows"></tbody></table></div><div class="audit-actions"><button id="audit-older" class="button secondary" disabled>Load older records</button></div></section></section><footer class="workspace-footer"><span>SEDRA · Explainable behavior-aware transfer control</span><span id="snapshot-time">Waiting for workspace data</span></footer>
       </main>
     </div>
   </div>

@@ -68,3 +68,10 @@ test('authentication expiry clears privileged presentation and recovery restores
   assert.equal(context.activeRequest.request_id,'retained-request');assert.equal(context.initialRequestId,null);
   context.initialRequestId='inaccessible-request';await vm.runInContext('loadState()',context);assert.equal(context.activeRequest,null);
 });
+
+ test('theme preference survives page loads and follows explicit cross-tab updates',()=>{
+ const source=fs.readFileSync(path.join(root,'static/theme.js'),'utf8');
+ function boot(stored){const listeners={},doc={documentElement:{dataset:{}},querySelectorAll:()=>[],addEventListener(){}};let mediaChange;
+ const c=vm.createContext({document:doc,localStorage:{getItem:()=>stored},matchMedia:()=>({matches:true,addEventListener:(n,f)=>mediaChange=f}),addEventListener:(n,f)=>listeners[n]=f});vm.runInContext(source,c);return {doc,listeners,change:()=>mediaChange({matches:false})};}
+ const a=boot('light');assert.equal(a.doc.documentElement.dataset.theme,'light');a.listeners.storage({key:'sedra-theme',newValue:'dark'});a.change();assert.equal(a.doc.documentElement.dataset.theme,'dark');assert.equal(boot('dark').doc.documentElement.dataset.theme,'dark');assert.equal(boot(null).doc.documentElement.dataset.theme,'dark');
+ });

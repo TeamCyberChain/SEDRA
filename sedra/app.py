@@ -22,6 +22,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 from . import __version__
+from .audit_log import AuditLog
 from .behavior import build_demo_snapshot
 from .corpus import DOCUMENTS, catalog
 from .gateway import Gateway
@@ -38,6 +39,7 @@ from .integrations import Integrations,OIDC,AuthError,Conflict,RateLimit
 from .browser_guard import BrowserGuard,EXTENSION_ORIGIN
 
 ROOT = Path(__file__).resolve().parent.parent
+AUDIT_ROUTES = {'/alerts.js','/app.js','/audit.js','/browser-harness-transport.js','/browser-harness.html','/browser-lab.html','/browser-lab.js','/cases.js','/console.css','/endpoint.js','/index.html','/integrations.html','/integrations.js','/openapi.json','/portal.css','/portal.html','/portal.js','/presentation.js','/sedra.css','/style.css','/theme.css','/theme.js','/ueba.js','/api/audit/context','/api/reset', '/api/integrations/keys', '/api/logout', '/browser-lab', '/api/v1/ueba', '/api/state', '/api/ueba/counterfactual', '/health', '/api/audit', '/api/document', '/api/v1/cases', '/browser-harness', '/api/session', '/portal', '/api/v1/alerts/action', '/api/reconcile', '/api/endpoint/action', '/api/alerts', '/api/v1/telemetry', '/api/endpoint', '/api/transfer', '/api/ueba/cases', '/api/portal/status', '/api/portal/configure', '/auth/callback', '/api/v1/alerts', '/api/portal/chat', '/', '/api/v1/cases/changes', '/auth/login', '/api/catalog/labels', '/integrations', '/alert', '/api/v1/browser/inspect', '/api/v1/cases/action', '/api/alerts/action', '/api/ueba', '/api/audit/ui', '/api/ueba/cases/action'}
 
 
 def utcnow():
@@ -48,6 +50,7 @@ class AppState:
     def __init__(self, data_dir=None):
         self.data_dir = Path(data_dir or ROOT / "data" / "runtime")
         self.data_dir.mkdir(parents=True, exist_ok=True)
+        self.platform_audit = AuditLog(self.data_dir / 'platform_audit.sqlite')
         self.snapshot = build_demo_snapshot(seed=42)
         (self.data_dir / "lab_evaluation.json").write_text(json.dumps(self.snapshot, indent=2, ensure_ascii=False), encoding="utf-8")
         self.subjects = {s["subject_id"]: s for s in self.snapshot["subjects"]}
@@ -88,6 +91,7 @@ class AppState:
     def audit(self, subject_id, kind, detail):
         with self.db() as db:
             db.execute("INSERT INTO audit(timestamp,subject_id,kind,detail) VALUES (?,?,?,?)", (utcnow(), subject_id, kind, json.dumps(detail, ensure_ascii=False)))
+        self.platform_audit.append('APPLICATION',subject_id,kind,{k:v for k,v in detail.items() if k in ('request_id','doc_id','doc_version','classification','sha256','utf8_bytes','receiver_contacted','fault_injection')})
         if hasattr(self,'cases') and subject_id in self.subjects:self.capture_case(subject_id)
 
     def capture_case(self,subject_id):
@@ -441,6 +445,19 @@ def handler_for(app):
             super().setup()
             self.connection.settimeout(10)
 
+        def handle_one_request(self):
+            self._audit_actor='anonymous';self._audit_operation=None;self._audit_outcome={};self._audit_start=time.monotonic()
+            self._audit_request_id=secrets.token_hex(12)
+            super().handle_one_request()
+
+        def send_response(self,code,message=None):
+            try:path=urllib.parse.urlsplit(getattr(self,'path','')).path
+            except ValueError:path='/unmatched'
+            safe=path if path in AUDIT_ROUTES else '/unmatched'
+            app.platform_audit.append('API' if path.startswith('/api/') else 'HTTP',self._audit_actor,'http_response',{'method':self.command if self.command in ('GET','POST','OPTIONS','HEAD') else 'OTHER','route':safe,'status':code,'operation':self._audit_operation,'outcome':self._audit_outcome,'duration_ms':round((time.monotonic()-self._audit_start)*1000,2),'request_id':self._audit_request_id})
+            super().send_response(code,message)
+            self.send_header('X-SEDRA-Request-ID',self._audit_request_id)
+
         def log_message(self, format, *args):
             # Log route and status, never cookies, prompt bodies or credentials.
             pass
@@ -456,9 +473,11 @@ def handler_for(app):
             with app.guard:
                 session = app.sessions.get(session_id)
             if session and time.time() - session["created_at"] < 8 * 3600 and time.time()<session.get("expires_at",float("inf")):
+                self._audit_actor=session.get('subject_id') or session['role']
                 return session_id, session, False
             session_id, session = app.new_session()
             if app.oidc:session['role']='unauthenticated'
+            self._audit_actor=session.get('subject_id') or session['role']
             return session_id, session, True
 
         def local_origin(self):
@@ -475,6 +494,11 @@ def handler_for(app):
             return origin is None or origin == 'http://'+host or extension_request
 
         def respond(self, status, data, content_type="application/json; charset=utf-8", cookie=None):
+            if isinstance(data,dict):
+                result=data.get('request',data)
+                if isinstance(result,dict):
+                    for field,values in [('decision',('ALLOW','BLOCK','REVIEW')),('state',('BLOCKED','SENDING','RESERVED','FORWARDED','DELIVERY_UNKNOWN','EXPIRED'))]:
+                        if isinstance(result.get(field),str) and result[field] in values:self._audit_outcome[field]=result[field]
             encoded = data if isinstance(data, bytes) else json.dumps(data, ensure_ascii=False, allow_nan=False).encode("utf-8")
             self.send_response(status)
             self.send_header("Content-Type", content_type)
@@ -506,6 +530,7 @@ def handler_for(app):
                 writing=route in ('/api/v1/cases/action','/api/v1/alerts/action','/api/v1/telemetry','/api/v1/browser/inspect')
                 if writing!=(body is not None):return self.respond(405,{'error':'Method not allowed'})
                 key=app.integrations.authorize(self.headers.get('Authorization'),routes[route])
+                self._audit_actor='api:'+key['id']
                 if route=='/api/v1/browser/inspect':return self.respond(200,app.browser_guard.inspect(body,key))
                 if route=='/api/v1/alerts':result=app.gateway.alerts_feed(before=int(params['before'][0]) if params.get('before') else None)
                 elif route=='/api/v1/alerts/action':result=app.gateway.update_alert(body,actor='api:'+key['id'])
@@ -566,6 +591,12 @@ def handler_for(app):
                         app.sessions.pop(session_id,None)
                     return self.redirect('/',new_id)
                 if app.oidc and path.path.startswith('/api/') and session['role']=='unauthenticated':return self.respond(401,{'error':'SSO login required','login_url':'/auth/login'},cookie=cookie)
+                if path.path=='/api/audit/context':
+                    return self.respond(200,{'csrf_token':session['csrf_token']},cookie=cookie)
+                if path.path=='/api/audit':
+                    if session['role']!='analyst':raise PermissionError('Analyst required')
+                    params=urllib.parse.parse_qs(path.query)
+                    return self.respond(200,app.platform_audit.page(int(params['before'][0]) if params.get('before') else None,params.get('source',[''])[0],params.get('event',[''])[0],int(params.get('limit',['100'])[0])),cookie=cookie)
                 if path.path=='/api/integrations/keys':
                     if session['role']!='analyst':raise PermissionError('Analyst required')
                     return self.respond(200,{'keys':app.integrations.listing(),'sso_enabled':bool(app.oidc)},cookie=cookie)
@@ -598,7 +629,7 @@ def handler_for(app):
                     return self.respond(200, doc | {'metadata': app.gateway.catalog_labels()[doc_id]}, cookie=cookie)
                 if path.path == "/health":
                     return self.respond(200, {"status": "ok", "product":"SEDRA", "mode": "local_lab", "build_version":__version__, "model_version": app.snapshot.get("model_version")})
-                allowed = {"/": "index.html", "/index.html": "index.html", "/app.js": "app.js", "/alerts.js":"alerts.js", "/ueba.js":"ueba.js", "/endpoint.js":"endpoint.js", "/cases.js":"cases.js", "/openapi.json":"openapi.json", "/integrations":"index.html", "/alert":"index.html", "/console.css":"console.css", "/presentation.js":"presentation.js", "/integrations.js":"integrations.js", "/style.css": "style.css", "/sedra.css": "sedra.css",
+                allowed = {"/": "index.html", "/index.html": "index.html", "/app.js": "app.js", "/alerts.js":"alerts.js", "/ueba.js":"ueba.js", "/endpoint.js":"endpoint.js", "/cases.js":"cases.js", "/openapi.json":"openapi.json", "/integrations":"index.html", "/alert":"index.html", "/console.css":"console.css", "/theme.js":"theme.js", "/theme.css":"theme.css", "/audit.js":"audit.js", "/presentation.js":"presentation.js", "/integrations.js":"integrations.js", "/style.css": "style.css", "/sedra.css": "sedra.css",
                            '/portal':'portal.html', '/portal/':'portal.html', '/portal.js':'portal.js', '/portal.css':'portal.css',
                            '/browser-lab':'browser-lab.html','/browser-lab.js':'browser-lab.js',
                            '/browser-harness':'browser-harness.html','/browser-harness-transport.js':'browser-harness-transport.js',
@@ -650,6 +681,11 @@ def handler_for(app):
                 if not isinstance(body, dict):
                     raise ValueError("A JSON object is required")
                 route = urllib.parse.urlparse(self.path).path
+                action=body.get('action')
+                self._audit_operation=action if isinstance(action,str) and action in ('revoke','start','stop','probe','ACKNOWLEDGE','READ','RESOLVE','REOPEN') else 'submit'
+                if route=='/api/audit/ui':
+                    app.platform_audit.ui(session.get('subject_id') or session['role'],body)
+                    return self.respond(200,{'recorded':True})
                 if route=='/api/browser-lab/inspect':
                     if session['role']!='analyst':raise PermissionError('Analyst required for the explicit local DOM harness')
                     if body.get('host')!='sedra-browser-lab':raise ValueError('Local harness destination only')

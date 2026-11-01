@@ -1,3 +1,11 @@
+## 0.13.0 — Dark mode and persistent platform audit
+
+- Add shared light/dark preferences across console, AI Workspace and browser validation surfaces, including cross-tab updates.
+- Add Analyst-only Audit Logs with source/event filtering, keyset pagination, metadata inspection and loaded-record export.
+- Persist API/HTTP status, server-derived actors, request IDs, bounded UI reports and existing application events separately from resettable activity.
+- Exclude headers, query strings, bodies and credentials; preserve response-status versus delivery and client-report provenance distinctions.
+- Add real HTTP access/redaction/reset tests, concurrent storage/pagination checks and theme preference regression coverage.
+
 ## 0.12.0 — Unified console navigation and investigation
 
 - Add first-class Identity & integrations with scoped credential management, role-aware form states, single-display secrets and conditional SSO navigation.
